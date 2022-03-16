@@ -19,12 +19,30 @@ function DialogEditHistory() {
       : new Date(date)
   );
 
-  console.log(new Date(historyContext.historyData.sessionstart).getHours());
+  // console.log(new Date(historyContext.historyData.sessionstart).getHours());
 
   const [inputState, setInputState] = useState({
     startHrs: new Date(historyContext.historyData.sessionstart).getHours()
       ? new Date(historyContext.historyData.sessionstart)
           .getHours()
+          .toString()
+          .padStart(2, '0')
+      : '00',
+    stoptHrs: new Date(historyContext.historyData.sessionStop).getHours()
+      ? new Date(historyContext.historyData.sessionStop)
+          .getHours()
+          .toString()
+          .padStart(2, '0')
+      : '00',
+    startMin: new Date(historyContext.historyData.sessionstart).getMinutes()
+      ? new Date(historyContext.historyData.sessionstart)
+          .getMinutes()
+          .toString()
+          .padStart(2, '0')
+      : '00',
+    startSec: new Date(historyContext.historyData.sessionstart).getSeconds()
+      ? new Date(historyContext.historyData.sessionstart)
+          .getSeconds()
           .toString()
           .padStart(2, '0')
       : '00',
@@ -53,7 +71,17 @@ function DialogEditHistory() {
   };
 
   const handleInputChagne = (event) => {
-    setInputState({ ...inputState, [event.target.name]: event.target.value });
+    const name = event.target.name;
+    const value = event.target.value;
+    setInputState({ ...inputState, [name]: value });
+
+    if (name.match('Hrs')) {
+      if (value % 24) {
+        console.log(value);
+        console.log(value % 24);
+        // setInputState({ ...inputState, [name]: 0 });
+      }
+    }
   };
 
   return (
@@ -81,6 +109,7 @@ function DialogEditHistory() {
                   type='number'
                   name='startHrs'
                   id='startHrs'
+                  pattern='[0-9]{0,5}'
                   value={parseInt(inputState.startHrs)}
                   onChange={handleInputChagne}
                 />
@@ -88,29 +117,60 @@ function DialogEditHistory() {
 
               <div className='dialogEditHistory__fieldset__row'>
                 <label htmlFor='startMin'>MIN</label>
-                <input type='number' name='startMin' id='startMin' />
+                <input
+                  type='number'
+                  name='startMin'
+                  id='startMin'
+                  pattern='[0-9]{0,5}'
+                  value={parseInt(inputState.startMin)}
+                  onChange={handleInputChagne}
+                />
               </div>
 
               <div className='dialogEditHistory__fieldset__row'>
                 <label htmlFor='startSec'>SEC</label>
-                <input type='number' name='startSec' id='startSec' />
+                <input
+                  type='number'
+                  pattern='[0-9]{0,5}'
+                  name='startSec'
+                  id='startSec'
+                  value={parseInt(inputState.startSec)}
+                  onChange={handleInputChagne}
+                />
               </div>
             </fieldset>
             <fieldset className='dialogEditHistory__fieldset'>
               <legend>END INFO</legend>
               <div className='dialogEditHistory__fieldset__row'>
                 <label htmlFor='stopHrs'>HRS</label>
-                <input type='number' name='stopHrs' id='stopHrs' />
+                <input
+                  type='number'
+                  pattern='[0-9]{0,5}'
+                  name='stopHrs'
+                  id='stopHrs'
+                  value={parseInt(inputState.stoptHrs)}
+                  onChange={handleInputChagne}
+                />
               </div>
 
               <div className='dialogEditHistory__fieldset__row'>
                 <label htmlFor='stopMin'>MIN</label>
-                <input type='number' name='stopMin' id='stopMin' />
+                <input
+                  type='number'
+                  pattern='[0-9]{0,5}'
+                  name='stopMin'
+                  id='stopMin'
+                />
               </div>
 
               <div className='dialogEditHistory__fieldset__row'>
                 <label htmlFor='stopSec'>SEC</label>
-                <input type='number' name='stopSec' id='stopSec' />
+                <input
+                  pattern='[0-9]{0,5}'
+                  type='number'
+                  name='stopSec'
+                  id='stopSec'
+                />
               </div>
             </fieldset>
             <hr />
