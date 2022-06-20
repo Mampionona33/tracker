@@ -116,6 +116,7 @@ type StatCom {
 ##User Type---------
 type User {
   uid: String
+  loggedIn: Boolean
   name: String
   given_name: String
   username: String
@@ -141,6 +142,7 @@ type User {
 ##User Input-------
 input UserInput {
   uid: String
+  loggedIn: Boolean
   name: String
   email: String
   username: String

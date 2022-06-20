@@ -1,5 +1,7 @@
 path = require('path');
 
+const Dotenv = require('dotenv-webpack');
+
 module.exports = {
   mode: 'development',
   entry: { app: ['./src/index.jsx'] },
@@ -11,6 +13,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
   },
+  plugins: [new Dotenv()],
   devServer: {
     historyApiFallback: true,
     static: {

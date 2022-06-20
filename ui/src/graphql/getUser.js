@@ -17,8 +17,20 @@ const GET_USER = gql`
   }
 `;
 
+const GET_LIST_USER = gql`
+  query SearchUsers {
+    listUsers {
+      name
+      username
+      uid
+      loggedIn
+    }
+  }
+`;
+
 export const queryUser = (userUid) => {
   query: GET_USER;
+  fetchPolicy: 'no-cache';
   variables: {
     input: {
       uid: userUid;
@@ -26,6 +38,10 @@ export const queryUser = (userUid) => {
   }
 };
 
-const getUser = async (userUid) => client.query(queryUser(userUid));
+const listUser = () => {
+  query: GET_LIST_USER;
+};
+
+const getUser = async (userUid) => await client.query(listUser());
 
 export default getUser;
