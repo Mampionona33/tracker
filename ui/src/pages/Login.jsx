@@ -9,8 +9,11 @@ export default function Login() {
   const handleOnSucces = (response) => {
     const jwt = response.credential;
     const userObject = jwt_decode(jwt);
+    console.log(jwt);
     console.log(userObject);
-    setUser(userObject);
+
+    window.localStorage.setItem('token', userObject);
+    // setUser(userObject);
   };
 
   return (

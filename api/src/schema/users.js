@@ -1,6 +1,7 @@
 const { getDb, getNextSequence } = require('../db');
 
-async function list() {
+async function list(_, _, context) {
+  console.log(context);
   const db = getDb();
   const users = await db.collection('users').find({}).toArray();
   return users;
@@ -17,7 +18,8 @@ async function add(_, { user }) {
     .findOne({ _id: result.insertedId });
 }
 
-async function search(_, { input: { sub } }) {
+async function search(_, { input: { sub } }, context) {
+  console.log(context);
   const db = getDb();
   let filter = {};
 

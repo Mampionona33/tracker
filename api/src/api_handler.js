@@ -4,6 +4,7 @@ const fs = require('fs');
 const pathResolver = require('path');
 require('dotenv').config();
 const { ApolloServer } = require('apollo-server-express');
+const jwt = require('jsonwebtoken');
 
 const about = require('./schema/about');
 const message = require('./schema/message');
@@ -75,6 +76,19 @@ const server = new ApolloServer({
     'utf-8'
   ),
   resolvers,
+  context: ({ req, res }) => {
+    try {
+      const token = req.headers.authorization;
+      if (!token) {
+        return { user: null };
+      }
+      const decoded = jwt.verify(token.slice(7), process.env.JWT_SECRET);
+      return { user: decoded };
+    } catch (error) {
+      return { user: null };
+    }
+  },
+
   formatError: (error) => {
     console.log(error);
     return error;
@@ -85,6 +99,7 @@ async function installHandler(app) {
   await server.start();
   const enableCors = (process.env.ENABLE_CORS || 'true') === 'true';
   console.log('CORS setting: ', enableCors);
+
   server.applyMiddleware({ app, path: '/graphql', cors: enableCors });
 }
 
