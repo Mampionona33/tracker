@@ -59,7 +59,7 @@ async function resetMongo() {
           nickname: 'ramamps33',
           picture:
             'https://lh3.googleusercontent.com/a-/AOh14GhNIqDekuddjj1nn6MOLV2bx9TzVTbalcolSsL6wg=s96-c',
-          sub: 'google-oauth2|100620047698438001642',
+          sub: '100620047698438001642',
           email: 'ramamps33@gmail.com',
         },
         id: 1,
@@ -90,7 +90,7 @@ async function resetMongo() {
           nickname: 'ramamps33',
           picture:
             'https://lh3.googleusercontent.com/a-/AOh14GhNIqDekuddjj1nn6MOLV2bx9TzVTbalcolSsL6wg=s96-c',
-          sub: 'google-oauth2|100620047698438001642',
+          sub: '100620047698438001642',
           email: 'ramamps33@gmail.com',
         },
         id: 2,
@@ -150,7 +150,7 @@ async function resetMongo() {
           nickname: 'ramamps33',
           picture:
             'https://lh3.googleusercontent.com/a-/AOh14GhNIqDekuddjj1nn6MOLV2bx9TzVTbalcolSsL6wg=s96-c',
-          sub: 'google-oauth2|100620047698438001642',
+          sub: '100620047698438001642',
           email: 'ramamps33@gmail.com',
         },
         id: 4,
@@ -526,6 +526,19 @@ async function resetMongo() {
       { id: 3, state: 'Paf' },
     ];
 
+    const initialUser = [
+      {
+        email: 'ramamps33@gmail.com',
+        family_name: 'RAMAHAZOMANANA',
+        given_name: 'Mampionona',
+        sub: '100620047698438001642',
+        loggedIn: true,
+        name: 'Mampionona RAMAHAZOMANANA',
+        picture:
+          'https://lh3.googleusercontent.com/a-/AOh14GhNIqDekuddjj1nn6MOLV2bx9TzVTbalcolSsL6wg=s96-c',
+      },
+    ];
+
     // Delete and re insert new collections
     await collectionFiches.deleteMany({});
     await collectionFiches.insertMany(initialFiches);
@@ -545,12 +558,16 @@ async function resetMongo() {
     await collectionTaskCase.deleteMany({});
     await collectionTaskCase.insertMany(initialTaskCase);
 
+    await collectionUsers.deleteMany({});
+    await collectionUsers.insertMany(initialUser);
+
     const resultFiches = await collectionFiches.find({}).toArray();
     const resultCounter = await collectionCounter.find({}).toArray();
     const resultTypeTaches = await collectionTypeTaches.find({}).toArray();
     const resultStatCom = await collectionStatCom.find({}).toArray();
     const resultStatIvpn = await collectionStatIvpn.find({}).toArray();
     const resultTaskCase = await collectionTaskCase.find({}).toArray();
+    const resultUser = await collectionUsers.find({}).toArray();
     console.log(
       'Result of insert: \n',
       resultFiches,
@@ -563,7 +580,9 @@ async function resetMongo() {
       '----- \n',
       resultStatIvpn,
       '----- \n',
-      resultTaskCase
+      resultTaskCase,
+      '----- \n',
+      resultUser
     );
   } catch (err) {
     console.log(err);

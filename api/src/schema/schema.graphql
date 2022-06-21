@@ -115,7 +115,7 @@ type StatCom {
 }
 ##User Type---------
 type User {
-  uid: String
+  sub: String
   loggedIn: Boolean
   name: String
   given_name: String
@@ -124,7 +124,6 @@ type User {
   nickname: String
   picture: String
   locale: String
-  sub: String
   phone_number: String
   phone_number_verified: String
   preferred_username: String
@@ -141,7 +140,7 @@ type User {
 
 ##User Input-------
 input UserInput {
-  uid: String
+  sub: String
   loggedIn: Boolean
   name: String
   email: String
@@ -155,7 +154,6 @@ input UserInput {
   phone_number_verified: String
   preferred_username: String
   profile: String
-  sub: String
   update_at: GraphQLDate
   website: String
   zoneinfo: String
@@ -195,7 +193,7 @@ input FilterById {
 }
 
 input FilterUser {
-  uid: String
+  sub: String
 }
 
 type IdCounter {

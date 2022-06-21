@@ -17,12 +17,12 @@ async function add(_, { user }) {
     .findOne({ _id: result.insertedId });
 }
 
-async function search(_, { input: { uid } }) {
+async function search(_, { input: { sub } }) {
   const db = getDb();
   let filter = {};
 
-  if (uid) {
-    filter.uid = uid;
+  if (sub) {
+    filter.sub = sub;
   }
   const filtredUser = await db.collection('users').find(filter).toArray();
   return filtredUser;
