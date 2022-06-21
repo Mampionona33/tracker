@@ -1,19 +1,22 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import { GoogleLogin } from '@react-oauth/google';
 import jwt_decode from 'jwt-decode';
-import { UserContext } from '../auth/auth-context';
+import { useAuth } from '../auth/auth-context';
 
 export default function Login() {
-  const { setUser } = useContext(UserContext);
+  const { signIn } = useAuth();
 
   const handleOnSucces = (response) => {
     const jwt = response.credential;
     const userObject = jwt_decode(jwt);
-    console.log(jwt);
-    console.log(userObject);
 
-    window.localStorage.setItem('token', userObject);
-    // setUser(userObject);
+    if (userObject) {
+      const sub = userObject.sub;
+      const email = userObject.email;
+      const name = userObject.name;
+      console.log(userObject);
+      signIn(email);
+    }
   };
 
   return (
