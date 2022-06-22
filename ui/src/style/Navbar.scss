@@ -1,3 +1,18 @@
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons+Round');
+
 .navbar {
-  background-color: red;
+  background-color: blue;
+  display: flex;
+  justify-content: space-between;
+
+  &__menu {
+    cursor: pointer;
+    color: white;
+  }
+
+  &__avatar {
+    max-width: 2rem;
+    max-height: 2rem;
+    border-radius: 50%;
+  }
 }

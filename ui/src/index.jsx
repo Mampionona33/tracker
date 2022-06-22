@@ -6,7 +6,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import { ApolloProvider } from '@apollo/client';
 import client from './graphql/apolloClient';
 import { AuthProvider } from './context/authContext';
-
+import './style/index.scss';
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
 
