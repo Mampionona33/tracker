@@ -18,5 +18,4 @@ type User {
 
 type Mutation {
   setAboutMessage(message: String!): String
-  loginUser(loginInput: LoginInput): User
 }
