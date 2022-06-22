@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { AuthContext } from './context/authContext';
 import Dashboard from './pages/Dashboard';
+import History from './pages/History';
 import Login from './pages/Login';
 import ProtectedRoute from './pages/ProtectedRoute';
 
@@ -27,7 +28,8 @@ export default function App() {
             )
           }
         />
-        <Route path='dashboard' element={<Dashboard />} />
+        <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='/history' element={<History />} />
       </Route>
     </Routes>
   );

@@ -1,18 +1,31 @@
 @import url('https://fonts.googleapis.com/icon?family=Material+Icons+Round');
+@import './variables.scss';
 
 .navbar {
-  background-color: blue;
+  background-color: $canonicalAubergine;
   display: flex;
   justify-content: space-between;
-
+  min-height: 2.5rem;
   &__menu {
     cursor: pointer;
     color: white;
+    display: flex;
+    align-items: center;
   }
 
   &__avatar {
     max-width: 2rem;
     max-height: 2rem;
     border-radius: 50%;
+  }
+
+  &__logoutbtn {
+    background-color: $darkAubergine;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.2rem;
   }
 }

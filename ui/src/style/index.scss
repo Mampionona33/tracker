@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:wght@300&display=swap');
 
+@import './variables.scss';
+
 body {
   margin: 0;
   padding: 0;
@@ -10,4 +12,5 @@ body {
   background-repeat: no-repeat;
   background-size: cover;
   font-family: 'Ubuntu', sans-serif;
+  background-color: $warmGrey;
 }
