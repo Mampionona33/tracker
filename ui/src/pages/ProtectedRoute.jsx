@@ -1,10 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
+import { AuthContext } from '../context/authContext';
+import Navbar from './Navbar';
 
 export default function ProtectedRoute({ children }) {
-  if (!isSignedIn) {
+  const context = useContext(AuthContext);
+
+  if (!context.user) {
     return <Navigate to={'/login'} replace={true} />;
   }
 
-  return <>{children ? children : <Outlet />}</>;
+  return (
+    <>
+      <Navbar />
+      {children ? children : <Outlet />}
+    </>
+  );
 }

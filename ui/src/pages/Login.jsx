@@ -1,8 +1,7 @@
 import React, { useContext } from 'react';
 import { GoogleLogin } from '@react-oauth/google';
-import jwt_decode from 'jwt-decode';
 import { AuthContext } from '../context/authContext';
-import { gql, useMutation } from '@apollo/client';
+import { gql } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
 
 const LOGIN_USER = gql`
@@ -13,21 +12,24 @@ const LOGIN_USER = gql`
   }
 `;
 
-export default function Login() {
+export default function Login(props) {
   const context = useContext(AuthContext);
   const navigate = useNavigate();
-  
-  const [loginUser, { loading }] = useMutation(LOGIN_USER, {
-    update(proxy, { data: userData }) {
-      context.login(userData);
-      navigate('/dashboard');
-    },
-  });
+
+  // const [loginUser, { loading }] = useMutation(LOGIN_USER, {
+  //   update(proxy, { data: userData }) {
+  //     context.login(userData);
+  //     navigate('/dashboard');
+  //   },
+  // });
 
   const handleOnSucces = (response) => {
     const jwt = response.credential;
-    loginUser();
+    context.login(jwt);
+    navigate('/dashboard');
   };
+
+  console.log(context.user);
 
   return (
     <>

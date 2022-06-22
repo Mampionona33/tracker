@@ -1,7 +1,22 @@
 type Query {
   getMessage: String
+  user(id: Int): User
+}
+
+input LoginInput {
+  email: String
+  password: String
+}
+
+type User {
+  id: Int
+  name: String
+  picture: String
+  email: String
+  token: String
 }
 
 type Mutation {
   setAboutMessage(message: String!): String
+  loginUser(loginInput: LoginInput): User
 }
