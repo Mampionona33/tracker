@@ -1,26 +1,36 @@
 import React, { createContext, useReducer } from 'react';
 import jwtDecode from 'jwt-decode';
 
+// set initial user state to null
 const initialState = {
   user: null,
 };
 
+// check if there is item with the key token in the localstorage
 if (localStorage.getItem('token')) {
+  // if there is token in local storage.
+  // Decode it with jwDecode
   const decodedToken = jwtDecode(localStorage.getItem('token'));
 
+  // if there is token,
+  // verify the expiration of the token.
+  //  if it is less than data now, remove it
   if (decodedToken.exp * 1000 < Date.now()) {
     localStorage.removeItem('token');
   } else {
+    // else, set initial state user = to decodedToken
     initialState.user = decodedToken;
   }
 }
 
+// create context with initial state
 const AuthContext = createContext({
   user: null,
   login: (userData) => {},
   logout: () => {},
 });
 
+// create a function reducer
 function authReducer(state, action) {
   switch (action.type) {
     case 'LOGIN':
@@ -40,6 +50,11 @@ function authReducer(state, action) {
   }
 }
 
+// create a function AuthProvider with authReducer
+// then export it
+// import it at the top level of app
+// In over words, import it in ../src/index.jsx
+// And warp the <App/> component between <AuthProvider><AuthProvider/>
 function AuthProvider(props) {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
