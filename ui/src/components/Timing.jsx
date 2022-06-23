@@ -27,6 +27,7 @@ export default function Timing(props) {
           </div>
         </div>
       </div>
+      <hr className='timing__hr' />
       <div className='timing__actualProd'>
         <h4 className='timing__actualProd --l'>Actual Pro</h4>
       </div>
