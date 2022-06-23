@@ -1,0 +1,20 @@
+.row {
+  display: flex;
+  align-items: center;
+
+  flex-wrap: nowrap;
+  &__element {
+    width: calc(100vw / 10);
+    display: flex;
+    overflow: hidden;
+    margin: 0.5rem 0;
+    flex-wrap: nowrap;
+    min-width: 98px;
+
+    &--r {
+      display: flex;
+      justify-content: flex-start;
+      text-decoration: none;
+    }
+  }
+}
