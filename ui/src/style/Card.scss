@@ -1,0 +1,22 @@
+@import './variables.scss';
+
+.card {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 0.5rem;
+  box-shadow: $boxShadow;
+
+  &__title {
+    margin: 0.5rem;
+  }
+
+  &__hr {
+    width: 100%;
+    margin: 0;
+  }
+  &__body {
+    margin: 1rem;
+  }
+}
