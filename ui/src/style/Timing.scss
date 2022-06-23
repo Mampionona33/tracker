@@ -13,6 +13,13 @@
   &__hr {
     width: 95%;
   }
+
+  &__actualProd {
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+  }
 }
 
 .clock {
@@ -21,5 +28,13 @@
 }
 
 .--l {
+  margin: 0;
+}
+
+.progressbar {
+  min-width: 20rem;
+}
+
+.--r {
   margin: 0;
 }

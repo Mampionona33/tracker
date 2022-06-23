@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from './Card';
 import '../style/Timing.scss';
+import ProgressBar from './ProgressBar';
 
 export default function Timing(props) {
   return (
@@ -30,6 +31,9 @@ export default function Timing(props) {
       <hr className='timing__hr' />
       <div className='timing__actualProd'>
         <h4 className='timing__actualProd --l'>Actual Pro</h4>
+        <div className='timing__actualProd --r progressbar'>
+          <ProgressBar completed={50} />
+        </div>
       </div>
     </div>
   );
