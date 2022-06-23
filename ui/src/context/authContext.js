@@ -60,6 +60,8 @@ function AuthProvider(props) {
 
   const login = (userData) => {
     localStorage.setItem('token', userData);
+    // reload the page to get all initial state works
+    window.location.reload();
     dispatch({
       type: 'LOGIN',
       payload: userData,
