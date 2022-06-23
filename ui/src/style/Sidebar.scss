@@ -1,0 +1,18 @@
+@import './variables.scss';
+
+.sidebar {
+  position: absolute;
+  top: 2.5rem;
+  background-color: $coolGrey;
+  height: calc(100% - 2.5rem);
+  color: $warmGrey;
+  &__element {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    &__link {
+      color: $warmGrey;
+      text-decoration: none;
+    }
+  }
+}
