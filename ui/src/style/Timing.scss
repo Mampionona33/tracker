@@ -1,0 +1,23 @@
+.timing {
+  display: flex;
+  flex-direction: column;
+  margin: 0.5rem 0;
+  padding: 0;
+  gap: 1rem;
+
+  &__elapsted {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+}
+
+.clock {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.--l {
+  margin: 0;
+}

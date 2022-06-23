@@ -1,0 +1,27 @@
+@import './variables.scss';
+
+.titledCard {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 0.5rem;
+  box-shadow: $boxShadow;
+
+  &__title {
+    border-radius: 0.5rem 0.5rem 0 0;
+    background-color: $lightAubergine;
+    margin: 0;
+    padding: 0.2rem 0;
+    color: white;
+    display: flex;
+    justify-content: center;
+    text-decoration: underline;
+  }
+
+  &__body {
+    display: flex;
+    justify-content: center;
+    margin: 0 1rem;
+  }
+}
