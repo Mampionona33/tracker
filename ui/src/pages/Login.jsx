@@ -3,6 +3,7 @@ import { GoogleLogin } from '@react-oauth/google';
 import { AuthContext } from '../context/authContext';
 import { useNavigate } from 'react-router-dom';
 import '../style/Login.scss';
+import { componentContext } from '../context/componentContext';
 
 export default function Login(props) {
   // import context from AuthContext
@@ -11,6 +12,7 @@ export default function Login(props) {
   // where jwt is the token given by google auth
   // after the user is sign in
   const context = useContext(AuthContext);
+  const ComponentContext = useContext(componentContext);
   const navigate = useNavigate();
 
   const handleOnSucces = (response) => {
@@ -18,8 +20,6 @@ export default function Login(props) {
     context.login(jwt);
     navigate('/dashboard');
   };
-
-  console.log(context.user);
 
   return (
     <div className='login'>

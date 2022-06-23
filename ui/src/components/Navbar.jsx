@@ -11,13 +11,22 @@ export default function Navbar(props) {
     ComponentContext.toggleSideBar();
   };
 
+  const handleClickLogout = async (event) => {
+    event.preventDefault();
+    context.logout();
+  };
+
   return (
     <div className='navbar'>
       <div onClick={(ev) => handleClickMenu(ev)} className='navbar__menu'>
-        <span className='material-icons-round'>menu</span>
+        {!ComponentContext.sideBar ? (
+          <span className='material-icons-round'>menu</span>
+        ) : (
+          <span className='material-icons-round'>close</span>
+        )}
       </div>
 
-      <div className='navbar__logoutbtn' onClick={() => context.logout()}>
+      <div className='navbar__logoutbtn' onClick={(e) => handleClickLogout(e)}>
         {context.user && (
           <img
             className='navbar__avatar'
