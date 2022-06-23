@@ -1,12 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/authContext';
+import { componentContext } from '../context/componentContext';
 import '../style/Navbar.scss';
 export default function Navbar(props) {
   const context = useContext(AuthContext);
+  const ComponentContext = useContext(componentContext);
 
   const handleClickMenu = (event) => {
     event.preventDefault();
-    alert('Menu clicked');
+    ComponentContext.toggleSideBar();
   };
 
   return (
