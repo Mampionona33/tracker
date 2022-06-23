@@ -7,8 +7,8 @@ import '../style/Dashboard.scss';
 export default function Dashboard() {
   return (
     <div className='dashboard'>
-      <Card title={'Processing'} content={<Processing />} />
       <Card title={'Pending'} content={<Pending />} />
+      <Card title={'Processing'} content={<Processing />} />
     </div>
   );
 }
