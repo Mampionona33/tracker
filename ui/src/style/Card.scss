@@ -9,13 +9,14 @@
   box-shadow: $boxShadow;
 
   &__title {
-    margin: 0.5rem;
+    border-radius: 0.5rem 0.5rem 0 0;
+    background-color: $lightAubergine;
+    margin: 0;
+    color: white;
+    display: flex;
+    justify-content: center;
   }
 
-  &__hr {
-    width: 100%;
-    margin: 0;
-  }
   &__body {
     margin: 1rem;
   }
