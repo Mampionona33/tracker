@@ -22,6 +22,9 @@ module.exports = {
     compress: true,
     port: 8000,
   },
+  experiments: {
+    topLevelAwait: true,
+  },
   module: {
     rules: [
       {

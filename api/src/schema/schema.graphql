@@ -21,7 +21,7 @@ type User {
   role: String
 }
 
-input UserId {
+input UserIdInput {
   sub: String
 }
 
@@ -29,7 +29,7 @@ input UserId {
 type Query {
   getMessage: String
   listUser: [User!]
-  searchUser(input: UserId): [User]
+  searchUser(input: UserIdInput): [User]
 }
 
 type Mutation {

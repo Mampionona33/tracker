@@ -32,6 +32,7 @@ export default function Navbar(props) {
             className='navbar__avatar'
             referrerPolicy='no-referrer' // add this to avoid erro 403 on downloading image from google
             src={context.user.picture}
+            alt={context.user.given_name}
           />
         )}
         Logout

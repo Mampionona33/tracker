@@ -12,7 +12,6 @@ if (localStorage.getItem('token')) {
   // Decode it with jwDecode
   const decodedToken = jwtDecode(localStorage.getItem('token'));
   const sub = decodedToken.sub;
-  console.log(decodedToken);
 
   // if there is token,
   // verify the expiration of the token.
@@ -20,7 +19,7 @@ if (localStorage.getItem('token')) {
   if (decodedToken.exp * 1000 < Date.now()) {
     localStorage.removeItem('token');
   } else {
-    // else, set initial state user = to decodedToken
+    // else, set initial state "user = to decodedToken"
     initialState.user = decodedToken;
   }
 }
@@ -28,6 +27,7 @@ if (localStorage.getItem('token')) {
 // create context with initial state
 const AuthContext = createContext({
   user: null,
+  userRole: null,
   login: (userData) => {},
   logout: () => {},
 });

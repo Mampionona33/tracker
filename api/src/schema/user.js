@@ -15,6 +15,7 @@ const search = async (_, { input: { sub } }) => {
   }
 
   const findUserById = await db.collection('users').find(filter).toArray();
+  console.log(filter);
   return findUserById;
 };
 
