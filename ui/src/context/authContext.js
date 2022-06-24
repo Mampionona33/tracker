@@ -11,6 +11,8 @@ if (localStorage.getItem('token')) {
   // if there is token in local storage.
   // Decode it with jwDecode
   const decodedToken = jwtDecode(localStorage.getItem('token'));
+  const sub = decodedToken.sub;
+  console.log(decodedToken);
 
   // if there is token,
   // verify the expiration of the token.
