@@ -8,6 +8,7 @@ const users = require('./schema/user');
 const resolvers = {
   Query: {
     listUser: users.list,
+    searchUser: users.search,
   },
   Mutation: {},
 };

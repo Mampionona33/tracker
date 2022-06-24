@@ -6,6 +6,19 @@ const list = async () => {
   return users;
 };
 
+const search = async (_, { input: { sub } }) => {
+  const db = getDb();
+  // creat filter
+  let filter = {};
+  if (sub) {
+    filter.sub = sub;
+  }
+
+  const findUserById = await db.collection('users').find(filter).toArray();
+  return findUserById;
+};
+
 module.exports = {
   list,
+  search,
 };
