@@ -3,8 +3,12 @@ const fs = require('fs');
 const pathResolver = require('path');
 require('dotenv').config();
 
+const users = require('./schema/user');
+
 const resolvers = {
-  Query: {},
+  Query: {
+    listUser: users.list,
+  },
   Mutation: {},
 };
 

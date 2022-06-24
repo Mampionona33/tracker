@@ -1,19 +1,19 @@
-type Query {
-  getMessage: String
-  user(id: Int): User
-}
-
 input LoginInput {
   email: String
   password: String
 }
 
 type User {
-  id: Int
+  sub: String!
   name: String
   picture: String
   email: String
-  token: String
+}
+
+#### top level declarations
+type Query {
+  getMessage: String
+  listUser: [User!]
 }
 
 type Mutation {
