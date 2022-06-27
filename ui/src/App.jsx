@@ -26,8 +26,7 @@ export default function App() {
       if (currentUser) {
         const userExist = await getUser(currentUser.sub);
         if (mounted) {
-          // console.log(userExist.data.searchUser[0]);
-          if (!userExist.data.searchUser[0]) {
+          if (!userExist) {
             const crtUser = await createUser(currentUser);
           }
         }
@@ -35,6 +34,8 @@ export default function App() {
     })();
     return () => (mounted = false);
   }, [currentUser]);
+
+  console.log(context.userRole);
 
   return (
     <Routes>

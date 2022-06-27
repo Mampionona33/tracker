@@ -4,6 +4,7 @@ import jwtDecode from 'jwt-decode';
 // set initial user state to null
 const initialState = {
   user: null,
+  userRole: null,
 };
 
 // check if there is item with the key token in the localstorage
@@ -29,7 +30,12 @@ const AuthContext = createContext({
   userRole: null,
   login: (userData) => {},
   logout: () => {},
+  setUserRole: (userRole) => {},
 });
+
+const ACTION = {
+  SET_USER_ROLE: 'set-user-role',
+};
 
 // create a function reducer
 function authReducer(state, action) {
@@ -43,6 +49,12 @@ function authReducer(state, action) {
       return {
         ...state,
         user: null,
+      };
+    }
+    case ACTION.SET_USER_ROLE: {
+      return {
+        ...state,
+        userRole: (state.userRole = action.payload),
       };
     }
 
@@ -76,9 +88,19 @@ function AuthProvider(props) {
     dispatch({ type: 'LOGOUT' });
   };
 
+  const setUserRole = (userRole) => {
+    dispatch({ type: ACTION.SET_USER_ROLE, payload: userRole });
+  };
+
   return (
     <AuthContext.Provider
-      value={{ user: state.user, login, logout }}
+      value={{
+        user: state.user,
+        login,
+        logout,
+        setUserRole,
+        userRole: state.userRole,
+      }}
       {...props}
     />
   );

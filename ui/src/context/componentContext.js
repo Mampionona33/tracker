@@ -2,7 +2,6 @@ import React, { createContext, useReducer } from 'react';
 
 const initialState = {
   sideBar: true,
-  userRole: null,
 };
 
 const ACTION = {
@@ -16,7 +15,6 @@ const componentReducer = (state, action) => {
         ...state,
         // get the initial sidebar state and return the opposite
         sidebar: (state.sideBar = !state.sideBar),
-        userRole: (state.userRole = 'test'),
       };
 
     case ACTION.INITIALISE_STATE: {
@@ -35,7 +33,6 @@ const componentContext = createContext({
   // initialize context
   // then provide it as value in componentContext.Provider
   sideBar: false,
-  userRole: null,
   toggleSideBar: () => {},
 });
 
@@ -54,7 +51,6 @@ const ComponentProvider = (props) => {
       value={{
         sideBar: state.sidebar,
         toggleSideBar,
-        userRole: state.userRole,
       }}
       {...props}
     />

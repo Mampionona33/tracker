@@ -5,8 +5,8 @@ import { CREAT_USER } from './Mutation';
 // This funtcion is used to get the user information
 // from the data base. By using the sub key from
 // the google login as variablse
-const getUser = async (sub) =>
-  await client.query({
+const getUser = async (sub) => {
+  const userData = await client.query({
     query: GET_USER,
     variables: {
       input: {
@@ -14,6 +14,8 @@ const getUser = async (sub) =>
       },
     },
   });
+  return userData.data.searchUser[0];
+};
 
 const createUser = async (user) => {
   await client.mutate({
@@ -38,5 +40,7 @@ const createUser = async (user) => {
     },
   });
 };
+
+
 
 export { getUser, createUser };
