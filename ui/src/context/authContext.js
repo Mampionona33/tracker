@@ -71,6 +71,12 @@ function authReducer(state, action) {
 function AuthProvider(props) {
   const [state, dispatch] = useReducer(authReducer, initialState);
 
+  /* 
+    On login, get the tocken from the google api
+    and store it to localStorage. The context listen
+    to the localStorage and change the initial value 
+    of user.
+  */
   const login = (userData) => {
     localStorage.setItem('token', userData);
     // reload the page to get all initial state works
