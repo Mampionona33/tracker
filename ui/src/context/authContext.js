@@ -1,6 +1,5 @@
 import React, { createContext, useReducer } from 'react';
 import jwtDecode from 'jwt-decode';
-import getUser from '../graphql/getUser';
 
 // set initial user state to null
 const initialState = {
@@ -20,9 +19,6 @@ if (localStorage.getItem('token')) {
   if (decodedToken.exp * 1000 < Date.now()) {
     localStorage.removeItem('token');
   } else {
-    // Get the user information from data base
-    const user = await getUser(sub);
-    console.log('user : ', user.data.searchUser[0]);
     initialState.user = decodedToken;
   }
 }

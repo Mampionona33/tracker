@@ -1,6 +1,7 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { AuthContext } from './context/authContext';
+import { createUser, getUser } from './graphql/user';
 import Dashboard from './pages/Dashboard';
 import History from './pages/History';
 import Login from './pages/Login';
@@ -8,6 +9,32 @@ import ProtectedRoute from './pages/ProtectedRoute';
 
 export default function App() {
   const context = useContext(AuthContext);
+  const currentUser = context.user;
+
+  useEffect(() => {
+    /*
+      create  the variable mounted to cleaning up
+      the async function. It prevent the double rendering
+      of the component. 
+      - on component mount set mounted value to true
+      - on component unmount set the mounted value to false with return () => (mounted= false).
+      when using StrictMode, the component is mount then unmount then mount. So we need to do
+      this clean up when calling async in useEffect.
+    */
+    let mounted = true;
+    (async () => {
+      if (currentUser) {
+        const userExist = await getUser(currentUser.sub);
+        if (mounted) {
+          // console.log(userExist.data.searchUser[0]);
+          if (!userExist.data.searchUser[0]) {
+            const crtUser = await createUser(currentUser);
+          }
+        }
+      }
+    })();
+    return () => (mounted = false);
+  }, [currentUser]);
 
   return (
     <Routes>

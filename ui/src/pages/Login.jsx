@@ -4,6 +4,7 @@ import { AuthContext } from '../context/authContext';
 import { useNavigate } from 'react-router-dom';
 import '../style/Login.scss';
 import { componentContext } from '../context/componentContext';
+import { getUser } from '../graphql/user';
 
 export default function Login(props) {
   // import context from AuthContext
