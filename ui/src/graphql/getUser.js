@@ -1,47 +1,17 @@
-import { ApolloClient, gql, InMemoryCache } from '@apollo/client';
+import client from './apolloClient';
+import { GET_USER } from './Query';
 
-const client = new ApolloClient({
-  uri: process.env.UI_API_ENDPOINT || 'http://localhost:3000/graphql',
-  cache: new InMemoryCache(),
-});
-
-const GET_USER = gql`
-  query SearchUsers($input: FilterUser) {
-    searchUsers(input: $input) {
-      name
-      uid
-      email
-      picture
-      loggedIn
-    }
-  }
-`;
-
-const GET_LIST_USER = gql`
-  query SearchUsers {
-    listUsers {
-      name
-      username
-      uid
-      loggedIn
-    }
-  }
-`;
-
-export const queryUser = (userUid) => {
-  query: GET_USER;
-  fetchPolicy: 'no-cache';
-  variables: {
-    input: {
-      uid: userUid;
-    }
-  }
-};
-
-const listUser = () => {
-  query: GET_LIST_USER;
-};
-
-const getUser = async (userUid) => await client.query(listUser());
+// This funtcion is used to get the user information
+// from the data base. By using the sub key from
+// the google login as variablse
+const getUser = async (sub) =>
+  await client.query({
+    query: GET_USER,
+    variables: {
+      input: {
+        sub: sub,
+      },
+    },
+  });
 
 export default getUser;
