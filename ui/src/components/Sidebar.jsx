@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { AuthContext } from '../context/authContext';
 import '../style/Sidebar.scss';
 
 export default function Sidebar(props) {
   const navigate = useNavigate();
+  const context = useContext(AuthContext);
 
   const handleClickItem = (event, target) => {
     event.preventDefault();
@@ -21,6 +23,7 @@ export default function Sidebar(props) {
           Dashboard
         </Link>
       </div>
+
       <div
         className='sidebar__element'
         onClick={(ev) => handleClickItem(ev, '/history')}
@@ -30,6 +33,15 @@ export default function Sidebar(props) {
           History
         </Link>
       </div>
+
+      {context.userRole === 'admin' && (
+        <div className='sidebar__element'>
+          <span className='material-icons-round'>work_history</span>
+          <Link className='sidebar__element__link' to={'/manage'}>
+            Manage
+          </Link>
+        </div>
+      )}
     </div>
   );
 }
