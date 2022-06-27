@@ -7,10 +7,15 @@ const users = require('./schema/user');
 
 const resolvers = {
   Query: {
+    // get all user list
     listUser: users.list,
+    // get one user by id
     searchUser: users.search,
   },
-  Mutation: {},
+  Mutation: {
+    // create new user
+    creatUser: users.create,
+  },
 };
 
 const apolloServer = new ApolloServer({

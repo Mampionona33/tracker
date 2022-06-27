@@ -19,7 +19,15 @@ const search = async (_, { input: { sub } }) => {
   return findUserById;
 };
 
+const create = async (_, { user }) => {
+  const db = getDb();
+  const newUser = Object.assign({}, user);
+  const insertUser = await db.collection('users').insertOne(newUser);
+  return insertUser;
+};
+
 module.exports = {
   list,
   search,
+  create,
 };
