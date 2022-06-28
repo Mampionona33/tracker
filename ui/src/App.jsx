@@ -2,9 +2,11 @@ import React, { useContext, useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { AuthContext } from './context/authContext';
 import { createUser, getUser } from './graphql/user';
+import AdminRoute from './pages/AdminRoute';
 import Dashboard from './pages/Dashboard';
 import History from './pages/History';
 import Login from './pages/Login';
+import Manage from './pages/Manage';
 import ProtectedRoute from './pages/ProtectedRoute';
 
 export default function App() {
@@ -58,6 +60,9 @@ export default function App() {
         />
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/history' element={<History />} />
+        <Route element={<AdminRoute />}>
+          <Route path='/manage' element={<Manage />} />
+        </Route>
       </Route>
     </Routes>
   );
