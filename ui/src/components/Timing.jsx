@@ -45,7 +45,6 @@ export default function Timing(props) {
           />
         </div>
       </div>
-      <hr className='timing__hr' />
     </div>
   );
 }

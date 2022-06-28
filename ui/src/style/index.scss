@@ -22,10 +22,13 @@ body {
   color: $canonicalAubergine;
   border-radius: 50%;
   cursor: pointer;
-  padding: 0;
-  margin: 0;
+  border: 0.1px solid rgba($color: $coolGrey, $alpha: 0.2);
   &:hover {
     box-shadow: $boxShadowButton;
-    transform: translateY(-1px);
+    transform: translateY(-1.5px);
+  }
+  &:active {
+    transform: translate(0);
+    box-shadow: none;
   }
 }
