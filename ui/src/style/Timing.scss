@@ -29,6 +29,12 @@
 .clock {
   display: flex;
   gap: 0.5rem;
+  &__item {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
 }
 
 .--l {
