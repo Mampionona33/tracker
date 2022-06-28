@@ -36,7 +36,7 @@ export default function Sidebar(props) {
 
       {context.userRole === 'admin' && (
         <div className='sidebar__element'>
-          <span className='material-icons-round'>work_history</span>
+          <span className='material-icons-round'>admin_panel_settings</span>
           <Link className='sidebar__element__link' to={'/manage'}>
             Manage
           </Link>
