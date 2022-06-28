@@ -2,6 +2,7 @@ import React from 'react';
 import Card from './Card';
 import '../style/Timing.scss';
 import ProgressBar from './ProgressBar';
+import FloatingButton from './FloatingButton';
 
 export default function Timing(props) {
   return (
@@ -33,6 +34,15 @@ export default function Timing(props) {
         <h4 className='timing__actualProd --l'>Actual Pro</h4>
         <div className='timing__actualProd --r progressbar'>
           <ProgressBar completed={60} />
+        </div>
+        <div className='timing__button'>
+          <FloatingButton
+            icon='play_arrow'
+            handleClickButton={(e) => {
+              e.preventDefault();
+              alert('play clicked');
+            }}
+          />
         </div>
       </div>
     </div>

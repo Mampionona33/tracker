@@ -16,9 +16,13 @@
 
   &__actualProd {
     display: flex;
+    flex-direction: row;
     align-items: center;
-    margin: 0;
-    padding: 0;
+    width: 85%;
+    gap: 0.5rem;
+    @media screen and(max-width:460px) {
+      flex-wrap: wrap;
+    }
   }
 }
 

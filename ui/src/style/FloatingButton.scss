@@ -1,0 +1,10 @@
+@import './variables.scss';
+
+.floatingButton {
+  border-radius: 50%;
+  margin: 0;
+  &:hover {
+    box-shadow: $boxShadow;
+    cursor: pointer;
+  }
+}

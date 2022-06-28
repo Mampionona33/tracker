@@ -14,3 +14,18 @@ body {
   font-family: 'Ubuntu', sans-serif;
   background-color: $warmGrey;
 }
+
+.md-48 {
+  font-size: 48px;
+}
+.fltHv {
+  color: $canonicalAubergine;
+  border-radius: 50%;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+  &:hover {
+    box-shadow: $boxShadowButton;
+    transform: translateY(-1px);
+  }
+}

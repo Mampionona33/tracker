@@ -9,4 +9,7 @@
   position: absolute;
   gap: 3rem;
   flex-wrap: wrap;
+  @media screen and (max-width: 458px) {
+    padding-top: 1rem;
+  }
 }
