@@ -3,6 +3,7 @@ input LoginInput {
   password: String
 }
 
+## User -------------------
 type User {
   aud: String
   azp: String
@@ -42,11 +43,30 @@ input UserInput {
   sub: String!
   role: String
 }
+## User -------------------
+
+## Task -------------------
+type Tasks {
+  id: Int!
+  userId: User
+  num: String
+  type: String
+  url: String
+  cat: String
+  ivpn: String
+  statCom: String
+  status: String
+  nbBefore: Int
+  nbAfter: Int
+  comment: Int
+}
+## Task -------------------
 
 #### top level declarations
 type Query {
   getMessage: String
   listUser: [User!]
+  getUserTask(input: UserIdInput): [Tasks]
   searchUser(input: UserIdInput): [User]
 }
 

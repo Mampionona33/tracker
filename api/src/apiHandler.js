@@ -4,6 +4,7 @@ const pathResolver = require('path');
 require('dotenv').config();
 
 const users = require('./schema/user');
+const task = require('./schema/task');
 
 const resolvers = {
   Query: {
@@ -11,6 +12,7 @@ const resolvers = {
     listUser: users.list,
     // get one user by id
     searchUser: users.search,
+    getUserTask: task.get,
   },
   Mutation: {
     // create new user

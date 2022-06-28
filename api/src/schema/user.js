@@ -1,4 +1,4 @@
-const { getDb, getNextSequence } = require('../db');
+const { getDb } = require('../db');
 
 const validation = async (newUser) => {
   const prevUserList = await list();

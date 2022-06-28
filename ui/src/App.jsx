@@ -37,7 +37,7 @@ export default function App() {
     return () => (mounted = false);
   }, [currentUser]);
 
-  console.log(context.userRole);
+  console.log(context.user);
 
   return (
     <Routes>
