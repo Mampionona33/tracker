@@ -1,0 +1,42 @@
+@import './variables.scss';
+
+.progressbar {
+  height: 1rem;
+  width: 100%;
+  background-color: $warmGrey;
+  border-radius: 0.5rem;
+
+  &__exelent {
+    height: 1rem;
+    background-color: $lightAubergine;
+    border-radius: inherit;
+    margin: 0;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  &__good {
+    height: 1rem;
+    background-color: $midAubergine;
+    border-radius: inherit;
+    margin: 0;
+    display: flex;
+    justify-content: flex-end;
+  }
+  &__warning {
+    height: 1rem;
+    background-color: $darkAubergine;
+    border-radius: inherit;
+    margin: 0;
+    display: flex;
+    justify-content: flex-end;
+  }
+  &__label {
+    color: $warmGrey;
+    border-radius: 0.5rem;
+    font-weight: bold;
+    height: 1rem;
+    padding-right: 0.25rem;
+    font-size: 0.9rem;
+  }
+}

@@ -32,7 +32,7 @@ export default function Timing(props) {
       <div className='timing__actualProd'>
         <h4 className='timing__actualProd --l'>Actual Pro</h4>
         <div className='timing__actualProd --r progressbar'>
-          <ProgressBar completed={50} />
+          <ProgressBar completed={60} />
         </div>
       </div>
     </div>

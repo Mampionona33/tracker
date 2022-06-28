@@ -1,34 +1,27 @@
 import React from 'react';
+import '../style/ProgressBar.scss';
 
+/* use this progress bar with ProgressBar.scss */
 export default function ProgressBar(props) {
-  const { bgcolor, completed } = props;
-
-  const containerStyles = {
-    height: 20,
-    width: '100%',
-    backgroundColor: '#e0e0de',
-    borderRadius: 50,
-    margin: 5,
-  };
+  const { completed } = props;
 
   const fillerStyles = {
-    height: '100%',
     width: `${completed}%`,
-    backgroundColor: bgcolor,
-    borderRadius: 'inherit',
-    textAlign: 'right',
-  };
-
-  const labelStyles = {
-    padding: 5,
-    color: 'white',
-    fontWeight: 'bold',
   };
 
   return (
-    <div style={containerStyles}>
-      <div style={fillerStyles}>
-        <span style={labelStyles}>{`${completed}%`}</span>
+    <div className='progressbar'>
+      <div
+        className={
+          completed >= 95
+            ? 'progressbar__exelent'
+            : completed >= 85
+            ? 'progressbar__good'
+            : 'progressbar__warning'
+        }
+        style={fillerStyles}
+      >
+        <span className='progressbar__label'>{`${completed}%`}</span>
       </div>
     </div>
   );
