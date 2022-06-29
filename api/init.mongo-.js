@@ -66,10 +66,12 @@ const resetMongo = async () => {
         cat: 'sécurité des locaux et dés machines',
         ivpn: 'I',
         statCom: 'Dégradé',
+        processingState: 'Normal',
         status: 'Processing',
         nbBefore: 0,
         nbAfter: 100,
         comment: 'this is a comment',
+        taskState: 'isPlay',
       },
     ];
     // initializers--------------------------

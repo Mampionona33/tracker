@@ -1,3 +1,9 @@
+enum taskStateEnum {
+  isOff
+  isPause
+  isPlay
+}
+
 input LoginInput {
   email: String
   password: String
@@ -19,7 +25,7 @@ type User {
   nbf: Int
   picture: String
   sub: String!
-  role: String
+  role: String  
 }
 
 input UserIdInput {
@@ -55,10 +61,11 @@ type Tasks {
   cat: String
   ivpn: String
   statCom: String
-  status: String
+  processingState: String
   nbBefore: Int
   nbAfter: Int
   comment: String
+  taskState: taskStateEnum!
 }
 ## Task -------------------
 

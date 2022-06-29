@@ -6,12 +6,16 @@
   display: flex;
   justify-content: space-between;
   min-height: 2.5rem;
+
   &__menu {
-    cursor: pointer;
     color: white;
     display: flex;
     align-items: center;
     user-select: none;
+    flex-grow: 1;
+    &__button {
+      cursor: pointer;
+    }
   }
 
   &__avatar {
@@ -20,6 +24,10 @@
     border-radius: 50%;
   }
 
+  &__rightButton {
+    display: flex;
+    gap: 0.2rem;
+  }
   &__logoutbtn {
     background-color: $darkAubergine;
     color: white;
@@ -28,5 +36,21 @@
     align-items: center;
     gap: 0.3rem;
     padding: 0.2rem;
+    &:hover {
+      background-color: $coolGrey;
+    }
+  }
+
+  &__createTask {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    background-color: $darkAubergine;
+    color: white;
+    cursor: pointer;
+    border: none;
+    &:hover {
+      background-color: $coolGrey;
+    }
   }
 }

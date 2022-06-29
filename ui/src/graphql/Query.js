@@ -25,10 +25,11 @@ export const GET_USER_TASK = gql`
       cat
       ivpn
       statCom
-      status
+      processingState
       nbBefore
       nbAfter
       comment
+      taskState
     }
   }
 `;
