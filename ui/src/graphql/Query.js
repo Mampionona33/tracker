@@ -1,6 +1,6 @@
 import { gql } from '@apollo/client';
 
-const GET_USER = gql`
+export const GET_USER = gql`
   query SearchUser($input: UserIdInput) {
     searchUser(input: $input) {
       role
@@ -16,4 +16,19 @@ const GET_USER = gql`
   }
 `;
 
-export { GET_USER };
+export const GET_USER_TASK = gql`
+  query GetUserTask($input: UserIdInput) {
+    getUserTask(input: $input) {
+      id
+      num
+      type
+      url
+      cat
+      ivpn
+      statCom
+      status
+      nbBefore
+      nbAfter
+    }
+  }
+`;

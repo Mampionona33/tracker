@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { AuthContext } from './context/authContext';
+import { getUserTask } from './graphql/tasks';
 import { createUser, getUser } from './graphql/user';
 import AdminRoute from './pages/AdminRoute';
 import Dashboard from './pages/Dashboard';
@@ -30,6 +31,10 @@ export default function App() {
         if (mounted) {
           if (!userExist) {
             const crtUser = await createUser(currentUser);
+          }
+          if (userExist) {
+            const userTaskData = await getUserTask(currentUser.sub);
+            console.log(userTaskData);
           }
         }
       }
