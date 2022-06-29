@@ -1,12 +1,18 @@
 const { getDb, getNextSequence } = require('../db');
 
-const get = async (_, { input: { user } }) => {
+const get = async (_, { input: { sub } }) => {
   const db = getDb();
-  const filter = {};
-  if (user) {
-    filter.sub = user.sub;
+  let filter = {};
+  console.log(sub);
+  if (sub) {
+    filter = {
+      ...filter,
+      'user.sub': sub,
+    };
   }
+  console.log(filter);
   const getUserTask = await db.collection('tasks').find(filter).toArray();
+  console.log(getUserTask);
   return getUserTask;
 };
 

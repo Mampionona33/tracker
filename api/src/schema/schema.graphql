@@ -66,7 +66,7 @@ type Tasks {
 type Query {
   getMessage: String
   listUser: [User!]
-  getUserTask(input: UserIdInput): [Tasks]
+  getUserTask(input: UserInput): [Tasks]
   searchUser(input: UserIdInput): [User]
 }
 
