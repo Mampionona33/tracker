@@ -48,7 +48,7 @@ input UserInput {
 ## Task -------------------
 type Tasks {
   id: Int!
-  userId: User
+  user: User
   num: String
   type: String
   url: String

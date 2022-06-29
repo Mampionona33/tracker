@@ -62,11 +62,13 @@ const resetMongo = async () => {
         user: { sub: '100620047698438001642' },
         num: '14334',
         type: 'contenu',
-        url: 'www.directindustry.com',
+        url: 'https://www.directindustry.com',
         cat: 'sécurité des locaux et dés machines',
         ivpn: 'I',
         statCom: 'Dégradé',
         status: 'Processing',
+        nbBefore: 0,
+        nbAfter: 100,
       },
     ];
     // initializers--------------------------
@@ -80,13 +82,20 @@ const resetMongo = async () => {
     await collectionUsers.insertMany(initialUser);
     const resultUser = await collectionUsers.find({}).toArray();
 
+    await collectionTask.deleteMany({});
+    await collectionTask.insertMany(initTasks);
+    const resultTask = await collectionTask.find({}).toArray();
+
     // show result in terminal
     console.log(
       'Result of instert : \n',
       resultCounter,
+      '\n',
       '-----------\n',
       resultUser,
-      '-----------\n'
+      '\n',
+      '-----------\n',
+      resultTask
     );
   } catch (error) {
     console.log(error);
