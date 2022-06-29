@@ -20,6 +20,9 @@ export const GET_USER_TASK = gql`
   query GetUserTask($input: UserIdInput) {
     getUserTask(input: $input) {
       id
+      user {
+        sub
+      }
       num
       type
       url
@@ -29,6 +32,7 @@ export const GET_USER_TASK = gql`
       status
       nbBefore
       nbAfter
+      comment
     }
   }
 `;
