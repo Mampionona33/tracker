@@ -25,24 +25,30 @@ export default function App() {
       this clean up when calling async in useEffect.
     */
     let mounted = true;
+    // on app mount, check if user exist in the data base
     (async () => {
       if (currentUser) {
         const userExist = await getUser(currentUser.sub);
         if (mounted) {
+          // if user is not yet in the data base, create it
           if (!userExist) {
             const crtUser = await createUser(currentUser);
           }
+          // if the user exist in the data base. Get his tasklist
+          // by his sub from the google token
           if (userExist) {
             const userTaskData = await getUserTask(currentUser.sub);
+            await context.setUserTasks(userTaskData);
             console.log(userTaskData);
           }
         }
       }
     })();
+    // clean up the async function on components unmount by returning mounted=false
     return () => (mounted = false);
   }, [currentUser]);
 
-  console.log(context.user);
+  console.log(context.userTasks);
 
   return (
     <Routes>

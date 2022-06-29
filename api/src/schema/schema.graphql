@@ -58,7 +58,7 @@ type Tasks {
   status: String
   nbBefore: Int
   nbAfter: Int
-  comment: Int
+  comment: String
 }
 ## Task -------------------
 

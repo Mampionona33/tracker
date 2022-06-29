@@ -33,6 +33,7 @@ const AuthContext = createContext({
   login: (userData) => {},
   logout: () => {},
   setUserRole: (userRole) => {},
+  setUserTasks: (userTasks) => {},
 });
 
 const ACTION = {

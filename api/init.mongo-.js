@@ -69,6 +69,7 @@ const resetMongo = async () => {
         status: 'Processing',
         nbBefore: 0,
         nbAfter: 100,
+        comment: 'this is a comment',
       },
     ];
     // initializers--------------------------
