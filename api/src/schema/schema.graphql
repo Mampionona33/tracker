@@ -55,7 +55,7 @@ input UserInput {
 type Tasks {
   id: Int!
   user: User
-  num: String
+  boothNumber: String
   type: String
   url: String
   cat: String
@@ -69,7 +69,7 @@ type Tasks {
 }
 input TaskInput {
   user: UserIdInput
-  num: String
+  boothNumber: String
   type: String
   url: String
   cat: String

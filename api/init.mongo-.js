@@ -60,7 +60,7 @@ const resetMongo = async () => {
       {
         id: 0,
         user: { sub: '100620047698438001642' },
-        num: '14334',
+        boothNumber: '14334',
         type: 'contenu',
         url: 'https://www.directindustry.com',
         cat: 'sécurité des locaux et dés machines',
