@@ -17,6 +17,7 @@ const resolvers = {
   Mutation: {
     // create new user
     creatUser: users.create,
+    createTask: task.create,
   },
 };
 

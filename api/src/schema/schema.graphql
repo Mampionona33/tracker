@@ -4,6 +4,12 @@ enum taskStateEnum {
   isPlay
 }
 
+enum processingStateEnum {
+  Normal
+  Sby
+  Paf
+}
+
 input LoginInput {
   email: String
   password: String
@@ -61,7 +67,7 @@ type Tasks {
   cat: String
   ivpn: String
   statCom: String
-  processingState: String
+  processingState: processingStateEnum!
   nbBefore: Int
   nbAfter: Int
   comment: String
@@ -75,11 +81,11 @@ input TaskInput {
   cat: String
   ivpn: String
   statCom: String
-  processingState: String
+  processingState: processingStateEnum! = Normal
   nbBefore: Int
   nbAfter: Int
   comment: String
-  taskState: taskStateEnum!
+  taskState: taskStateEnum! = isPlay
 }
 ## Task -------------------
 
@@ -94,5 +100,5 @@ type Query {
 type Mutation {
   setAboutMessage(message: String!): String
   creatUser(user: UserInput!): User
-  createTask(input: TaskInput): Tasks
+  createTask(task: TaskInput): Tasks
 }

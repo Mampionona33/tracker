@@ -16,4 +16,16 @@ const get = async (_, { input: { sub } }) => {
   return getUserTask;
 };
 
-module.exports = { get };
+const create = async (_, { task }) => {
+  const db = getDb();
+  const newTask = Object.assign({}, task);
+  newTask.id = await getNextSequence('tasks');
+
+  const createNewTask = await db.collection('tasks').insertOne(newTask);
+  const createdTask = await db
+    .collection('tasks')
+    .findOne({ id: createNewTask.id });
+  return createdTask;
+};
+
+module.exports = { get, create };

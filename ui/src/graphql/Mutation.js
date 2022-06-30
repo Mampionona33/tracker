@@ -20,3 +20,24 @@ export const CREAT_USER = gql`
     }
   }
 `;
+
+export const CREATE_TASK = gql`
+  mutation CreateTask($task: TaskInput) {
+    createTask(task: $task) {
+      user {
+        sub
+      }
+      boothNumber
+      type
+      url
+      cat
+      ivpn
+      statCom
+      processingState
+      nbBefore
+      nbAfter
+      comment
+      taskState
+    }
+  }
+`;

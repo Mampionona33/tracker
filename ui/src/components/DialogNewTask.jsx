@@ -1,15 +1,20 @@
 import React, { useContext, useState } from 'react';
+import { AuthContext } from '../context/authContext';
 import { componentContext } from '../context/componentContext';
+import { createTask } from '../graphql/tasks';
 import '../style/DialogNewTask.scss';
 import Modale from './Modale';
 
 const DialogNewTask = () => {
   const ComponentContext = useContext(componentContext);
+  const context = useContext(AuthContext);
 
-  const handleClickSave = (evnt) => {
+  const handleClickSave = async (evnt) => {
     evnt.preventDefault();
     console.log(newTask);
-    ComponentContext.toggleDialogCreateNewTask();
+    await createTask(newTask).then(
+      ComponentContext.toggleDialogCreateNewTask()
+    );
   };
 
   const handleClickCancel = (event) => {
@@ -20,12 +25,14 @@ const DialogNewTask = () => {
   const [newTask, setNewTask] = useState({
     boothNumber: '',
     taskType: '',
+    processingState: '',
     url: '',
     cat: '',
     ivpn: 'I',
     nbBefore: 0,
     nbAfter: 0,
     comment: '',
+    user: { sub: context.user.sub },
   });
 
   const handleInputChange = (ev) => {
@@ -98,6 +105,20 @@ const DialogNewTask = () => {
                 <option value={'N'}>N</option>
               </select>
             </div>
+
+            {/* <div className='dialogNewTask__form__el'>
+              <label htmlFor='processingState'>STATUS</label>
+              <select
+                name='processingState'
+                id='processingState'
+                value={newTask.processingState}
+                onChange={(ev) => handleInputChange(ev)}
+              >
+                <option value={'Normal'}>Norml</option>
+                <option value={'Sby'}>Sby</option>
+                <option value={'Paf'}>Paf</option>
+              </select>
+            </div> */}
 
             <div className='dialogNewTask__form__el'>
               <label htmlFor='nbBefore'>NB BEFORE</label>
