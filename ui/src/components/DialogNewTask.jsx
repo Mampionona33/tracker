@@ -30,6 +30,7 @@ const DialogNewTask = () => {
     cat: '',
     ivpn: 'I',
     nbBefore: 0,
+    statCom: '',
     nbAfter: 0,
     comment: '',
     user: { sub: context.user.sub },
@@ -106,19 +107,25 @@ const DialogNewTask = () => {
               </select>
             </div>
 
-            {/* <div className='dialogNewTask__form__el'>
-              <label htmlFor='processingState'>STATUS</label>
+            <div className='dialogNewTask__form__el'>
+              <label htmlFor='statCom'>STATUS COM</label>
               <select
-                name='processingState'
-                id='processingState'
-                value={newTask.processingState}
+                name='statCom'
+                id='statCom'
+                value={newTask.statCom}
                 onChange={(ev) => handleInputChange(ev)}
               >
-                <option value={'Normal'}>Norml</option>
-                <option value={'Sby'}>Sby</option>
-                <option value={'Paf'}>Paf</option>
+                <option value={''}>---</option>
+                <option value={'Abondon'}>Abondon</option>
+                <option value={'Abonne'}>Abonné</option>
+                <option value={'Degrade'}>Dégradé</option>
+                <option value={'Degrade_definitif'}>Dégradé Definitif</option>
+                <option value={'Essai'}>Essai</option>
+                <option value={'EssaiNouveau'}>EssaiNouveau</option>
+                <option value={'Essai_Payant'}>Essai Payant</option>
+                <option value={'Retire'}>Retiré</option>
               </select>
-            </div> */}
+            </div>
 
             <div className='dialogNewTask__form__el'>
               <label htmlFor='nbBefore'>NB BEFORE</label>
