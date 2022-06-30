@@ -27,7 +27,7 @@ const resetMongo = async () => {
 
     // initializers--------------------------
     const initialiCounter = [
-      { _id: 'tasks', current: 0 },
+      { _id: 'tasks', current: 1 },
       { _id: 'typeTask', current: 0 },
       { _id: 'statIvpn', current: 0 },
       { _id: 'stateCom', current: 0 },

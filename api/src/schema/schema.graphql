@@ -81,10 +81,12 @@ input TaskInput {
   cat: String
   ivpn: String
   statCom: String
+  #...Give the default value Normal for processingState if not given
   processingState: processingStateEnum! = Normal
-  nbBefore: Int
-  nbAfter: Int
+  nbBefore: Int = 0
+  nbAfter: Int = 0
   comment: String
+  #...Give the default value isPlay for taskState if not given
   taskState: taskStateEnum! = isPlay
 }
 ## Task -------------------
