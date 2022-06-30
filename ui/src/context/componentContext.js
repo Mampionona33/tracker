@@ -2,10 +2,12 @@ import React, { createContext, useReducer } from 'react';
 
 const initialState = {
   sideBar: true,
+  dialogCreateTask: false,
 };
 
 const ACTION = {
   TOGGLE_SIDE_BAR: 'toggle-side-bar',
+  TOGGLE_DIALOG_CREATE_TASK: 'toogle-dialog-create-task',
 };
 
 const componentReducer = (state, action) => {
@@ -17,10 +19,10 @@ const componentReducer = (state, action) => {
         sidebar: (state.sideBar = !state.sideBar),
       };
 
-    case ACTION.INITIALISE_STATE: {
+    case ACTION.TOGGLE_DIALOG_CREATE_TASK: {
       return {
         ...state,
-        state: initialState,
+        state: (state.dialogCreateTask = !state.dialogCreateTask),
       };
     }
 
@@ -33,7 +35,9 @@ const componentContext = createContext({
   // initialize context
   // then provide it as value in componentContext.Provider
   sideBar: false,
+  dialogCreateTask: false,
   toggleSideBar: () => {},
+  toggleDialogCreateNewTask: () => {},
 });
 
 const ComponentProvider = (props) => {
@@ -46,10 +50,16 @@ const ComponentProvider = (props) => {
     });
   };
 
+  const toggleDialogCreateNewTask = () => {
+    dispatch({ type: ACTION.TOGGLE_DIALOG_CREATE_TASK });
+  };
+
   return (
     <componentContext.Provider
       value={{
         sideBar: state.sidebar,
+        dialogCreateTask: state.dialogCreateTask,
+        toggleDialogCreateNewTask,
         toggleSideBar,
       }}
       {...props}

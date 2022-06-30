@@ -1,0 +1,19 @@
+.dialogNewTask {
+  position: relative;
+  display: flex;
+  justify-content: center;
+
+  &__container {
+    position: absolute;
+    background-color: #fff;
+    top: calc(50vh - 6vh);
+    padding: 1rem;
+    z-index: 1;
+  }
+  &__button {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+  }
+}

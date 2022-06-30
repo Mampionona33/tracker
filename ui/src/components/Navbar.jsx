@@ -16,6 +16,11 @@ export default function Navbar(props) {
     context.logout();
   };
 
+  const handleClickCreateNewTask = (event) => {
+    event.preventDefault();
+    ComponentContext.toggleDialogCreateNewTask();
+  };
+
   return (
     <div className='navbar'>
       <div className='navbar__menu'>
@@ -32,7 +37,11 @@ export default function Navbar(props) {
       </div>
 
       <div className='navbar__rightButton'>
-        <button type={'button'} className='navbar__createTask'>
+        <button
+          type={'button'}
+          className='navbar__createTask'
+          onClick={(ev) => handleClickCreateNewTask(ev)}
+        >
           <span className='material-icons-round'>add_task</span>
           NEW TASK
         </button>

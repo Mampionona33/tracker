@@ -25,7 +25,7 @@ type User {
   nbf: Int
   picture: String
   sub: String!
-  role: String  
+  role: String
 }
 
 input UserIdInput {
@@ -67,6 +67,20 @@ type Tasks {
   comment: String
   taskState: taskStateEnum!
 }
+input TaskInput {
+  user: UserIdInput
+  num: String
+  type: String
+  url: String
+  cat: String
+  ivpn: String
+  statCom: String
+  processingState: String
+  nbBefore: Int
+  nbAfter: Int
+  comment: String
+  taskState: taskStateEnum!
+}
 ## Task -------------------
 
 #### top level declarations
@@ -80,4 +94,5 @@ type Query {
 type Mutation {
   setAboutMessage(message: String!): String
   creatUser(user: UserInput!): User
+  createTask(input: TaskInput): Tasks
 }
