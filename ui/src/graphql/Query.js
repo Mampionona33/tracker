@@ -19,7 +19,7 @@ export const GET_USER = gql`
 export const GET_USER_TASK = gql`
   query GetUserTask($input: UserInput) {
     getUserTask(input: $input) {
-      num
+      boothNumber
       type
       url
       cat

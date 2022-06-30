@@ -23,8 +23,8 @@ const DialogNewTask = () => {
     url: '',
     cat: '',
     ivpn: 'I',
-    nbBefore: '',
-    nbAfter: '',
+    nbBefore: 0,
+    nbAfter: 0,
     comment: '',
   });
 
