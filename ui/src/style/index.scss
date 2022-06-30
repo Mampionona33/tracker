@@ -54,3 +54,15 @@ body {
     border: none;
   }
 }
+
+input,
+textarea,
+select {
+  border-radius: 0.3rem;
+  border: 1px solid rgba($color: rgba(0, 0, 0, 0.644), $alpha: 0.4);
+  &:focus {
+    border: 1px solid rgba($color: rgba(0, 0, 0, 0.644), $alpha: 0.7);
+    outline: none;
+    box-shadow: $boxShadow;
+  }
+}
