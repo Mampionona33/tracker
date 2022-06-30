@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { componentContext } from '../context/componentContext';
 import '../style/DialogNewTask.scss';
+import Modale from './Modale';
 
 const DialogNewTask = () => {
   const ComponentContext = useContext(componentContext);
@@ -16,21 +17,27 @@ const DialogNewTask = () => {
   };
 
   return (
-    <div className='dialogNewTask'>
-      <div className='dialogNewTask__container'>
-        <p>placeholder for dialog new task</p>
-        <div className='dialogNewTask__button'>
-          <div
-            className='dialogNewTask__button__save saveButton'
-            onClick={(ev) => handleClickSave(ev)}
-          >
-            SAVE
-          </div>
-          <div className='dialogNewTask__button__cancel cancelButton' onClick={(ev)=>handleClickCancel(ev)}>
-            CANCEL
+    <div>
+      <div className='dialogNewTask'>
+        <div className='dialogNewTask__container'>
+          <p>placeholder for dialog new task</p>
+          <div className='dialogNewTask__button'>
+            <div
+              className='dialogNewTask__button__save saveButton'
+              onClick={(ev) => handleClickSave(ev)}
+            >
+              SAVE
+            </div>
+            <div
+              className='dialogNewTask__button__cancel cancelButton'
+              onClick={(ev) => handleClickCancel(ev)}
+            >
+              CANCEL
+            </div>
           </div>
         </div>
       </div>
+      <Modale />
     </div>
   );
 };

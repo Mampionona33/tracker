@@ -1,0 +1,7 @@
+.modale {
+  position: absolute;
+  background-color: rgba($color: #00000056, $alpha: 0.5);
+  height: calc(100% - 2.5rem);
+  width: 100vw;
+  z-index: 1;
+}

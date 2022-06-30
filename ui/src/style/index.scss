@@ -33,24 +33,24 @@ body {
   }
 }
 
-.saveButton {
+.cancelButton {
   cursor: pointer;
   background-color: $darkAubergine;
   color: white;
   padding: 0.2rem 1rem;
   &:hover {
     box-shadow: $boxShadowButton;
-    transform: translateY(-1.5px);
+
     border: none;
   }
 }
-.cancelButton {
+.saveButton {
+  color: white;
   cursor: pointer;
   background-color: $lightAubergine;
   padding: 0.2rem 1rem;
   &:hover {
     box-shadow: $boxShadowButton;
-    transform: translateY(-1.5px);
     border: none;
   }
 }
