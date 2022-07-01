@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Card from './Card';
 import '../style/Timing.scss';
 import ProgressBar from './ProgressBar';
 import FloatingButton from './FloatingButton';
+import { TaskContext } from '../context/taskContext';
 
 export default function Timing(props) {
+  const taskContext = useContext(TaskContext);
+  console.log(taskContext.userTaskPlay);
+
   return (
     <div className='timing'>
       <div className='timing__elapsted'>
@@ -37,7 +41,7 @@ export default function Timing(props) {
         </div>
         <div className='timing__button'>
           <FloatingButton
-            icon='play_arrow'
+            icon={taskContext.userTaskPlay.length > 0 ? 'pause' : 'play_arrow'}
             handleClickButton={(e) => {
               e.preventDefault();
               alert('play clicked');
