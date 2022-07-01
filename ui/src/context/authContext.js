@@ -5,7 +5,6 @@ import jwtDecode from 'jwt-decode';
 const initialState = {
   user: null,
   userRole: null,
-  userTasks: null,
 };
 
 // check if there is item with the key token in the localstorage
@@ -29,7 +28,6 @@ if (localStorage.getItem('token')) {
 const AuthContext = createContext({
   user: null,
   userRole: null,
-  userTasks: null,
   login: (userData) => {},
   logout: () => {},
   setUserRole: (userRole) => {},
@@ -102,10 +100,6 @@ function AuthProvider(props) {
     dispatch({ type: ACTION.SET_USER_ROLE, payload: userRole });
   };
 
-  const setUserTasks = (userTasks) => {
-    dispatch({ type: ACTION.SET_USER_TASKS, payload: userTasks });
-  };
-
   return (
     <AuthContext.Provider
       value={{
@@ -115,7 +109,6 @@ function AuthProvider(props) {
         login,
         logout,
         setUserRole,
-        setUserTasks,
       }}
       {...props}
     />

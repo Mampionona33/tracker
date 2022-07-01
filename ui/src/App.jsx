@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { AuthContext } from './context/authContext';
+import { TaskContext } from './context/taskContext';
 import { getUserTask } from './graphql/tasks';
 import { createUser, getUser } from './graphql/user';
 import AdminRoute from './pages/AdminRoute';
@@ -13,6 +14,7 @@ import ProtectedRoute from './pages/ProtectedRoute';
 export default function App() {
   const context = useContext(AuthContext);
   const currentUser = context.user;
+  const taskContext = useContext(TaskContext);
 
   useEffect(() => {
     /*
@@ -38,8 +40,16 @@ export default function App() {
           // by his sub from the google token
           if (userExist) {
             const userTaskData = await getUserTask(currentUser.sub);
-            await context.setUserTasks(userTaskData);
-            console.log(userTaskData);
+            await taskContext.setUserTasks(userTaskData);
+
+            // if the user have tasks
+            if (userTaskData) {
+              // get the user task play then assign it to the taskPlay on the context
+              const taskPlay = userTaskData.filter(
+                (tasks) => tasks.taskState === 'isPlay'
+              );
+              taskContext.setUserTaskPlay(taskPlay);
+            }
           }
         }
       }
@@ -48,7 +58,7 @@ export default function App() {
     return () => (mounted = false);
   }, [currentUser]);
 
-  console.log(context.userTasks);
+  console.log(taskContext.userTaskPlay);
 
   return (
     <Routes>
