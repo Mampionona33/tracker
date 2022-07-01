@@ -17,26 +17,31 @@ const getUserTask = async (sub) => {
 };
 
 const createTask = async (taskData) => {
-  await client.mutate({
-    mutation: CREATE_TASK,
-    variables: {
-      task: {
-        user: {
-          sub: taskData.user.sub,
+  try {
+    await client.mutate({
+      mutation: CREATE_TASK,
+      variables: {
+        task: {
+          user: {
+            sub: taskData.user.sub,
+          },
+          boothNumber: taskData.boothNumber,
+          taskState: taskData.taskState,
+          type: taskData.type,
+          url: taskData.url,
+          cat: taskData.cat,
+          ivpn: taskData.ivpn,
+          statCom: taskData.statCom,
+          nbBefore: parseInt(taskData.nbBefore),
+          nbAfter: parseInt(taskData.nbAfter),
+          comment: taskData.comment,
         },
-        boothNumber: taskData.boothNumber,
-        taskState: taskData.taskState,
-        type: taskData.type,
-        url: taskData.url,
-        cat: taskData.cat,
-        ivpn: taskData.ivpn,
-        statCom: taskData.statCom,
-        nbBefore: parseInt(taskData.nbBefore),
-        nbAfter: parseInt(taskData.nbAfter),
-        comment: taskData.comment,
       },
-    },
-  });
+    });
+  } catch (error) {
+    return error;
+  }
+
   return taskData;
 };
 

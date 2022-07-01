@@ -71,7 +71,10 @@ export default function Processing() {
           </div>
         </div>
       ) : (
-        <h2>NO PROCESSING TASK</h2>
+        <div className='message'>
+          <h2>NO PROCESSING TASK</h2>
+          <p>Please create new task or chose one from Pending</p>
+        </div>
       )}
     </>
   );
