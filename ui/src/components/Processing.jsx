@@ -5,10 +5,10 @@ import '../style/Processing.scss';
 export default function Processing() {
   const taskContext = useContext(TaskContext);
   const currentTaskPlay = taskContext.userTaskPlay;
-  console.log(taskContext.userTaskPlay);
+  console.log(currentTaskPlay.length);
   return (
     <>
-      {taskContext.userTaskPlay ? (
+      {currentTaskPlay.length > 0 ? (
         <div className='processing'>
           <div className='row'>
             <h4 className='row__element'>BOOTH NUMBER</h4>

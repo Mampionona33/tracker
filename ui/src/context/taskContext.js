@@ -1,10 +1,30 @@
+import jwtDecode from 'jwt-decode';
 import React, { createContext, useReducer } from 'react';
+import { getUserTask } from '../graphql/tasks';
 
 const initialState = {
   userTasks: null,
   userTaskPlay: null,
   userTaskPause: null,
 };
+
+if (localStorage.getItem('token')) {
+  const decodToken = jwtDecode(localStorage.getItem('token'));
+  const sub = decodToken.sub;
+  if (sub) {
+    const userTaskData = await getUserTask(sub);
+    if (userTaskData) {
+      initialState.userTasks = userTaskData;
+      const userTaskPlay = userTaskData.filter(
+        (item) => item.taskState === 'isPlay'
+      );
+      if (userTaskPlay) {
+        initialState.userTaskPlay = userTaskPlay;
+      }
+      console.log(userTaskPlay);
+    }
+  }
+}
 
 const TaskContext = createContext({
   userTasks: null,

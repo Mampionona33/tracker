@@ -50,9 +50,7 @@ export default function App() {
               );
               // if there is a played task set taskPlay on the context equal
               // to the fetched taskPlay else set taskPlay on context equel null
-              taskContext.setUserTaskPlay(
-                taskPlay.length > 0 ? taskPlay : null
-              );
+              taskContext.setUserTaskPlay(taskPlay.length > 0 ? taskPlay : []);
             }
           }
         }
