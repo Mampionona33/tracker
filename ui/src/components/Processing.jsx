@@ -5,7 +5,7 @@ import '../style/Processing.scss';
 export default function Processing() {
   const taskContext = useContext(TaskContext);
   const currentTaskPlay = taskContext.userTaskPlay;
-  console.log(currentTaskPlay.length);
+  console.log(currentTaskPlay);
   return (
     <>
       {currentTaskPlay.length > 0 ? (
