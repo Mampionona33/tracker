@@ -74,7 +74,7 @@ type Tasks {
   taskState: taskStateEnum!
 }
 input TaskInput {
-  user: UserIdInput!
+  user: UserIdInput
   boothNumber: String
   type: String
   url: String
@@ -82,12 +82,16 @@ input TaskInput {
   ivpn: String
   statCom: String
   #...Give the default value Normal for processingState if not given
-  processingState: processingStateEnum! = Normal
+  processingState: processingStateEnum = Normal
   nbBefore: Int = 0
   nbAfter: Int = 0
   comment: String
   #...Give the default value isPlay for taskState if not given
-  taskState: taskStateEnum! = isPlay
+  taskState: taskStateEnum = isPlay
+}
+input FilterTaskPlay {
+  sub_filter: String!
+  taskState_filter: taskStateEnum!
 }
 ## Task -------------------
 
@@ -96,11 +100,12 @@ type Query {
   getMessage: String
   listUser: [User!]
   getUserTask(input: UserInput): [Tasks]
-  searchUser(input: UserIdInput): [User]
+  searchUser(input: String): [User]
 }
 
 type Mutation {
   setAboutMessage(message: String!): String
   creatUser(user: UserInput!): User
   createTask(task: TaskInput): Tasks
+  updateTask(filter: FilterTaskPlay, update: TaskInput): Tasks
 }

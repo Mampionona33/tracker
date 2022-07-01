@@ -18,6 +18,7 @@ const resolvers = {
     // create new user
     creatUser: users.create,
     createTask: task.create,
+    updateTask: task.update,
   },
 };
 

@@ -28,4 +28,28 @@ const create = async (_, { task }) => {
   return createdTask;
 };
 
-module.exports = { get, create };
+const update = async (
+  _,
+  {
+    filter: { sub_filter, taskState_filter },
+    update: {
+      user,
+      boothNumber,
+      type,
+      url,
+      cat,
+      ivpn,
+      statCom,
+      processingState,
+      nbBefore,
+      nbAfter,
+      taskState,
+      comment,
+    },
+  }
+) => {
+  console.log(sub_filter, taskState_filter);
+  console.log(taskState);
+};
+
+module.exports = { get, create, update };
