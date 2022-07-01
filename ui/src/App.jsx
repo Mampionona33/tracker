@@ -48,7 +48,11 @@ export default function App() {
               const taskPlay = userTaskData.filter(
                 (tasks) => tasks.taskState === 'isPlay'
               );
-              taskContext.setUserTaskPlay(taskPlay);
+              // if there is a played task set taskPlay on the context equal
+              // to the fetched taskPlay else set taskPlay on context equel null
+              taskContext.setUserTaskPlay(
+                taskPlay.length > 0 ? taskPlay : null
+              );
             }
           }
         }
@@ -58,7 +62,7 @@ export default function App() {
     return () => (mounted = false);
   }, [currentUser]);
 
-  console.log(taskContext.userTaskPlay);
+  // console.log(taskContext.userTaskPlay);
 
   return (
     <Routes>

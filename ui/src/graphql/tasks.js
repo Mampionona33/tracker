@@ -4,6 +4,7 @@ const { default: client } = require('./apolloClient');
 const { GET_USER_TASK } = require('./Query');
 
 const getUserTask = async (sub) => {
+  console.log(sub);
   const userTaskData = await client.query({
     query: GET_USER_TASK,
     variables: {
@@ -16,12 +17,12 @@ const getUserTask = async (sub) => {
 };
 
 const createTask = async (taskData) => {
-  const newTask = await client.mutate({
+  await client.mutate({
     mutation: CREATE_TASK,
     variables: {
       task: {
         user: {
-          sub: taskData.sub,
+          sub: taskData.user.sub,
         },
         boothNumber: taskData.boothNumber,
         taskState: taskData.taskState,
@@ -36,6 +37,7 @@ const createTask = async (taskData) => {
       },
     },
   });
+  return taskData;
 };
 
 export { getUserTask, createTask };

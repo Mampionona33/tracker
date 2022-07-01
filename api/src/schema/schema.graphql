@@ -74,7 +74,7 @@ type Tasks {
   taskState: taskStateEnum!
 }
 input TaskInput {
-  user: UserIdInput
+  user: UserIdInput!
   boothNumber: String
   type: String
   url: String

@@ -1,6 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { AuthContext } from '../context/authContext';
 import { componentContext } from '../context/componentContext';
+import { TaskContext } from '../context/taskContext';
 import { createTask } from '../graphql/tasks';
 import '../style/DialogNewTask.scss';
 import Modale from './Modale';
@@ -8,19 +9,26 @@ import Modale from './Modale';
 const DialogNewTask = () => {
   const ComponentContext = useContext(componentContext);
   const context = useContext(AuthContext);
+  const userSub = context.user.sub;
+  const taskContext = useContext(TaskContext);
 
   const handleClickSave = async (evnt) => {
     evnt.preventDefault();
     console.log(newTask);
-    await createTask(newTask).then(
-      ComponentContext.toggleDialogCreateNewTask()
-    );
+    await createTask(newTask)
+      .then(ComponentContext.toggleDialogCreateNewTask())
+      .then((result) => {
+        console.log(result);
+        taskContext.setUserTaskPlay([result]);
+      });
   };
 
   const handleClickCancel = (event) => {
     event.preventDefault();
     ComponentContext.toggleDialogCreateNewTask();
   };
+
+  console.log(userSub);
 
   const [newTask, setNewTask] = useState({
     boothNumber: '',
@@ -33,7 +41,7 @@ const DialogNewTask = () => {
     statCom: '',
     nbAfter: 0,
     comment: '',
-    user: { sub: context.user.sub },
+    user: { sub: userSub },
   });
 
   const handleInputChange = (ev) => {

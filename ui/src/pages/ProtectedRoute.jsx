@@ -23,7 +23,7 @@ export default function ProtectedRoute({ children }) {
         const getUserData = await getUser(currentUser.sub);
         if (mounted) {
           console.log('mount');
-          if (getUserData.role) {
+          if (getUserData && getUserData.role) {
             context.setUserRole(getUserData.role);
           }
         }
