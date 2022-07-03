@@ -100,7 +100,7 @@ type Query {
   getMessage: String
   listUser: [User!]
   getUserTask(input: UserInput): [Tasks]
-  searchUser(input: String): [User]
+  searchUser(input: UserIdInput): [User]
 }
 
 type Mutation {
