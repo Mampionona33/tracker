@@ -1,27 +1,52 @@
-import React, { useContext } from 'react';
+import { useQuery } from '@apollo/client';
+import React, { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../context/authContext';
 import { TaskContext } from '../context/taskContext';
+import { GET_USER_TASK, GET_USER_TASK_PLAY } from '../graphql/Query';
 import '../style/Processing.scss';
 
 export default function Processing() {
   const taskContext = useContext(TaskContext);
-  const currentTaskPlay = taskContext.userTaskPlay;
-  console.log(currentTaskPlay);
+  const userContext = useContext(AuthContext);
+  const userContextUser = userContext.user;
+  const [taskPlay, setTaskPlay] = useState([]);
+
+  const {
+    data: userTaskPlay,
+    loading: userDataLoading,
+    error: errorLoadingUserData,
+  } = useQuery(GET_USER_TASK_PLAY, {
+    variables: {
+      input: {
+        user: {
+          sub: userContextUser && userContextUser.sub,
+        },
+        taskState: 'isPlay',
+      },
+    },
+  });
+
+  useEffect(() => {
+    if (userTaskPlay) {
+      console.log(userTaskPlay);
+      setTaskPlay(userTaskPlay.getUserTaskPlay[0]);
+    }
+  }, [userTaskPlay]);
+
   return (
     <>
-      {currentTaskPlay.length > 0 ? (
+      {taskPlay ? (
         <div className='processing'>
           <div className='row'>
             <h4 className='row__element'>BOOTH NUMBER</h4>
             <p className='row__element row__element--r'>
-              {currentTaskPlay[0].boothNumber}
+              {taskPlay.boothNumber}
             </p>
           </div>
 
           <div className='row'>
             <h4 className='row__element'>TASK TYPE</h4>
-            <p className='row__element row__element--r'>
-              {currentTaskPlay[0].type}
-            </p>
+            <p className='row__element row__element--r'>{taskPlay.type}</p>
           </div>
 
           <div className='row'>
@@ -29,45 +54,35 @@ export default function Processing() {
             <a
               target='_blank'
               className='row__element row__element--r'
-              href={currentTaskPlay[0].url}
+              href={taskPlay.url}
             >
-              {currentTaskPlay[0].url}
+              {taskPlay.url}
             </a>
           </div>
 
           <div className='row'>
             <h4 className='row__element'>CATEGORY</h4>
-            <p className='row__element row__element--r'>
-              {currentTaskPlay[0].cat}
-            </p>
+            <p className='row__element row__element--r'>{taskPlay.cat}</p>
           </div>
 
           <div className='row'>
             <h4 className='row__element'>STATUS IVPN</h4>
-            <p className='row__element row__element--r'>
-              {currentTaskPlay[0].ivpn}
-            </p>
+            <p className='row__element row__element--r'>{taskPlay.ivpn}</p>
           </div>
 
           <div className='row'>
             <h4 className='row__element'>NB BEFORE</h4>
-            <p className='row__element row__element--r'>
-              {currentTaskPlay[0].nbBefore}
-            </p>
+            <p className='row__element row__element--r'>{taskPlay.nbBefore}</p>
           </div>
 
           <div className='row'>
             <h4 className='row__element'>NB AFTER</h4>
-            <p className='row__element row__element--r'>
-              {currentTaskPlay[0].nbAfter}
-            </p>
+            <p className='row__element row__element--r'>{taskPlay.nbAfter}</p>
           </div>
 
           <div className='row'>
             <h4 className='row__element'>COMMENT</h4>
-            <p className='row__element row__element--r'>
-              {currentTaskPlay[0].comment}
-            </p>
+            <p className='row__element row__element--r'>{taskPlay.comment}</p>
           </div>
         </div>
       ) : (

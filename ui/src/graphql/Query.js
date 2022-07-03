@@ -34,3 +34,22 @@ export const GET_USER_TASK = gql`
     }
   }
 `;
+
+export const GET_USER_TASK_PLAY = gql`
+  query GetUserTaskPlay($input: TaskInput) {
+    getUserTaskPlay(input: $input) {
+      boothNumber
+      comment
+      nbAfter
+      nbBefore
+      processingState
+      statCom
+      ivpn
+      cat
+      url
+      type
+      taskState
+      id
+    }
+  }
+`;

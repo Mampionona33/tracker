@@ -12,8 +12,27 @@ const get = async (_, { input: { sub } }) => {
   }
   console.log(filter);
   const getUserTask = await db.collection('tasks').find(filter).toArray();
-  console.log(getUserTask);
   return getUserTask;
+};
+
+const getUserPlay = async (_, { input: { user, taskState } }) => {
+  const db = getDb();
+  let filter = {};
+  if (user) {
+    filter = {
+      ...filter,
+      'user.sub': user.sub,
+    };
+  }
+  if (taskState) {
+    filter = {
+      ...filter,
+      taskState: taskState,
+    };
+  }
+  const getUserTaskPlay = await db.collection('tasks').find(filter).toArray();
+  console.log(getUserTaskPlay);
+  return getUserTaskPlay;
 };
 
 const create = async (_, { task }) => {
@@ -52,4 +71,4 @@ const update = async (
   console.log(taskState);
 };
 
-module.exports = { get, create, update };
+module.exports = { get, create, update, getUserPlay };
