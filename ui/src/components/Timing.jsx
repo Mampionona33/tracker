@@ -10,7 +10,6 @@ import { AuthContext } from '../context/authContext';
 
 export default function Timing(props) {
   const taskContext = useContext(TaskContext);
-  // console.log(taskContext.userTaskPlay);
   const userContext = useContext(AuthContext);
   const [taskPlay, setTaskPlay] = useState(null);
 
@@ -68,7 +67,7 @@ export default function Timing(props) {
         </div>
         <div className='timing__button'>
           <FloatingButton
-            icon={taskPlay ?   'pause' :'play_arrow'}
+            icon={taskPlay ? 'pause' : 'play_arrow'}
             handleClickButton={(e) => {
               e.preventDefault();
               alert('play clicked');

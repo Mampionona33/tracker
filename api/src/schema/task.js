@@ -50,7 +50,7 @@ const create = async (_, { task }) => {
 const update = async (
   _,
   {
-    filter: { sub_filter, taskState_filter },
+    filter: { id },
     update: {
       user,
       boothNumber,
@@ -67,8 +67,25 @@ const update = async (
     },
   }
 ) => {
-  console.log(sub_filter, taskState_filter);
-  console.log(taskState);
+  console.log(id);
+  const db = getDb();
+  const filter = { id: id };
+  let update = [{ $set: {} }];
+  if (taskState) {
+    update[0].$set.taskState = taskState;
+  }
+  const options = { upsert: false, returnNewDocument: true };
+  const updateTask = db.collection('tasks').findOneAndUpdate(
+    filter,
+    ...update,
+    options,
+    (erro, doc) => {
+      if (erro) {
+        console.log(erro);
+      }
+    }
+  );
+  return updateTask;
 };
 
 module.exports = { get, create, update, getUserPlay };

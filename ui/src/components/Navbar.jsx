@@ -2,6 +2,9 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/authContext';
 import { componentContext } from '../context/componentContext';
 import '../style/Navbar.scss';
+import { useMutation } from '@apollo/client';
+import { CREATE_TASK } from '../graphql/Mutation';
+import { GET_USER_TASK_PLAY } from '../graphql/Query';
 export default function Navbar(props) {
   const context = useContext(AuthContext);
   const ComponentContext = useContext(componentContext);

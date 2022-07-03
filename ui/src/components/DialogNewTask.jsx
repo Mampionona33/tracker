@@ -1,7 +1,9 @@
+import { useMutation } from '@apollo/client';
 import React, { useContext, useState } from 'react';
 import { AuthContext } from '../context/authContext';
 import { componentContext } from '../context/componentContext';
 import { TaskContext } from '../context/taskContext';
+import { CREATE_TASK } from '../graphql/Mutation';
 import { createTask } from '../graphql/tasks';
 import '../style/DialogNewTask.scss';
 import Modale from './Modale';
@@ -11,6 +13,8 @@ const DialogNewTask = () => {
   const context = useContext(AuthContext);
   const userSub = context.user.sub;
   const taskContext = useContext(TaskContext);
+
+  const [createTask, { error: rerrorOnCreateTask }] = useMutation(CREATE_TASK);
 
   const handleClickSave = async (evnt) => {
     evnt.preventDefault();

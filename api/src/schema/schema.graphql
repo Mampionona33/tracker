@@ -74,6 +74,7 @@ type Tasks {
   taskState: taskStateEnum!
 }
 input TaskInput {
+  id: Int
   user: UserIdInput
   boothNumber: String
   type: String
@@ -90,8 +91,8 @@ input TaskInput {
   taskState: taskStateEnum = isPlay
 }
 input FilterTaskPlay {
-  sub_filter: String!
-  taskState_filter: taskStateEnum!
+  id: Int!
+  sub: String
 }
 ## Task -------------------
 
@@ -108,5 +109,5 @@ type Mutation {
   setAboutMessage(message: String!): String
   creatUser(user: UserInput!): User
   createTask(task: TaskInput): Tasks
-  updateTask(filter: FilterTaskPlay, update: TaskInput): Tasks
+  updateTask(filter: TaskInput, update: TaskInput): Tasks
 }
