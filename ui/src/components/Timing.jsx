@@ -1,13 +1,40 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Card from './Card';
 import '../style/Timing.scss';
 import ProgressBar from './ProgressBar';
 import FloatingButton from './FloatingButton';
 import { TaskContext } from '../context/taskContext';
+import { useQuery } from '@apollo/client';
+import { GET_USER_TASK_PLAY } from '../graphql/Query';
+import { AuthContext } from '../context/authContext';
 
 export default function Timing(props) {
   const taskContext = useContext(TaskContext);
-  console.log(taskContext.userTaskPlay);
+  // console.log(taskContext.userTaskPlay);
+  const userContext = useContext(AuthContext);
+  const [taskPlay, setTaskPlay] = useState([]);
+
+  const {
+    data: userProcessingTask,
+    loading: loadingUserProcessingTask,
+    error: errorLoadingUserProcessingTask,
+  } = useQuery(GET_USER_TASK_PLAY, {
+    variables: {
+      input: {
+        user: {
+          sub: userContext.user && userContext.user.sub,
+        },
+        taskState: 'isPlay',
+      },
+    },
+  });
+
+  useEffect(() => {
+    if (userProcessingTask) {
+      console.log(userProcessingTask.getUserTaskPlay[0]);
+      setTaskPlay(userProcessingTask.getUserTaskPlay[0]);
+    }
+  }, [userProcessingTask]);
 
   return (
     <div className='timing'>
@@ -41,7 +68,7 @@ export default function Timing(props) {
         </div>
         <div className='timing__button'>
           <FloatingButton
-            icon={taskContext.userTaskPlay.length > 0 ? 'pause' : 'play_arrow'}
+            icon={taskPlay.length > 0 ? 'play_arrow' : 'pause'}
             handleClickButton={(e) => {
               e.preventDefault();
               alert('play clicked');

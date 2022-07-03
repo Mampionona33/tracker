@@ -6,10 +6,9 @@ import { GET_USER_TASK, GET_USER_TASK_PLAY } from '../graphql/Query';
 import '../style/Processing.scss';
 
 export default function Processing() {
-  const taskContext = useContext(TaskContext);
   const userContext = useContext(AuthContext);
   const userContextUser = userContext.user;
-  const [taskPlay, setTaskPlay] = useState([]);
+  const [currentProcessingTask, setCurrentProcessingTask] = useState([]);
 
   const {
     data: userTaskPlay,
@@ -21,32 +20,34 @@ export default function Processing() {
         user: {
           sub: userContextUser && userContextUser.sub,
         },
-        taskState: 'isPlay',
+        taskState: 'isPlay' || 'isPause',
       },
     },
   });
 
   useEffect(() => {
+    // Get the user curent task pause or play
     if (userTaskPlay) {
-      console.log(userTaskPlay);
-      setTaskPlay(userTaskPlay.getUserTaskPlay[0]);
+      setCurrentProcessingTask(userTaskPlay.getUserTaskPlay[0]);
     }
   }, [userTaskPlay]);
 
   return (
     <>
-      {taskPlay ? (
+      {currentProcessingTask ? (
         <div className='processing'>
           <div className='row'>
             <h4 className='row__element'>BOOTH NUMBER</h4>
             <p className='row__element row__element--r'>
-              {taskPlay.boothNumber}
+              {currentProcessingTask.boothNumber}
             </p>
           </div>
 
           <div className='row'>
             <h4 className='row__element'>TASK TYPE</h4>
-            <p className='row__element row__element--r'>{taskPlay.type}</p>
+            <p className='row__element row__element--r'>
+              {currentProcessingTask.type}
+            </p>
           </div>
 
           <div className='row'>
@@ -54,35 +55,45 @@ export default function Processing() {
             <a
               target='_blank'
               className='row__element row__element--r'
-              href={taskPlay.url}
+              href={currentProcessingTask.url}
             >
-              {taskPlay.url}
+              {currentProcessingTask.url}
             </a>
           </div>
 
           <div className='row'>
             <h4 className='row__element'>CATEGORY</h4>
-            <p className='row__element row__element--r'>{taskPlay.cat}</p>
+            <p className='row__element row__element--r'>
+              {currentProcessingTask.cat}
+            </p>
           </div>
 
           <div className='row'>
             <h4 className='row__element'>STATUS IVPN</h4>
-            <p className='row__element row__element--r'>{taskPlay.ivpn}</p>
+            <p className='row__element row__element--r'>
+              {currentProcessingTask.ivpn}
+            </p>
           </div>
 
           <div className='row'>
             <h4 className='row__element'>NB BEFORE</h4>
-            <p className='row__element row__element--r'>{taskPlay.nbBefore}</p>
+            <p className='row__element row__element--r'>
+              {currentProcessingTask.nbBefore}
+            </p>
           </div>
 
           <div className='row'>
             <h4 className='row__element'>NB AFTER</h4>
-            <p className='row__element row__element--r'>{taskPlay.nbAfter}</p>
+            <p className='row__element row__element--r'>
+              {currentProcessingTask.nbAfter}
+            </p>
           </div>
 
           <div className='row'>
             <h4 className='row__element'>COMMENT</h4>
-            <p className='row__element row__element--r'>{taskPlay.comment}</p>
+            <p className='row__element row__element--r'>
+              {currentProcessingTask.comment}
+            </p>
           </div>
         </div>
       ) : (
