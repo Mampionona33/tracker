@@ -1,5 +1,5 @@
-import { useMutation } from '@apollo/client';
-import React, { useContext, useState } from 'react';
+import { useMutation, useQuery } from '@apollo/client';
+import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/authContext';
 import { componentContext } from '../context/componentContext';
 import { TaskContext } from '../context/taskContext';
@@ -11,29 +11,54 @@ import {
 } from '../graphql/tasks';
 import '../style/DialogNewTask.scss';
 import Modale from './Modale';
-import { GET_USER_PROCESSING_TASK } from './../graphql/Query';
+import { GET_USER_PROCESSING_TASK, GET_USER_TASK } from './../graphql/Query';
 
 const DialogNewTask = () => {
   const ComponentContext = useContext(componentContext);
   const context = useContext(AuthContext);
   const userSub = context.user.sub;
+  const [currentProcTask, setCurrentProcTask] = useState([]);
+
+  const { data: processingTask, error: errorLoadingProcTask } = useQuery(
+    GET_USER_TASK,
+    { variables: { input: { sub: userSub } } }
+  );
+
+  useEffect(() => {
+    if (processingTask) {
+      // console.log(processingTask);
+      const curProTask = processingTask.getUserTask.filter(
+        (item) => item.taskState === 'isPlay' || item.taskState === 'isPause'
+      );
+      if (curProTask) {
+        setCurrentProcTask(curProTask[0]);
+      }
+    }
+  }, [processingTask]);
 
   const [createTask, { error: errorCreatTask }] = useMutation(CREATE_TASK, {
-    refetchQueries: [GET_USER_PROCESSING_TASK],
+    refetchQueries: [
+      GET_USER_TASK,
+      {
+        variables: {
+          input: {
+            sub: context && context.user.sub,
+          },
+        },
+      },
+    ],
     awaitRefetchQueries: true,
   });
 
   const handleClickSave = async (evnt) => {
     evnt.preventDefault();
-    await getUserTaskPlay(context.user.sub).then((result) => {
-      if (result) {
-        const id = result[0].id;
-        const sub = context.user.sub;
-        setTaskStateOff(id)
-          .then(createNewTask(createTask, sub, newTask, errorCreatTask))
-          .then(ComponentContext.toggleDialogCreateNewTask());
-      }
-    });
+    if (currentProcTask) {
+      const id = currentProcTask.id;
+      const sub = context.user.sub;
+      setTaskStateOff(id)
+        .then(createNewTask(createTask, sub, newTask, errorCreatTask))
+        .then(ComponentContext.toggleDialogCreateNewTask());
+    }
   };
 
   const handleClickCancel = (event) => {
@@ -41,11 +66,9 @@ const DialogNewTask = () => {
     ComponentContext.toggleDialogCreateNewTask();
   };
 
-  console.log(userSub);
-
   const [newTask, setNewTask] = useState({
     boothNumber: '',
-    taskType: '',
+    type: 'Contenu',
     processingState: '',
     url: '',
     cat: '',
@@ -83,7 +106,7 @@ const DialogNewTask = () => {
               <select
                 name='taskType'
                 id='taskType'
-                value={newTask.taskType}
+                value={newTask.type}
                 onChange={(ev) => handleInputChange(ev)}
               >
                 <option value={'Contenu'}>Contenu</option>
