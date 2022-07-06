@@ -49,7 +49,7 @@ export const getUserTaskPlay = async (sub) => {
         user: {
           sub: sub,
         },
-        taskState: 'isPlay',
+        taskState: 'isPlay' && 'isPause',
       },
     },
   });

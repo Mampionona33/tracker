@@ -2,35 +2,35 @@ import { useQuery } from '@apollo/client';
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/authContext';
 import { TaskContext } from '../context/taskContext';
-import { GET_USER_PROCESSING_TASK } from '../graphql/Query';
+import { GET_USER_PROCESSING_TASK, GET_USER_TASK } from '../graphql/Query';
 import '../style/Processing.scss';
 
 export default function Processing() {
   const userContext = useContext(AuthContext);
-  const userContextUser = userContext.user;
   const [currentProcessingTask, setCurrentProcessingTask] = useState([]);
 
-  const {
-    data: userTaskPlay,
-    loading: userDataLoading,
-    error: errorLoadingUserData,
-  } = useQuery(GET_USER_PROCESSING_TASK, {
-    variables: {
-      input: {
-        user: {
-          sub: userContextUser && userContextUser.sub,
+  const { data: userTask, error: errorFetchUserTask } = useQuery(
+    GET_USER_TASK,
+    {
+      variables: {
+        input: {
+          sub: userContext && userContext.user.sub,
         },
-        taskState: 'isPlay',
       },
-    },
-  });
+    }
+  );
 
   useEffect(() => {
-    // Get the user curent task pause or play
-    if (userTaskPlay) {
-      setCurrentProcessingTask(userTaskPlay.getUserTaskPlay[0]);
+    if (userTask) {
+      const processingTask = userTask.getUserTask.filter(
+        (item) => item.taskState === 'isPause' || item.taskState === 'isPlay'
+      );
+      console.log(processingTask);
+      if (processingTask) {
+        setCurrentProcessingTask((prev) => processingTask[0]);
+      }
     }
-  }, [userTaskPlay]);
+  }, [userTask]);
 
   return (
     <>
