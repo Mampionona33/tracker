@@ -41,3 +41,21 @@ export const CREATE_TASK = gql`
     }
   }
 `;
+
+export const UPDATE_TASK = gql`
+  mutation UpdateTask($filter: TaskInput, $update: TaskInput) {
+    updateTask(filter: $filter, update: $update) {
+      type
+      url
+      boothNumber
+      cat
+      ivpn
+      statCom
+      processingState
+      nbBefore
+      nbAfter
+      comment
+      taskState
+    }
+  }
+`;

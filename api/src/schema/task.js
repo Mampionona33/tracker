@@ -75,16 +75,14 @@ const update = async (
     update[0].$set.taskState = taskState;
   }
   const options = { upsert: false, returnNewDocument: true };
-  const updateTask = db.collection('tasks').findOneAndUpdate(
-    filter,
-    ...update,
-    options,
-    (erro, doc) => {
+  const updateTask = db
+    .collection('tasks')
+    .findOneAndUpdate(filter, ...update, options, (erro, doc) => {
       if (erro) {
         console.log(erro);
       }
-    }
-  );
+      console.log(doc);
+    });
   return updateTask;
 };
 

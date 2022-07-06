@@ -30,7 +30,7 @@ export default function Timing(props) {
 
   useEffect(() => {
     if (userProcessingTask) {
-      console.log(userProcessingTask.getUserTaskPlay[0]);
+      // console.log(userProcessingTask.getUserTaskPlay[0]);
       setTaskPlay(userProcessingTask.getUserTaskPlay[0]);
     }
   }, [userProcessingTask]);

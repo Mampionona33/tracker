@@ -4,27 +4,36 @@ import { AuthContext } from '../context/authContext';
 import { componentContext } from '../context/componentContext';
 import { TaskContext } from '../context/taskContext';
 import { CREATE_TASK } from '../graphql/Mutation';
-import { createTask } from '../graphql/tasks';
+import {
+  createNewTask,
+  getUserTaskPlay,
+  setTaskStateOff,
+} from '../graphql/tasks';
 import '../style/DialogNewTask.scss';
 import Modale from './Modale';
+import { GET_USER_TASK_PLAY } from './../graphql/Query';
 
 const DialogNewTask = () => {
   const ComponentContext = useContext(componentContext);
   const context = useContext(AuthContext);
   const userSub = context.user.sub;
-  const taskContext = useContext(TaskContext);
 
-  const [createTask, { error: rerrorOnCreateTask }] = useMutation(CREATE_TASK);
+  const [createTask, { error: errorCreatTask }] = useMutation(CREATE_TASK, {
+    refetchQueries: [GET_USER_TASK_PLAY],
+    awaitRefetchQueries: true,
+  });
 
   const handleClickSave = async (evnt) => {
     evnt.preventDefault();
-    console.log(newTask);
-    await createTask(newTask)
-      .then(ComponentContext.toggleDialogCreateNewTask())
-      .then((result) => {
-        console.log(result);
-        taskContext.setUserTaskPlay([result]);
-      });
+    await getUserTaskPlay(context.user.sub).then((result) => {
+      if (result) {
+        const id = result[0].id;
+        const sub = context.user.sub;
+        setTaskStateOff(id)
+          .then(createNewTask(createTask, sub, newTask, errorCreatTask))
+          .then(ComponentContext.toggleDialogCreateNewTask());
+      }
+    });
   };
 
   const handleClickCancel = (event) => {
