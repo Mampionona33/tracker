@@ -67,13 +67,15 @@ const update = async (
     },
   }
 ) => {
-  console.log(id);
+  // console.log(id);
   const db = getDb();
   const filter = { id: id };
   let update = [{ $set: {} }];
+
   if (taskState) {
     update[0].$set.taskState = taskState;
   }
+
   const options = { upsert: false, returnNewDocument: true };
   const updateTask = db
     .collection('tasks')
@@ -83,7 +85,7 @@ const update = async (
       }
       console.log(doc);
     });
-  return updateTask;
+  return { acknowledged: true };
 };
 
 module.exports = { get, create, update, getUserPlay };

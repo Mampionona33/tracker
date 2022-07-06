@@ -75,7 +75,6 @@ type Tasks {
 }
 input TaskInput {
   id: Int
-  user: UserIdInput
   boothNumber: String
   type: String
   url: String
@@ -94,6 +93,11 @@ input FilterTaskPlay {
   id: Int!
   sub: String
 }
+
+type UpdateResponse {
+  acknowledged: Boolean
+}
+
 ## Task -------------------
 
 #### top level declarations
@@ -109,5 +113,5 @@ type Mutation {
   setAboutMessage(message: String!): String
   creatUser(user: UserInput!): User
   createTask(task: TaskInput): Tasks
-  updateTask(filter: TaskInput, update: TaskInput): Tasks
+  updateTask(filter: FilterTaskPlay, update: TaskInput): UpdateResponse
 }

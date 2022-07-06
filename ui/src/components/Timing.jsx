@@ -1,15 +1,28 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import Card from './Card';
 import '../style/Timing.scss';
 import ProgressBar from './ProgressBar';
 import FloatingButton from './FloatingButton';
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { GET_USER_TASK } from '../graphql/Query';
 import { AuthContext } from '../context/authContext';
+import { UPDATE_TASK } from '../graphql/Mutation';
+import { setTaskStatePause, setTaskStatePlay } from '../graphql/tasks';
 
 export default function Timing(props) {
   const userContext = useContext(AuthContext);
   const [curProcessTask, setCurProcessTask] = useState([]);
+  const sub = userContext.user.sub;
+
+  const refButton = useRef(null);
+
+  const [updateTask, { error: errorOnUpdate }] = useMutation(UPDATE_TASK, {
+    refetchQueries: [
+      GET_USER_TASK,
+      { variables: { input: { sub: userContext && sub } } },
+    ],
+    awaitRefetchQueries: true,
+  });
 
   const {
     data: processingTask,
@@ -18,7 +31,7 @@ export default function Timing(props) {
   } = useQuery(GET_USER_TASK, {
     variables: {
       input: {
-        sub: useContext && userContext.user.sub,
+        sub: useContext && sub,
       },
     },
   });
@@ -34,8 +47,15 @@ export default function Timing(props) {
 
   const handleClickButton = async (event) => {
     event.preventDefault();
+    const buttonState = refButton.current.children[0].innerText;
     if (curProcessTask) {
-      console.log(curProcessTask.id);
+      if (buttonState === 'pause') {
+        console.log(curProcessTask.id);
+        await setTaskStatePause(updateTask, curProcessTask.id, errorOnUpdate);
+      }
+      if (buttonState === 'play_arrow') {
+        await setTaskStatePlay(updateTask, curProcessTask.id, errorOnUpdate);
+      }
     }
   };
 
@@ -69,7 +89,7 @@ export default function Timing(props) {
         <div className='timing__actualProd --r progressbar'>
           <ProgressBar completed={60} />
         </div>
-        <div className='timing__button'>
+        <div className='timing__button' ref={refButton}>
           <FloatingButton
             icon={
               curProcessTask.taskState === 'isPlay' ? 'pause' : 'play_arrow'
