@@ -11,7 +11,7 @@ import {
 } from '../graphql/tasks';
 import '../style/DialogNewTask.scss';
 import Modale from './Modale';
-import { GET_USER_TASK_PLAY } from './../graphql/Query';
+import { GET_USER_PROCESSING_TASK } from './../graphql/Query';
 
 const DialogNewTask = () => {
   const ComponentContext = useContext(componentContext);
@@ -19,7 +19,7 @@ const DialogNewTask = () => {
   const userSub = context.user.sub;
 
   const [createTask, { error: errorCreatTask }] = useMutation(CREATE_TASK, {
-    refetchQueries: [GET_USER_TASK_PLAY],
+    refetchQueries: [GET_USER_PROCESSING_TASK],
     awaitRefetchQueries: true,
   });
 

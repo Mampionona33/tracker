@@ -5,7 +5,7 @@ import ProgressBar from './ProgressBar';
 import FloatingButton from './FloatingButton';
 import { TaskContext } from '../context/taskContext';
 import { useQuery } from '@apollo/client';
-import { GET_USER_TASK_PLAY } from '../graphql/Query';
+import { GET_USER_PROCESSING_TASK } from '../graphql/Query';
 import { AuthContext } from '../context/authContext';
 
 export default function Timing(props) {
@@ -17,7 +17,7 @@ export default function Timing(props) {
     data: userProcessingTask,
     loading: loadingUserProcessingTask,
     error: errorLoadingUserProcessingTask,
-  } = useQuery(GET_USER_TASK_PLAY, {
+  } = useQuery(GET_USER_PROCESSING_TASK, {
     variables: {
       input: {
         user: {
@@ -30,7 +30,6 @@ export default function Timing(props) {
 
   useEffect(() => {
     if (userProcessingTask) {
-      // console.log(userProcessingTask.getUserTaskPlay[0]);
       setTaskPlay(userProcessingTask.getUserTaskPlay[0]);
     }
   }, [userProcessingTask]);

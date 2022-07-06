@@ -1,7 +1,7 @@
 import { CREATE_TASK, UPDATE_TASK } from './Mutation';
 
 const { default: client } = require('./apolloClient');
-const { GET_USER_TASK, GET_USER_TASK_PLAY } = require('./Query');
+const { GET_USER_TASK, GET_USER_PROCESSING_TASK } = require('./Query');
 
 export const getUserTask = async (sub) => {
   console.log(sub);
@@ -43,7 +43,7 @@ export const createNewTask = async (createTask, sub, taskData, error) => {
 
 export const getUserTaskPlay = async (sub) => {
   const result = await client.query({
-    query: GET_USER_TASK_PLAY,
+    query: GET_USER_PROCESSING_TASK,
     variables: {
       input: {
         user: {

@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client';
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/authContext';
 import { TaskContext } from '../context/taskContext';
-import { GET_USER_TASK, GET_USER_TASK_PLAY } from '../graphql/Query';
+import { GET_USER_PROCESSING_TASK } from '../graphql/Query';
 import '../style/Processing.scss';
 
 export default function Processing() {
@@ -14,13 +14,13 @@ export default function Processing() {
     data: userTaskPlay,
     loading: userDataLoading,
     error: errorLoadingUserData,
-  } = useQuery(GET_USER_TASK_PLAY, {
+  } = useQuery(GET_USER_PROCESSING_TASK, {
     variables: {
       input: {
         user: {
           sub: userContextUser && userContextUser.sub,
         },
-        taskState: 'isPlay' || 'isPause',
+        taskState: 'isPlay',
       },
     },
   });

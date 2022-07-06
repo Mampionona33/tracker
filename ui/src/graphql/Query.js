@@ -35,7 +35,7 @@ export const GET_USER_TASK = gql`
   }
 `;
 
-export const GET_USER_TASK_PLAY = gql`
+export const GET_USER_PROCESSING_TASK = gql`
   query GetUserTaskPlay($input: TaskInput) {
     getUserTaskPlay(input: $input) {
       boothNumber
