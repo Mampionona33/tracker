@@ -5,34 +5,34 @@ import ProgressBar from './ProgressBar';
 import FloatingButton from './FloatingButton';
 import { TaskContext } from '../context/taskContext';
 import { useQuery } from '@apollo/client';
-import { GET_USER_PROCESSING_TASK } from '../graphql/Query';
+import { GET_USER_PROCESSING_TASK, GET_USER_TASK } from '../graphql/Query';
 import { AuthContext } from '../context/authContext';
 
 export default function Timing(props) {
-  const taskContext = useContext(TaskContext);
   const userContext = useContext(AuthContext);
-  const [taskPlay, setTaskPlay] = useState(null);
+  const [curProcessTask, setCurProcessTask] = useState([]);
 
   const {
-    data: userProcessingTask,
-    loading: loadingUserProcessingTask,
-    error: errorLoadingUserProcessingTask,
-  } = useQuery(GET_USER_PROCESSING_TASK, {
+    data: processingTask,
+    error: errorLoadingProcessingTasks,
+    loading: loadingProcess,
+  } = useQuery(GET_USER_TASK, {
     variables: {
       input: {
-        user: {
-          sub: userContext.user && userContext.user.sub,
-        },
-        taskState: 'isPlay',
+        sub: useContext && userContext.user.sub,
       },
     },
   });
 
   useEffect(() => {
-    if (userProcessingTask) {
-      setTaskPlay(userProcessingTask.getUserTaskPlay[0]);
+    if (processingTask) {
+      console.log(processingTask.getUserTask);
+      const currentProcessTask = processingTask.getUserTask.filter(
+        (item) => item.taskState === 'isPlay' || item.taskState === 'isPause'
+      );
+      currentProcessTask && setCurProcessTask(currentProcessTask[0]);
     }
-  }, [userProcessingTask]);
+  }, [processingTask]);
 
   return (
     <div className='timing'>
@@ -66,7 +66,9 @@ export default function Timing(props) {
         </div>
         <div className='timing__button'>
           <FloatingButton
-            icon={taskPlay ? 'pause' : 'play_arrow'}
+            icon={
+              curProcessTask.taskState === 'isPlay' ? 'pause' : 'play_arrow'
+            }
             handleClickButton={(e) => {
               e.preventDefault();
               alert('play clicked');

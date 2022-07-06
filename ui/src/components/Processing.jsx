@@ -25,7 +25,6 @@ export default function Processing() {
       const processingTask = userTask.getUserTask.filter(
         (item) => item.taskState === 'isPause' || item.taskState === 'isPlay'
       );
-      console.log(processingTask);
       if (processingTask) {
         setCurrentProcessingTask((prev) => processingTask[0]);
       }
