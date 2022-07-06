@@ -4,7 +4,6 @@ const { default: client } = require('./apolloClient');
 const { GET_USER_TASK, GET_USER_PROCESSING_TASK } = require('./Query');
 
 export const getUserTask = async (sub) => {
-  console.log(sub);
   const userTaskData = await client.query({
     query: GET_USER_TASK,
     variables: {
