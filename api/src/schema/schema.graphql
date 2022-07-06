@@ -75,6 +75,7 @@ type Tasks {
 }
 input TaskInput {
   id: Int
+  user: UserInput
   boothNumber: String
   type: String
   url: String
