@@ -3,9 +3,8 @@ import Card from './Card';
 import '../style/Timing.scss';
 import ProgressBar from './ProgressBar';
 import FloatingButton from './FloatingButton';
-import { TaskContext } from '../context/taskContext';
 import { useQuery } from '@apollo/client';
-import { GET_USER_PROCESSING_TASK, GET_USER_TASK } from '../graphql/Query';
+import { GET_USER_TASK } from '../graphql/Query';
 import { AuthContext } from '../context/authContext';
 
 export default function Timing(props) {
@@ -26,13 +25,19 @@ export default function Timing(props) {
 
   useEffect(() => {
     if (processingTask && processingTask.getUserTask.length > 0) {
-      console.log(processingTask);
       const currentProcessTask = processingTask.getUserTask.filter(
         (item) => item.taskState === 'isPlay' || item.taskState === 'isPause'
       );
       currentProcessTask && setCurProcessTask(currentProcessTask[0]);
     }
   }, [processingTask]);
+
+  const handleClickButton = async (event) => {
+    event.preventDefault();
+    if (curProcessTask) {
+      console.log(curProcessTask.id);
+    }
+  };
 
   return (
     <div className='timing'>
@@ -69,10 +74,7 @@ export default function Timing(props) {
             icon={
               curProcessTask.taskState === 'isPlay' ? 'pause' : 'play_arrow'
             }
-            handleClickButton={(e) => {
-              e.preventDefault();
-              alert('play clicked');
-            }}
+            handleClickButton={(e) => handleClickButton(e)}
           />
         </div>
       </div>

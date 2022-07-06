@@ -75,19 +75,32 @@ export const setTaskStateOff = async (id) => {
   return result.data;
 };
 
-export const setTaskStatePause = async (id) => {
-  const result = await client.mutate({
-    mutation: UPDATE_TASK,
+export const setTaskStatePause = async (updateTask, id, error) => {
+  updateTask({
     variables: {
       filter: {
         id: id,
       },
-      update: {
-        taskState: 'isPause',
-      },
     },
-    refetchQueries: GET_USER_TASK,
-    awaitRefetchQueries: true,
+    update: {
+      taskState: 'isPause',
+    },
   });
-  return result.data;
+  if (error) {
+    console.log(error);
+  }
+  // const result = await client.mutate({
+  //   mutation: UPDATE_TASK,
+  //   variables: {
+  //     filter: {
+  //       id: id,
+  //     },
+  //     update: {
+  //       taskState: 'isPause',
+  //     },
+  //   },
+  //   refetchQueries: GET_USER_TASK,
+  //   awaitRefetchQueries: true,
+  // });
+  // return result.data;
 };
