@@ -25,7 +25,8 @@ export default function Timing(props) {
   });
 
   useEffect(() => {
-    if (processingTask) {
+    if (processingTask && processingTask.getUserTask.length > 0) {
+      console.log(processingTask);
       const currentProcessTask = processingTask.getUserTask.filter(
         (item) => item.taskState === 'isPlay' || item.taskState === 'isPause'
       );

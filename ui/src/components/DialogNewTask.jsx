@@ -52,12 +52,16 @@ const DialogNewTask = () => {
 
   const handleClickSave = async (evnt) => {
     evnt.preventDefault();
+    const sub = context.user.sub;
     if (currentProcTask) {
       const id = currentProcTask.id;
-      const sub = context.user.sub;
       setTaskStateOff(id)
         .then(createNewTask(createTask, sub, newTask, errorCreatTask))
         .then(ComponentContext.toggleDialogCreateNewTask());
+    } else {
+      createNewTask(createTask, sub, newTask, errorCreatTask).then(
+        ComponentContext.toggleDialogCreateNewTask()
+      );
     }
   };
 
@@ -102,10 +106,10 @@ const DialogNewTask = () => {
             </div>
 
             <div className='dialogNewTask__form__el'>
-              <label htmlFor='taskType'>TASK TYPE</label>
+              <label htmlFor='type'>TASK TYPE</label>
               <select
-                name='taskType'
-                id='taskType'
+                name='type'
+                id='type'
                 value={newTask.type}
                 onChange={(ev) => handleInputChange(ev)}
               >
