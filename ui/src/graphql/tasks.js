@@ -83,6 +83,9 @@ export const setTaskStatePause = async (updateTask, id, error) => {
       },
       update: {
         taskState: 'isPause',
+        session: {
+          sessionStop: new Date(),
+        },
       },
     },
   });
@@ -99,6 +102,7 @@ export const setTaskStatePlay = async (updateTask, id, error) => {
       },
       update: {
         taskState: 'isPlay',
+        session: Object.assign({ sessionStart: new Date(), sessionStop: null }),
       },
     },
   });

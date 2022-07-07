@@ -1,3 +1,5 @@
+scalar GraphQLDate
+
 enum taskStateEnum {
   isOff
   isPause
@@ -32,6 +34,16 @@ type User {
   picture: String
   sub: String!
   role: String
+}
+
+type SessionType {
+  sessionStart: GraphQLDate
+  sessionStop: GraphQLDate
+}
+
+input SessionInput {
+  sessionStart: GraphQLDate
+  sessionStop: GraphQLDate
 }
 
 input UserIdInput {
@@ -72,6 +84,7 @@ type Tasks {
   nbAfter: Int
   comment: String
   taskState: taskStateEnum!
+  session: [SessionType]
 }
 input TaskInput {
   id: Int
@@ -89,6 +102,7 @@ input TaskInput {
   comment: String
   #...Give the default value isPlay for taskState if not given
   taskState: taskStateEnum = isPlay
+  session: [SessionInput]
 }
 input FilterTaskPlay {
   id: Int!

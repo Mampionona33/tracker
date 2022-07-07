@@ -72,6 +72,12 @@ const resetMongo = async () => {
         nbAfter: 100,
         comment: 'this is a comment',
         taskState: 'isPlay',
+        session: [
+          {
+            sessionStart: '2022-07-07T11:44:09.135+00:00',
+            sessionStop: null,
+          },
+        ],
       },
     ];
     // initializers--------------------------

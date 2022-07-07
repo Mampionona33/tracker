@@ -31,6 +31,10 @@ export const GET_USER_TASK = gql`
       nbAfter
       comment
       taskState
+      session {
+        sessionStart
+        sessionStop
+      }
     }
   }
 `;
@@ -50,6 +54,10 @@ export const GET_USER_PROCESSING_TASK = gql`
       type
       taskState
       id
+      session {
+        sessionStart
+        sessionStop
+      }
     }
   }
 `;
