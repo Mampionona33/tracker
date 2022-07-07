@@ -32,6 +32,10 @@ export const createNewTask = async (createTask, sub, taskData, error) => {
         nbBefore: parseInt(taskData.nbBefore),
         nbAfter: parseInt(taskData.nbAfter),
         comment: taskData.comment,
+        session: {
+          sessionStart: new Date(),
+          sessionStop: null,
+        },
       },
     },
   });
@@ -67,6 +71,9 @@ export const setTaskStateOff = async (id) => {
       },
       update: {
         taskState: 'isOff',
+        session: {
+          sessionStop: new Date(),
+        },
       },
     },
     refetchQueries: GET_USER_TASK,

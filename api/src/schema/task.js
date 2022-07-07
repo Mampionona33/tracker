@@ -38,9 +38,9 @@ const create = async (_, { task }) => {
   const db = getDb();
   const newTask = Object.assign({}, task);
   newTask.id = await getNextSequence('tasks');
-  newTask.session = Object.assign([], {
-    0: { sessionStart: new Date(), sessionStop: null },
-  });
+  // newTask.session = Object.assign([], {
+  //   0: { sessionStart: new Date(), sessionStop: null },
+  // });
 
   const createNewTask = await db.collection('tasks').insertOne(newTask);
   const createdTask = await db

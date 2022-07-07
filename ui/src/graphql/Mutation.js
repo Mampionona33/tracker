@@ -38,6 +38,10 @@ export const CREATE_TASK = gql`
       nbAfter
       comment
       taskState
+      session {
+        sessionStart
+        sessionStop
+      }
     }
   }
 `;
