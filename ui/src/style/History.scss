@@ -1,0 +1,52 @@
+@import './variables.scss';
+
+.history {
+  margin: 0;
+  padding: 0;
+  &__cont {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 1rem;
+    &__table {
+      background-color: white;
+      border-collapse: collapse;
+      border-radius: 5px;
+      perspective: 1px;
+      &__head {
+        &__title {
+          background-color: $midAubergine;
+          color: $warmGrey;
+        }
+      }
+    }
+  }
+}
+.date_piker_cont {
+  display: flex;
+}
+
+.rows {
+  text-align: center;
+}
+
+th {
+  padding: 0.4rem 1rem;
+}
+
+.border {
+  &__round {
+    &__top {
+      border-left: 1rem solid $midAubergine;
+      border-right: 1rem solid $midAubergine;
+      &__left {
+        border-top-left-radius: 5px;
+      }
+      &__right {
+        border-top-right-radius: 5px;
+      }
+    }
+  }
+}
