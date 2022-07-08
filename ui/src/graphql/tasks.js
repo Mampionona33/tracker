@@ -117,3 +117,18 @@ export const setTaskStatePlay = async (updateTask, id, error) => {
     console.log(error);
   }
 };
+
+export const getTaskByDate = async (getTaskByDate, date, sub) => {
+  getTaskByDate({
+    variables: {
+      query: {
+        session: {
+          sessionStart: date.slice(10),
+        },
+        user: {
+          sub: sub,
+        },
+      },
+    },
+  });
+};

@@ -61,3 +61,26 @@ export const GET_USER_PROCESSING_TASK = gql`
     }
   }
 `;
+
+export const GET_TASK_BY_DATE = gql`
+  query GetTaskByDate($query: GetTaskByDateInput) {
+    getTaskByDate(query: $query) {
+      boothNumber
+      session {
+        sessionStart
+        sessionStop
+      }
+      id
+      type
+      url
+      cat
+      ivpn
+      statCom
+      processingState
+      nbBefore
+      nbAfter
+      comment
+      taskState
+    }
+  }
+`;

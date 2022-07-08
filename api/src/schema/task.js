@@ -1,9 +1,8 @@
 const { getDb, getNextSequence } = require('../db');
 
-const get = async (_, { input: { sub } }) => {
+const get = async (_, { input: { sub } }, context) => {
   const db = getDb();
   let filter = {};
-  // console.log(sub);
   if (sub) {
     filter = {
       ...filter,
@@ -127,4 +126,22 @@ const update = async (
   return { acknowledged: true };
 };
 
-module.exports = { get, create, update, getUserPlay };
+const getTaskByDate = async (_, { query: { date, sub } }) => {
+  const db = getDb();
+  let filter = {};
+  if (date && sub) {
+    const slicedDate = date.slice(0, 10);
+    console.log(slicedDate);
+    filter = {
+      ...filter,
+      'user.sub': sub,
+      // 'session.sessionStart': date,
+      'session.sessionStart': { $regex: slicedDate, $options: 'g' },
+    };
+  }
+  console.log(filter);
+  const userTaskByDate = await db.collection('tasks').find(filter).toArray();
+  return userTaskByDate;
+};
+
+module.exports = { get, create, update, getUserPlay, getTaskByDate };

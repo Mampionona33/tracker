@@ -113,6 +113,11 @@ type UpdateResponse {
   acknowledged: Boolean
 }
 
+input GetTaskByDateInput {
+  date: GraphQLDate
+  sub: String
+}
+
 ## Task -------------------
 
 #### top level declarations
@@ -122,6 +127,7 @@ type Query {
   getUserTask(input: UserInput): [Tasks]
   getUserTaskPlay(input: TaskInput): [Tasks]
   searchUser(input: UserIdInput): [User]
+  getTaskByDate(query: GetTaskByDateInput): [Tasks]
 }
 
 type Mutation {
