@@ -5,27 +5,28 @@ import { GET_TASK_BY_DATE } from '../graphql/Query';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../style/History.scss';
+import HistoryTable from '../components/HistoryTable';
 export default function History(props) {
   const userContext = useContext(AuthContext);
   const [selectedDate, setSelectedDate] = useState(new Date());
 
-  const { data: taskByDate, error: errorFetchTaskByDate } = useQuery(
-    GET_TASK_BY_DATE,
-    {
-      variables: {
-        query: {
-          date: selectedDate.toISOString(),
-          sub: userContext.user.sub,
-        },
-      },
-    }
-  );
+  // const { data: taskByDate, error: errorFetchTaskByDate } = useQuery(
+  //   GET_TASK_BY_DATE,
+  //   {
+  //     variables: {
+  //       query: {
+  //         date: selectedDate.toISOString(),
+  //         sub: userContext.user.sub,
+  //       },
+  //     },
+  //   }
+  // );
 
-  useEffect(() => {
-    if (taskByDate) {
-      console.log(taskByDate.getTaskByDate);
-    }
-  }, [taskByDate]);
+  // useEffect(() => {
+  //   if (taskByDate) {
+  //     console.log(taskByDate.getTaskByDate);
+  //   }
+  // }, [taskByDate]);
 
   const handleDateSelect = (date) => {
     setSelectedDate(date);
@@ -42,7 +43,8 @@ export default function History(props) {
               onSelect={(date) => handleDateSelect(date)}
             />
           </div>
-          <table className='history__cont__table'>
+          <HistoryTable selectedDate={selectedDate} />
+          {/* <table className='history__cont__table'>
             <thead className='history__cont__table__head'>
               <tr className='history__cont__table__head__title'>
                 <th className='border__round__top__left'>BOOTH NUMBER</th>
@@ -62,7 +64,7 @@ export default function History(props) {
                 <td>ACTION</td>
               </tr>
             </tbody>
-          </table>
+          </table> */}
         </div>
       </div>
     </>
