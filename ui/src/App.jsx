@@ -82,7 +82,9 @@ export default function App() {
           }
         />
         <Route path='/dashboard' element={<Dashboard />} />
-        <Route path='/history' element={<History />} />
+        <Route path='/history' element={<History />}>
+          <Route path='date=:date' element={<History />} />
+        </Route>
         <Route element={<AdminRoute />}>
           <Route path='/manage' element={<Manage />} />
         </Route>

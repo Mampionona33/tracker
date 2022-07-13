@@ -1,35 +1,22 @@
 import { useQuery } from '@apollo/client';
 import React, { useContext, useEffect, useState } from 'react';
-import { AuthContext } from '../context/authContext';
-import { GET_TASK_BY_DATE } from '../graphql/Query';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../style/History.scss';
 import HistoryTable from '../components/HistoryTable';
+import { HistoryContext } from '../context/historyContext';
+import { useNavigate } from 'react-router-dom';
 export default function History(props) {
-  const userContext = useContext(AuthContext);
-  const [selectedDate, setSelectedDate] = useState(new Date());
-
-  // const { data: taskByDate, error: errorFetchTaskByDate } = useQuery(
-  //   GET_TASK_BY_DATE,
-  //   {
-  //     variables: {
-  //       query: {
-  //         date: selectedDate.toISOString(),
-  //         sub: userContext.user.sub,
-  //       },
-  //     },
-  //   }
-  // );
-
-  // useEffect(() => {
-  //   if (taskByDate) {
-  //     console.log(taskByDate.getTaskByDate);
-  //   }
-  // }, [taskByDate]);
+  // const [selectedDate, setSelectedDate] = useState(new Date());
+  const selectedDateContext = useContext(HistoryContext);
+  const selelctedDate = new Date(selectedDateContext.selectedDate);
+  const stringDate = `${selelctedDate.getFullYear()}-${selelctedDate.getMonth()}-${selelctedDate.getDate()}`;
+  const navigate = useNavigate();
 
   const handleDateSelect = (date) => {
-    setSelectedDate(date);
+    selectedDateContext.setSelectedDate(date);
+    navigate(`date=${stringDate}`);
+    console.log(stringDate);
   };
 
   return (
@@ -38,33 +25,12 @@ export default function History(props) {
         <div className='history__cont'>
           <div className='date_piker_cont'>
             <DatePicker
-              selected={selectedDate}
-              onChange={(date) => setSelectedDate(date)}
+              selected={selectedDateContext.selectedDate}
+              onChange={(date) => handleDateSelect(date)}
               onSelect={(date) => handleDateSelect(date)}
             />
           </div>
-          <HistoryTable selectedDate={selectedDate} />
-          {/* <table className='history__cont__table'>
-            <thead className='history__cont__table__head'>
-              <tr className='history__cont__table__head__title'>
-                <th className='border__round__top__left'>BOOTH NUMBER</th>
-                <th className='border__round__top'>SESSION</th>
-                <th className='border__round__top__right'>ACTION</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr className='rows'>
-                <td>test</td>
-                <td>test2</td>
-                <td>ACTION</td>
-              </tr>
-              <tr className='rows'>
-                <td>test</td>
-                <td>test2</td>
-                <td>ACTION</td>
-              </tr>
-            </tbody>
-          </table> */}
+          <HistoryTable selectedDate={selectedDateContext.selectedDate} />
         </div>
       </div>
     </>

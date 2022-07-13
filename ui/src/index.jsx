@@ -11,22 +11,25 @@ import { ComponentProvider } from './context/componentContext';
 import { TaskProvider } from './context/taskContext';
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
+import { HistoryProvider } from './context/historyContext';
 
 root.render(
   <StrictMode>
     <AuthProvider>
       <ComponentProvider>
-        <TaskProvider>
-          <GoogleOAuthProvider
-            clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-          >
-            <ApolloProvider client={client}>
-              <BrowserRouter>
-                <App />
-              </BrowserRouter>
-            </ApolloProvider>
-          </GoogleOAuthProvider>
-        </TaskProvider>
+        <HistoryProvider>
+          <TaskProvider>
+            <GoogleOAuthProvider
+              clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+            >
+              <ApolloProvider client={client}>
+                <BrowserRouter>
+                  <App />
+                </BrowserRouter>
+              </ApolloProvider>
+            </GoogleOAuthProvider>
+          </TaskProvider>
+        </HistoryProvider>
       </ComponentProvider>
     </AuthProvider>
   </StrictMode>
