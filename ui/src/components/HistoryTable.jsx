@@ -28,49 +28,87 @@ export default function HistoryTable({ selectedDate }) {
       const taskInSelectedDate = dataSelect.map((item) => {
         let start = ``;
         let stop = ``;
+        let duration = ``;
+        let sessionId = 0;
 
         const boothNumber = item.boothNumber;
         for (let i = 0; i < item.session.length; i++) {
           const startTmp = item.session[i].sessionStart;
+          sessionId = i;
           if (startTmp.slice(0, 10) === selectedDateIso) {
             const strDate = new Date(startTmp);
             start = `${strDate.getHours()}:${strDate.getMinutes()}:${strDate.getSeconds()}`;
             const stopTmp = item.session[i].sessionStop;
+
+            // if task state set to pause or stop
             if (stopTmp) {
               const stpDate = new Date(stopTmp);
               const refDate = new Date(selectedDateIso);
-              // console.log(stopTmp);
+
+              // if stop date is equal to the selected date
               if (
                 stpDate.getFullYear() === refDate.getFullYear() &&
                 stpDate.getMonth() === refDate.getMonth() &&
-                stpDate.getDay() === refDate.getDay()
+                stpDate.getDate() === refDate.getDate()
               ) {
                 stop = `${stpDate.getHours()}:${stpDate.getMinutes()}:${stpDate.getSeconds()}`;
+
+                duration = `${
+                  stpDate.getHours() - strDate.getHours()
+                } heures, ${
+                  stpDate.getMinutes() > strDate.getMinutes()
+                    ? stpDate.getMinutes() - strDate.getMinutes()
+                    : 59 + stpDate.getMinutes() - strDate.getMinutes()
+                } minutes et
+                
+                ${
+                  stpDate.getSeconds() > strDate.getSeconds()
+                    ? stpDate.getSeconds() - strDate.getSeconds()
+                    : 60 + stpDate.getSeconds() - strDate.getSeconds()
+                }`;
               }
+
+              // if stop date is different to the selected date
               if (
                 stpDate.getFullYear() === refDate.getFullYear() &&
                 stpDate.getMonth() === refDate.getMonth() &&
-                stpDate.getDay() !== refDate.getDay()
+                stpDate.getDate() !== refDate.getDate()
               ) {
-                stop = `${stpDate.getHours()}:${stpDate.getMinutes()}:${stpDate.getSeconds()} (${stpDate.getFullYear()}-${stpDate.getMonth()}-${stpDate.getDay()})`;
+                stop = `${stpDate.getHours()}:${stpDate.getMinutes()}:${stpDate.getSeconds()} (${stpDate.getFullYear()}-${stpDate.getMonth()}-${stpDate.getDate()})`;
+                duration = `
+                ${
+                  stpDate.getMonth() === strDate.getMonth() &&
+                  stpDate.getDate() - strDate.getDate() - 1
+                } jours,
+                ${
+                  stpDate.getHours() > strDate.getHours()
+                    ? stpDate.getHours() - strDate.getHours()
+                    : 24 + stpDate.getHours() - strDate.getHours()
+                } heures, ${
+                  stpDate.getMinutes() > strDate.getMinutes()
+                    ? stpDate.getMinutes() - strDate.getMinutes()
+                    : 59 + stpDate.getMinutes() - strDate.getMinutes()
+                } minutes et
+                
+                ${
+                  stpDate.getSeconds() > strDate.getSeconds()
+                    ? stpDate.getSeconds() - strDate.getSeconds()
+                    : 60 + stpDate.getSeconds() - strDate.getSeconds()
+                }`;
               }
             }
+
+            // if task is still on play mode
             if (!stopTmp) {
               stop = `current`;
             }
           }
         }
 
-        console.log(`${boothNumber} -  ${start}  - ${stop}`);
-        // return start;
+        console.log(
+          `${sessionId} - ${boothNumber} -  ${start}  - ${stop} - ${duration}`
+        );
       });
-      //   if (taskInSelectedDate) {
-      //     console.log(selectedDateIso);
-      //     const startSessionSelectedDate = taskInSelectedDate.filter(
-      //       (item) => item.slice(0, 10) === selectedDateIso
-      //     );
-      //     console.log(startSessionSelectedDate);
-      //   }
     }
   }, [taskBydateData]);
 
