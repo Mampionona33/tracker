@@ -171,7 +171,7 @@ export default function HistoryTable({ selectedDate }) {
 
   const columns = [
     {
-      Header: 'boothNumber',
+      Header: 'BoothNumber',
       accessor: 'boothNumber',
     },
     {
@@ -185,6 +185,24 @@ export default function HistoryTable({ selectedDate }) {
     {
       Header: 'Duration',
       accessor: 'duration',
+    },
+    {
+      Header: 'Action',
+      accessor: () => {
+        return (
+          <div
+            className='actions'
+            style={{ display: 'flex', justifyContent: 'center' }}
+          >
+            <span
+              className='material-icons-round'
+              style={{ cursor: 'pointer', color: '#5e2750' }}
+            >
+              edit
+            </span>
+          </div>
+        );
+      },
     },
   ];
 
