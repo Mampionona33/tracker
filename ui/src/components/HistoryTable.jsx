@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/authContext';
 import { GET_TASK_BY_DATE } from '../graphql/Query';
 import Table from './Table';
@@ -7,6 +7,7 @@ import Table from './Table';
 export default function HistoryTable({ selectedDate }) {
   const userContext = useContext(AuthContext);
   const selectedDateIso = selectedDate.toISOString().slice(0, 10);
+  const [dataTable, setDataTable] = useState([]);
   const { data: taskBydateData, error: errorFetchTaskByDate } = useQuery(
     GET_TASK_BY_DATE,
     {
@@ -28,7 +29,7 @@ export default function HistoryTable({ selectedDate }) {
       const taskInSelectedDate = dataSelect.map((item) => {
         let start = ``;
         let stop = ``;
-        let duration = ``;
+        let duration = null;
         let sessionId = 0;
 
         const boothNumber = item.boothNumber;
@@ -75,12 +76,10 @@ export default function HistoryTable({ selectedDate }) {
                 stpDate.getDate() !== refDate.getDate()
               ) {
                 stop = `${stpDate.getHours()}:${stpDate.getMinutes()}:${stpDate.getSeconds()} (${stpDate.getFullYear()}-${stpDate.getMonth()}-${stpDate.getDate()})`;
-                duration = `
-                ${
+                duration = `                ${
                   stpDate.getMonth() === strDate.getMonth() &&
                   stpDate.getDate() - strDate.getDate() - 1
-                } jours,
-                ${
+                } jours,                ${
                   stpDate.getHours() > strDate.getHours()
                     ? stpDate.getHours() - strDate.getHours()
                     : 24 + stpDate.getHours() - strDate.getHours()
@@ -88,8 +87,7 @@ export default function HistoryTable({ selectedDate }) {
                   stpDate.getMinutes() > strDate.getMinutes()
                     ? stpDate.getMinutes() - strDate.getMinutes()
                     : 59 + stpDate.getMinutes() - strDate.getMinutes()
-                } minutes et
-                
+                } minutes et               
                 ${
                   stpDate.getSeconds() > strDate.getSeconds()
                     ? stpDate.getSeconds() - strDate.getSeconds()
@@ -105,10 +103,16 @@ export default function HistoryTable({ selectedDate }) {
           }
         }
 
-        console.log(
-          `${sessionId} - ${boothNumber} -  ${start}  - ${stop} - ${duration}`
-        );
+        // console.log(
+        //   `${sessionId} - ${boothNumber} -  ${start}  - ${stop} - ${duration}`
+        // );
+        return { sessionId, boothNumber, start, stop, duration };
       });
+
+      if (taskInSelectedDate) {
+        console.log(taskInSelectedDate);
+        setDataTable(taskInSelectedDate);
+      }
     }
   }, [taskBydateData]);
 
@@ -167,22 +171,26 @@ export default function HistoryTable({ selectedDate }) {
 
   const columns = [
     {
-      Header: 'Name',
-      accessor: 'name',
+      Header: 'boothNumber',
+      accessor: 'boothNumber',
     },
     {
-      Header: 'Email',
-      accessor: 'email',
+      Header: 'Start',
+      accessor: 'start',
     },
     {
-      Header: 'Phone',
-      accessor: 'phone',
+      Header: 'Stop',
+      accessor: 'stop',
+    },
+    {
+      Header: 'Duration',
+      accessor: 'duration',
     },
   ];
 
   return (
     <div className='historyTable'>
-      <Table columns={columns} data={data} />
+      <Table columns={columns} data={dataTable} />
     </div>
   );
 }
