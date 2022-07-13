@@ -36,20 +36,27 @@ export default function HistoryTable({ selectedDate }) {
             const strDate = new Date(startTmp);
             start = `${strDate.getHours()}:${strDate.getMinutes()}:${strDate.getSeconds()}`;
             const stopTmp = item.session[i].sessionStop;
-            const stpDate = new Date(stopTmp);
-            const refDate = new Date(selectedDateIso);
-            console.log(stopTmp);
-            // console.log(stpDate.getDate(), refDate.getDay());
-            if (
-              stpDate.getFullYear() === refDate.getFullYear &&
-              stpDate.getMonth() === refDate.getMonth() &&
-              stpDate.getDate() === refDate.getDate()
-            ) {
-              stop = `${stpDate.getHours()}:${stpDate.getMinutes()}:${stpDate.getSeconds()}`;
+            if (stopTmp) {
+              const stpDate = new Date(stopTmp);
+              const refDate = new Date(selectedDateIso);
+              // console.log(stopTmp);
+              if (
+                stpDate.getFullYear() === refDate.getFullYear() &&
+                stpDate.getMonth() === refDate.getMonth() &&
+                stpDate.getDay() === refDate.getDay()
+              ) {
+                stop = `${stpDate.getHours()}:${stpDate.getMinutes()}:${stpDate.getSeconds()}`;
+              }
+              if (
+                stpDate.getFullYear() === refDate.getFullYear() &&
+                stpDate.getMonth() === refDate.getMonth() &&
+                stpDate.getDay() !== refDate.getDay()
+              ) {
+                stop = `${stpDate.getHours()}:${stpDate.getMinutes()}:${stpDate.getSeconds()} (${stpDate.getFullYear()}-${stpDate.getMonth()}-${stpDate.getDay()})`;
+              }
             }
-            if (stpDate.getDate() !== refDate.getDate()) {
-              console.log(stpDate.getDate());
-              // stop = `${stpDate.getFullYear()}-${stpDate.getMonth()}-${stpDate.getDate()} - ${stpDate.getHours()}:${stpDate.getMinutes()}:${stpDate.getSeconds()}`;
+            if (!stopTmp) {
+              stop = `current`;
             }
           }
         }
