@@ -43,20 +43,30 @@ function Table({ columns, data }) {
                 </tr>
               ))}
             </thead>
-            <tbody {...getTableBodyProps()}>
-              {page.map((row, i) => {
-                prepareRow(row);
-                return (
-                  <tr {...row.getRowProps()}>
-                    {row.cells.map((cell) => {
-                      return (
-                        <td {...cell.getCellProps()}>{cell.render('Cell')}</td>
-                      );
-                    })}
-                  </tr>
-                );
-              })}
-            </tbody>
+            {data.length > 0 ? (
+              <tbody {...getTableBodyProps()}>
+                {page.map((row, i) => {
+                  prepareRow(row);
+                  return (
+                    <tr {...row.getRowProps()}>
+                      {row.cells.map((cell) => {
+                        return (
+                          <td {...cell.getCellProps()}>
+                            {cell.render('Cell')}
+                          </td>
+                        );
+                      })}
+                    </tr>
+                  );
+                })}
+              </tbody>
+            ) : (
+              <tbody>
+                <tr>
+                  <td>NO DATA TO DISPLAY</td>
+                </tr>
+              </tbody>
+            )}
           </table>
         </div>
       </div>
