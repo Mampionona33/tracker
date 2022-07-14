@@ -1,0 +1,43 @@
+@import './variables.scss';
+
+.card {
+  padding: 0 !important;
+  &-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 1rem;
+}
+
+table th {
+  background-color: $midAubergine;
+  color: white;
+}
+
+table th:first-child {
+  border-radius: 0.2rem 0 0 0;
+}
+
+table th:last-child {
+  border-radius: 0 0.2rem 0 0;
+}
+
+table tbody tr td:last-child {
+  border-radius: 0 0 0.2rem 0.2rem;
+}
+
+tbody tr td {
+  text-align: left;
+  padding: 0.5rem 1rem;
+}
+
+.pagination {
+  padding: 0.2rem 1rem !important;
+  display: flex;
+  justify-content: space-evenly;
+}
