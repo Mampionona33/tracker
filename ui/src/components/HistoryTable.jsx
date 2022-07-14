@@ -1,19 +1,28 @@
 import { useQuery } from '@apollo/client';
 import React, { useContext, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { AuthContext } from '../context/authContext';
 import { GET_TASK_BY_DATE } from '../graphql/Query';
 import Table from './Table';
 
 export default function HistoryTable({ selectedDate }) {
   const userContext = useContext(AuthContext);
-  const selectedDateIso = selectedDate.toISOString().slice(0, 10);
+  const { date } = useParams();
   const [dataTable, setDataTable] = useState([]);
+
+  console.log(date);
+
   const { data: taskBydateData, error: errorFetchTaskByDate } = useQuery(
     GET_TASK_BY_DATE,
     {
       variables: {
         query: {
-          date: selectedDateIso,
+          date:
+            date !== undefined
+              ? date
+              : `${new Date().getFullYear()}-${
+                  new Date().getMonth() + 1
+                }-${new Date().getDate()}`,
           sub: userContext.user.sub,
         },
       },
@@ -36,7 +45,7 @@ export default function HistoryTable({ selectedDate }) {
         for (let i = 0; i < item.session.length; i++) {
           const startTmp = item.session[i].sessionStart;
           sessionId = i;
-          if (startTmp.slice(0, 10) === selectedDateIso) {
+          if (startTmp.slice(0, 10) === date) {
             const strDate = new Date(startTmp);
             start = `${strDate.getHours()}:${strDate.getMinutes()}:${strDate.getSeconds()}`;
             const stopTmp = item.session[i].sessionStop;
@@ -44,7 +53,7 @@ export default function HistoryTable({ selectedDate }) {
             // if task state set to pause or stop
             if (stopTmp) {
               const stpDate = new Date(stopTmp);
-              const refDate = new Date(selectedDateIso);
+              const refDate = new Date(date);
 
               // if stop date is equal to the selected date
               if (

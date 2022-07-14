@@ -1,5 +1,6 @@
 import React, { useContext, useEffect } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes, useParams } from 'react-router-dom';
+import HistoryTable from './components/HistoryTable';
 import { AuthContext } from './context/authContext';
 import { TaskContext } from './context/taskContext';
 import { getUserTask } from './graphql/tasks';
@@ -62,6 +63,8 @@ export default function App() {
 
   // console.log(taskContext.userTaskPlay);
 
+  const { date } = useParams();
+
   return (
     <Routes>
       <Route
@@ -83,7 +86,7 @@ export default function App() {
         />
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/history' element={<History />}>
-          <Route path='date=:date' element={<History />} />
+          <Route path='date=:date' element={<HistoryTable />} />
         </Route>
         <Route element={<AdminRoute />}>
           <Route path='/manage' element={<Manage />} />

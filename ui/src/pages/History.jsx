@@ -1,23 +1,43 @@
-import { useQuery } from '@apollo/client';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../style/History.scss';
-import HistoryTable from '../components/HistoryTable';
-import { HistoryContext } from '../context/historyContext';
-import { useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
+
 export default function History(props) {
-  // const [selectedDate, setSelectedDate] = useState(new Date());
-  const selectedDateContext = useContext(HistoryContext);
-  const selelctedDate = new Date(selectedDateContext.selectedDate);
-  const stringDate = `${selelctedDate.getFullYear()}-${selelctedDate.getMonth()}-${selelctedDate.getDate()}`;
+  const { date } = useParams();
   const navigate = useNavigate();
 
+  const [selectedDate, setSelectedDate] = useState(
+    date !== undefined ? new Date(date) : new Date()
+  );
+
   const handleDateSelect = (date) => {
-    selectedDateContext.setSelectedDate(date);
-    navigate(`date=${stringDate}`);
-    console.log(stringDate);
+    console.log(date);
+    setSelectedDate(date);
+    navigate(
+      `date=${new Date(date).getFullYear()}-${(new Date(date).getMonth() + 1)
+        .toString()
+        .padStart(2, '0')}-${new Date(date)
+        .getDate()
+        .toString()
+        .padStart(2, '0')}`,
+      { replace: true }
+    );
   };
+
+  useEffect(() => {
+    if (date === undefined) {
+      navigate(
+        `date=${new Date().getFullYear()}-${(new Date().getMonth() + 1)
+          .toString()
+          .padStart(2, '0')}-${new Date()
+          .getDate()
+          .toString()
+          .padStart(2, '0')}`
+      );
+    }
+  }, [date]);
 
   return (
     <>
@@ -25,12 +45,12 @@ export default function History(props) {
         <div className='history__cont'>
           <div className='date_piker_cont'>
             <DatePicker
-              selected={selectedDateContext.selectedDate}
+              selected={selectedDate}
               onChange={(date) => handleDateSelect(date)}
               onSelect={(date) => handleDateSelect(date)}
             />
           </div>
-          <HistoryTable selectedDate={selectedDateContext.selectedDate} />
+          <Outlet />
         </div>
       </div>
     </>
