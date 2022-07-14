@@ -93,7 +93,7 @@ export default function HistoryTable() {
                     },
                     { boothNumber: boothNumber },
                     {
-                      stop: ` ${sessionStopTimeString} (${stopDateValue})`,
+                      stop: `${sessionStopTimeString} (${stopDateValue})`,
                     }
                   )
                 );
@@ -148,6 +148,16 @@ export default function HistoryTable() {
       },
     },
   ];
+
+  const calculDifDate = (date1, date2) => {
+    const dif = date2.getTime() - date1.getTime();
+    const day = Math.floor(dif / (3600 * 24));
+    const hours = Math.floor((dif % 3600.24) / 3600);
+    const min = Math.floor((dif % 3600) / 60);
+    const sec = Math.floor(dif / 60);
+
+    return { day, hours, min, sec };
+  };
 
   return (
     <div className='historyTable'>
