@@ -28,114 +28,86 @@ export default function HistoryTable() {
   useEffect(() => {
     if (taskBydateData) {
       const dataSelect = taskBydateData.getTaskByDate;
+      // console.log(dataSelect);
+      if (dataSelect) {
+        const sessionDay = [];
 
-      const taskInSelectedDate = dataSelect.map((item) => {
-        let start = ``;
-        let stop = ``;
-        let duration = null;
-        let sessionId = 0;
-        const boothNumber = item.boothNumber;
+        const session = dataSelect.map((item) => {
+          const thisSession = item.session;
+          const boothNumber = item.boothNumber;
 
-        for (let i = 0; i < item.session.length; i++) {
-          const startTmp = item.session[i].sessionStart;
-          sessionId = i;
-          if (startTmp.slice(0, 10) === date) {
-            const strDate = new Date(startTmp);
-            start = `${strDate.getHours()}:${strDate.getMinutes()}:${strDate.getSeconds()}`;
-            const stopTmp = item.session[i].sessionStop;
+          if (thisSession && boothNumber) {
+            const sessionStart = thisSession.map((items) => {
+              const sessionStartDate = new Date(items.sessionStart);
+              const sessionStopDate = new Date(items.sessionStop);
+              const sessionStartDateString = `${sessionStartDate.getFullYear()}-${(
+                sessionStartDate.getMonth() + 1
+              )
+                .toString()
+                .padStart(2, '0')}-${sessionStartDate
+                .getDate()
+                .toString()
+                .padStart(2, '0')}`;
 
-            // if task state set to pause or stop
-            if (stopTmp) {
-              const stpDate = new Date(stopTmp);
-              const refDate = new Date(date);
+              const sessionStopTimeString = `${sessionStopDate
+                .getHours()
+                .toString()
+                .padStart(2, '0')}:${sessionStopDate
+                .getMinutes()
+                .toString()
+                .padStart(2, '0')}:${sessionStopDate
+                .getSeconds()
+                .toString()
+                .padStart(2, '0')}`;
 
-              // if stop date is equal to the selected date
-              if (
-                stpDate.getFullYear() === refDate.getFullYear() &&
-                stpDate.getMonth() === refDate.getMonth() &&
-                stpDate.getDate() === refDate.getDate()
-              ) {
-                stop = `${stpDate.getHours()}:${stpDate.getMinutes()}:${stpDate.getSeconds()}`;
+              const sessionStartTimeString = `${sessionStartDate
+                .getHours()
+                .toString()
+                .padStart(2, '0')}:${sessionStartDate
+                .getMinutes()
+                .toString()
+                .padStart(2, '0')}:${sessionStartDate
+                .getSeconds()
+                .toString()
+                .padStart(2, '0')}`;
 
-                duration = `${(stpDate.getHours() - strDate.getHours())
-                  .toString()
-                  .padStart(2, '0')} hours, ${
-                  stpDate.getMinutes() >= strDate.getMinutes()
-                    ? (stpDate.getMinutes() - strDate.getMinutes())
-                        .toString()
-                        .padStart(2, '0')
-                    : (59 + stpDate.getMinutes() - strDate.getMinutes())
-                        .toString()
-                        .padStart(2, '0')
-                } minutes and
-                
-                ${
-                  stpDate.getSeconds() >= strDate.getSeconds()
-                    ? (stpDate.getSeconds() - strDate.getSeconds())
-                        .toString()
-                        .padStart(2, '0')
-                    : (60 + stpDate.getSeconds() - strDate.getSeconds())
-                        .toString()
-                        .padStart(2, '0')
-                }`;
+              const sessionStopDateString = `
+                ${sessionStopDate.getFullYear()}-${(
+                sessionStopDate.getMonth() + 1
+              )
+                .toString()
+                .padStart(2, '0')}-${sessionStopDate
+                .getDate()
+                .toString()
+                .padStart(2, '0')}
+                `;
+              const stopDateValue = sessionStopDateString.replace(/ /g, '');
+              const regDate = date.replace(/ /g, '');
+
+              if (sessionStartDateString === date) {
+                sessionDay.push(
+                  Object.assign(
+                    {},
+                    {
+                      start: sessionStartTimeString,
+                    },
+                    { boothNumber: boothNumber },
+                    {
+                      stop: ` ${sessionStopTimeString} (${stopDateValue})`,
+                    }
+                  )
+                );
               }
-
-              // if stop date is different to the selected date
-              if (
-                stpDate.getFullYear() === refDate.getFullYear() &&
-                stpDate.getMonth() === refDate.getMonth() &&
-                stpDate.getDate() !== refDate.getDate()
-              ) {
-                stop = `${stpDate.getHours()}:${stpDate.getMinutes()}:${stpDate.getSeconds()} (${stpDate.getFullYear()}-${stpDate.getMonth()}-${stpDate.getDate()})`;
-                duration = `                ${
-                  stpDate.getMonth() === strDate.getMonth() &&
-                  (stpDate.getDate() - strDate.getDate() - 1)
-                    .toString()
-                    .padStart(2, '0')
-                } days,                ${
-                  stpDate.getHours() > strDate.getHours()
-                    ? (stpDate.getHours() - strDate.getHours())
-                        .toString()
-                        .padStart(2, '0')
-                    : (24 + stpDate.getHours() - strDate.getHours())
-                        .toString()
-                        .padStart(2, '0')
-                } hours, ${
-                  stpDate.getMinutes() > strDate.getMinutes()
-                    ? (stpDate.getMinutes() - strDate.getMinutes())
-                        .toString()
-                        .padStart(2, '0')
-                    : (59 + stpDate.getMinutes() - strDate.getMinutes())
-                        .toString()
-                        .padStart(2, '0')
-                } minutes and               
-                ${
-                  stpDate.getSeconds() > strDate.getSeconds()
-                    ? (stpDate.getSeconds() - strDate.getSeconds())
-                        .toString()
-                        .padStart(2, '0')
-                    : (
-                        60 +
-                        stpDate.getSeconds() -
-                        strDate.getSeconds()
-                      ).toString(2, '0')
-                } secondes`;
-              }
-            }
-
-            // if task is still on play mode
-            if (!stopTmp) {
-              stop = `current`;
-            }
+            });
           }
+
+          return item;
+        });
+        // console.log(session);
+        if (sessionDay.length > 0) {
+          // console.log(sessionDay);
+          setDataTable(sessionDay);
         }
-
-        return { sessionId, boothNumber, start, stop, duration };
-      });
-
-      if (taskInSelectedDate) {
-        console.log(taskInSelectedDate);
-        setDataTable(taskInSelectedDate);
       }
     }
   }, [taskBydateData]);
