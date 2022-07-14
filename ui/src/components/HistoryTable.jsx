@@ -5,24 +5,20 @@ import { AuthContext } from '../context/authContext';
 import { GET_TASK_BY_DATE } from '../graphql/Query';
 import Table from './Table';
 
-export default function HistoryTable({ selectedDate }) {
+export default function HistoryTable() {
   const userContext = useContext(AuthContext);
-  const { date } = useParams();
-  const [dataTable, setDataTable] = useState([]);
 
-  console.log(date);
+  // get the date from the url params
+  const { date } = useParams();
+
+  const [dataTable, setDataTable] = useState([]);
 
   const { data: taskBydateData, error: errorFetchTaskByDate } = useQuery(
     GET_TASK_BY_DATE,
     {
       variables: {
         query: {
-          date:
-            date !== undefined
-              ? date
-              : `${new Date().getFullYear()}-${
-                  new Date().getMonth() + 1
-                }-${new Date().getDate()}`,
+          date: date,
           sub: userContext.user.sub,
         },
       },
@@ -31,9 +27,7 @@ export default function HistoryTable({ selectedDate }) {
 
   useEffect(() => {
     if (taskBydateData) {
-      //   console.log(taskBydateData.getTaskByDate);
       const dataSelect = taskBydateData.getTaskByDate;
-      //   console.log(dataSelect);
 
       const taskInSelectedDate = dataSelect.map((item) => {
         let start = ``;

@@ -85,6 +85,11 @@ export default function App() {
           }
         />
         <Route path='/dashboard' element={<Dashboard />} />
+        {/* 
+          the default component to render when path is /history is the <History/> component
+          when /history get params date; then render the <Outlet/> inside the history Route
+          and inside <History/> component
+        */}
         <Route path='/history' element={<History />}>
           <Route path='date=:date' element={<HistoryTable />} />
         </Route>

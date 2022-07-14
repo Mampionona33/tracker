@@ -50,6 +50,7 @@ export default function History(props) {
               onSelect={(date) => handleDateSelect(date)}
             />
           </div>
+          {/* this Outlet will be render when url get parmas date */}
           <Outlet />
         </div>
       </div>
