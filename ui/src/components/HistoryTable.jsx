@@ -28,99 +28,84 @@ export default function HistoryTable() {
   useEffect(() => {
     if (taskBydateData) {
       const dataSelect = taskBydateData.getTaskByDate;
-      // console.log(dataSelect);
-      if (dataSelect) {
-        const sessionDay = [];
+      const sessionArray = [];
 
-        const session = dataSelect.map((item) => {
-          const thisSession = item.session;
-          const boothNumber = item.boothNumber;
+      if (dataSelect.length > 0) {
+        for (let i = 0; i < dataSelect.length; i++) {
+          console.log(dataSelect[i].session);
 
-          if (thisSession && boothNumber) {
-            
-            const sessionStart = thisSession.map((items) => {
-              const sessionStartDate = new Date(items.sessionStart);
-              const sessionStopDate = new Date(items.sessionStop);
-              const sessionStartDateString = `${sessionStartDate.getFullYear()}-${(
-                sessionStartDate.getMonth() + 1
+          const boothNumbers = dataSelect[i].boothNumber;
+
+          console.log(boothNumbers);
+
+          for (let a = 0; a < dataSelect[i].session.length; a++) {
+            // console.log(dataSelect[i].session[a]);
+            if (dataSelect[i].session[a].sessionStop) {
+              console.log(
+                Object.values(dataSelect[i].session[a].sessionStop).join('')
+              );
+
+              const startDt = Object.values(
+                dataSelect[i].session[a].sessionStart
+              ).join('');
+
+              const stopDt = Object.values(
+                dataSelect[i].session[a].sessionStop
+              ).join('');
+
+              const startDate = new Date(startDt);
+              const stopDate = new Date(stopDt);
+
+              const fullStrDate = `${startDate.getFullYear()}-${(
+                startDate.getMonth() + 1
               )
                 .toString()
-                .padStart(2, '0')}-${sessionStartDate
+                .padStart(2, '0')}-${startDate
                 .getDate()
                 .toString()
                 .padStart(2, '0')}`;
 
-              const sessionStopTimeString = `${sessionStopDate
-                .getHours()
-                .toString()
-                .padStart(2, '0')}:${sessionStopDate
-                .getMinutes()
-                .toString()
-                .padStart(2, '0')}:${sessionStopDate
-                .getSeconds()
-                .toString()
-                .padStart(2, '0')}`;
-
-              const sessionStartTimeString = `${sessionStartDate
-                .getHours()
-                .toString()
-                .padStart(2, '0')}:${sessionStartDate
-                .getMinutes()
-                .toString()
-                .padStart(2, '0')}:${sessionStartDate
-                .getSeconds()
-                .toString()
-                .padStart(2, '0')}`;
-
-              const sessionStopDateString = `
-                ${sessionStopDate.getFullYear()}-${(
-                sessionStopDate.getMonth() + 1
+              const fullStpDate = `${stopDate.getFullYear()}-${(
+                stopDate.getMonth() + 1
               )
                 .toString()
-                .padStart(2, '0')}-${sessionStopDate
+                .padStart(2, '0')}-${stopDate
                 .getDate()
                 .toString()
-                .padStart(2, '0')}
-                `;
-              const stopDateValue = sessionStopDateString.replace(/ /g, '');
-              const regDate = date.replace(/ /g, '');
+                .padStart(2, '0')}`;
 
-              if (sessionStartDateString === date) {
-                if (stopDateValue === date) {
-                  console.log('test');
-                }
-                if (stopDateValue !== date) {
-                  console.log('stopDateValue', stopDateValue, 'date', date);
+              const startTime = `${startDate
+                .getHours()
+                .toString()
+                .padStart(2, '0')}:${startDate
+                .getMinutes()
+                .toString()
+                .padStart(2, '0')}:${startDate
+                .getSeconds()
+                .toString()
+                .padStart(2, '0')}`;
+
+              if (fullStrDate === date) {
+                console.log(date, fullStrDate);
+                if (fullStpDate === date) {
+                  sessionArray.push(
+                    Object.assign(
+                      {},
+                      { boothNumber: boothNumbers, start: startTime }
+                    )
+                  );
                 }
               }
-
-              // if (sessionStartDateString === date) {
-              //   sessionDay.push(
-              //     Object.assign(
-              //       {},
-              //       {
-              //         start: sessionStartTimeString,
-              //       },
-              //       { boothNumber: boothNumber },
-              //       {
-              //         stop: `${sessionStopTimeString} (${stopDateValue})`,
-              //       }
-              //     )
-              //   );
-              // }
-            });
+            }
           }
-
-          return item;
-        });
-        // console.log(session);
-        if (sessionDay.length > 0) {
-          // console.log(sessionDay);
-          setDataTable(sessionDay);
         }
       }
+
+      if (sessionArray.length > 0) {
+        setDataTable(sessionArray);
+      }
     }
-  }, [taskBydateData, date]);
+  }, [taskBydateData]);
 
   const columns = [
     {
