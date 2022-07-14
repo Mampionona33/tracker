@@ -72,16 +72,29 @@ function Table({ columns, data }) {
       </div>
       <div className='card pagination'>
         <div className='directNav'>
-          <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+          <button
+            type='button'
+            onClick={() => gotoPage(0)}
+            disabled={!canPreviousPage}
+          >
             {'<<'}
           </button>
-          <button onClick={() => previousPage()} disabled={!canPreviousPage}>
+          <button
+            type='button'
+            onClick={() => previousPage()}
+            disabled={!canPreviousPage}
+          >
             {'<'}
           </button>
-          <button onClick={() => nextPage()} disabled={!canNextPage}>
+          <button
+            type='button'
+            onClick={() => nextPage()}
+            disabled={!canNextPage}
+          >
             {'>'}
           </button>
           <button
+            type='button'
             onClick={() => gotoPage(pageCount - 1)}
             disabled={!canNextPage}
           >
