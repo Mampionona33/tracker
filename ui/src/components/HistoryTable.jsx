@@ -37,6 +37,7 @@ export default function HistoryTable() {
           const boothNumber = item.boothNumber;
 
           if (thisSession && boothNumber) {
+            
             const sessionStart = thisSession.map((items) => {
               const sessionStartDate = new Date(items.sessionStart);
               const sessionStopDate = new Date(items.sessionStop);
@@ -85,19 +86,28 @@ export default function HistoryTable() {
               const regDate = date.replace(/ /g, '');
 
               if (sessionStartDateString === date) {
-                sessionDay.push(
-                  Object.assign(
-                    {},
-                    {
-                      start: sessionStartTimeString,
-                    },
-                    { boothNumber: boothNumber },
-                    {
-                      stop: `${sessionStopTimeString} (${stopDateValue})`,
-                    }
-                  )
-                );
+                if (stopDateValue === date) {
+                  console.log('test');
+                }
+                if (stopDateValue !== date) {
+                  console.log('stopDateValue', stopDateValue, 'date', date);
+                }
               }
+
+              // if (sessionStartDateString === date) {
+              //   sessionDay.push(
+              //     Object.assign(
+              //       {},
+              //       {
+              //         start: sessionStartTimeString,
+              //       },
+              //       { boothNumber: boothNumber },
+              //       {
+              //         stop: `${sessionStopTimeString} (${stopDateValue})`,
+              //       }
+              //     )
+              //   );
+              // }
             });
           }
 
@@ -110,7 +120,7 @@ export default function HistoryTable() {
         }
       }
     }
-  }, [taskBydateData]);
+  }, [taskBydateData, date]);
 
   const columns = [
     {
