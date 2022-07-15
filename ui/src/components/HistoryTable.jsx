@@ -32,18 +32,16 @@ export default function HistoryTable() {
 
       if (dataSelect.length > 0) {
         for (let i = 0; i < dataSelect.length; i++) {
-          console.log(dataSelect[i].session);
+          // console.log(dataSelect[i].session);
 
           const boothNumbers = dataSelect[i].boothNumber;
-
-          console.log(boothNumbers);
 
           for (let a = 0; a < dataSelect[i].session.length; a++) {
             // console.log(dataSelect[i].session[a]);
             if (dataSelect[i].session[a].sessionStop) {
-              console.log(
-                Object.values(dataSelect[i].session[a].sessionStop).join('')
-              );
+              // console.log(
+              //   Object.values(dataSelect[i].session[a].sessionStop).join('')
+              // );
 
               const startDt = Object.values(
                 dataSelect[i].session[a].sessionStart
@@ -85,13 +83,38 @@ export default function HistoryTable() {
                 .toString()
                 .padStart(2, '0')}`;
 
+              const stopTime = `${stopDate
+                .getHours()
+                .toString()
+                .padStart(2, '0')}:${stopDate
+                .getMinutes()
+                .toString()
+                .padStart(2, '0')}:${stopDate
+                .getSeconds()
+                .toString()
+                .padStart(2, '0')}`;
+
               if (fullStrDate === date) {
-                console.log(date, fullStrDate);
                 if (fullStpDate === date) {
                   sessionArray.push(
                     Object.assign(
                       {},
-                      { boothNumber: boothNumbers, start: startTime }
+                      {
+                        boothNumber: boothNumbers,
+                        start: startTime,
+                        stop: stopTime,
+                      }
+                    )
+                  );
+                } else {
+                  sessionArray.push(
+                    Object.assign(
+                      {},
+                      {
+                        boothNumber: boothNumbers,
+                        start: startTime,
+                        stop: `${stopTime} (${fullStpDate})`,
+                      }
                     )
                   );
                 }

@@ -13,7 +13,6 @@ export default function History(props) {
   );
 
   const handleDateSelect = (date) => {
-    console.log(date);
     setSelectedDate(date);
     navigate(
       `date=${new Date(date).getFullYear()}-${(new Date(date).getMonth() + 1)
