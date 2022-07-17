@@ -70,14 +70,19 @@ const TaskProvider = (props) => {
   const setUserTaskPlay = (userTasksPlay) => {
     dispatch({ type: ACTION.SET_USER_TASK_PLAY, payload: userTasksPlay });
   };
+  const setUserTaskPause = (userTasksPlay) => {
+    dispatch({ type: ACTION.SET_USER_TASK_PLAY, payload: userTasksPlay });
+  };
 
   return (
     <TaskContext.Provider
       value={{
         userTasks: state.userTasks,
         userTaskPlay: state.userTaskPlay,
+        userTaskPause: state.userTaskPause,
         setUserTasks,
         setUserTaskPlay,
+        setUserTaskPause,
       }}
       {...props}
     />

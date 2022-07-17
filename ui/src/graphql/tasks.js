@@ -62,9 +62,8 @@ export const getUserTaskPlay = async (sub) => {
   return result.data.getUserTaskPlay;
 };
 
-export const setTaskStateOff = async (id) => {
-  const result = await client.mutate({
-    mutation: UPDATE_TASK,
+export const setTaskStateOff = async (updateTask, id, error) => {
+  updateTask({
     variables: {
       filter: {
         id: id,
@@ -76,12 +75,11 @@ export const setTaskStateOff = async (id) => {
         },
       },
     },
-    refetchQueries: GET_USER_TASK,
-    awaitRefetchQueries: true,
   });
-  return result.data;
+  if (error) {
+    console.log(error);
+  }
 };
-
 export const setTaskStatePause = async (updateTask, id, error) => {
   updateTask({
     variables: {

@@ -8,9 +8,11 @@ import { GET_USER_TASK } from '../graphql/Query';
 import { AuthContext } from '../context/authContext';
 import { UPDATE_TASK } from '../graphql/Mutation';
 import { setTaskStatePause, setTaskStatePlay } from '../graphql/tasks';
+import { TaskContext } from '../context/taskContext';
 
 export default function Timing(props) {
   const userContext = useContext(AuthContext);
+  const { setUserTaskPlay, setUserTaskPause } = useContext(TaskContext);
   const [curProcessTask, setCurProcessTask] = useState([]);
   const sub = userContext.user.sub;
 
@@ -41,7 +43,9 @@ export default function Timing(props) {
       const currentProcessTask = processingTask.getUserTask.filter(
         (item) => item.taskState === 'isPlay' || item.taskState === 'isPause'
       );
-      currentProcessTask && setCurProcessTask(currentProcessTask[0]);
+      currentProcessTask &&
+        (setCurProcessTask(currentProcessTask[0]),
+        setUserTaskPlay(currentProcessTask[0]));
     }
   }, [processingTask]);
 
@@ -51,7 +55,11 @@ export default function Timing(props) {
     if (curProcessTask) {
       if (buttonState === 'pause') {
         console.log(curProcessTask.id);
-        await setTaskStatePause(updateTask, curProcessTask.id, errorOnUpdate);
+        await setTaskStatePause(
+          updateTask,
+          curProcessTask.id,
+          errorOnUpdate
+        ).then(setUserTaskPause(curProcessTask));
       }
       if (buttonState === 'play_arrow') {
         await setTaskStatePlay(updateTask, curProcessTask.id, errorOnUpdate);

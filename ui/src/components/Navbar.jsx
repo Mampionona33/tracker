@@ -3,11 +3,30 @@ import { AuthContext } from '../context/authContext';
 import { componentContext } from '../context/componentContext';
 import '../style/Navbar.scss';
 import { useMutation } from '@apollo/client';
-import { CREATE_TASK } from '../graphql/Mutation';
-import { GET_USER_TASK_PLAY } from '../graphql/Query';
+import { CREATE_TASK, UPDATE_TASK } from '../graphql/Mutation';
+import { GET_USER_TASK, GET_USER_TASK_PLAY } from '../graphql/Query';
+import { setTaskStateOff } from '../graphql/tasks';
+import { TaskContext } from '../context/taskContext';
 export default function Navbar(props) {
   const context = useContext(AuthContext);
   const ComponentContext = useContext(componentContext);
+  const taskContext = useContext(TaskContext);
+  const taskPlay = taskContext.userTaskPlay;
+
+  const [
+    updateTask,
+    { data: dataUpdate, error: errorOnUpdateTask, onCompleted },
+  ] = useMutation(UPDATE_TASK, {
+    refetchQueries: [
+      GET_USER_TASK,
+      {
+        variables: { input: { sub: context && context.user.sub } },
+      },
+    ],
+    // after the update is complete, execute the logout function
+    onCompleted: () => context.logout(),
+    awaitRefetchQueries: true,
+  });
 
   const handleClickMenu = (event) => {
     event.preventDefault();
@@ -16,7 +35,13 @@ export default function Navbar(props) {
 
   const handleClickLogout = async (event) => {
     event.preventDefault();
-    context.logout();
+    // console.log(taskPlay.id);
+    if (taskPlay) {
+      setTaskStateOff(updateTask, taskPlay.id, errorOnUpdateTask);
+      if (taskPlay[0]) {
+        setTaskStateOff(updateTask, taskPlay[0].id, errorOnUpdateTask);
+      }
+    }
   };
 
   const handleClickCreateNewTask = (event) => {
