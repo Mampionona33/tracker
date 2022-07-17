@@ -7,6 +7,10 @@ const Pagination = ({
   pageOptions,
   pageSize,
   setPageSize,
+  nextPage,
+  previousPage,
+  pageCount,
+  gotoPage,
 }) => {
   return (
     <div className='card pagination'>
