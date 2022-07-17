@@ -10,7 +10,7 @@ export default function History(props) {
 
   const [selectedDate, setSelectedDate] = useState(
     date !== undefined ? new Date(date) : new Date(),
-    row_show !== undefined ? row_show : 3
+    row_show !== undefined ? row_show : 7
   );
 
   const handleDateSelect = (date) => {
@@ -34,7 +34,7 @@ export default function History(props) {
           .padStart(2, '0')}-${new Date()
           .getDate()
           .toString()
-          .padStart(2, '0')}&row_show=${row_show !== undefined ? row_show : 3}`
+          .padStart(2, '0')}&row_show=${row_show !== undefined ? row_show : 7}`
       );
     }
   }, [date, row_show]);
