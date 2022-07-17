@@ -1,6 +1,7 @@
 import React from 'react';
 import { useTable, usePagination } from 'react-table';
 import '../style/Table.scss';
+import Pagination from './Pagination';
 
 function Table({ columns, data }) {
   const {
@@ -70,7 +71,7 @@ function Table({ columns, data }) {
           </table>
         </div>
       </div>
-      <div className='card pagination'>
+      {/* <div className='card pagination'>
         <div className='directNav'>
           <button
             type='button'
@@ -134,7 +135,15 @@ function Table({ columns, data }) {
             </option>
           ))}
         </select>
-      </div>
+      </div> */}
+      <Pagination
+        canPreviousPage={canPreviousPage}
+        canNextPage={canNextPage}
+        pageIndex={pageIndex}
+        pageOptions={pageOptions}
+        pageSize={pageSize}
+        setPageSize={setPageSize}
+      />
     </>
   );
 }
