@@ -28,6 +28,7 @@ export default function HistoryTable() {
 
   useEffect(() => {
     if (taskBydateData) {
+      console.log(taskBydateData);
       const dataSelect = taskBydateData.getTaskByDate;
       const sessionArray = [];
 
@@ -126,6 +127,10 @@ export default function HistoryTable() {
             }
           }
         }
+      }
+
+      if (dataSelect.length <= 0) {
+        setDataTable([]);
       }
 
       if (sessionArray.length > 0) {
