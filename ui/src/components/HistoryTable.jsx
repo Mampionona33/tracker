@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client';
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { duration } from '../assets/img/duration';
 import { AuthContext } from '../context/authContext';
 import { GET_TASK_BY_DATE } from '../graphql/Query';
 import Table from './Table';
@@ -95,6 +96,7 @@ export default function HistoryTable() {
                 .padStart(2, '0')}`;
 
               if (fullStrDate === date) {
+                const dur = duration(startDate, stopDate);
                 if (fullStpDate === date) {
                   sessionArray.push(
                     Object.assign(
@@ -103,6 +105,7 @@ export default function HistoryTable() {
                         boothNumber: boothNumbers,
                         start: startTime,
                         stop: stopTime,
+                        duration: dur,
                       }
                     )
                   );
@@ -114,6 +117,7 @@ export default function HistoryTable() {
                         boothNumber: boothNumbers,
                         start: startTime,
                         stop: `${stopTime} (${fullStpDate})`,
+                        duration: dur,
                       }
                     )
                   );
