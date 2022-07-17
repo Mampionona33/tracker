@@ -91,7 +91,10 @@ export default function App() {
           and inside <History/> component
         */}
         <Route path='/history' element={<History />}>
-          <Route path='date=:date' element={<HistoryTable />} />
+          <Route
+            path='date=:date&row_show=:row_show'
+            element={<HistoryTable />}
+          />
         </Route>
         <Route element={<AdminRoute />}>
           <Route path='/manage' element={<Manage />} />

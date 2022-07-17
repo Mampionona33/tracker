@@ -5,11 +5,12 @@ import '../style/History.scss';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
 export default function History(props) {
-  const { date } = useParams();
+  const { date, row_show } = useParams();
   const navigate = useNavigate();
 
   const [selectedDate, setSelectedDate] = useState(
-    date !== undefined ? new Date(date) : new Date()
+    date !== undefined ? new Date(date) : new Date(),
+    row_show !== undefined ? row_show : 3
   );
 
   const handleDateSelect = (date) => {
@@ -20,7 +21,7 @@ export default function History(props) {
         .padStart(2, '0')}-${new Date(date)
         .getDate()
         .toString()
-        .padStart(2, '0')}`,
+        .padStart(2, '0')}&row_show=${row_show}`,
       { replace: true }
     );
   };
@@ -33,10 +34,10 @@ export default function History(props) {
           .padStart(2, '0')}-${new Date()
           .getDate()
           .toString()
-          .padStart(2, '0')}`
+          .padStart(2, '0')}&row_show=${row_show !== undefined ? row_show : 3}`
       );
     }
-  }, [date]);
+  }, [date, row_show]);
 
   return (
     <>

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const Pagination = ({
   canPreviousPage,
@@ -12,6 +13,21 @@ const Pagination = ({
   pageCount,
   gotoPage,
 }) => {
+  const { row_show } = useParams();
+  const navigate = useNavigate();
+
+  const handleSelectedRowShow = (event) => {
+    setPageSize(event.target.value);
+    const currentUrl = window.location.pathname;
+    navigate(`${currentUrl.slice(0, -1)}${event.target.value}`);
+  };
+
+  useEffect(() => {
+    if (row_show) {
+      setPageSize(row_show);
+    }
+  }, [row_show]);
+
   return (
     <div className='card pagination'>
       <div className='directNav'>
@@ -66,9 +82,9 @@ const Pagination = ({
       </div>
       <select
         title='rowPerPage'
-        value={pageSize}
+        value={row_show}
         onChange={(e) => {
-          setPageSize(Number(e.target.value));
+          handleSelectedRowShow(e);
         }}
       >
         {[3, 7, 15].map((pageSize) => (
