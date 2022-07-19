@@ -84,3 +84,25 @@ export const GET_TASK_BY_DATE = gql`
     }
   }
 `;
+
+export const GET_TASK_BY_FILTER = gql`
+  query GetUserTaskByFilter($input: TaskInput) {
+    getUserTaskByFilter(input: $input) {
+      id
+      type
+      url
+      cat
+      ivpn
+      statCom
+      processingState
+      nbBefore
+      nbAfter
+      comment
+      taskState
+      session {
+        sessionStart
+        sessionStop
+      }
+    }
+  }
+`;

@@ -17,7 +17,7 @@ const resolvers = {
     // get one user by id
     searchUser: users.search,
     getUserTask: task.get,
-    getUserTaskPlay: task.getUserPlay,
+    getUserTaskByFilter: task.getUserTaskByFilter,
     getTaskByDate: task.getTaskByDate,
   },
   Mutation: {

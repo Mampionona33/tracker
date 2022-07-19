@@ -13,7 +13,7 @@ const get = async (_, { input: { sub } }, context) => {
   return getUserTask;
 };
 
-const getUserPlay = async (_, { input: { user, taskState } }) => {
+const getUserTaskByFilter = async (_, { input: { user, taskState } }) => {
   const db = getDb();
   let filter = {};
   if (user) {
@@ -144,4 +144,5 @@ const getTaskByDate = async (_, { query: { date, sub } }) => {
   return userTaskByDate;
 };
 
-module.exports = { get, create, update, getUserPlay, getTaskByDate };
+
+module.exports = { get, create, update, getUserTaskByFilter, getTaskByDate };

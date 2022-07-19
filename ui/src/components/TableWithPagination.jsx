@@ -1,9 +1,9 @@
 import React from 'react';
 import { useTable, usePagination } from 'react-table';
-import '../style/Table.scss';
+import '../style/TableWithPagination.scss';
 import Pagination from './Pagination';
 
-function Table({ columns, data }) {
+function TableWithPagination({ columns, data }) {
   const {
     page,
     getTableProps,
@@ -87,4 +87,4 @@ function Table({ columns, data }) {
   );
 }
 
-export default Table;
+export default TableWithPagination;

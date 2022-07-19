@@ -130,3 +130,16 @@ export const getTaskByDate = async (getTaskByDate, date, sub) => {
     },
   });
 };
+
+export const getPendingTask = async (getUserTaskByFilter, sub) => {
+  getUserTaskByFilter({
+    variables: {
+      input: {
+        taskState: 'isOff',
+        user: {
+          sub: sub,
+        },
+      },
+    },
+  });
+};

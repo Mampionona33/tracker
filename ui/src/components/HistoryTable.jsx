@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { duration } from '../assets/img/duration';
 import { AuthContext } from '../context/authContext';
 import { GET_TASK_BY_DATE } from '../graphql/Query';
-import Table from './Table';
+import TableWithPagination from './TableWithPagination';
 
 export default function HistoryTable() {
   const userContext = useContext(AuthContext);
@@ -187,7 +187,7 @@ export default function HistoryTable() {
 
   return (
     <div className='historyTable'>
-      <Table columns={columns} data={dataTable} />
+      <TableWithPagination columns={columns} data={dataTable} />
     </div>
   );
 }

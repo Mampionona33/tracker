@@ -4,6 +4,7 @@ enum taskStateEnum {
   isOff
   isPause
   isPlay
+  isDone
 }
 
 enum processingStateEnum {
@@ -125,7 +126,7 @@ type Query {
   getMessage: String
   listUser: [User!]
   getUserTask(input: UserInput): [Tasks]
-  getUserTaskPlay(input: TaskInput): [Tasks]
+  getUserTaskByFilter(input: TaskInput): [Tasks]
   searchUser(input: UserIdInput): [User]
   getTaskByDate(query: GetTaskByDateInput): [Tasks]
 }
