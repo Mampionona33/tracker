@@ -28,9 +28,10 @@ const TaskOffList = () => {
     }
   }, [userTaskOff]);
 
-  const taskOffLi = userTaskOffList.map((item) => {
+  const taskOffLi = userTaskOffList.map((item, key) => {
     return (
-      <>
+      <div key={item.id}>
+        <hr />
         <div
           className='taskOff__list'
           style={{
@@ -38,7 +39,6 @@ const TaskOffList = () => {
             gridTemplateColumns: 'auto auto auto auto',
             columnGap: '1rem',
           }}
-          key={item.id}
         >
           <p>{item.boothNumber}</p>
           <p>{item.type}</p>
@@ -57,15 +57,15 @@ const TaskOffList = () => {
             <FloatingButton icon={'play_arrow'} />
           </div>
         </div>
-        <hr />
-      </>
+      </div>
     );
   });
 
   return (
-    <div style={{ paddingTop: '0.5vh' }}>
+    <>
       {userTaskOffList.length > 0 && taskOffLi}
-    </div>
+      <hr />
+    </>
   );
 };
 
