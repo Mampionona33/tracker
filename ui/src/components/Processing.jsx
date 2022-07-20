@@ -1,8 +1,7 @@
 import { useQuery } from '@apollo/client';
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/authContext';
-import { TaskContext } from '../context/taskContext';
-import { GET_USER_PROCESSING_TASK, GET_USER_TASK } from '../graphql/Query';
+import { GET_USER_TASK } from '../graphql/Query';
 import '../style/Processing.scss';
 
 export default function Processing() {
