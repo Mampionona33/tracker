@@ -8,10 +8,13 @@ import ProductivSimulation from '../components/ProductivSimulation';
 import { AuthContext } from '../context/authContext';
 import { useQuery } from '@apollo/client';
 import { GET_USER_TASK } from '../graphql/Query';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export default function Dashboard() {
   const userContext = useContext(AuthContext);
   const [currentProcessigTask, setCurrentProcessigTask] = useState([]);
+  const { row_show } = useParams();
+  const navigate = useNavigate();
   const { data: userTask, error: errorFetchUserTask } = useQuery(
     GET_USER_TASK,
     {
@@ -22,6 +25,13 @@ export default function Dashboard() {
       },
     }
   );
+
+  useEffect(() => {
+    if (!row_show) {
+      console.log('test');
+      navigate('row_show=3', { replace: true });
+    }
+  }, [row_show]);
 
   useEffect(() => {
     if (userTask) {

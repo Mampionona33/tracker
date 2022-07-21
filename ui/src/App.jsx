@@ -63,8 +63,6 @@ export default function App() {
 
   // console.log(taskContext.userTaskPlay);
 
-  const { date } = useParams();
-
   return (
     <Routes>
       <Route
