@@ -22,7 +22,13 @@ const TaskOffList = () => {
     },
     {
       Header: 'Task url',
-      accessor: 'url',
+      accessor: (data) => {
+        return (
+          <a href={data.url} target='_blank' style={{ textDecoration: 'none' }}>
+            {data.url}
+          </a>
+        );
+      },
     },
     {
       Header: 'Action',
@@ -58,8 +64,6 @@ const TaskOffList = () => {
       setUserTaskOffList((prev) => userTaskOff.getUserTaskByFilter);
     }
   }, [userTaskOff]);
-
-  
 
   return (
     <>
