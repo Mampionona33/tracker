@@ -59,38 +59,7 @@ const TaskOffList = () => {
     }
   }, [userTaskOff]);
 
-  const taskOffLi = userTaskOffList.map((item, key) => {
-    return (
-      <div key={item.id}>
-        <hr />
-        <div
-          className='taskOff__list'
-          style={{
-            display: 'grid',
-            gridTemplateColumns: 'auto auto auto auto',
-            columnGap: '1rem',
-          }}
-        >
-          <p>{item.boothNumber}</p>
-          <p>{item.type}</p>
-          <a
-            href={item.url}
-            target='_blank'
-            style={{
-              textDecoration: 'none',
-              display: 'flex',
-              alignItems: 'center',
-            }}
-          >
-            {item.url}
-          </a>
-          <div>
-            <FloatingButton icon={'play_arrow'} />
-          </div>
-        </div>
-      </div>
-    );
-  });
+  
 
   return (
     <>

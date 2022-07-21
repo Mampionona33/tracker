@@ -8,7 +8,7 @@ import ProductivSimulation from '../components/ProductivSimulation';
 import { AuthContext } from '../context/authContext';
 import { useQuery } from '@apollo/client';
 import { GET_USER_TASK } from '../graphql/Query';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Outlet, useNavigate, useParams } from 'react-router-dom';
 
 export default function Dashboard() {
   const userContext = useContext(AuthContext);

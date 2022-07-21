@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import { Navigate, Route, Routes, useParams } from 'react-router-dom';
 import HistoryTable from './components/HistoryTable';
+import TaskOffList from './components/TaskOffList';
 import { AuthContext } from './context/authContext';
 import { TaskContext } from './context/taskContext';
 import { getUserTask } from './graphql/tasks';
@@ -87,7 +88,7 @@ export default function App() {
           }
         />
         <Route path='/dashboard' element={<Dashboard />}>
-          <Route path='row_show=:row_show' />
+          <Route path='row_show=:row_show' element={<TaskOffList/>} />
         </Route>
         {/* 
           the default component to render when path is /history is the <History/> component
