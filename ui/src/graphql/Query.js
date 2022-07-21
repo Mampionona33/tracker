@@ -89,6 +89,9 @@ export const GET_TASK_BY_FILTER = gql`
   query GetUserTaskByFilter($input: TaskInput) {
     getUserTaskByFilter(input: $input) {
       id
+      user {
+        sub
+      }
       boothNumber
       type
       url

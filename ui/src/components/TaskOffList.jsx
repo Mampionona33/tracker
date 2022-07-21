@@ -32,13 +32,17 @@ const TaskOffList = () => {
     },
     {
       Header: 'Action',
-      accessor: () => {
+      accessor: (data) => {
+        console.log(data);
         return (
           <div
             className='actions'
             style={{ display: 'flex', justifyContent: 'center' }}
           >
-            <FloatingButton icon={'play_arrow'} />
+            <FloatingButton
+              icon={'play_arrow'}
+              handleClickButton={(event) => onCLickPlayButton(event, data.id)}
+            />
           </div>
         );
       },
@@ -58,6 +62,11 @@ const TaskOffList = () => {
       },
     }
   );
+
+  const onCLickPlayButton = (event, id) => {
+    event.preventDefault();
+    console.log(id);
+  };
 
   useEffect(() => {
     if (userTaskOff) {
