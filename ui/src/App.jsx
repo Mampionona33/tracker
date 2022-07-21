@@ -70,7 +70,11 @@ export default function App() {
       <Route
         path='/login'
         element={
-          !context.user ? <Login /> : <Navigate to={'/dashboard'} replace />
+          !context.user ? (
+            <Login />
+          ) : (
+            <Navigate to={'/dashboard/row_show=3'} replace />
+          )
         }
       />
       <Route element={<ProtectedRoute />}>
@@ -80,11 +84,13 @@ export default function App() {
             !context.user ? (
               <Navigate to={'/login'} />
             ) : (
-              <Navigate to={'/dashboard'} />
+              <Navigate to={'/dashboard/row_show=3'} />
             )
           }
         />
-        <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='/dashboard' element={<Dashboard />}>
+          <Route path='row_show=:row_show' />
+        </Route>
         {/* 
           the default component to render when path is /history is the <History/> component
           when /history get params date; then render the <Outlet/> inside the history Route

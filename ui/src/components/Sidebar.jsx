@@ -18,10 +18,10 @@ export default function Sidebar(props) {
       <div className='sidebar'>
         <div
           className='sidebar__element'
-          onClick={(ev) => handleClickItem(ev, '/dashboard')}
+          onClick={(ev) => handleClickItem(ev, '/dashboard/row_show=3')}
         >
           <span className='material-icons-round'>grid_view</span>
-          <Link className='sidebar__element__link' to={'/dashboard'}>
+          <Link className='sidebar__element__link' to={'/dashboard/row_show=3'}>
             Dashboard
           </Link>
         </div>
