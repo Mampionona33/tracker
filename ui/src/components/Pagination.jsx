@@ -19,12 +19,13 @@ const Pagination = ({
   const handleSelectedRowShow = (event) => {
     setPageSize(event.target.value);
     const currentUrl = window.location.pathname;
-    // if (currentUrl.includes('history')) {
-    navigate(`${currentUrl.slice(0, -1)}${event.target.value}`);
-    // }
-    // if (currentUrl.includes('dashboard')) {
-    //   navigate(`${currentUrl}/row_show=${event.target.value}`);
-    // }
+    const index = currentUrl.lastIndexOf(row_show);
+    navigate(`${currentUrl.slice(0, index)}${event.target.value}`);
+  };
+
+  const handleClickNext = () => {
+    nextPage();
+    setPageSize(parseInt(row_show));
   };
 
   useEffect(() => {
@@ -52,7 +53,7 @@ const Pagination = ({
         </button>
         <button
           type='button'
-          onClick={() => nextPage()}
+          onClick={() => handleClickNext()}
           disabled={!canNextPage}
         >
           {'>'}
