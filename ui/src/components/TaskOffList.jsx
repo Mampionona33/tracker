@@ -6,11 +6,12 @@ import FloatingButton from './FloatingButton';
 import TableWithPagination from './TableWithPagination';
 import { useNavigate } from 'react-router-dom';
 import { UPDATE_TASK } from '../graphql/Mutation';
-import { setTaskStatePlay } from '../graphql/tasks';
+import { setTaskStateOff, setTaskStatePlay } from '../graphql/tasks';
 
 const TaskOffList = () => {
   const userContext = useContext(AuthContext);
   const [userTaskOffList, setUserTaskOffList] = useState([]);
+  const [taskPlay, setTaskPlay] = useState([]);
   const navigate = useNavigate();
 
   const columns = [
@@ -64,30 +65,68 @@ const TaskOffList = () => {
     }
   );
 
-  const onCLickPlayButton = async (event, id) => {
-    event.preventDefault();
-    await setTaskStatePlay(updateTask, id, errorOnUpateTask);
-  };
-
-  const [updateTask, { error: errorOnUpateTask }] = useMutation(UPDATE_TASK, {
-    refetchQueries: [
-      GET_USER_TASK,
-      {
-        variables: {
-          input: {
+  const { data: userTaskPlay, error: errorFetchUserTaskPlay } = useQuery(
+    GET_TASK_BY_FILTER,
+    {
+      variables: {
+        input: {
+          taskState: 'isPlay',
+          user: {
             sub: userContext && userContext.user.sub,
           },
         },
       },
-      GET_TASK_BY_FILTER,
+    }
+  );
+
+  const [updateTask, { error: errorOnUpateTask }] = useMutation(UPDATE_TASK, {
+    refetchQueries: [
+      {
+        query: GET_TASK_BY_FILTER,
+        variables: {
+          input: {
+            taskState: 'isOff',
+            user: {
+              sub: userContext && userContext.user.sub,
+            },
+          },
+        },
+      },
+      {
+        query: GET_TASK_BY_FILTER,
+        variables: {
+          input: {
+            taskState: 'isPlay',
+            user: {
+              sub: userContext && userContext.user.sub,
+            },
+          },
+        },
+      },
     ],
+    awaitRefetchQueries: true,
   });
+
+  const onCLickPlayButton = async (event, id) => {
+    event.preventDefault();
+    if (taskPlay && taskPlay[0]) {
+      await setTaskStateOff(
+        updateTask,
+        taskPlay[0].id,
+        errorFetchUserTaskPlay
+      ).then(setTaskStatePlay(updateTask, id, errorOnUpateTask));
+    }
+    setTaskStatePlay(updateTask, id, errorOnUpateTask);
+  };
 
   useEffect(() => {
     if (userTaskOff) {
       setUserTaskOffList((prev) => userTaskOff.getUserTaskByFilter);
     }
-  }, [userTaskOff]);
+    if (userTaskPlay) {
+      setTaskPlay((prev) => userTaskPlay.getUserTaskByFilter);
+    }
+  }, [userTaskOff, userTaskPlay]);
 
   return (
     <>
