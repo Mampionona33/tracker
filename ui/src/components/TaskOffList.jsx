@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/authContext';
-import { useQuery } from '@apollo/client';
-import { GET_TASK_BY_FILTER } from './../graphql/Query';
+import { useMutation, useQuery } from '@apollo/client';
+import { GET_TASK_BY_FILTER, GET_USER_TASK } from './../graphql/Query';
 import FloatingButton from './FloatingButton';
 import TableWithPagination from './TableWithPagination';
 import { useNavigate } from 'react-router-dom';
+import { UPDATE_TASK } from '../graphql/Mutation';
+import { setTaskStatePlay } from '../graphql/tasks';
 
 const TaskOffList = () => {
   const userContext = useContext(AuthContext);
@@ -33,7 +35,6 @@ const TaskOffList = () => {
     {
       Header: 'Action',
       accessor: (data) => {
-        console.log(data);
         return (
           <div
             className='actions'
@@ -63,10 +64,24 @@ const TaskOffList = () => {
     }
   );
 
-  const onCLickPlayButton = (event, id) => {
+  const onCLickPlayButton = async (event, id) => {
     event.preventDefault();
-    console.log(id);
+    await setTaskStatePlay(updateTask, id, errorOnUpateTask);
   };
+
+  const [updateTask, { error: errorOnUpateTask }] = useMutation(UPDATE_TASK, {
+    refetchQueries: [
+      GET_USER_TASK,
+      {
+        variables: {
+          input: {
+            sub: userContext && userContext.user.sub,
+          },
+        },
+      },
+      GET_TASK_BY_FILTER,
+    ],
+  });
 
   useEffect(() => {
     if (userTaskOff) {

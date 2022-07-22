@@ -35,8 +35,9 @@ export default function Navbar(props) {
 
   const handleClickLogout = async (event) => {
     event.preventDefault();
-    // console.log(taskPlay.id);
-    if (taskPlay.length > 0) {
+    console.log(taskPlay.id);
+
+    if (taskPlay) {
       console.log(taskPlay);
       setTaskStateOff(updateTask, taskPlay.id, errorOnUpdateTask);
       if (taskPlay[0]) {
