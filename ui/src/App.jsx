@@ -62,8 +62,6 @@ export default function App() {
     return () => (mounted = false);
   }, [currentUser]);
 
-  // console.log(taskContext.userTaskPlay);
-
   return (
     <Routes>
       <Route
@@ -88,7 +86,7 @@ export default function App() {
           }
         />
         <Route path='/dashboard' element={<Dashboard />}>
-          <Route path='row_show=:row_show' element={<TaskOffList/>} />
+          <Route path='row_show=:row_show' element={<TaskOffList />} />
         </Route>
         {/* 
           the default component to render when path is /history is the <History/> component

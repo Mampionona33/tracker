@@ -1,10 +1,14 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/authContext';
 import { useMutation, useQuery } from '@apollo/client';
-import { GET_TASK_BY_FILTER, GET_USER_TASK } from './../graphql/Query';
+import {
+  GET_TASK_BY_DATE,
+  GET_TASK_BY_FILTER,
+  GET_USER_TASK,
+} from './../graphql/Query';
 import FloatingButton from './FloatingButton';
 import TableWithPagination from './TableWithPagination';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { UPDATE_TASK } from '../graphql/Mutation';
 import { setTaskStateOff, setTaskStatePlay } from '../graphql/tasks';
 
@@ -12,6 +16,7 @@ const TaskOffList = () => {
   const userContext = useContext(AuthContext);
   const [userTaskOffList, setUserTaskOffList] = useState([]);
   const [taskPlay, setTaskPlay] = useState([]);
+  const { date } = useParams();
   const navigate = useNavigate();
 
   const columns = [
@@ -100,6 +105,15 @@ const TaskOffList = () => {
             user: {
               sub: userContext && userContext.user.sub,
             },
+          },
+        },
+      },
+      {
+        query: GET_TASK_BY_DATE,
+        variables: {
+          query: {
+            date: date,
+            sub: userContext && userContext.user.sub,
           },
         },
       },

@@ -28,23 +28,15 @@ export default function HistoryTable() {
 
   useEffect(() => {
     if (taskBydateData) {
-      console.log(taskBydateData);
       const dataSelect = taskBydateData.getTaskByDate;
       const sessionArray = [];
 
       if (dataSelect.length > 0) {
         for (let i = 0; i < dataSelect.length; i++) {
-          // console.log(dataSelect[i].session);
-
           const boothNumbers = dataSelect[i].boothNumber;
 
           for (let a = 0; a < dataSelect[i].session.length; a++) {
-            // console.log(dataSelect[i].session[a]);
             if (dataSelect[i].session[a].sessionStart) {
-              // console.log(
-              //   Object.values(dataSelect[i].session[a].sessionStop).join('')
-              // );
-
               const startDt = Object.values(
                 dataSelect[i].session[a].sessionStart
               ).join('');
