@@ -109,6 +109,8 @@ export default function HistoryTable() {
                       {
                         boothNumber: boothNumbers,
                         start: startTime,
+                        // if stop date is not the same as date(params) and not null => show stopTime (fullStpDate)
+                        // else if stop date is null => show Processing
                         stop: dataSelect[i].session[a].sessionStop
                           ? `${stopTime} (${fullStpDate})`
                           : 'Processing',
@@ -128,7 +130,12 @@ export default function HistoryTable() {
       }
 
       if (sessionArray.length > 0) {
-        setDataTable(sessionArray);
+        // create a new sorted array by start date
+        const sortByStartDate = sessionArray.sort((a, b) =>
+          a.start > b.start ? 1 : -1
+        );
+
+        setDataTable(sortByStartDate);
       }
     }
   }, [taskBydateData]);
@@ -169,16 +176,6 @@ export default function HistoryTable() {
       },
     },
   ];
-
-  const calculDifDate = (date1, date2) => {
-    const dif = date2.getTime() - date1.getTime();
-    const day = Math.floor(dif / (3600 * 24));
-    const hours = Math.floor((dif % 3600.24) / 3600);
-    const min = Math.floor((dif % 3600) / 60);
-    const sec = Math.floor(dif / 60);
-
-    return { day, hours, min, sec };
-  };
 
   return (
     <div className='historyTable'>
