@@ -28,6 +28,7 @@ export default function HistoryTable() {
 
   useEffect(() => {
     if (taskBydateData) {
+      console.log(taskBydateData);
       const dataSelect = taskBydateData.getTaskByDate;
       const sessionArray = [];
 
@@ -39,7 +40,7 @@ export default function HistoryTable() {
 
           for (let a = 0; a < dataSelect[i].session.length; a++) {
             // console.log(dataSelect[i].session[a]);
-            if (dataSelect[i].session[a].sessionStop) {
+            if (dataSelect[i].session[a].sessionStart) {
               // console.log(
               //   Object.values(dataSelect[i].session[a].sessionStop).join('')
               // );
@@ -48,9 +49,9 @@ export default function HistoryTable() {
                 dataSelect[i].session[a].sessionStart
               ).join('');
 
-              const stopDt = Object.values(
-                dataSelect[i].session[a].sessionStop
-              ).join('');
+              const stopDt =
+                dataSelect[i].session[a].sessionStop &&
+                Object.values(dataSelect[i].session[a].sessionStop).join('');
 
               const startDate = new Date(startDt);
               const stopDate = new Date(stopDt);
@@ -116,7 +117,9 @@ export default function HistoryTable() {
                       {
                         boothNumber: boothNumbers,
                         start: startTime,
-                        stop: `${stopTime} (${fullStpDate})`,
+                        stop: dataSelect[i].session[a].sessionStop
+                          ? `${stopTime} (${fullStpDate})`
+                          : 'Processing',
                         duration: dur,
                       }
                     )
