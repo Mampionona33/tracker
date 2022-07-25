@@ -90,7 +90,7 @@ const TaskOffList = () => {
         query: GET_TASK_BY_FILTER,
         variables: {
           input: {
-            taskState: 'isOff',
+            taskState: 'isPlay',
             user: {
               sub: userContext && userContext.user.sub,
             },
@@ -101,7 +101,7 @@ const TaskOffList = () => {
         query: GET_TASK_BY_FILTER,
         variables: {
           input: {
-            taskState: 'isPlay',
+            taskState: 'isOff',
             user: {
               sub: userContext && userContext.user.sub,
             },
@@ -123,25 +123,34 @@ const TaskOffList = () => {
 
   const onCLickPlayButton = async (event, id) => {
     event.preventDefault();
-    console.log(taskPlay);
-    if (taskPlay && taskPlay[0]) {
-      await setTaskStateOff(
-        updateTask,
-        taskPlay[0].id,
-        errorFetchUserTaskPlay
-      ).then(setTaskStatePlay(updateTask, id, errorOnUpateTask));
+
+    if (taskPlay) {
+      // if there is no processing task
+      if (taskPlay.length <= 0) {
+        setTaskStatePlay(updateTask, id, errorOnUpateTask);
+      }
+      // if there is a processing task
+      if (taskPlay.length > 0) {
+        await setTaskStateOff(
+          updateTask,
+          taskPlay[0].id,
+          errorOnUpateTask
+        ).then(setTaskStatePlay(updateTask, id, errorOnUpateTask));
+      }
     }
-    // setTaskStatePlay(updateTask, id, errorOnUpateTask);
   };
 
   useEffect(() => {
     if (userTaskOff) {
       setUserTaskOffList((prev) => userTaskOff.getUserTaskByFilter);
     }
+  }, [userTaskOff]);
+
+  useEffect(() => {
     if (userTaskPlay) {
       setTaskPlay((prev) => userTaskPlay.getUserTaskByFilter);
     }
-  }, [userTaskOff, userTaskPlay]);
+  }, [userTaskPlay]);
 
   return (
     <>
