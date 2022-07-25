@@ -3,7 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/authContext';
 import { componentContext } from '../context/componentContext';
 import { TaskContext } from '../context/taskContext';
-import { CREATE_TASK } from '../graphql/Mutation';
+import { CREATE_TASK, UPDATE_TASK } from '../graphql/Mutation';
 import {
   createNewTask,
   getUserTaskPlay,
@@ -11,7 +11,11 @@ import {
 } from '../graphql/tasks';
 import '../style/DialogNewTask.scss';
 import Modale from './Modale';
-import { GET_USER_PROCESSING_TASK, GET_USER_TASK } from './../graphql/Query';
+import {
+  GET_TASK_BY_FILTER,
+  GET_USER_PROCESSING_TASK,
+  GET_USER_TASK,
+} from './../graphql/Query';
 
 const DialogNewTask = () => {
   const ComponentContext = useContext(componentContext);
@@ -38,11 +42,39 @@ const DialogNewTask = () => {
 
   const [createTask, { error: errorCreatTask }] = useMutation(CREATE_TASK, {
     refetchQueries: [
-      GET_USER_TASK,
       {
+        query: GET_USER_TASK,
         variables: {
           input: {
             sub: context && context.user.sub,
+          },
+        },
+      },
+      {
+        query: GET_TASK_BY_FILTER,
+        variables: {
+          input: {
+            taskState: 'isOff',
+            user: {
+              sub: context && context.user.sub,
+            },
+          },
+        },
+      },
+    ],
+    awaitRefetchQueries: true,
+  });
+
+  const [updateTask, { error: errorOnUpDateTask }] = useMutation(UPDATE_TASK, {
+    refetchQueries: [
+      {
+        query: GET_TASK_BY_FILTER,
+        variables: {
+          input: {
+            taskState: 'isOff',
+            user: {
+              sub: context && context.user.sub,
+            },
           },
         },
       },
@@ -55,7 +87,7 @@ const DialogNewTask = () => {
     const sub = context.user.sub;
     if (currentProcTask) {
       const id = currentProcTask.id;
-      setTaskStateOff(id)
+      setTaskStateOff(updateTask, id, errorOnUpDateTask)
         .then(createNewTask(createTask, sub, newTask, errorCreatTask))
         .then(ComponentContext.toggleDialogCreateNewTask());
     } else {

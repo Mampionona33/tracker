@@ -123,6 +123,7 @@ const TaskOffList = () => {
 
   const onCLickPlayButton = async (event, id) => {
     event.preventDefault();
+    console.log(taskPlay);
     if (taskPlay && taskPlay[0]) {
       await setTaskStateOff(
         updateTask,
@@ -130,7 +131,7 @@ const TaskOffList = () => {
         errorFetchUserTaskPlay
       ).then(setTaskStatePlay(updateTask, id, errorOnUpateTask));
     }
-    setTaskStatePlay(updateTask, id, errorOnUpateTask);
+    // setTaskStatePlay(updateTask, id, errorOnUpateTask);
   };
 
   useEffect(() => {
