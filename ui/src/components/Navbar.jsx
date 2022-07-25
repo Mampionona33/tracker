@@ -2,11 +2,12 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/authContext';
 import { componentContext } from '../context/componentContext';
 import '../style/Navbar.scss';
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { CREATE_TASK, UPDATE_TASK } from '../graphql/Mutation';
 import { GET_USER_TASK, GET_USER_TASK_PLAY } from '../graphql/Query';
 import { setTaskStateOff } from '../graphql/tasks';
 import { TaskContext } from '../context/taskContext';
+import { GET_TASK_BY_FILTER } from './../graphql/Query';
 export default function Navbar(props) {
   const context = useContext(AuthContext);
   const ComponentContext = useContext(componentContext);
@@ -24,9 +25,21 @@ export default function Navbar(props) {
       },
     ],
     // after the update is complete, execute the logout function
-    onCompleted: () => context.logout(),
+    // onCompleted: () => context.logout(),
     awaitRefetchQueries: true,
   });
+
+  const { data: currentTaskPlay, error: errorOnFetchCurrentTaskPlay } =
+    useQuery(GET_TASK_BY_FILTER, {
+      variables: {
+        input: {
+          taskState: 'isPlay',
+          user: {
+            sub: context && context.user.sub,
+          },
+        },
+      },
+    });
 
   const handleClickMenu = (event) => {
     event.preventDefault();
@@ -35,17 +48,18 @@ export default function Navbar(props) {
 
   const handleClickLogout = async (event) => {
     event.preventDefault();
-    console.log(taskPlay.id);
-
-    if (taskPlay) {
-      console.log(taskPlay);
-      setTaskStateOff(updateTask, taskPlay.id, errorOnUpdateTask);
-      if (taskPlay[0]) {
-        setTaskStateOff(updateTask, taskPlay[0].id, errorOnUpdateTask);
+    // console.log(taskPlay.id);
+    if (currentTaskPlay) {
+      if (currentTaskPlay.getUserTaskByFilter.length > 0) {
+        console.log(currentTaskPlay.getUserTaskByFilter);
+        setTaskStateOff(
+          updateTask,
+          currentTaskPlay.getUserTaskByFilter[0].id,
+          errorOnUpdateTask
+        ).then(context.logout());
+      } else {
+        context.logout();
       }
-    }
-    if (taskPlay.length <= 0) {
-      context.logout();
     }
   };
 

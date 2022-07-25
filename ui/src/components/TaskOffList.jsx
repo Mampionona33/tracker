@@ -19,6 +19,8 @@ const TaskOffList = () => {
   const { date } = useParams();
   const navigate = useNavigate();
 
+  const user = userContext.user;
+
   const columns = [
     {
       Header: 'BoothNumber',
@@ -56,101 +58,126 @@ const TaskOffList = () => {
     },
   ];
 
-  const { data: userTaskOff, error: errorFetchUserTaskoff } = useQuery(
-    GET_TASK_BY_FILTER,
-    {
-      variables: {
-        input: {
-          taskState: 'isOff',
-          user: {
-            sub: userContext && userContext.user.sub,
-          },
+  const {
+    data: taskOff,
+    erro: errorFetchTaskOff,
+    loading: loadingTaskOff,
+    refetch: refetchTaskOff,
+  } = useQuery(GET_TASK_BY_FILTER, {
+    variables: {
+      input: {
+        taskState: 'isOff',
+        user: {
+          sub: userContext && user.sub,
         },
       },
-    }
-  );
-
-  const { data: userTaskPlay, error: errorFetchUserTaskPlay } = useQuery(
-    GET_TASK_BY_FILTER,
-    {
-      variables: {
-        input: {
-          taskState: 'isPlay',
-          user: {
-            sub: userContext && userContext.user.sub,
-          },
-        },
-      },
-    }
-  );
-
-  const [updateTask, { error: errorOnUpateTask }] = useMutation(UPDATE_TASK, {
-    refetchQueries: [
-      {
-        query: GET_TASK_BY_FILTER,
-        variables: {
-          input: {
-            taskState: 'isPlay',
-            user: {
-              sub: userContext && userContext.user.sub,
-            },
-          },
-        },
-      },
-      {
-        query: GET_TASK_BY_FILTER,
-        variables: {
-          input: {
-            taskState: 'isOff',
-            user: {
-              sub: userContext && userContext.user.sub,
-            },
-          },
-        },
-      },
-      {
-        query: GET_TASK_BY_DATE,
-        variables: {
-          query: {
-            date: date,
-            sub: userContext && userContext.user.sub,
-          },
-        },
-      },
-    ],
-    awaitRefetchQueries: true,
+    },
   });
 
-  const onCLickPlayButton = async (event, id) => {
-    event.preventDefault();
+  const {
+    data: currentTaskPlay,
+    error: fetchCurrentTaskPlay,
+    refetch: refetchCurrentTaskPlay,
+  } = useQuery(GET_TASK_BY_FILTER, {
+    variables: {
+      input: {
+        taskState: 'isPlay',
+        user: {
+          sub: userContext && user.sub,
+        },
+      },
+    },
+  });
 
-    if (taskPlay) {
-      // if there is no processing task
-      if (taskPlay.length <= 0) {
-        setTaskStatePlay(updateTask, id, errorOnUpateTask);
+  const [setCurrentTaskOff, { error: errorSetCurrentTaskOff }] = useMutation(
+    UPDATE_TASK,
+    {
+      refetchQueries: [
+        {
+          query: GET_TASK_BY_FILTER,
+          variables: {
+            input: {
+              taskState: 'isOff',
+              user: {
+                sub: userContext && userContext.user.sub,
+              },
+            },
+          },
+        },
+        {
+          query: GET_TASK_BY_FILTER,
+          variables: {
+            input: {
+              taskState: 'isPlay',
+              user: {
+                sub: userContext && userContext.user.sub,
+              },
+            },
+          },
+        },
+      ],
+      fetchPolicy: 'network-only',
+      awaitRefetchQueries: true,
+    }
+  );
+
+  const [setSelectedTaskPlay, { error: errorSetSelectedTaskPlay }] =
+    useMutation(UPDATE_TASK, {
+      refetchQueries: [
+        {
+          query: GET_TASK_BY_FILTER,
+          variables: {
+            input: {
+              taskState: 'isPlay',
+              user: {
+                sub: userContext && userContext.user.sub,
+              },
+            },
+          },
+        },
+        {
+          query: GET_TASK_BY_FILTER,
+          variables: {
+            input: {
+              taskState: 'isOff',
+              user: {
+                sub: userContext && userContext.user.sub,
+              },
+            },
+          },
+        },
+      ],
+      fetchPolicy: 'network-only',
+      awaitRefetchQueries: true,
+    });
+
+  const onCLickPlayButton = (e, id) => {
+    e.preventDefault();
+    if (currentTaskPlay) {
+      if (currentTaskPlay.getUserTaskByFilter.length > 0) {
+        const currentTaskId = currentTaskPlay.getUserTaskByFilter[0].id;
+
+        setTaskStateOff(
+          setCurrentTaskOff,
+          currentTaskId,
+          errorSetCurrentTaskOff
+        ).then(
+          setTaskStatePlay(setSelectedTaskPlay, id, errorSetSelectedTaskPlay)
+            .then(refetchTaskOff)
+            .then(refetchCurrentTaskPlay)
+        );
       }
-      // if there is a processing task
-      if (taskPlay.length > 0) {
-        await setTaskStateOff(
-          updateTask,
-          taskPlay[0].id,
-          errorOnUpateTask
-        ).then(setTaskStatePlay(updateTask, id, errorOnUpateTask));
+      if (currentTaskPlay.getUserTaskByFilter.length <= 0) {
+        setTaskStatePlay(setSelectedTaskPlay, id, errorSetSelectedTaskPlay);
       }
     }
   };
 
   useEffect(() => {
-    if (userTaskOff) {
-      setUserTaskOffList((prev) => userTaskOff.getUserTaskByFilter);
+    if (taskOff) {
+      setUserTaskOffList((prev) => taskOff.getUserTaskByFilter);
     }
-  }, [userTaskOff]);
-
-  useEffect(() => {
-    if (userTaskPlay) {
-      setTaskPlay((prev) => userTaskPlay.getUserTaskByFilter);
-    }
-  }, [userTaskPlay]);
+  }, [taskOff]);
 
   return (
     <>
