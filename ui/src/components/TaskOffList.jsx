@@ -77,6 +77,7 @@ const TaskOffList = () => {
   const {
     data: currentTaskPlay,
     error: fetchCurrentTaskPlay,
+    loading: loadingCurrentTaskPlay,
     refetch: refetchCurrentTaskPlay,
   } = useQuery(GET_TASK_BY_FILTER, {
     variables: {
@@ -149,10 +150,16 @@ const TaskOffList = () => {
       ],
       fetchPolicy: 'network-only',
       awaitRefetchQueries: true,
+      onCompleted: () => {
+        refetchTaskOff(), refetchCurrentTaskPlay();
+      },
     });
 
   const onCLickPlayButton = (e, id) => {
     e.preventDefault();
+    if (errorSetSelectedTaskPlay) {
+      return errorSetSelectedTaskPlay;
+    }
     if (currentTaskPlay) {
       if (currentTaskPlay.getUserTaskByFilter.length > 0) {
         const currentTaskId = currentTaskPlay.getUserTaskByFilter[0].id;
@@ -163,26 +170,28 @@ const TaskOffList = () => {
           errorSetCurrentTaskOff
         ).then(
           setTaskStatePlay(setSelectedTaskPlay, id, errorSetSelectedTaskPlay)
-            .then(refetchTaskOff)
-            .then(refetchCurrentTaskPlay)
         );
       }
+
       if (currentTaskPlay.getUserTaskByFilter.length <= 0) {
         setTaskStatePlay(setSelectedTaskPlay, id, errorSetSelectedTaskPlay);
       }
     }
-  };
-
-  useEffect(() => {
-    if (taskOff) {
-      setUserTaskOffList((prev) => taskOff.getUserTaskByFilter);
+    if (loadingTaskOff) {
+      return loadingTaskOff;
     }
-  }, [taskOff]);
+    if (loadingCurrentTaskPlay) {
+      return loadingCurrentTaskPlay;
+    }
+  };
 
   return (
     <>
-      {userTaskOffList.length > 0 ? (
-        <TableWithPagination columns={columns} data={userTaskOffList} />
+      {taskOff && taskOff.getUserTaskByFilter.length > 0 ? (
+        <TableWithPagination
+          columns={columns}
+          data={taskOff.getUserTaskByFilter}
+        />
       ) : (
         <h3>NO PENDING TASK</h3>
       )}
