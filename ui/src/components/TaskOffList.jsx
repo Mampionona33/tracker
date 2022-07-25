@@ -144,8 +144,10 @@ const TaskOffList = () => {
 
   return (
     <>
-      {userTaskOffList.length > 0 && (
+      {userTaskOffList.length > 0 ? (
         <TableWithPagination columns={columns} data={userTaskOffList} />
+      ) : (
+        <h3>NO PENDING TASK</h3>
       )}
     </>
   );
