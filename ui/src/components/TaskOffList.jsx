@@ -82,7 +82,7 @@ const TaskOffList = () => {
   } = useQuery(GET_TASK_BY_FILTER, {
     variables: {
       input: {
-        taskState: 'isPlay',
+        taskState: 'isPlay' || 'isPause',
         user: {
           sub: userContext && user.sub,
         },
