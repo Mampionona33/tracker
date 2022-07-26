@@ -27,7 +27,7 @@ const resetMongo = async () => {
 
     // initializers--------------------------
     const initialiCounter = [
-      { _id: 'tasks', current: 1 },
+      { _id: 'tasks', current: 2 },
       { _id: 'typeTask', current: 0 },
       { _id: 'statIvpn', current: 0 },
       { _id: 'stateCom', current: 0 },
@@ -75,6 +75,28 @@ const resetMongo = async () => {
         session: [
           {
             sessionStart: '2022-07-07T11:44:09.135+00:00',
+            sessionStop: '2022-07-07T12:44:09.135+00:00',
+          },
+        ],
+      },
+      {
+        id: 1,
+        user: { sub: '100620047698438001642' },
+        boothNumber: '5455',
+        type: 'contenu',
+        url: 'https://www.directindustry.com',
+        cat: 'sécurité des locaux et dés machines',
+        ivpn: 'I',
+        statCom: 'Dégradé',
+        processingState: 'Normal',
+        status: 'Processing',
+        nbBefore: 0,
+        nbAfter: 100,
+        comment: 'this is a comment',
+        taskState: 'isPlay',
+        session: [
+          {
+            sessionStart: '2022-07-07T12:44:09.135+00:00',
             sessionStop: null,
           },
         ],

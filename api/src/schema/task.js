@@ -134,15 +134,23 @@ const getTaskByDate = async (_, { query: { date, sub } }) => {
     console.log(slicedDate);
     filter = {
       ...filter,
-      'user.sub': sub,
-      // 'session.sessionStart': date,
-      'session.sessionStart': { $regex: slicedDate, $options: 'g' },
+      $or: [
+        {
+          'user.sub': sub,
+          // 'session.sessionStart': date,
+          'session.sessionStart': { $regex: slicedDate, $options: 'g' },
+        },
+        {
+          'user.sub': sub,
+          // 'session.sessionStart': date,
+          'session.sessionStop': { $regex: slicedDate, $options: 'g' },
+        },
+      ],
     };
   }
   console.log(filter);
   const userTaskByDate = await db.collection('tasks').find(filter).toArray();
   return userTaskByDate;
 };
-
 
 module.exports = { get, create, update, getUserTaskByFilter, getTaskByDate };
