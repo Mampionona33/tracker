@@ -54,11 +54,7 @@ export default function HistoryTable() {
           const sessionStartDate = item.session[i].sessionStart;
           const sessionStopDate = item.session[i].sessionStop;
 
-          if (
-            dateToString(sessionStartDate) === date ||
-            dateToString(sessionStopDate) === date ||
-            sessionStopDate === null
-          ) {
+          if (dateToString(sessionStartDate) === date) {
             result.id = item.id;
             result.boothNumber = item.boothNumber;
             result.start = sessionStartDate;
@@ -83,7 +79,7 @@ export default function HistoryTable() {
         setDataTable(sortedSession);
       }
     }
-  }, [userTasks]);
+  }, [userTasks, date]);
 
   // useEffect(() => {
   //   if (taskBydateData) {
