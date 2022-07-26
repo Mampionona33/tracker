@@ -75,29 +75,47 @@ export default function HistoryTable() {
                   boothNumber: boothNumber,
                   start: dateTime(sessionStart),
                   stop: dateTime(sessionStop),
+                  sessionstart: sessionStart,
                 });
               }
-              if (dateToString(sessionStop) !== date) {
+              if (dateToString(sessionStop) > date) {
                 selectedDateSession.push({
                   id: id,
                   boothNumber: boothNumber,
                   start: dateTime(sessionStart),
+                  sessionstart: sessionStart,
                   stop: `${dateTime(sessionStop)} (${dateToString(
                     sessionStop
                   )})`,
                 });
               }
             }
+            // if start date < date and stop date == date => show start date ((yyyy-MM-dd) hh:mm:ss) and stop date (hh:mm:ss)
+            if (
+              dateToString(sessionStart) < date &&
+              dateToString(sessionStop) === date
+            ) {
+              selectedDateSession.push({
+                id: id,
+                boothNumber: boothNumber,
+                sessionstart: sessionStart,
+                start: `${dateTime(sessionStart)} (${dateToString(
+                  sessionStart
+                )})`,
+                stop: dateTime(sessionStop),
+              });
+            }
             // if start date == selected date and stop date == null => show start date(hh:mm:ss) and stop : CURRENT
             if (dateToString(sessionStart) === date && !sessionStop) {
               selectedDateSession.push({
                 id: id,
                 boothNumber: boothNumber,
+                sessionstart: sessionStart,
                 start: dateTime(sessionStart),
                 stop: 'CURRENT',
               });
             }
-            // if start date < selected date and stop date == null => show start date((yyyy-mm-dd) hh:mm:ss) and stop :CURRENT
+            // if start date < selected date and stop date == null => show start date( hh:mm:ss (yyyy-mm-dd) ) and stop :CURRENT
             if (
               dateToString(sessionStart) < date &&
               !sessionStop &&
@@ -106,9 +124,10 @@ export default function HistoryTable() {
               selectedDateSession.push({
                 id: id,
                 boothNumber: boothNumber,
-                start: `(${dateToString(sessionStart)}) ${dateTime(
+                sessionstart: sessionStart,
+                start: ` ${dateTime(sessionStart)} (${dateToString(
                   sessionStart
-                )}`,
+                )})`,
                 stop: 'CURRENT',
               });
             }
@@ -116,128 +135,33 @@ export default function HistoryTable() {
         }
       }
       if (selectedDateSession.length > 0) {
-        setDataTable((pev) => selectedDateSession);
-        console.log(selectedDateSession);
+        // removing duplicate object from selectedDateSession by sessionstart
+        const uniqueStart = [];
+        const removeDuplicate = selectedDateSession.filter((el) => {
+          const isDuplicate = uniqueStart.includes(el.sessionstart);
+          if (!isDuplicate) {
+            uniqueStart.push(el.sessionstart);
+            return true;
+          }
+          return false;
+        });
+
+        // sorting array before sending it to table
+        const sortedDataSession = removeDuplicate.sort((a, b) => {
+          const a_start = new Date(a.sessionstart).getTime();
+          const b_start = new Date(b.sessionstart).getTime();
+          return a_start - b_start;
+        });
+        // if there is data set it to the state data
+        setDataTable((pev) => sortedDataSession);
       }
+
+      // if there is no data clear data
       if (selectedDateSession.length <= 0) {
         setDataTable((pev) => []);
       }
     }
   }, [userTasks, date]);
-
-  // useEffect(() => {
-  //   if (taskBydateData) {
-  //     const dataSelect = taskBydateData.getTaskByDate;
-  //     const sessionArray = [];
-
-  //     if (dataSelect.length > 0) {
-  //       for (let i = 0; i < dataSelect.length; i++) {
-  //         const boothNumbers = dataSelect[i].boothNumber;
-
-  //         for (let a = 0; a < dataSelect[i].session.length; a++) {
-  //           if (dataSelect[i].session[a].sessionStart) {
-  //             const startDt = Object.values(
-  //               dataSelect[i].session[a].sessionStart
-  //             ).join('');
-
-  //             const stopDt =
-  //               dataSelect[i].session[a].sessionStop &&
-  //               Object.values(dataSelect[i].session[a].sessionStop).join('');
-
-  //             const startDate = new Date(startDt);
-  //             const stopDate = new Date(stopDt);
-
-  //             const fullStrDate = `${startDate.getFullYear()}-${(
-  //               startDate.getMonth() + 1
-  //             )
-  //               .toString()
-  //               .padStart(2, '0')}-${startDate
-  //               .getDate()
-  //               .toString()
-  //               .padStart(2, '0')}`;
-
-  //             const fullStpDate = `${stopDate.getFullYear()}-${(
-  //               stopDate.getMonth() + 1
-  //             )
-  //               .toString()
-  //               .padStart(2, '0')}-${stopDate
-  //               .getDate()
-  //               .toString()
-  //               .padStart(2, '0')}`;
-
-  //             const startTime = `${startDate
-  //               .getHours()
-  //               .toString()
-  //               .padStart(2, '0')}:${startDate
-  //               .getMinutes()
-  //               .toString()
-  //               .padStart(2, '0')}:${startDate
-  //               .getSeconds()
-  //               .toString()
-  //               .padStart(2, '0')}`;
-
-  //             const stopTime = `${stopDate
-  //               .getHours()
-  //               .toString()
-  //               .padStart(2, '0')}:${stopDate
-  //               .getMinutes()
-  //               .toString()
-  //               .padStart(2, '0')}:${stopDate
-  //               .getSeconds()
-  //               .toString()
-  //               .padStart(2, '0')}`;
-
-  //             if (fullStrDate === date) {
-  //               const dur = duration(startDate, stopDate);
-  //               if (fullStpDate === date) {
-  //                 sessionArray.push(
-  //                   Object.assign(
-  //                     {},
-  //                     {
-  //                       boothNumber: boothNumbers,
-  //                       start: startTime,
-  //                       stop: stopTime,
-  //                       duration: dur,
-  //                     }
-  //                   )
-  //                 );
-  //               } else {
-  //                 sessionArray.push(
-  //                   Object.assign(
-  //                     {},
-  //                     {
-  //                       boothNumber: boothNumbers,
-  //                       start: startTime,
-  //                       // if stop date is not the same as date(params) and not null => show stopTime (fullStpDate)
-  //                       // else if stop date is null => show Processing
-  //                       stop: dataSelect[i].session[a].sessionStop
-  //                         ? `${stopTime} (${fullStpDate})`
-  //                         : 'Processing',
-  //                       duration: dur,
-  //                     }
-  //                   )
-  //                 );
-  //               }
-  //             }
-  //           }
-  //         }
-  //       }
-  //     }
-
-  //     if (dataSelect.length <= 0) {
-  //       setDataTable([]);
-  //     }
-
-  //     if (sessionArray.length > 0) {
-  //       // create a new sorted array by start date
-  //       const sortByStartDate = sessionArray.sort((a, b) =>
-  //         a.start > b.start ? 1 : -1
-  //       );
-
-  //       setDataTable(sortByStartDate);
-  //     }
-  //   }
-  // }, [taskBydateData]);
 
   const columns = [
     {

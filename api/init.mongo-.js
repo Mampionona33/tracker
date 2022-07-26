@@ -74,8 +74,8 @@ const resetMongo = async () => {
         taskState: 'isOff',
         session: [
           {
-            sessionStart: '2022-07-07T11:44:09.135+00:00',
-            sessionStop: '2022-07-07T12:44:09.135+00:00',
+            sessionStart: '2022-07-07T09:20:09.267Z',
+            sessionStop: '2022-07-07T10:44:09.267Z',
           },
         ],
       },
@@ -96,7 +96,7 @@ const resetMongo = async () => {
         taskState: 'isPlay',
         session: [
           {
-            sessionStart: '2022-07-07T12:44:09.135+00:00',
+            sessionStart: '2022-07-07T10:44:09.267Z',
             sessionStop: null,
           },
         ],
