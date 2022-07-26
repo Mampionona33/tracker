@@ -68,13 +68,25 @@ export default function HistoryTable() {
             const sessionStop = session[a].sessionStop;
 
             // if start date == selected date and stop date != null => show start date(hh:mm:ss) and stop date(hh:mm:ss)
-            if (dateToString(sessionStart) === date && sessionStop) {
-              selectedDateSession.push({
-                id: id,
-                boothNumber: boothNumber,
-                start: dateTime(sessionStart),
-                stop: dateTime(sessionStop),
-              });
+            if (dateToString(sessionStart) === date) {
+              if (dateToString(sessionStop) === date) {
+                selectedDateSession.push({
+                  id: id,
+                  boothNumber: boothNumber,
+                  start: dateTime(sessionStart),
+                  stop: dateTime(sessionStop),
+                });
+              }
+              if (dateToString(sessionStop) !== date) {
+                selectedDateSession.push({
+                  id: id,
+                  boothNumber: boothNumber,
+                  start: dateTime(sessionStart),
+                  stop: `${dateTime(sessionStop)} (${dateToString(
+                    sessionStop
+                  )})`,
+                });
+              }
             }
             // if start date == selected date and stop date == null => show start date(hh:mm:ss) and stop : CURRENT
             if (dateToString(sessionStart) === date && !sessionStop) {
@@ -105,6 +117,7 @@ export default function HistoryTable() {
       }
       if (selectedDateSession.length > 0) {
         setDataTable((pev) => selectedDateSession);
+        console.log(selectedDateSession);
       }
       if (selectedDateSession.length <= 0) {
         setDataTable((pev) => []);
