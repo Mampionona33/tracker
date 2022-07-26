@@ -44,39 +44,47 @@ export default function HistoryTable() {
       .padStart(2, '0')}-${newDate.getDate().toString().padStart(2, '0')}`;
   };
 
+  const getTime = (date1, date2) => {
+    console.log(date1);
+    console.log(date2);
+    const date3 = new Date(date1);
+    if (dateToString(date1) === date2) {
+      return `${date3.getHours().toString().padStart(2, '0')}:${date3
+        .getMinutes()
+        .toString()
+        .padStart(2, '0')}:${date3.getMinutes().toString().padStart(2, '0')}`;
+    }
+    if (dateToString(date1) < date2 && date1) {
+      return `${date3.getHours().toString().padStart(2, '0')}:${date3
+        .getMinutes()
+        .toString()
+        .padStart(2, '0')}:${date3
+        .getMinutes()
+        .toString()
+        .padStart(2, '0')} (${dateToString(date1)})`;
+    }
+    if (dateToString(date1) > date2) {
+      return;
+    }
+    if (!date1) {
+      return 'Processing';
+    }
+  };
+
   useEffect(() => {
-    if (userTasks && userTasks.getUserTask.length > 0) {
+    if (userTasks) {
       const tasks = userTasks.getUserTask;
+      const selectedDateSession = [];
 
-      const sessions = tasks.map((item) => {
-        const result = {};
-        for (let i = 0; i < item.session.length; i++) {
-          const sessionStartDate = item.session[i].sessionStart;
-          const sessionStopDate = item.session[i].sessionStop;
-
-          if (dateToString(sessionStartDate) === date) {
-            result.id = item.id;
-            result.boothNumber = item.boothNumber;
-            result.start = sessionStartDate;
-            result.stop = sessionStopDate;
-          }
+      if (tasks.length > 0) {
+        for (let i = 0; i < tasks.length; i++) {
+          const boothNumber = tasks[i].boothNumber;
+          console.log(tasks);
+          console.log(boothNumber);
+          // if start date == selected date and stop date != null => show start date(hh:mm:ss) and stop date(hh:mm:ss)
+          // if start date == selected date and stop date == null => show start date(hh:mm:ss) and stop : CURRENT
+          // if start date < selected date and stop date == null => show start date((yyyy-mm-dd) hh:mm:ss) and stop :CURRENT
         }
-        return result;
-      });
-
-      const sessionClearEmptyObj = sessions.filter((element) => {
-        if (Object.keys(element).length !== 0) {
-          return true;
-        }
-        return false;
-      });
-
-      if (sessionClearEmptyObj.length > 0) {
-        console.log(sessionClearEmptyObj);
-        const sortedSession = sessionClearEmptyObj.sort((a, b) =>
-          a.start > b.start ? 1 : -1
-        );
-        setDataTable(sortedSession);
       }
     }
   }, [userTasks, date]);
