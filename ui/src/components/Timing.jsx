@@ -9,6 +9,7 @@ import { AuthContext } from '../context/authContext';
 import { UPDATE_TASK } from '../graphql/Mutation';
 import { setTaskStatePause, setTaskStatePlay } from '../graphql/tasks';
 import { TaskContext } from '../context/taskContext';
+import Clock from './Clock';
 
 export default function Timing(props) {
   const userContext = useContext(AuthContext);
@@ -71,25 +72,7 @@ export default function Timing(props) {
     <div className='timing'>
       <div className='timing__elapsted'>
         <h4 className='timing__elapsted --l'>Elapsted</h4>
-        <div className='timing__elapsted --r clock'>
-          <div className='clock__item'>
-            <Card Children={'00'} />
-            Day
-          </div>
-          <div className='clock__item'>
-            <Card Children={'12'} />
-            Hrs
-          </div>
-          <div className='clock__item'>
-            <Card Children={'14'} />
-            Min
-          </div>
-
-          <div className='clock__item'>
-            <Card Children={'20'} />
-            Sec
-          </div>
-        </div>
+        <Clock/>
       </div>
       <hr className='timing__hr' />
       <div className='timing__actualProd'>

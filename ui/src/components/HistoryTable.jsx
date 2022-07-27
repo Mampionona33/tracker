@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client';
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { duration } from '../assets/img/duration';
+import { dateTime, dateToString } from '../assets/img/timeUtility';
 import { AuthContext } from '../context/authContext';
 import { GET_TASK_BY_DATE, GET_USER_TASK } from '../graphql/Query';
 import TableWithPagination from './TableWithPagination';
@@ -36,21 +37,6 @@ export default function HistoryTable() {
       },
     }
   );
-
-  const dateToString = (dt) => {
-    const newDate = new Date(dt);
-    return `${newDate.getFullYear()}-${(newDate.getMonth() + 1)
-      .toString()
-      .padStart(2, '0')}-${newDate.getDate().toString().padStart(2, '0')}`;
-  };
-
-  const dateTime = (date1) => {
-    const date = new Date(date1);
-    return `${date.getHours().toString().padStart(2, '0')}:${date
-      .getMinutes()
-      .toString()
-      .padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`;
-  };
 
   useEffect(() => {
     if (userTasks) {
