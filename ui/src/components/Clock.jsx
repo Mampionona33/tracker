@@ -24,6 +24,7 @@ const Clock = () => {
       const taskPlay = userTasks.filter((item) => item.taskState === 'isPlay');
       const sessionPlay = taskPlay.map((item) => item.session);
       const elapstedTimeArray = [];
+
       for (let i = 0; i < sessionPlay.length; i++) {
         const sessionArray = Array.from(sessionPlay[i]);
         for (let a = 0; a < sessionArray.length; a++) {
@@ -31,21 +32,36 @@ const Clock = () => {
             elapstedTimeArray.push(
               difDate(sessionArray[a].sessionStart, sessionArray[a].sessionStop)
             );
+            const elapStedTimeDatex = elapstedTimeArray.reduce((a, b) => a + b);
+            console.log('stop', secondToDayHourMinSec(elapStedTimeDatex));
           }
+
           if (!sessionArray[a].sessionStop) {
-            // console.log(sessionArray[a].sessionStart);
-            console.log(
-              secondToDayHourMinSec(
-                difDate(sessionArray[a].sessionStart, new Date())
-              )
+            elapstedTimeArray.push(
+              difDate(sessionArray[a].sessionStart, new Date())
             );
+
+            const dateNow = difDate(sessionArray[a].sessionStart, new Date());
+            elapstedTimeArray.push(dateNow);
+
+            const elapStedTimeDatex = elapstedTimeArray.reduce((a, b) => a + b);
+            console.log('start', secondToDayHourMinSec(elapStedTimeDatex));
+
+            const interval = setInterval(() => {
+              elapstedTimeArray.push(1);
+              if (elapstedTimeArray.length > 0) {
+                const elapStedTimeDate = elapstedTimeArray.reduce(
+                  (a, b) => a + b
+                );
+                console.log(
+                  'sessionStart',
+                  secondToDayHourMinSec(elapStedTimeDate)
+                );
+              }
+            }, 1000);
+            return () => clearInterval(interval);
           }
         }
-      }
-
-      if (elapstedTimeArray.length > 0) {
-        const elapStedTimeDate = elapstedTimeArray.reduce((a, b) => a + b);
-        console.log(secondToDayHourMinSec(elapStedTimeDate));
       }
     }
   }, [allUserTasks]);
