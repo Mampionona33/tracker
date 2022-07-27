@@ -32,6 +32,9 @@ const Clock = () => {
               difDate(sessionArray[a].sessionStart, sessionArray[a].sessionStop)
             );
           }
+          if (!sessionArray[a].sessionStop) {
+            console.log(sessionArray[a].sessionStart);
+          }
         }
       }
 
