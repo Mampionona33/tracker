@@ -1,9 +1,6 @@
 import { useQuery } from '@apollo/client';
 import React, { useContext, useEffect } from 'react';
-import {
-  difDate,
-  formatSecondToDayHourMinSec,
-} from '../assets/img/timeUtility';
+import { difDate, secondToDayHourMinSec } from '../assets/img/timeUtility';
 import { AuthContext } from '../context/authContext';
 import { GET_USER_TASK } from '../graphql/Query';
 
@@ -40,7 +37,7 @@ const Clock = () => {
 
       if (elapstedTimeArray.length > 0) {
         const elapStedTimeDate = elapstedTimeArray.reduce((a, b) => a + b);
-        console.log(formatSecondToDayHourMinSec(elapStedTimeDate));
+        console.log(secondToDayHourMinSec(elapStedTimeDate));
       }
     }
   }, [allUserTasks]);

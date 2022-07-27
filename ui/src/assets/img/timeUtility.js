@@ -28,7 +28,7 @@ export const difDate = (date1, date2) => {
   return Math.floor((dt2 - dt1) / 1000);
 };
 
-export const formatSecondToDayHourMinSec = (secondes) => {
+export const secondToDayHourMinSec = (secondes) => {
   // day
   let day = Math.floor(secondes / (24 * 3600));
   secondes -= day * 24 * 3600;
