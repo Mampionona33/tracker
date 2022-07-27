@@ -33,7 +33,12 @@ const Clock = () => {
             );
           }
           if (!sessionArray[a].sessionStop) {
-            console.log(sessionArray[a].sessionStart);
+            // console.log(sessionArray[a].sessionStart);
+            console.log(
+              secondToDayHourMinSec(
+                difDate(sessionArray[a].sessionStart, new Date())
+              )
+            );
           }
         }
       }
