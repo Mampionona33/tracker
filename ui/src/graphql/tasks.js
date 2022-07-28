@@ -63,6 +63,7 @@ export const getUserTaskPlay = async (sub) => {
 };
 
 export const setTaskStateOff = async (updateTask, id, error) => {
+  console.log(id);
   updateTask({
     variables: {
       filter: {

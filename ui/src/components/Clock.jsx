@@ -44,7 +44,6 @@ const Clock = () => {
               difDate(sessionArray[a].sessionStart, sessionArray[a].sessionStop)
             );
             const elapStedTimeDatex = elapstedTimeArray.reduce((a, b) => a + b);
-            console.log('stop', secondToDayHourMinSec(elapStedTimeDatex));
           }
 
           if (!sessionArray[a].sessionStop) {
