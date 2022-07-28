@@ -82,7 +82,40 @@ const Clock = () => {
       // if taskState === isPause
       for (let i = 0; i < sessionPause.length; i++) {
         const sessionPauseArray = Array.from(sessionPause[i]);
-        console.log(sessionPauseArray);
+        for (let a = 0; a < sessionPauseArray.length; a++) {
+          elapstedTimeArray.push(
+            difDate(
+              sessionPauseArray[a].sessionStart,
+              sessionPauseArray[a].sessionStop
+            )
+          );
+        }
+        if (elapstedTimeArray.length > 0) {
+          const elapstedTimeDatePause = elapstedTimeArray.reduce(
+            (a, b) => a + b
+          );
+          // console.log(elapstedTimeDatePause);
+          setDay((prev) =>
+            secondToDayHourMinSec(elapstedTimeDatePause)
+              .day.toString()
+              .padStart(2, '0')
+          );
+          setHours((prev) =>
+            secondToDayHourMinSec(elapstedTimeDatePause)
+              .hours.toString()
+              .padStart(2, '0')
+          );
+          setMin(
+            secondToDayHourMinSec(elapstedTimeDatePause)
+              .minutes.toString()
+              .padStart(2, '0')
+          );
+          setSec(
+            secondToDayHourMinSec(elapstedTimeDatePause)
+              .secondes.toString()
+              .padStart(2, '0')
+          );
+        }
       }
     }
   }, [allUserTasks]);
