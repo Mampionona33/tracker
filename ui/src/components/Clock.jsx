@@ -28,9 +28,14 @@ const Clock = () => {
     if (allUserTasks && allUserTasks.getUserTask) {
       const userTasks = Array.from(allUserTasks.getUserTask);
       const taskPlay = userTasks.filter((item) => item.taskState === 'isPlay');
+      const taskPause = userTasks.filter(
+        (item) => item.taskState === 'isPause'
+      );
+      const sessionPause = taskPause.map((item) => item.session);
       const sessionPlay = taskPlay.map((item) => item.session);
       const elapstedTimeArray = [];
 
+      // if taskState === isPlay
       for (let i = 0; i < sessionPlay.length; i++) {
         const sessionArray = Array.from(sessionPlay[i]);
         for (let a = 0; a < sessionArray.length; a++) {
@@ -72,6 +77,12 @@ const Clock = () => {
             return () => clearInterval(interval);
           }
         }
+      }
+
+      // if taskState === isPause
+      for (let i = 0; i < sessionPause.length; i++) {
+        const sessionPauseArray = Array.from(sessionPause[i]);
+        console.log(sessionPauseArray);
       }
     }
   }, [allUserTasks]);
