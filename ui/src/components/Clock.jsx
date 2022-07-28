@@ -55,7 +55,6 @@ const Clock = () => {
             elapstedTimeArray.push(dateNow);
 
             const elapStedTimeDatex = elapstedTimeArray.reduce((a, b) => a + b);
-            console.log('start', secondToDayHourMinSec(elapStedTimeDatex));
 
             const interval = setInterval(() => {
               elapstedTimeArray.push(1);
