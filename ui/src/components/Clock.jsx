@@ -1,11 +1,17 @@
 import { useQuery } from '@apollo/client';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { difDate, secondToDayHourMinSec } from '../assets/img/timeUtility';
 import { AuthContext } from '../context/authContext';
 import { GET_USER_TASK } from '../graphql/Query';
+import Card from './Card';
+import '../style/Clock.scss';
 
 const Clock = () => {
   const userContext = useContext(AuthContext);
+  const [day, setDay] = useState('00');
+  const [hours, setHours] = useState('00');
+  const [min, setMin] = useState('00');
+  const [sec, setSec] = useState('00');
   const {
     data: allUserTasks,
     refetch: refetchAllUserTask,
@@ -53,10 +59,14 @@ const Clock = () => {
                 const elapStedTimeDate = elapstedTimeArray.reduce(
                   (a, b) => a + b
                 );
-                console.log(
-                  'sessionStart',
-                  secondToDayHourMinSec(elapStedTimeDate)
-                );
+                const d = secondToDayHourMinSec(elapStedTimeDate).day;
+                d && setDay((prev) => d.toString().padStart(2, '0'));
+                const hrs = secondToDayHourMinSec(elapStedTimeDate).hours;
+                hrs && setHours((prev) => hrs.toString().padStart(2, '0'));
+                const minutes = secondToDayHourMinSec(elapStedTimeDate).minutes;
+                minutes && setMin((pev) => minutes.toString().padStart(2, '0'));
+                const second = secondToDayHourMinSec(elapStedTimeDate).secondes;
+                second && setSec((prev) => second.toString().padStart(2, '0'));
               }
             }, 1000);
             return () => clearInterval(interval);
@@ -67,8 +77,11 @@ const Clock = () => {
   }, [allUserTasks]);
 
   return (
-    <div>
-      <p>clock</p>
+    <div style={{ display: 'flex' }}>
+      <Card Children={<p className='timerDigit'>{day}</p>} />
+      <Card Children={<p className='timerDigit'>{hours}</p>} />
+      <Card Children={<p className='timerDigit'>{min}</p>} />
+      <Card Children={<p className='timerDigit'>{sec}</p>} />
     </div>
   );
 };
