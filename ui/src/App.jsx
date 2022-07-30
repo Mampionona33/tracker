@@ -1,9 +1,12 @@
+import { useQuery } from '@apollo/client';
 import React, { useContext, useEffect } from 'react';
 import { Navigate, Route, Routes, useParams } from 'react-router-dom';
 import HistoryTable from './components/HistoryTable';
 import TaskOffList from './components/TaskOffList';
 import { AuthContext } from './context/authContext';
 import { TaskContext } from './context/taskContext';
+import { TaskTypeContext } from './context/taskTypeContext';
+import { GET_ALL_TYPE_TASK } from './graphql/Query';
 import { getUserTask } from './graphql/tasks';
 import { createUser, getUser } from './graphql/user';
 import AdminRoute from './pages/AdminRoute';
@@ -17,6 +20,15 @@ export default function App() {
   const context = useContext(AuthContext);
   const currentUser = context.user;
   const taskContext = useContext(TaskContext);
+  const taskTypeContext = useContext(TaskTypeContext);
+  const { data: allTaskType, error: errorOnLoadAllTaskType } =
+    useQuery(GET_ALL_TYPE_TASK);
+
+  useEffect(() => {
+    if (allTaskType && allTaskType.getAllTaskTypeList) {
+      taskTypeContext.setTaskType(allTaskType.getAllTaskTypeList);
+    }
+  }, [allTaskType]);
 
   useEffect(() => {
     /*

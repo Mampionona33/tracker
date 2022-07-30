@@ -17,10 +17,12 @@ import {
   GET_USER_PROCESSING_TASK,
   GET_USER_TASK,
 } from './../graphql/Query';
+import { TaskTypeContext } from '../context/taskTypeContext';
 
 const DialogNewTask = () => {
   const ComponentContext = useContext(componentContext);
   const context = useContext(AuthContext);
+  const taskTypeContext = useContext(TaskTypeContext);
   const userSub = context.user.sub;
   const [currentProcTask, setCurrentProcTask] = useState([]);
   const [typeTaskOptions, setTypeTaskOptions] = useState([]);
@@ -29,9 +31,6 @@ const DialogNewTask = () => {
     GET_USER_TASK,
     { variables: { input: { sub: userSub } } }
   );
-
-  const { data: allTaskType, error: errorLoadingAllTaskType } =
-    useQuery(GET_ALL_TYPE_TASK);
 
   useEffect(() => {
     if (processingTask) {
@@ -43,15 +42,6 @@ const DialogNewTask = () => {
       }
     }
   }, [processingTask]);
-
-  // get all Type task on DialogNewTask is Mounted
-  useEffect(() => {
-    if (allTaskType) {
-      if (allTaskType.getAllTaskTypeList) {
-        setTypeTaskOptions((perv) => allTaskType.getAllTaskTypeList);
-      }
-    }
-  }, [allTaskType]);
 
   const [createTask, { error: errorCreatTask }] = useMutation(CREATE_TASK, {
     refetchQueries: [
@@ -158,8 +148,8 @@ const DialogNewTask = () => {
                 value={newTask.type}
                 onChange={(ev) => handleInputChange(ev)}
               >
-                {typeTaskOptions.length > 0 &&
-                  typeTaskOptions.map((item) => {
+                {taskTypeContext.taskType &&
+                  taskTypeContext.taskType.map((item) => {
                     return (
                       <option value={item.name} key={item.id}>
                         {item.name}
