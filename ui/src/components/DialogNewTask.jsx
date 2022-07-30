@@ -160,7 +160,6 @@ const DialogNewTask = () => {
               >
                 {typeTaskOptions.length > 0 &&
                   typeTaskOptions.map((item) => {
-                    console.log(item);
                     return (
                       <option value={item.name} key={item.id}>
                         {item.name}
