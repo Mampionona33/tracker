@@ -79,6 +79,7 @@ export const setTaskStateOff = async (updateTask, id, error) => {
   if (error) {
     console.log(error);
   }
+  return;
 };
 export const setTaskStatePause = async (updateTask, id, error) => {
   updateTask({

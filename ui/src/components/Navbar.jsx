@@ -25,7 +25,7 @@ export default function Navbar(props) {
       },
     ],
     // after the update is complete, execute the logout function
-    // onCompleted: () => context.logout(),
+    onCompleted: () => context.logout(),
     awaitRefetchQueries: true,
   });
 
@@ -48,15 +48,13 @@ export default function Navbar(props) {
 
   const handleClickLogout = async (event) => {
     event.preventDefault();
-    // console.log(taskPlay.id);
     if (currentTaskPlay) {
       if (currentTaskPlay.getUserTaskByFilter.length > 0) {
-        console.log(currentTaskPlay.getUserTaskByFilter);
         setTaskStateOff(
           updateTask,
           currentTaskPlay.getUserTaskByFilter[0].id,
           errorOnUpdateTask
-        ).then(context.logout());
+        );
       } else {
         context.logout();
       }
