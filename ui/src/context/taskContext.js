@@ -3,6 +3,7 @@ import React, { createContext, useReducer } from 'react';
 import { getUserTask } from '../graphql/tasks';
 
 const initialState = {
+  processinTask: null,
   userTasks: null,
   userTaskPlay: [],
   userTaskPause: null,
@@ -15,10 +16,17 @@ if (localStorage.getItem('token')) {
     (async () => {
       const userTaskData = await getUserTask(sub);
       if (userTaskData) {
+        const userTaskDataArray = Array.from(userTaskData);
         initialState.userTasks = userTaskData;
         const userTaskPlay = userTaskData.filter(
           (item) => item.taskState === 'isPlay'
         );
+        const processingTask = userTaskDataArray.filter(
+          (item) => item.taskState === 'isPlay' || item.taskState === 'isPause'
+        );
+        if (processingTask.length > 0) {
+          initialState.processinTask = processingTask[0];
+        }
         if (userTaskPlay) {
           initialState.userTaskPlay = userTaskPlay;
         }
@@ -28,9 +36,11 @@ if (localStorage.getItem('token')) {
 }
 
 const TaskContext = createContext({
+  processinTask: null,
   userTasks: null,
   userTaskPlay: null,
   userTaskPause: null,
+  setProcessingTask: (processinTask) => {},
   setUserTasks: (userTasks) => {},
   setUserTaskPlay: (userTaskPlay) => {},
   setUserTaskPause: (userTaskPause) => {},
@@ -39,6 +49,7 @@ const TaskContext = createContext({
 const ACTION = {
   SET_USER_TASKS: 'set-user-tasks',
   SET_USER_TASK_PLAY: 'set-user-task-play',
+  SET_PROCESSING_TASK: 'set-processing-task',
 };
 
 const taskReducer = (state, action) => {
@@ -53,6 +64,12 @@ const taskReducer = (state, action) => {
       return {
         ...state,
         userTaskPlay: (state.userTaskPlay = action.payload),
+      };
+    }
+    case ACTION.SET_PROCESSING_TASK: {
+      return {
+        ...state,
+        processinTask: (state.processinTask = action.payload),
       };
     }
     default:
@@ -74,15 +91,21 @@ const TaskProvider = (props) => {
     dispatch({ type: ACTION.SET_USER_TASK_PLAY, payload: userTasksPlay });
   };
 
+  const setProcessingTask = (processinTask) => {
+    dispatch({ type: ACTION.SET_PROCESSING_TASK, payload: processinTask });
+  };
+
   return (
     <TaskContext.Provider
       value={{
         userTasks: state.userTasks,
         userTaskPlay: state.userTaskPlay,
         userTaskPause: state.userTaskPause,
+        processinTask: state.processinTask,
         setUserTasks,
         setUserTaskPlay,
         setUserTaskPause,
+        setProcessingTask,
       }}
       {...props}
     />

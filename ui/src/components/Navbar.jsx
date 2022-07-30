@@ -2,17 +2,15 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/authContext';
 import { componentContext } from '../context/componentContext';
 import '../style/Navbar.scss';
-import { useMutation, useQuery } from '@apollo/client';
-import { CREATE_TASK, UPDATE_TASK } from '../graphql/Mutation';
-import { GET_USER_TASK, GET_USER_TASK_PLAY } from '../graphql/Query';
+import { useMutation } from '@apollo/client';
+import { UPDATE_TASK } from '../graphql/Mutation';
+import { GET_USER_TASK } from '../graphql/Query';
 import { setTaskStateOff } from '../graphql/tasks';
 import { TaskContext } from '../context/taskContext';
-import { GET_TASK_BY_FILTER } from './../graphql/Query';
 export default function Navbar(props) {
   const context = useContext(AuthContext);
   const ComponentContext = useContext(componentContext);
   const taskContext = useContext(TaskContext);
-  const taskPlay = taskContext.userTaskPlay;
 
   const [
     updateTask,
@@ -29,18 +27,6 @@ export default function Navbar(props) {
     awaitRefetchQueries: true,
   });
 
-  const { data: currentTaskPlay, error: errorOnFetchCurrentTaskPlay } =
-    useQuery(GET_TASK_BY_FILTER, {
-      variables: {
-        input: {
-          taskState: 'isPlay',
-          user: {
-            sub: context && context.user.sub,
-          },
-        },
-      },
-    });
-
   const handleClickMenu = (event) => {
     event.preventDefault();
     ComponentContext.toggleSideBar();
@@ -48,16 +34,14 @@ export default function Navbar(props) {
 
   const handleClickLogout = async (event) => {
     event.preventDefault();
-    if (currentTaskPlay) {
-      if (currentTaskPlay.getUserTaskByFilter.length > 0) {
-        setTaskStateOff(
-          updateTask,
-          currentTaskPlay.getUserTaskByFilter[0].id,
-          errorOnUpdateTask
-        );
-      } else {
-        context.logout();
-      }
+    if (taskContext.processinTask) {
+      setTaskStateOff(
+        updateTask,
+        taskContext.processinTask.id,
+        errorOnUpdateTask
+      );
+    } else {
+      context.logout();
     }
   };
 

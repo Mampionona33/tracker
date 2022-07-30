@@ -30,6 +30,10 @@ export default function App() {
     }
   }, [allTaskType]);
 
+  if (taskContext.processinTask) {
+    console.log('Procesing task from context : ', taskContext.processinTask);
+  }
+
   useEffect(() => {
     /*
       create  the variable mounted to cleaning up
