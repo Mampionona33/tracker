@@ -56,10 +56,9 @@ export default function Navbar(props) {
           updateTask,
           currentTaskPlay.getUserTaskByFilter[0].id,
           errorOnUpdateTask
-        );
-        // .then(context.logout());
+        ).then(context.logout());
       } else {
-        // context.logout();
+        context.logout();
       }
     }
   };
