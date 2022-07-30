@@ -12,6 +12,7 @@ import {
 import '../style/DialogNewTask.scss';
 import Modale from './Modale';
 import {
+  GET_ALL_TYPE_TASK,
   GET_TASK_BY_FILTER,
   GET_USER_PROCESSING_TASK,
   GET_USER_TASK,
@@ -22,15 +23,18 @@ const DialogNewTask = () => {
   const context = useContext(AuthContext);
   const userSub = context.user.sub;
   const [currentProcTask, setCurrentProcTask] = useState([]);
+  const [typeTaskOptions, setTypeTaskOptions] = useState([]);
 
   const { data: processingTask, error: errorLoadingProcTask } = useQuery(
     GET_USER_TASK,
     { variables: { input: { sub: userSub } } }
   );
 
+  const { data: allTaskType, error: errorLoadingAllTaskType } =
+    useQuery(GET_ALL_TYPE_TASK);
+
   useEffect(() => {
     if (processingTask) {
-      // console.log(processingTask);
       const curProTask = processingTask.getUserTask.filter(
         (item) => item.taskState === 'isPlay' || item.taskState === 'isPause'
       );
@@ -39,6 +43,15 @@ const DialogNewTask = () => {
       }
     }
   }, [processingTask]);
+
+  // get all Type task on DialogNewTask is Mounted
+  useEffect(() => {
+    if (allTaskType) {
+      if (allTaskType.getAllTaskTypeList) {
+        setTypeTaskOptions((perv) => allTaskType.getAllTaskTypeList);
+      }
+    }
+  }, [allTaskType]);
 
   const [createTask, { error: errorCreatTask }] = useMutation(CREATE_TASK, {
     refetchQueries: [
@@ -145,8 +158,17 @@ const DialogNewTask = () => {
                 value={newTask.type}
                 onChange={(ev) => handleInputChange(ev)}
               >
-                <option value={'Contenu'}>Contenu</option>
-                <option value={'Maj'}>Maj</option>
+                {typeTaskOptions.length > 0 &&
+                  typeTaskOptions.map((item) => {
+                    console.log(item);
+                    return (
+                      <option value={item.name} key={item.id}>
+                        {item.name}
+                      </option>
+                    );
+                  })}
+                {/* <option value={'Contenu'}>Contenu</option>
+                <option value={'Maj'}>Maj</option> */}
               </select>
             </div>
 

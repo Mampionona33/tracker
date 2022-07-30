@@ -110,3 +110,13 @@ export const GET_TASK_BY_FILTER = gql`
     }
   }
 `;
+
+export const GET_ALL_TYPE_TASK = gql`
+  query GetAllTaskTypeList {
+    getAllTaskTypeList {
+      id
+      name
+      goal
+    }
+  }
+`;

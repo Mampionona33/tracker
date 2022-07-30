@@ -6,6 +6,7 @@ require('dotenv').config();
 
 const users = require('./schema/user');
 const task = require('./schema/task');
+const taskType = require('./schema/taskType');
 const { query } = require('express');
 const { getDb } = require('./db');
 const { MongoClient } = require('mongodb');
@@ -19,6 +20,8 @@ const resolvers = {
     getUserTask: task.get,
     getUserTaskByFilter: task.getUserTaskByFilter,
     getTaskByDate: task.getTaskByDate,
+    // get all taskType
+    getAllTaskTypeList: taskType.allTaskTypeList,
   },
   Mutation: {
     // create new user
