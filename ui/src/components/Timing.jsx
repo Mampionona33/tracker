@@ -22,8 +22,10 @@ export default function Timing(props) {
 
   const [updateTask, { error: errorOnUpdate }] = useMutation(UPDATE_TASK, {
     refetchQueries: [
-      GET_USER_TASK,
-      { variables: { input: { sub: userContext && sub } } },
+      {
+        query: GET_USER_TASK,
+        variables: { input: { sub: userContext && sub } },
+      },
     ],
     awaitRefetchQueries: true,
   });
@@ -52,9 +54,11 @@ export default function Timing(props) {
         );
         if (taskStatePause && taskStatePause.length > 0) {
           setButtonIcon((prev) => 'play_arrow');
+          setCurProcessTask((prev) => taskStatePause);
         }
         if (taskStatePlay && taskStatePlay.length > 0) {
           setButtonIcon((prev) => 'pause');
+          setCurProcessTask((prev) => taskStatePlay);
         }
       }
     }
@@ -64,20 +68,15 @@ export default function Timing(props) {
     event.preventDefault();
     const buttonState = refButton.current.children[0].innerText;
 
-    if (taskContext.processinTask) {
-      if (buttonState === 'pause') {
-        await setTaskStatePause(
-          updateTask,
-          taskContext.processinTask.id,
-          errorOnUpdate
-        ).then(setUserTaskPause(taskContext.processinTask));
-      }
-      if (buttonState === 'play_arrow') {
-        await setTaskStatePlay(
-          updateTask,
-          taskContext.processinTask.id,
-          errorOnUpdate
-        );
+    if (curProcessTask.length > 0) {
+      for (let i = 0; i < curProcessTask.length; i++) {
+        const id = curProcessTask[i].id;
+        if (buttonState === 'pause') {
+          await setTaskStatePause(updateTask, id, errorOnUpdate);
+        }
+        if (buttonState === 'play_arrow') {
+          await setTaskStatePlay(updateTask, id, errorOnUpdate);
+        }
       }
     }
   };

@@ -5,6 +5,7 @@ import { AuthContext } from '../context/authContext';
 import { GET_USER_TASK } from '../graphql/Query';
 import Card from './Card';
 import '../style/Clock.scss';
+import { TaskContext } from '../context/taskContext';
 
 const Clock = () => {
   const userContext = useContext(AuthContext);
@@ -12,6 +13,8 @@ const Clock = () => {
   const [hours, setHours] = useState('00');
   const [min, setMin] = useState('00');
   const [sec, setSec] = useState('00');
+
+  const taskContext = useContext(TaskContext);
   const {
     data: allUserTasks,
     refetch: refetchAllUserTask,
@@ -24,95 +27,78 @@ const Clock = () => {
       },
     },
   });
+
   useEffect(() => {
     if (allUserTasks && allUserTasks.getUserTask) {
-      const userTasks = Array.from(allUserTasks.getUserTask);
-      const taskPlay = userTasks.filter((item) => item.taskState === 'isPlay');
-      const taskPause = userTasks.filter(
-        (item) => item.taskState === 'isPause'
+      const processingTask = Array.from(allUserTasks.getUserTask).filter(
+        (item) => item.taskState === 'isPause' || item.taskState === 'isPlay'
       );
-      const sessionPause = taskPause.map((item) => item.session);
-      const sessionPlay = taskPlay.map((item) => item.session);
       const elapstedTimeArray = [];
-
-      // if taskState === isPlay
-      for (let i = 0; i < sessionPlay.length; i++) {
-        const sessionArray = Array.from(sessionPlay[i]);
-        for (let a = 0; a < sessionArray.length; a++) {
-          if (sessionArray[a].sessionStop) {
-            elapstedTimeArray.push(
-              difDate(sessionArray[a].sessionStart, sessionArray[a].sessionStop)
-            );
-            const elapStedTimeDatex = elapstedTimeArray.reduce((a, b) => a + b);
-          }
-
-          if (!sessionArray[a].sessionStop) {
-            elapstedTimeArray.push(
-              difDate(sessionArray[a].sessionStart, new Date())
-            );
-
-            const dateNow = difDate(sessionArray[a].sessionStart, new Date());
-            elapstedTimeArray.push(dateNow);
-
-            const elapStedTimeDatex = elapstedTimeArray.reduce((a, b) => a + b);
-
-            const interval = setInterval(() => {
-              elapstedTimeArray.push(1);
-              if (elapstedTimeArray.length > 0) {
-                const elapStedTimeDate = elapstedTimeArray.reduce(
-                  (a, b) => a + b
-                );
-                const d = secondToDayHourMinSec(elapStedTimeDate).day;
-                d && setDay((prev) => d.toString().padStart(2, '0'));
-                const hrs = secondToDayHourMinSec(elapStedTimeDate).hours;
-                hrs && setHours((prev) => hrs.toString().padStart(2, '0'));
-                const minutes = secondToDayHourMinSec(elapStedTimeDate).minutes;
-                minutes && setMin((pev) => minutes.toString().padStart(2, '0'));
-                const second = secondToDayHourMinSec(elapStedTimeDate).secondes;
-                second && setSec((prev) => second.toString().padStart(2, '0'));
-              }
-            }, 1000);
-            return () => clearInterval(interval);
+      if (processingTask.length > 0) {
+        for (let i = 0; i < processingTask.length; i++) {
+          const taskState = processingTask[i].taskState;
+          const session = Array.from(processingTask[i].session);
+          for (let a = 0; a < session.length; a++) {
+            const sessionStart = session[a].sessionStart;
+            const sessionStop = session[a].sessionStop;
+            const dif = sessionStop && difDate(sessionStart, sessionStop);
+            elapstedTimeArray.push(dif);
           }
         }
       }
-
-      // if taskState === isPause
-      for (let i = 0; i < sessionPause.length; i++) {
-        const sessionPauseArray = Array.from(sessionPause[i]);
-        for (let a = 0; a < sessionPauseArray.length; a++) {
-          elapstedTimeArray.push(
-            difDate(
-              sessionPauseArray[a].sessionStart,
-              sessionPauseArray[a].sessionStop
-            )
-          );
-        }
-        if (elapstedTimeArray.length > 0) {
-          const elapstedTimeDatePause = elapstedTimeArray.reduce(
-            (a, b) => a + b
-          );
-          // console.log(elapstedTimeDatePause);
-          setDay((prev) =>
-            secondToDayHourMinSec(elapstedTimeDatePause)
-              .day.toString()
-              .padStart(2, '0')
-          );
-          setHours((prev) =>
-            secondToDayHourMinSec(elapstedTimeDatePause)
-              .hours.toString()
-              .padStart(2, '0')
-          );
-          setMin(
-            secondToDayHourMinSec(elapstedTimeDatePause)
-              .minutes.toString()
-              .padStart(2, '0')
-          );
-          setSec(
-            secondToDayHourMinSec(elapstedTimeDatePause)
-              .secondes.toString()
-              .padStart(2, '0')
-          );
+      if (elapstedTimeArray.length > 0) {
+        if (processingTask.length > 0) {
+          const taskState = processingTask[0].taskState;
+          if (taskState === 'isPause') {
+            const sumElapstedTime = elapstedTimeArray.reduce((a, b) => a + b);
+            setDay(
+              secondToDayHourMinSec(sumElapstedTime)
+                .day.toString()
+                .padStart(2, '0')
+            );
+            setHours((prev) =>
+              secondToDayHourMinSec(sumElapstedTime)
+                .hours.toString()
+                .padStart(2, '0')
+            );
+            setMin((prev) =>
+              secondToDayHourMinSec(sumElapstedTime)
+                .minutes.toString()
+                .padStart(2, '0')
+            );
+            setSec(
+              secondToDayHourMinSec(sumElapstedTime)
+                .secondes.toString()
+                .padStart(2, '0')
+            );
+          }
+          if (taskState === 'isPlay') {
+            const interval = setInterval(() => {
+              elapstedTimeArray.push(1);
+              const sumElapstedTime = elapstedTimeArray.reduce((a, b) => a + b);
+              setDay(
+                secondToDayHourMinSec(sumElapstedTime)
+                  .day.toString()
+                  .padStart(2, '0')
+              );
+              setHours((prev) =>
+                secondToDayHourMinSec(sumElapstedTime)
+                  .hours.toString()
+                  .padStart(2, '0')
+              );
+              setMin((prev) =>
+                secondToDayHourMinSec(sumElapstedTime)
+                  .minutes.toString()
+                  .padStart(2, '0')
+              );
+              setSec(
+                secondToDayHourMinSec(sumElapstedTime)
+                  .secondes.toString()
+                  .padStart(2, '0')
+              );
+            }, [1000]);
+            return () => clearInterval(interval);
+          }
         }
       }
     }

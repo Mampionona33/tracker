@@ -1,11 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/authContext';
 import { useMutation, useQuery } from '@apollo/client';
-import {
-  GET_TASK_BY_DATE,
-  GET_TASK_BY_FILTER,
-  GET_USER_TASK,
-} from './../graphql/Query';
+import { GET_TASK_BY_FILTER, GET_USER_TASK } from './../graphql/Query';
 import FloatingButton from './FloatingButton';
 import TableWithPagination from './TableWithPagination';
 import { useNavigate, useParams } from 'react-router-dom';
@@ -15,9 +11,7 @@ import { setTaskStateOff, setTaskStatePlay } from '../graphql/tasks';
 const TaskOffList = () => {
   const userContext = useContext(AuthContext);
   const [userTaskOffList, setUserTaskOffList] = useState([]);
-  const [taskPlay, setTaskPlay] = useState([]);
-  const { date } = useParams();
-  const navigate = useNavigate();
+  const [processingTask, setProcessingTask] = useState({});
 
   const user = userContext.user;
 
@@ -34,9 +28,17 @@ const TaskOffList = () => {
       Header: 'Task url',
       accessor: (data) => {
         return (
-          <a href={data.url} target='_blank' style={{ textDecoration: 'none' }}>
-            {data.url}
-          </a>
+          <div
+            style={{ maxWidth: '8rem', display: 'flex', overflow: 'hidden' }}
+          >
+            <a
+              href={data.url}
+              target='_blank'
+              style={{ textDecoration: 'none' }}
+            >
+              {data.url}
+            </a>
+          </div>
         );
       },
     },
@@ -155,34 +157,48 @@ const TaskOffList = () => {
       },
     });
 
+  const { data: allTasks, error: errorAllTasks } = useQuery(GET_USER_TASK, {
+    variables: {
+      input: {
+        sub: userContext.user.sub,
+      },
+    },
+  });
+
+  useEffect(() => {
+    if (allTasks && allTasks.getUserTask) {
+      const userTaskPlay = Array.from(allTasks.getUserTask).filter(
+        (item) => item.taskState === 'isPlay'
+      );
+      const userTaskPause = Array.from(allTasks.getUserTask).filter(
+        (item) => item.taskState === 'isPause'
+      );
+      if (userTaskPlay.length > 0) {
+        setProcessingTask(userTaskPlay[0]);
+      }
+
+      if (userTaskPause.length > 0) {
+        setProcessingTask(userTaskPause[0]);
+      }
+    }
+  }, [allTasks]);
+
   const onCLickPlayButton = (e, id) => {
     e.preventDefault();
     if (errorSetSelectedTaskPlay) {
       return errorSetSelectedTaskPlay;
     }
-    if (currentTaskPlay) {
-      if (currentTaskPlay.getUserTaskByFilter.length > 0) {
-        const currentTaskId = currentTaskPlay.getUserTaskByFilter[0].id;
-
-        setTaskStateOff(
-          setCurrentTaskOff,
-          currentTaskId,
-          errorSetCurrentTaskOff
-        ).then(
-          setTaskStatePlay(setSelectedTaskPlay, id, errorSetSelectedTaskPlay)
-        );
-      }
-
-      if (currentTaskPlay.getUserTaskByFilter.length <= 0) {
-        setTaskStatePlay(setSelectedTaskPlay, id, errorSetSelectedTaskPlay);
-      }
+    if (processingTask && processingTask.id !== undefined) {
+      const currentTaskId = processingTask.id;
+      setTaskStateOff(
+        setCurrentTaskOff,
+        currentTaskId,
+        errorSetCurrentTaskOff
+      ).then(
+        setTaskStatePlay(setSelectedTaskPlay, id, errorSetSelectedTaskPlay)
+      );
     }
-    if (loadingTaskOff) {
-      return loadingTaskOff;
-    }
-    if (loadingCurrentTaskPlay) {
-      return loadingCurrentTaskPlay;
-    }
+    setTaskStatePlay(setSelectedTaskPlay, id, errorSetSelectedTaskPlay);
   };
 
   return (

@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/authContext';
 import { GET_USER_TASK } from '../graphql/Query';
 import '../style/Processing.scss';
+import Clock from './Clock';
 
 export default function Processing() {
   const userContext = useContext(AuthContext);
@@ -92,6 +93,11 @@ export default function Processing() {
             <p className='row__element row__element--r'>
               {currentProcessingTask.comment}
             </p>
+          </div>
+          <hr />
+          <div className='row'>
+            <h4 className='row__element'>ELAPSTED TIME</h4>
+            <Clock/>
           </div>
         </div>
       ) : (
