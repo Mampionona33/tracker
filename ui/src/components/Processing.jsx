@@ -37,21 +37,21 @@ export default function Processing() {
       {currentProcessingTask ? (
         <div className='processing'>
           <div className='row'>
-            <h4 className='row__element'>BOOTH NUMBER</h4>
+            <h4 className='row__element --title'>BOOTH NUMBER</h4>
             <p className='row__element row__element--r'>
               {currentProcessingTask.boothNumber}
             </p>
           </div>
 
           <div className='row'>
-            <h4 className='row__element'>TASK TYPE</h4>
+            <h4 className='row__element --title'>TASK TYPE</h4>
             <p className='row__element row__element--r'>
               {currentProcessingTask.type}
             </p>
           </div>
 
           <div className='row'>
-            <h4 className='row__element'>BOOTH URL</h4>
+            <h4 className='row__element --title'>BOOTH URL</h4>
             <a
               target='_blank'
               className='row__element row__element--r'
@@ -62,46 +62,46 @@ export default function Processing() {
           </div>
 
           <div className='row'>
-            <h4 className='row__element'>CATEGORY</h4>
+            <h4 className='row__element --title'>CATEGORY</h4>
             <p className='row__element row__element--r'>
               {currentProcessingTask.cat}
             </p>
           </div>
 
           <div className='row'>
-            <h4 className='row__element'>STATUS IVPN</h4>
+            <h4 className='row__element --title'>STATUS IVPN</h4>
             <p className='row__element row__element--r'>
               {currentProcessingTask.ivpn}
             </p>
           </div>
 
           <div className='row'>
-            <h4 className='row__element'>NB BEFORE</h4>
+            <h4 className='row__element --title'>NB BEFORE</h4>
             <p className='row__element row__element--r'>
               {currentProcessingTask.nbBefore}
             </p>
           </div>
 
           <div className='row'>
-            <h4 className='row__element'>NB AFTER</h4>
+            <h4 className='row__element --title'>NB AFTER</h4>
             <p className='row__element row__element--r'>
               {currentProcessingTask.nbAfter}
             </p>
           </div>
 
           <div className='row'>
-            <h4 className='row__element'>COMMENT</h4>
+            <h4 className='row__element --title'>COMMENT</h4>
             <p className='row__element row__element--r'>
               {currentProcessingTask.comment}
             </p>
           </div>
           <hr />
           <div className='row'>
-            <h4 className='row__element'>ELAPSTED TIME</h4>
+            <h4 className='row__element --title'>ELAPSTED TIME</h4>
             <Clock />
           </div>
           <div className='row '>
-            <h4 className='row__element'>ACTIONS</h4>
+            <h4 className='row__element --title'>ACTIONS</h4>
             <div className='--flexCenter'>
               <FloatingButton icon={iconButton} />
               {/* <span className='material-icons-round simpleIconButton md-35'>
