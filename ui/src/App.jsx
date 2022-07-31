@@ -74,6 +74,10 @@ export default function App() {
     return () => (mounted = false);
   }, [currentUser]);
 
+  if(errorOnLoadAllTaskType){
+    return <h1>{errorOnLoadAllTaskType.message}</h1>
+  }
+
   return (
     <Routes>
       <Route

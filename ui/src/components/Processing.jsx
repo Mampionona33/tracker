@@ -4,11 +4,12 @@ import { AuthContext } from '../context/authContext';
 import { GET_USER_TASK } from '../graphql/Query';
 import '../style/Processing.scss';
 import Clock from './Clock';
+import FloatingButton from './FloatingButton';
 
 export default function Processing() {
   const userContext = useContext(AuthContext);
   const [currentProcessingTask, setCurrentProcessingTask] = useState([]);
-
+  const [iconButton, setIconButton] = useState('play_arrow');
   const { data: userTask, error: errorFetchUserTask } = useQuery(
     GET_USER_TASK,
     {
@@ -97,7 +98,17 @@ export default function Processing() {
           <hr />
           <div className='row'>
             <h4 className='row__element'>ELAPSTED TIME</h4>
-            <Clock/>
+            <Clock />
+          </div>
+          <div className='row '>
+            <h4 className='row__element'>ACTIONS</h4>
+            <div className='--flexCenter'>
+              <FloatingButton icon={iconButton} />
+              {/* <span className='material-icons-round simpleIconButton md-35'>
+                {'edit'}
+              </span> */}
+              <FloatingButton icon={'edit'} />
+            </div>
           </div>
         </div>
       ) : (

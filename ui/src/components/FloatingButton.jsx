@@ -6,7 +6,7 @@ const FloatingButton = (props) => {
   return (
     <span
       onClick={handleClickButton}
-      className='material-icons-round md-48 fltHv'
+      className='material-icons-round md-35 fltHv'
     >
       {icon}
     </span>

@@ -18,3 +18,10 @@
     }
   }
 }
+
+.--flexCenter {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  padding: 0.3rem;
+}

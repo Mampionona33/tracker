@@ -18,10 +18,15 @@ body {
 .md-48 {
   font-size: 48px;
 }
+
+.md-35 {
+  font-size: 35px;
+}
 .fltHv {
   color: $canonicalAubergine;
   border-radius: 50%;
   cursor: pointer;
+  padding: 2px;
   border: 0.1px solid rgba($color: $coolGrey, $alpha: 0.2);
   &:hover {
     box-shadow: $boxShadowButton;
@@ -31,6 +36,11 @@ body {
     transform: translate(0);
     box-shadow: none;
   }
+}
+
+.simpleIconButton {
+  cursor: pointer;
+  color: $canonicalAubergine;
 }
 
 .cancelButton {
