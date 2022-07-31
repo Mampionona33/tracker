@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import Card from './Card';
 import '../style/Timing.scss';
 import ProgressBar from './ProgressBar';
 import FloatingButton from './FloatingButton';
@@ -15,7 +14,9 @@ export default function Timing(props) {
   const userContext = useContext(AuthContext);
   const { setUserTaskPlay, setUserTaskPause } = useContext(TaskContext);
   const [curProcessTask, setCurProcessTask] = useState([]);
+  const [buttonIcon, setButtonIcon] = useState('pause');
   const sub = userContext.user.sub;
+  const taskContext = useContext(TaskContext);
 
   const refButton = useRef(null);
 
@@ -40,30 +41,43 @@ export default function Timing(props) {
   });
 
   useEffect(() => {
-    if (processingTask && processingTask.getUserTask.length > 0) {
-      const currentProcessTask = processingTask.getUserTask.filter(
-        (item) => item.taskState === 'isPlay' || item.taskState === 'isPause'
-      );
-      currentProcessTask &&
-        (setCurProcessTask(currentProcessTask[0]),
-        setUserTaskPlay(currentProcessTask[0]));
+    if (processingTask) {
+      if (processingTask.getUserTask) {
+        const taskStateArray = Array.from(processingTask.getUserTask);
+        const taskStatePause = taskStateArray.filter(
+          (item) => item.taskState === 'isPause'
+        );
+        const taskStatePlay = taskStateArray.filter(
+          (item) => item.taskState === 'isPlay'
+        );
+        if (taskStatePause && taskStatePause.length > 0) {
+          setButtonIcon((prev) => 'play_arrow');
+        }
+        if (taskStatePlay && taskStatePlay.length > 0) {
+          setButtonIcon((prev) => 'pause');
+        }
+      }
     }
   }, [processingTask]);
 
   const handleClickButton = async (event) => {
     event.preventDefault();
     const buttonState = refButton.current.children[0].innerText;
-    if (curProcessTask) {
+
+    if (taskContext.processinTask) {
       if (buttonState === 'pause') {
-        console.log(curProcessTask.id);
         await setTaskStatePause(
           updateTask,
-          curProcessTask.id,
+          taskContext.processinTask.id,
           errorOnUpdate
-        ).then(setUserTaskPause(curProcessTask));
+        ).then(setUserTaskPause(taskContext.processinTask));
       }
       if (buttonState === 'play_arrow') {
-        await setTaskStatePlay(updateTask, curProcessTask.id, errorOnUpdate);
+        await setTaskStatePlay(
+          updateTask,
+          taskContext.processinTask.id,
+          errorOnUpdate
+        );
       }
     }
   };
@@ -72,7 +86,7 @@ export default function Timing(props) {
     <div className='timing'>
       <div className='timing__elapsted'>
         <h4 className='timing__elapsted --l'>Elapsted</h4>
-        <Clock/>
+        <Clock />
       </div>
       <hr className='timing__hr' />
       <div className='timing__actualProd'>
@@ -82,9 +96,7 @@ export default function Timing(props) {
         </div>
         <div className='timing__button' ref={refButton}>
           <FloatingButton
-            icon={
-              curProcessTask.taskState === 'isPlay' ? 'pause' : 'play_arrow'
-            }
+            icon={buttonIcon}
             handleClickButton={(e) => handleClickButton(e)}
           />
         </div>
