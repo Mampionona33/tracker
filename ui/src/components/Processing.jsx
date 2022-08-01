@@ -6,6 +6,7 @@ import '../style/Processing.scss';
 import BtnPausePlaySwitch from './BtnPausePlaySwitch';
 import Clock from './Clock';
 import FloatingButton from './FloatingButton';
+import ProdProgressBar from './ProdProgressBar';
 
 export default function Processing() {
   const userContext = useContext(AuthContext);
@@ -101,6 +102,11 @@ export default function Processing() {
             <h4 className='row__element --title'>ELAPSTED TIME</h4>
             <Clock />
           </div>
+          <div className='row'>
+            <h4 className='row__element --title'>PRODUCTIVITY</h4>
+            <ProdProgressBar />
+          </div>
+          <hr />
           <div className='row '>
             <h4 className='row__element --title'>ACTIONS</h4>
             <div className='--flexCenter'>

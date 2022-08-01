@@ -2,8 +2,8 @@ import React from 'react';
 import '../style/ProgressBar.scss';
 
 /* use this progress bar with ProgressBar.scss */
-export default function ProgressBar(props) {
-  const { completed } = props;
+export default function ProgressBar({ completed }) {
+  // const { completed } = props;
 
   const fillerStyles = {
     width: `${completed}%`,

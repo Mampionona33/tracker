@@ -3,12 +3,11 @@ import TiteledCard from '../components/TiteledCard';
 import Pending from '../components/Pending';
 import Processing from '../components/Processing';
 import '../style/Dashboard.scss';
-import Timing from '../components/Timing';
 import ProductivSimulation from '../components/ProductivSimulation';
 import { AuthContext } from '../context/authContext';
 import { useQuery } from '@apollo/client';
 import { GET_USER_TASK } from '../graphql/Query';
-import { Outlet, useNavigate, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 export default function Dashboard() {
   const userContext = useContext(AuthContext);
