@@ -48,9 +48,7 @@ export default function Dashboard() {
     <div className='dashboard'>
       <TiteledCard title={'Pending'} content={<Pending />} />
       <TiteledCard title={'Processing'} content={<Processing />} />
-      {currentProcessigTask && (
-        <TiteledCard title={'Timing'} content={<Timing />} />
-      )}
+
       <TiteledCard
         title={'Prod Simulation'}
         content={<ProductivSimulation />}

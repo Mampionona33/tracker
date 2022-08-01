@@ -5,16 +5,13 @@
   justify-content: space-between;
 
   &__element {
-    width: calc(100vw / 10);
-    display: flex;
+    max-width: 11rem;
     overflow: hidden;
     margin: 0.2rem;
-    flex-wrap: nowrap;
-    min-width: 98px;
+    max-height: 1rem;
 
     &--r {
       display: flex;
-      justify-content: flex-end;
       text-decoration: none;
     }
   }

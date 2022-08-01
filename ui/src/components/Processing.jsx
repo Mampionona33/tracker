@@ -3,6 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/authContext';
 import { GET_USER_TASK } from '../graphql/Query';
 import '../style/Processing.scss';
+import BtnPausePlaySwitch from './BtnPausePlaySwitch';
 import Clock from './Clock';
 import FloatingButton from './FloatingButton';
 
@@ -103,10 +104,7 @@ export default function Processing() {
           <div className='row '>
             <h4 className='row__element --title'>ACTIONS</h4>
             <div className='--flexCenter'>
-              <FloatingButton icon={iconButton} />
-              {/* <span className='material-icons-round simpleIconButton md-35'>
-                {'edit'}
-              </span> */}
+              <BtnPausePlaySwitch />
               <FloatingButton icon={'edit'} />
             </div>
           </div>
