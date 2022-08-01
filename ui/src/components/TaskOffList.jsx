@@ -4,13 +4,11 @@ import { useMutation, useQuery } from '@apollo/client';
 import { GET_TASK_BY_FILTER, GET_USER_TASK } from './../graphql/Query';
 import FloatingButton from './FloatingButton';
 import TableWithPagination from './TableWithPagination';
-import { useNavigate, useParams } from 'react-router-dom';
 import { UPDATE_TASK } from '../graphql/Mutation';
 import { setTaskStateOff, setTaskStatePlay } from '../graphql/tasks';
 
 const TaskOffList = () => {
   const userContext = useContext(AuthContext);
-  const [userTaskOffList, setUserTaskOffList] = useState([]);
   const [processingTask, setProcessingTask] = useState({});
 
   const user = userContext.user;
@@ -28,13 +26,15 @@ const TaskOffList = () => {
       Header: 'Task url',
       accessor: (data) => {
         return (
-          <div
-            style={{ maxWidth: '8rem', display: 'flex', overflow: 'hidden' }}
-          >
+          <div style={{ maxWidth: '8rem', overflow: 'scroll' }}>
             <a
               href={data.url}
               target='_blank'
-              style={{ textDecoration: 'none' }}
+              style={{
+                textDecoration: 'none',
+                maxHeight: '1rem',
+                display: 'block',
+              }}
             >
               {data.url}
             </a>

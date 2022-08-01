@@ -1,5 +1,5 @@
 import React from 'react';
-import { useTable, usePagination, useSortBy } from 'react-table';
+import { useTable, usePagination } from 'react-table';
 import '../style/TableWithPagination.scss';
 import Pagination from './Pagination';
 
