@@ -34,7 +34,6 @@ const BtnPausePlaySwitch = () => {
 
   useEffect(() => {
     if (processingTask && processingTask.getUserTask) {
-      console.log(processingTask.getUserTask);
       const taskStatePlay = Array.from(processingTask.getUserTask).filter(
         (item) => item.taskState === 'isPlay'
       );

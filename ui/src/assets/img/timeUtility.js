@@ -1,4 +1,4 @@
-export const dateToString = (dt) => {
+export const dateToYearMonthDay = (dt) => {
   /* 
     format the iso date to YYYY-MM-DD
     */

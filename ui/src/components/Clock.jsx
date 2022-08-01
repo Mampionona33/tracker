@@ -1,6 +1,11 @@
 import { useQuery } from '@apollo/client';
 import React, { useContext, useEffect, useState } from 'react';
-import { difDate, secondToDayHourMinSec } from '../assets/img/timeUtility';
+import {
+  dateTime,
+  dateToYearMonthDay,
+  difDate,
+  secondToDayHourMinSec,
+} from '../assets/img/timeUtility';
 import { AuthContext } from '../context/authContext';
 import { GET_USER_TASK } from '../graphql/Query';
 import Card from './Card';
@@ -43,6 +48,12 @@ const Clock = () => {
             const sessionStop = session[a].sessionStop;
             const dif = sessionStop && difDate(sessionStart, sessionStop);
             elapstedTimeArray.push(dif);
+
+            // if sessionStop === null => set session stop new Date
+            !sessionStop &&
+              elapstedTimeArray.push(
+                difDate(sessionStart, new Date().toISOString())
+              );
           }
         }
       }

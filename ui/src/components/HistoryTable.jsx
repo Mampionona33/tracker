@@ -2,7 +2,7 @@ import { useQuery } from '@apollo/client';
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { duration } from '../assets/img/duration';
-import { dateTime, dateToString } from '../assets/img/timeUtility';
+import { dateTime, dateToYearMonthDay } from '../assets/img/timeUtility';
 import { AuthContext } from '../context/authContext';
 import { GET_TASK_BY_DATE, GET_USER_TASK } from '../graphql/Query';
 import TableWithPagination from './TableWithPagination';
@@ -54,8 +54,8 @@ export default function HistoryTable() {
             const sessionStop = session[a].sessionStop;
 
             // if start date == selected date and stop date != null => show start date(hh:mm:ss) and stop date(hh:mm:ss)
-            if (dateToString(sessionStart) === date) {
-              if (dateToString(sessionStop) === date) {
+            if (dateToYearMonthDay(sessionStart) === date) {
+              if (dateToYearMonthDay(sessionStop) === date) {
                 selectedDateSession.push({
                   id: id,
                   boothNumber: boothNumber,
@@ -64,13 +64,13 @@ export default function HistoryTable() {
                   sessionstart: sessionStart,
                 });
               }
-              if (dateToString(sessionStop) > date) {
+              if (dateToYearMonthDay(sessionStop) > date) {
                 selectedDateSession.push({
                   id: id,
                   boothNumber: boothNumber,
                   start: dateTime(sessionStart),
                   sessionstart: sessionStart,
-                  stop: `${dateTime(sessionStop)} (${dateToString(
+                  stop: `${dateTime(sessionStop)} (${dateToYearMonthDay(
                     sessionStop
                   )})`,
                 });
@@ -78,21 +78,21 @@ export default function HistoryTable() {
             }
             // if start date < date and stop date == date => show start date ((yyyy-MM-dd) hh:mm:ss) and stop date (hh:mm:ss)
             if (
-              dateToString(sessionStart) < date &&
-              dateToString(sessionStop) === date
+              dateToYearMonthDay(sessionStart) < date &&
+              dateToYearMonthDay(sessionStop) === date
             ) {
               selectedDateSession.push({
                 id: id,
                 boothNumber: boothNumber,
                 sessionstart: sessionStart,
-                start: `${dateTime(sessionStart)} (${dateToString(
+                start: `${dateTime(sessionStart)} (${dateToYearMonthDay(
                   sessionStart
                 )})`,
                 stop: dateTime(sessionStop),
               });
             }
             // if start date == selected date and stop date == null => show start date(hh:mm:ss) and stop : CURRENT
-            if (dateToString(sessionStart) === date && !sessionStop) {
+            if (dateToYearMonthDay(sessionStart) === date && !sessionStop) {
               selectedDateSession.push({
                 id: id,
                 boothNumber: boothNumber,
@@ -103,15 +103,15 @@ export default function HistoryTable() {
             }
             // if start date < selected date and stop date == null => show start date( hh:mm:ss (yyyy-mm-dd) ) and stop :CURRENT
             if (
-              dateToString(sessionStart) < date &&
+              dateToYearMonthDay(sessionStart) < date &&
               !sessionStop &&
-              date <= dateToString(new Date())
+              date <= dateToYearMonthDay(new Date())
             ) {
               selectedDateSession.push({
                 id: id,
                 boothNumber: boothNumber,
                 sessionstart: sessionStart,
-                start: ` ${dateTime(sessionStart)} (${dateToString(
+                start: ` ${dateTime(sessionStart)} (${dateToYearMonthDay(
                   sessionStart
                 )})`,
                 stop: 'CURRENT',
