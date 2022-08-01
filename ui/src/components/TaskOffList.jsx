@@ -26,7 +26,7 @@ const TaskOffList = () => {
       Header: 'Task url',
       accessor: (data) => {
         return (
-          <div style={{ maxWidth: '8rem', overflow: 'scrollchange' }}>
+          <div style={{ maxWidth: '8rem', overflow: 'scroll' }}>
             <a
               href={data.url}
               target='_blank'
