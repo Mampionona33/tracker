@@ -2,15 +2,14 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/authContext';
 import { componentContext } from '../context/componentContext';
 import '../style/Navbar.scss';
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { UPDATE_TASK } from '../graphql/Mutation';
 import { GET_USER_TASK } from '../graphql/Query';
 import { setTaskStateOff } from '../graphql/tasks';
-import { TaskContext } from '../context/taskContext';
 export default function Navbar(props) {
   const context = useContext(AuthContext);
   const ComponentContext = useContext(componentContext);
-  const taskContext = useContext(TaskContext);
+  const [processingTask, setProcessingTask] = useState(null);
 
   const [
     updateTask,
@@ -27,6 +26,24 @@ export default function Navbar(props) {
     awaitRefetchQueries: true,
   });
 
+  const { data: allUserTask, error: errorFetchUserTask } = useQuery(
+    GET_USER_TASK,
+    {
+      variables: { input: { sub: context.user.sub } },
+    }
+  );
+
+  useEffect(() => {
+    if (allUserTask && allUserTask.getUserTask) {
+      const currentTask = Array.from(allUserTask.getUserTask).filter(
+        (item) => item.taskState === 'isPause' || item.taskState === 'isPlay'
+      );
+      if (currentTask.length > 0) {
+        setProcessingTask((prev) => currentTask[0]);
+      }
+    }
+  }, [allUserTask]);
+
   const handleClickMenu = (event) => {
     event.preventDefault();
     ComponentContext.toggleSideBar();
@@ -34,12 +51,8 @@ export default function Navbar(props) {
 
   const handleClickLogout = async (event) => {
     event.preventDefault();
-    if (taskContext.processinTask) {
-      setTaskStateOff(
-        updateTask,
-        taskContext.processinTask.id,
-        errorOnUpdateTask
-      );
+    if (processingTask) {
+      setTaskStateOff(updateTask, processingTask.id, errorOnUpdateTask);
     } else {
       context.logout();
     }
