@@ -1,18 +1,21 @@
 .translateX {
+  display: inline-block;
+  text-align: center;
   &:hover {
     // animation: name duration timing-function delay iteration-count direction fill-mode;
-    animation: horizontalTranslate 8s ease-out 0s infinite;
+    animation: horizontalTranslate 5s 0s linear infinite;
   }
 }
 
 @keyframes horizontalTranslate {
-  0% {
-    transform: translateX(0%);
-  }
-  50% {
-    transform: translateX(-150%);
-  }
   100% {
-    transform: translateX(0%);
+    transform: translateX(-100%);
   }
+}
+
+.marquee {
+  max-width: 8rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-align: center;
 }

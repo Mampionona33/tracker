@@ -28,17 +28,8 @@ const TaskOffList = () => {
       Header: 'Task url',
       accessor: (data) => {
         return (
-          <div style={{ maxWidth: '8rem', overflow: 'hidden' }}>
-            <a
-              className='translateX'
-              href={data.url}
-              target='_blank'
-              style={{
-                textDecoration: 'none',
-                maxHeight: '1.1rem',
-                display: 'block',
-              }}
-            >
+          <div className='marquee'>
+            <a className='translateX' href={data.url} target='_blank'>
               {data.url}
             </a>
           </div>
