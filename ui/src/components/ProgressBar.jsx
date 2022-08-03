@@ -21,7 +21,16 @@ export default function ProgressBar({ completed }) {
         }
         style={fillerStyles}
       >
-        <span className='progressbar__label'>{`${completed}%`}</span>
+        <span
+          className={
+            'progressbar__label' +
+            (completed < 18 && completed >= 10
+              ? ' inf32'
+              : completed < 10
+              ? ' inf10'
+              : '')
+          }
+        >{`${completed}%`}</span>
       </div>
     </div>
   );
