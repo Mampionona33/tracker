@@ -6,6 +6,7 @@ import FloatingButton from './FloatingButton';
 import TableWithPagination from './TableWithPagination';
 import { UPDATE_TASK } from '../graphql/Mutation';
 import { setTaskStateOff, setTaskStatePlay } from '../graphql/tasks';
+import '../style/TaskOffList.scss';
 
 const TaskOffList = () => {
   const userContext = useContext(AuthContext);
@@ -26,13 +27,14 @@ const TaskOffList = () => {
       Header: 'Task url',
       accessor: (data) => {
         return (
-          <div style={{ maxWidth: '8rem', overflow: 'scroll' }}>
+          <div style={{ maxWidth: '8rem', overflow: 'hidden' }}>
             <a
+              className='translateX'
               href={data.url}
               target='_blank'
               style={{
                 textDecoration: 'none',
-                maxHeight: '1rem',
+                maxHeight: '1.1rem',
                 display: 'block',
               }}
             >
