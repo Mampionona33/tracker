@@ -6,22 +6,24 @@ import '../style/Processing.scss';
 import BtnPausePlaySwitch from './BtnPausePlaySwitch';
 import Clock from './Clock';
 import FloatingButton from './FloatingButton';
+import Loading from './Loading';
 import ProdProgressBar from './ProdProgressBar';
 
 export default function Processing() {
   const userContext = useContext(AuthContext);
   const [currentProcessingTask, setCurrentProcessingTask] = useState([]);
   const [iconButton, setIconButton] = useState('play_arrow');
-  const { data: userTask, error: errorFetchUserTask } = useQuery(
-    GET_USER_TASK,
-    {
-      variables: {
-        input: {
-          sub: userContext && userContext.user.sub,
-        },
+  const {
+    data: userTask,
+    error: errorFetchUserTask,
+    loading: loadingUserTask,
+  } = useQuery(GET_USER_TASK, {
+    variables: {
+      input: {
+        sub: userContext && userContext.user.sub,
       },
-    }
-  );
+    },
+  });
 
   useEffect(() => {
     if (userTask) {
@@ -33,6 +35,10 @@ export default function Processing() {
       }
     }
   }, [userTask]);
+
+  if (loadingUserTask) {
+    return <Loading />;
+  }
 
   return (
     <>

@@ -1,0 +1,12 @@
+.--inifinityRotate {
+  animation: inifinityRotate 1s ease 0s infinite;
+}
+
+@keyframes inifinityRotate {
+  0% {
+    transform: rotateZ(0);
+  }
+  100% {
+    transform: rotateZ(360);
+  }
+}

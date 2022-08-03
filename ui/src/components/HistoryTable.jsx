@@ -5,6 +5,7 @@ import { duration } from '../assets/img/duration';
 import { dateTime, dateToYearMonthDay } from '../assets/img/timeUtility';
 import { AuthContext } from '../context/authContext';
 import { GET_TASK_BY_DATE, GET_USER_TASK } from '../graphql/Query';
+import Loading from './Loading';
 import TableWithPagination from './TableWithPagination';
 
 export default function HistoryTable() {
@@ -27,16 +28,17 @@ export default function HistoryTable() {
     }
   );
 
-  const { data: userTasks, error: errorFetchingUserTask } = useQuery(
-    GET_USER_TASK,
-    {
-      variables: {
-        input: {
-          sub: userContext.user.sub,
-        },
+  const {
+    data: userTasks,
+    error: errorFetchingUserTask,
+    loading: loadingUserTask,
+  } = useQuery(GET_USER_TASK, {
+    variables: {
+      input: {
+        sub: userContext.user.sub,
       },
-    }
-  );
+    },
+  });
 
   useEffect(() => {
     if (userTasks) {
@@ -185,6 +187,10 @@ export default function HistoryTable() {
       },
     },
   ];
+
+  if (loadingUserTask) {
+    return <Loading />;
+  }
 
   return (
     <div className='historyTable'>

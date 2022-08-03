@@ -7,6 +7,7 @@ import TableWithPagination from './TableWithPagination';
 import { UPDATE_TASK } from '../graphql/Mutation';
 import { setTaskStateOff, setTaskStatePlay } from '../graphql/tasks';
 import '../style/TaskOffList.scss';
+import Loading from './Loading';
 
 const TaskOffList = () => {
   const userContext = useContext(AuthContext);
@@ -159,7 +160,11 @@ const TaskOffList = () => {
       },
     });
 
-  const { data: allTasks, error: errorAllTasks } = useQuery(GET_USER_TASK, {
+  const {
+    data: allTasks,
+    error: errorAllTasks,
+    loading: loadingAllTasks,
+  } = useQuery(GET_USER_TASK, {
     variables: {
       input: {
         sub: userContext.user.sub,
@@ -202,6 +207,10 @@ const TaskOffList = () => {
     }
     setTaskStatePlay(setSelectedTaskPlay, id, errorSetSelectedTaskPlay);
   };
+
+  if (loadingAllTasks) {
+    return <Loading />;
+  }
 
   return (
     <>
