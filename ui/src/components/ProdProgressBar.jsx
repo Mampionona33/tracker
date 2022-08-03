@@ -30,12 +30,11 @@ const ProdProgressBar = () => {
         );
 
         if (typeTask) {
-          const taskTypeList = Array.from(taskTypeContext.taskType);
-          for (let i = 0; i < taskTypeList.length; i++) {
-            if (typeTask.test(taskTypeList[i].name)) {
-              const productivityGoal = taskTypeList[i].goal;
-              console.log(productivityGoal);
-            }
+          const currentTypeTask = Array.from(taskTypeContext.taskType).filter(
+            (item) => typeTask.test(item.name)
+          );
+          if (currentTypeTask && currentTypeTask.length > 0) {
+            console.log(currentTypeTask[0].goal);
           }
         }
       }
