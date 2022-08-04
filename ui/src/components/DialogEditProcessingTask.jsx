@@ -35,7 +35,16 @@ const DialogEditProcessingTask = () => {
                   </label>
                 </td>
                 <td>
-                  <input type='text' id='type' name='type' />
+                  <select name='type' id='type'>
+                    {taskTypeContext &&
+                      Array.from(taskTypeContext.taskType).map((item) => {
+                        return (
+                          <option value={item.name} key={item.id}>
+                            {item.name}
+                          </option>
+                        );
+                      })}
+                  </select>
                 </td>
               </tr>
 
