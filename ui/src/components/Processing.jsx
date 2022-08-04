@@ -3,16 +3,15 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/authContext';
 import { GET_USER_TASK } from '../graphql/Query';
 import '../style/Processing.scss';
+import BtnEdit from './BtnEdit';
 import BtnPausePlaySwitch from './BtnPausePlaySwitch';
 import Clock from './Clock';
-import FloatingButton from './FloatingButton';
 import Loading from './Loading';
 import ProdProgressBar from './ProdProgressBar';
 
 export default function Processing() {
   const userContext = useContext(AuthContext);
   const [currentProcessingTask, setCurrentProcessingTask] = useState([]);
-  const [iconButton, setIconButton] = useState('play_arrow');
   const {
     data: userTask,
     error: errorFetchUserTask,
@@ -101,10 +100,8 @@ export default function Processing() {
 
           <div className='row'>
             <h4 className='row__element --title'>COMMENT</h4>
-            <div>
-              <p className='row__element row__element--r'>
-                {currentProcessingTask.comment}
-              </p>
+            <div className='row__element row__element--r'>
+              <p className='translateX'>{currentProcessingTask.comment}</p>
             </div>
           </div>
           <hr />
@@ -121,7 +118,7 @@ export default function Processing() {
             <h4 className='row__element --title'>ACTIONS</h4>
             <div className='--flexCenter'>
               <BtnPausePlaySwitch />
-              <FloatingButton icon={'edit'} />
+              <BtnEdit dataName={'processingTask'} />
             </div>
           </div>
         </div>

@@ -1,8 +1,7 @@
 import React from 'react';
 import '../style/FloatingButton.scss';
 
-const FloatingButton = (props) => {
-  const { icon, handleClickButton } = props;
+const FloatingButton = ({ icon, handleClickButton }) => {
   return (
     <span
       onClick={handleClickButton}

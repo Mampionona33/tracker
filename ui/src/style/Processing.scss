@@ -5,7 +5,7 @@
   justify-content: space-between;
 
   &__element {
-    max-width: 11rem;
+    width: 11rem;
     overflow: hidden;
     margin: 0.2rem;
 
@@ -23,6 +23,7 @@
 }
 
 .--title {
+  width: 8rem;
   font-size: 0.9rem;
   font-weight: 900;
 }

@@ -6,6 +6,7 @@ import { componentContext } from '../context/componentContext';
 import Navbar from './../components/Navbar';
 import { getUser } from '../graphql/user';
 import DialogNewTask from '../components/DialogNewTask';
+import DialogEditProcessingTask from '../components/DialogEditProcessingTask';
 
 export default function ProtectedRoute({ children }) {
   const context = useContext(AuthContext);
@@ -38,6 +39,9 @@ export default function ProtectedRoute({ children }) {
       <Navbar />
       {ComponentContext.dialogCreateTask && <DialogNewTask />}
       {ComponentContext.sideBar && <Sidebar />}
+      {ComponentContext.dialogEditProcessingTask && (
+        <DialogEditProcessingTask />
+      )}
       {children ? children : <Outlet />}
     </>
   );
