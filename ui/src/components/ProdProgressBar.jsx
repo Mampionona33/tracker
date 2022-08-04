@@ -36,6 +36,8 @@ const ProdProgressBar = () => {
         );
         const session = Array.from(processingTask[0].session);
         nbProdAfter = processingTask[0].nbAfter;
+        taskState = processingTask[0].taskState;
+        // console.log(processingTask);
 
         if (typeTask) {
           const currentTypeTask = Array.from(taskTypeContext.taskType).filter(
@@ -43,16 +45,16 @@ const ProdProgressBar = () => {
           );
           if (currentTypeTask && currentTypeTask.length > 0) {
             if (session.length > 0) {
-              // console.log(currentTypeTask[0]);
-              // console.log(processingTask[0].taskState);
               productivityGoal = currentTypeTask[0].goal;
-
-              if (processingTask[0].taskState === 'isPause') {
-                for (let i = 0; i < session.length; i++) {
+              for (let i = 0; i < session.length; i++) {
+                const sessionStart = session[i].sessionStart;
+                const sessionStop = session[i].sessionStop;
+                const dif = sessionStop && difDate(sessionStart, sessionStop);
+                elapstedTime.push(dif);
+                !sessionStop &&
                   elapstedTime.push(
-                    difDate(session[i].sessionStart, session[i].sessionStop)
+                    difDate(sessionStart, new Date().toISOString())
                   );
-                }
               }
             }
           }
@@ -63,7 +65,6 @@ const ProdProgressBar = () => {
           const prod100 = productivityGoal / 3600;
           const currentProd =
             nbProdAfter / elapstedTime.reduce((a, b) => a + b);
-
           const curTaskProd = Math.round((currentProd * 100) / prod100);
           if (curTaskProd <= 0) {
             setProductivity((prev) => 0);
@@ -74,6 +75,27 @@ const ProdProgressBar = () => {
           if (curTaskProd > 100) {
             setProductivity((prev) => 100);
           }
+        }
+        if (taskState === 'isPlay') {
+          const interval = setInterval(() => {
+            elapstedTime.push(1);
+            const prod100 = productivityGoal / 3600;
+            const currentProd =
+              nbProdAfter / elapstedTime.reduce((a, b) => a + b);
+            const curTaskProd = Math.round((currentProd * 100) / prod100);
+
+            if (curTaskProd <= 0) {
+              setProductivity((prev) => 0);
+            }
+            if (curTaskProd <= 100) {
+              console.log(currentProd);
+              setProductivity((prev) => curTaskProd);
+            }
+            if (curTaskProd > 100) {
+              setProductivity((prev) => 100);
+            }
+          }, [1000]);
+          return () => clearInterval(interval);
         }
       }
     }
