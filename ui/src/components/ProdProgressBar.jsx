@@ -61,8 +61,8 @@ const ProdProgressBar = () => {
         }
       }
       if (elapstedTime.length > 0) {
+        const prod100 = productivityGoal / 3600;
         if (taskState === 'isPause') {
-          const prod100 = productivityGoal / 3600;
           const currentProd =
             nbProdAfter / elapstedTime.reduce((a, b) => a + b);
           const curTaskProd = Math.round((currentProd * 100) / prod100);
@@ -79,7 +79,6 @@ const ProdProgressBar = () => {
         if (taskState === 'isPlay') {
           const interval = setInterval(() => {
             elapstedTime.push(1);
-            const prod100 = productivityGoal / 3600;
             const currentProd =
               nbProdAfter / elapstedTime.reduce((a, b) => a + b);
             const curTaskProd = Math.round((currentProd * 100) / prod100);
