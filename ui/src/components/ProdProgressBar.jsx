@@ -88,7 +88,11 @@ const ProdProgressBar = () => {
             }
             if (curTaskProd <= 100) {
               console.log(currentProd);
-              setProductivity((prev) => curTaskProd);
+              console.log(Math.round((currentProd * 100) / prod100));
+              console.log((currentProd * 100) / prod100);
+              setProductivity((prev) =>
+                Math.round((currentProd * 100) / prod100)
+              );
             }
             if (curTaskProd > 100) {
               setProductivity((prev) => 100);
