@@ -1,0 +1,11 @@
+.dialogEditProcessingTask {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  &__formContainer {
+    position: absolute;
+    top: 40vh;
+    background-color: white;
+  }
+}

@@ -156,8 +156,6 @@ const DialogNewTask = () => {
                       </option>
                     );
                   })}
-                {/* <option value={'Contenu'}>Contenu</option>
-                <option value={'Maj'}>Maj</option> */}
               </select>
             </div>
 
