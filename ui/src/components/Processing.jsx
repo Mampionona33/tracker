@@ -60,13 +60,15 @@ export default function Processing() {
 
           <div className='row'>
             <h4 className='row__element --title'>BOOTH URL</h4>
-            <a
-              target='_blank'
-              className='row__element row__element--r'
-              href={currentProcessingTask.url}
-            >
-              {currentProcessingTask.url}
-            </a>
+            <div className='row__element row__element--r'>
+              <a
+                className='translateX'
+                target='_blank'
+                href={currentProcessingTask.url}
+              >
+                {currentProcessingTask.url}
+              </a>
+            </div>
           </div>
 
           <div className='row'>
@@ -99,9 +101,11 @@ export default function Processing() {
 
           <div className='row'>
             <h4 className='row__element --title'>COMMENT</h4>
-            <p className='row__element row__element--r'>
-              {currentProcessingTask.comment}
-            </p>
+            <div>
+              <p className='row__element row__element--r'>
+                {currentProcessingTask.comment}
+              </p>
+            </div>
           </div>
           <hr />
           <div className='row'>
