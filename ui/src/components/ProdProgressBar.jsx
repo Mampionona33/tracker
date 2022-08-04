@@ -60,6 +60,7 @@ const ProdProgressBar = () => {
           }
         }
       }
+      // Check if there is a processing task
       if (elapstedTime.length > 0) {
         const prod100 = productivityGoal / 3600;
         if (taskState === 'isPause') {
@@ -87,9 +88,6 @@ const ProdProgressBar = () => {
               setProductivity((prev) => 0);
             }
             if (curTaskProd <= 100) {
-              console.log(currentProd);
-              console.log(Math.round((currentProd * 100) / prod100));
-              console.log((currentProd * 100) / prod100);
               setProductivity((prev) =>
                 Math.round((currentProd * 100) / prod100)
               );
