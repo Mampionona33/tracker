@@ -18,6 +18,7 @@ import {
   GET_USER_TASK,
 } from './../graphql/Query';
 import { TaskTypeContext } from '../context/taskTypeContext';
+import DialogTitle from './DialogTitle';
 
 const DialogNewTask = () => {
   const ComponentContext = useContext(componentContext);
@@ -128,6 +129,7 @@ const DialogNewTask = () => {
     <div>
       <div className='dialogNewTask'>
         <div className='dialogNewTask__container'>
+          <DialogTitle>CREATE NEW TASK</DialogTitle>
           <form onSubmit={handleClickSave} className='dialogNewTask__form'>
             <div className='dialogNewTask__form__el'>
               <label htmlFor='boothNumber'>BOOTH NUMBER</label>
@@ -141,7 +143,9 @@ const DialogNewTask = () => {
             </div>
 
             <div className='dialogNewTask__form__el'>
-              <label htmlFor='type'>TASK TYPE</label>
+              <label className='dialogNewTask__form__label' htmlFor='type'>
+                TASK TYPE
+              </label>
               <select
                 name='type'
                 id='type'
@@ -160,7 +164,9 @@ const DialogNewTask = () => {
             </div>
 
             <div className='dialogNewTask__form__el'>
-              <label htmlFor='url'>URL</label>
+              <label className='dialogNewTask__form__label' htmlFor='url'>
+                URL
+              </label>
               <input
                 type='url'
                 id='url'
@@ -171,7 +177,9 @@ const DialogNewTask = () => {
             </div>
 
             <div className='dialogNewTask__form__el'>
-              <label htmlFor='cat'>CAT</label>
+              <label className='dialogNewTask__form__label' htmlFor='cat'>
+                CAT
+              </label>
               <input
                 type='text'
                 id='cat'
@@ -182,7 +190,9 @@ const DialogNewTask = () => {
             </div>
 
             <div className='dialogNewTask__form__el'>
-              <label htmlFor='ivpn'>STATUS IVPN</label>
+              <label className='dialogNewTask__form__label' htmlFor='ivpn'>
+                STATUS IVPN
+              </label>
               <select
                 name='ivpn'
                 id='ivpn'
@@ -197,7 +207,9 @@ const DialogNewTask = () => {
             </div>
 
             <div className='dialogNewTask__form__el'>
-              <label htmlFor='statCom'>STATUS COM</label>
+              <label className='dialogNewTask__form__label' htmlFor='statCom'>
+                STATUS COM
+              </label>
               <select
                 name='statCom'
                 id='statCom'
@@ -217,7 +229,9 @@ const DialogNewTask = () => {
             </div>
 
             <div className='dialogNewTask__form__el'>
-              <label htmlFor='nbBefore'>NB BEFORE</label>
+              <label className='dialogNewTask__form__label' htmlFor='nbBefore'>
+                NB BEFORE
+              </label>
               <input
                 type='number'
                 pattern='[0-9]{0,5}'
@@ -230,7 +244,9 @@ const DialogNewTask = () => {
             </div>
 
             <div className='dialogNewTask__form__el'>
-              <label htmlFor='nbAfter'>NB AFTER</label>
+              <label className='dialogNewTask__form__label' htmlFor='nbAfter'>
+                NB AFTER
+              </label>
               <input
                 type='number'
                 id='nbAfter'
@@ -242,7 +258,9 @@ const DialogNewTask = () => {
             </div>
 
             <div className='dialogNewTask__form__el  comment'>
-              <label htmlFor='comment'>COMMENT</label>
+              <label className='dialogNewTask__form__label' htmlFor='comment'>
+                COMMENT
+              </label>
               <textarea
                 type='text'
                 id='comment'
@@ -251,6 +269,7 @@ const DialogNewTask = () => {
                 onChange={(ev) => handleInputChange(ev)}
               />
             </div>
+            <hr style={{ width: '100%' }} />
             <div className='dialogNewTask__button'>
               <button
                 type='submit'

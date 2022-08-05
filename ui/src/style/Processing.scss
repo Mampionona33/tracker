@@ -1,8 +1,7 @@
 .row {
-  display: flex;
-  align-items: center;
-  flex-wrap: nowrap;
-  justify-content: space-between;
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(2, 1fr);
 
   &__element {
     width: 11rem;

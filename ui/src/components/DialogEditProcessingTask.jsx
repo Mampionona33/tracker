@@ -3,6 +3,7 @@ import { TaskTypeContext } from '../context/taskTypeContext';
 import Modale from './Modale';
 import '../style/DialogEditProcessingTask.scss';
 import Card from './Card';
+import DialogTitle from './DialogTitle';
 
 const DialogEditProcessingTask = () => {
   const taskTypeContext = useContext(TaskTypeContext);
@@ -20,9 +21,7 @@ const DialogEditProcessingTask = () => {
     <>
       <div className='dialogEditProcessingTask'>
         <div className='dialogEditProcessingTask__formContainer'>
-          <h2 className='dialogEditProcessingTask__title'>
-            EDIT PROCESSING TASK
-          </h2>
+          <DialogTitle>EDIT PROCESSING TASK</DialogTitle>
           <form action='' className='dialogEditProcessingTask__form'>
             {/* BOOTH NUMBER */}
             <div className='dialogEditProcessingTask__form__row'>
