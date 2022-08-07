@@ -46,6 +46,7 @@ const DialogEditProcessingTask = () => {
 
   const handleClickSave = async (event) => {
     event.preventDefault();
+    // console.log(event.target);
     const boothNumber = Array.from(event.target)
       .filter((item) => item.id === 'boothNumber')
       .map((item) => item.value)[0];
@@ -67,7 +68,15 @@ const DialogEditProcessingTask = () => {
       .map((item) => item.value)[0];
 
     const nbBefore = Array.from(event.target)
-      .filter((item) => item.id === 'nbBefore')
+      .filter((item) => item.id === 'numberBefore')
+      .map((item) => item.value)[0];
+
+    const nbAfter = Array.from(event.target)
+      .filter((item) => item.id === 'numberAfter')
+      .map((item) => item.value)[0];
+
+    const comment = Array.from(event.target)
+      .filter((item) => item.id === 'comment')
       .map((item) => item.value)[0];
 
     boothNumber && console.log(boothNumber);
@@ -75,6 +84,8 @@ const DialogEditProcessingTask = () => {
     cat && console.log(cat);
     ivpn && console.log(ivpn);
     nbBefore && console.log(nbBefore);
+    nbAfter && console.log(nbAfter);
+    comment && console.log(comment);
     formState.id && console.log(formState.id);
   };
 
@@ -284,8 +295,8 @@ const DialogEditProcessingTask = () => {
                 COMMENT
               </label>
               <textarea
-                name=''
-                id=''
+                name='comment'
+                id='comment'
                 cols='30'
                 rows='10'
                 className='dialogEditProcessingTask__form__input'
