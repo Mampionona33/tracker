@@ -4,9 +4,11 @@ import Modale from './Modale';
 import '../style/DialogEditProcessingTask.scss';
 import Card from './Card';
 import DialogTitle from './DialogTitle';
+import { componentContext } from '../context/componentContext';
 
 const DialogEditProcessingTask = () => {
   const taskTypeContext = useContext(TaskTypeContext);
+  const ComponentContext = useContext(componentContext);
   const statuCom = [
     { id: 0, value: 'Essai', name: 'Essai' },
     { id: 1, value: 'Abonne', name: 'Abonné' },
@@ -17,12 +19,25 @@ const DialogEditProcessingTask = () => {
     { id: 6, value: 'Essai_Payant', name: 'Essai Payant' },
     { id: 7, value: 'Retire', name: 'Retiré' },
   ];
+
+  const handleClickSave = async (event) => {
+    event.preventDefault();
+    console.log(event);
+  };
+  const handleClickCancel = (event) => {
+    event.preventDefault();
+    ComponentContext.closeDialogEditProcessingTask();
+  };
+
   return (
     <>
       <div className='dialogEditProcessingTask'>
         <div className='dialogEditProcessingTask__formContainer'>
           <DialogTitle>EDIT PROCESSING TASK</DialogTitle>
-          <form action='' className='dialogEditProcessingTask__form'>
+          <form
+            onSubmit={handleClickSave}
+            className='dialogEditProcessingTask__form'
+          >
             {/* BOOTH NUMBER */}
             <div className='dialogEditProcessingTask__form__row'>
               <label
@@ -188,7 +203,11 @@ const DialogEditProcessingTask = () => {
               >
                 SAVE
               </button>
-              <button className='dialogEditProcessingTask__button__cancel cancelButton'>
+              <button
+                type='reset'
+                onClick={(e) => handleClickCancel(e)}
+                className='dialogEditProcessingTask__button__cancel cancelButton'
+              >
                 CANCEL
               </button>
             </div>
