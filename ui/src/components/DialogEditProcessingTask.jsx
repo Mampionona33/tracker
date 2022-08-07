@@ -192,6 +192,7 @@ const DialogEditProcessingTask = () => {
                 cols='30'
                 rows='10'
                 className='dialogEditProcessingTask__form__input'
+                style={{ maxHeight: '5rem' }}
               ></textarea>
             </div>
             {/* BUTTONS */}

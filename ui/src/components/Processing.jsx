@@ -101,7 +101,11 @@ export default function Processing() {
           <div className='row'>
             <h4 className='row__element --title'>COMMENT</h4>
             <div className='row__element row__element--r'>
-              <p className='translateX'>{currentProcessingTask.comment}</p>
+              <textarea
+                disabled
+                style={{ maxHeight: '5rem' }}
+                value={currentProcessingTask.comment}
+              />
             </div>
           </div>
           <hr />
