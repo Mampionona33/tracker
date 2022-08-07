@@ -51,7 +51,7 @@ const create = async (_, { task }) => {
 const update = async (
   _,
   {
-    filter: { id },
+    filter: { id, sub },
     update: {
       user,
       boothNumber,
@@ -75,16 +75,19 @@ const update = async (
   let update = [{ $set: {} }];
   // let update = [];
 
-  if (taskState) {
-    // update = [Object.assign({}, { $set: { taskState: taskState } })];
-    update[0].$set.taskState = taskState;
-  }
+  taskState && (update[0].$set.taskState = taskState);
+  boothNumber && (update[0].$set.boothNumber = boothNumber);
+  type && (update[0].$set.type = type);
+  url && (update[0].$set.url = url);
+  cat && (update[0].$set.cat = cat);
+  statCom && (update[0].$set.statCom = statCom);
+
   if (session) {
     const indexSession = session.length - 1;
     const objSession = session[indexSession];
     const sessionLength = Object.keys(objSession).length;
 
-    console.log(objSession);
+    // console.log(objSession);
 
     const getCurrentTask = await db
       .collection('tasks')
@@ -113,11 +116,12 @@ const update = async (
       update[0].$set.session = prevSession;
     }
   }
+  console.log(update);
 
   const options = { upsert: false, returnNewDocument: true };
   const updateTask = db
     .collection('tasks')
-    .findOneAndUpdate(filter, ...update, options, (erro, doc) => {
+    .findOneAndUpdate(filter, ...update, (erro, doc) => {
       if (erro) {
         console.log(erro);
       }

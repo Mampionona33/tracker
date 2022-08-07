@@ -78,6 +78,13 @@ export default function Processing() {
           </div>
 
           <div className='row'>
+            <h4 className='row__element --title'>STATUS COM</h4>
+            <p className='row__element row__element--r'>
+              {currentProcessingTask.statCom}
+            </p>
+          </div>
+
+          <div className='row'>
             <h4 className='row__element --title'>STATUS IVPN</h4>
             <p className='row__element row__element--r'>
               {currentProcessingTask.ivpn}

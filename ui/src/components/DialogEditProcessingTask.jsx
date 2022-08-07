@@ -4,9 +4,11 @@ import Modale from './Modale';
 import '../style/DialogEditProcessingTask.scss';
 import DialogTitle from './DialogTitle';
 import { componentContext } from '../context/componentContext';
-import { useQuery } from '@apollo/client';
-import { GET_USER_TASK } from '../graphql/Query';
+import { useQuery, useMutation } from '@apollo/client';
+import { GET_USER_TASK, GET_TASK_BY_FILTER } from '../graphql/Query';
 import { AuthContext } from '../context/authContext';
+import { UPDATE_TASK } from '../graphql/Mutation';
+import { updateProcessingTask } from '../graphql/tasks';
 
 const DialogEditProcessingTask = () => {
   const taskTypeContext = useContext(TaskTypeContext);
@@ -15,9 +17,10 @@ const DialogEditProcessingTask = () => {
   const [formState, setFormState] = useState({
     id: null,
     boothNumber: '',
-    type: '',
+    type: null,
     url: '',
     cat: '',
+    statCom: '',
     ivpn: '',
     nbBefore: 0,
     nbAfter: 0,
@@ -44,9 +47,42 @@ const DialogEditProcessingTask = () => {
     }
   );
 
+  const [updateCurrentTask, { error: errorUpdateProcessingTask }] = useMutation(
+    UPDATE_TASK,
+    {
+      refetchQueries: [
+        {
+          query: GET_TASK_BY_FILTER,
+          variables: {
+            input: {
+              taskState: 'isPlay',
+              user: {
+                sub: userContext.user.sub,
+              },
+            },
+          },
+        },
+        {
+          query: GET_TASK_BY_FILTER,
+          variables: {
+            input: {
+              taskState: 'isPause',
+              user: {
+                sub: userContext.user.sub,
+              },
+            },
+          },
+        },
+      ],
+      awaitRefetchQueries: true,
+    }
+  );
+
   const handleClickSave = async (event) => {
     event.preventDefault();
     // console.log(event.target);
+    const id = formState.id;
+
     const boothNumber = Array.from(event.target)
       .filter((item) => item.id === 'boothNumber')
       .map((item) => item.value)[0];
@@ -68,25 +104,59 @@ const DialogEditProcessingTask = () => {
       .map((item) => item.value)[0];
 
     const nbBefore = Array.from(event.target)
-      .filter((item) => item.id === 'numberBefore')
+      .filter((item) => item.id === 'nbBefore')
       .map((item) => item.value)[0];
 
     const nbAfter = Array.from(event.target)
-      .filter((item) => item.id === 'numberAfter')
+      .filter((item) => item.id === 'nbAfter')
       .map((item) => item.value)[0];
 
     const comment = Array.from(event.target)
       .filter((item) => item.id === 'comment')
       .map((item) => item.value)[0];
 
-    boothNumber && console.log(boothNumber);
-    type && console.log(type);
-    cat && console.log(cat);
-    ivpn && console.log(ivpn);
-    nbBefore && console.log(nbBefore);
-    nbAfter && console.log(nbAfter);
-    comment && console.log(comment);
-    formState.id && console.log(formState.id);
+    const statCom = Array.from(event.target)
+      .filter((item) => item.id === 'statCom')
+      .map((item) => item.value)[0];
+
+    await updateProcessingTask(
+      updateCurrentTask,
+      userContext.user.sub,
+      id,
+      boothNumber,
+      type,
+      statCom,
+      url,
+      cat,
+      ivpn,
+      nbBefore,
+      nbAfter,
+      comment
+    )
+      .then(() => {
+        setFormState({
+          ...formState,
+          boothNumber: '',
+          statCom: '',
+          cat: '',
+          type: '',
+          url: '',
+          ivpn: 'I',
+          nbBefore: 0,
+          nbAfter: 0,
+          comment: '',
+        });
+      })
+      .then(ComponentContext.closeDialogEditProcessingTask());
+
+    // boothNumber && console.log(boothNumber);
+    // type && console.log(type);
+    // cat && console.log(cat);
+    // ivpn && console.log(ivpn);
+    // nbBefore && console.log(nbBefore);
+    // nbAfter && console.log(nbAfter);
+    // comment && console.log(comment);
+    // formState.id && console.log(formState.id);
   };
 
   const handleClickCancel = (event) => {
@@ -96,6 +166,7 @@ const DialogEditProcessingTask = () => {
 
   const handleInputChange = (event) => {
     event.preventDefault();
+    console.log(event.target.name);
     setFormState({ ...formState, [event.target.name]: event.target.value });
   };
 
@@ -105,11 +176,13 @@ const DialogEditProcessingTask = () => {
         (item) => item.taskState === 'isPlay' || item.taskState === 'isPause'
       );
       if (curProcTask) {
+        console.log(curProcTask);
         setFormState({
           ...formState,
           id: curProcTask[0].id,
           boothNumber: curProcTask[0].boothNumber,
           type: curProcTask[0].type,
+          statCom: curProcTask[0].statCom,
           url: curProcTask[0].url,
           cat: curProcTask[0].cat,
           ivpn: curProcTask[0].ivpn,
@@ -120,6 +193,7 @@ const DialogEditProcessingTask = () => {
       }
     }
   }, [userTask]);
+  formState.type && console.log(formState.type);
 
   return (
     <>
@@ -159,7 +233,7 @@ const DialogEditProcessingTask = () => {
                 name='type'
                 id='type'
                 className='dialogEditProcessingTask__form__input'
-                value={formState.type}
+                value={formState.type && formState.type}
                 onChange={(ev) => handleInputChange(ev)}
               >
                 {taskTypeContext.taskType &&
@@ -172,6 +246,7 @@ const DialogEditProcessingTask = () => {
                   })}
               </select>
             </div>
+
             {/* URL */}
             <div className='dialogEditProcessingTask__form__row'>
               <label
@@ -227,6 +302,7 @@ const DialogEditProcessingTask = () => {
                 <option value='N'>N</option>
               </select>
             </div>
+
             {/* STATUS COM */}
             <div className='dialogEditProcessingTask__form__row'>
               <label
@@ -239,6 +315,8 @@ const DialogEditProcessingTask = () => {
                 name='statCom'
                 id='statCom'
                 className='dialogEditProcessingTask__form__input'
+                value={formState.statCom}
+                onChange={(ev) => handleInputChange(ev)}
               >
                 {statuCom &&
                   statuCom.map((item) => {
@@ -250,6 +328,7 @@ const DialogEditProcessingTask = () => {
                   })}
               </select>
             </div>
+
             {/* NUMBER BEFORE */}
             <div className='dialogEditProcessingTask__form__row'>
               <label
@@ -259,8 +338,9 @@ const DialogEditProcessingTask = () => {
                 NUMBER BEFORE
               </label>
               <input
-                id='numberBefore'
-                name='numberBefore'
+                id='nbBefore'
+                name='nbBefore'
+                pattern='[0-9]{0,5}'
                 type='number'
                 className='dialogEditProcessingTask__form__input'
                 value={formState.nbBefore}
@@ -268,6 +348,7 @@ const DialogEditProcessingTask = () => {
                 onChange={(ev) => handleInputChange(ev)}
               />
             </div>
+
             {/* NUMBER AFTER */}
             <div className='dialogEditProcessingTask__form__row'>
               <label
@@ -277,8 +358,9 @@ const DialogEditProcessingTask = () => {
                 NUMBER AFTER
               </label>
               <input
-                id='numberAfter'
-                name='numberAfter'
+                id='nbAfter'
+                pattern='[0-9]{0,5}'
+                name='nbAfter'
                 type='number'
                 className='dialogEditProcessingTask__form__input'
                 value={formState.nbAfter}
@@ -286,6 +368,7 @@ const DialogEditProcessingTask = () => {
                 onChange={(ev) => handleInputChange(ev)}
               />
             </div>
+
             {/* COMMENT */}
             <div className='dialogEditProcessingTask__form__row'>
               <label

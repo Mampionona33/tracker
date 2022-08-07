@@ -148,6 +148,33 @@ export const getPendingTask = async (getUserTaskByFilter, sub) => {
 export const updateProcessingTask = async (
   updateTask,
   sub,
+  id,
   boothNumber,
-  type
-) => {};
+  type,
+  statCom,
+  url,
+  cat,
+  ivpn,
+  nbBefore,
+  nbAfter,
+  comment
+) => {
+  updateTask({
+    variables: {
+      filter: {
+        id: id,
+      },
+      update: {
+        boothNumber: boothNumber && boothNumber,
+        statCom: statCom && statCom,
+        type: type && type,
+        url: url && url,
+        cat: cat && cat,
+        ivpn: ivpn && ivpn,
+        nbBefore: nbBefore && parseInt(nbBefore),
+        nbAfter: nbAfter && parseFloat(nbAfter),
+        comment: comment && comment,
+      },
+    },
+  });
+};
