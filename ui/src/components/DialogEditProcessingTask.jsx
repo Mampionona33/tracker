@@ -13,6 +13,7 @@ const DialogEditProcessingTask = () => {
   const userContext = useContext(AuthContext);
   const ComponentContext = useContext(componentContext);
   const [formState, setFormState] = useState({
+    id: null,
     boothNumber: '',
     type: '',
     url: '',
@@ -42,14 +43,46 @@ const DialogEditProcessingTask = () => {
       },
     }
   );
+
   const handleClickSave = async (event) => {
     event.preventDefault();
-    console.log(event);
+    const boothNumber = Array.from(event.target)
+      .filter((item) => item.id === 'boothNumber')
+      .map((item) => item.value)[0];
+
+    const type = Array.from(event.target)
+      .filter((item) => item.id === 'type')
+      .map((item) => item.value)[0];
+
+    const url = Array.from(event.target)
+      .filter((item) => item.id === 'url')
+      .map((item) => item.value)[0];
+
+    const cat = Array.from(event.target)
+      .filter((item) => item.id === 'cat')
+      .map((item) => item.value)[0];
+
+    const ivpn = Array.from(event.target)
+      .filter((item) => item.id === 'ivpn')
+      .map((item) => item.value)[0];
+
+    const nbBefore = Array.from(event.target)
+      .filter((item) => item.id === 'nbBefore')
+      .map((item) => item.value)[0];
+
+    boothNumber && console.log(boothNumber);
+    type && console.log(type);
+    cat && console.log(cat);
+    ivpn && console.log(ivpn);
+    nbBefore && console.log(nbBefore);
+    formState.id && console.log(formState.id);
   };
+
   const handleClickCancel = (event) => {
     event.preventDefault();
     ComponentContext.closeDialogEditProcessingTask();
   };
+
   const handleInputChange = (event) => {
     event.preventDefault();
     setFormState({ ...formState, [event.target.name]: event.target.value });
@@ -61,9 +94,9 @@ const DialogEditProcessingTask = () => {
         (item) => item.taskState === 'isPlay' || item.taskState === 'isPause'
       );
       if (curProcTask) {
-        console.log(curProcTask);
         setFormState({
           ...formState,
+          id: curProcTask[0].id,
           boothNumber: curProcTask[0].boothNumber,
           type: curProcTask[0].type,
           url: curProcTask[0].url,
