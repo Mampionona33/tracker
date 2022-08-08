@@ -53,7 +53,7 @@ export default function Processing() {
           <div className='row'>
             <h4 className='row__element --title'>TASK TYPE</h4>
             <p className='row__element row__element--r'>
-              {currentProcessingTask.type}
+              <span className='translateX'>{currentProcessingTask.type}</span>
             </p>
           </div>
 
