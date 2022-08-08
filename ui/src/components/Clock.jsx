@@ -116,7 +116,7 @@ const Clock = () => {
   }, [allUserTasks]);
 
   return (
-    <div style={{ display: 'flex' }}>
+    <div style={{ display: 'flex', gap: '0.2rem' }}>
       <Card Children={<p className='timerDigit'>{day}</p>} />
       <Card Children={<p className='timerDigit'>{hours}</p>} />
       <Card Children={<p className='timerDigit'>{min}</p>} />

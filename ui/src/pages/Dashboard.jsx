@@ -45,11 +45,11 @@ export default function Dashboard() {
 
   return (
     <div className='dashboard'>
-      <TiteledCard title={'Pending'} content={<Pending />} />
-      <TiteledCard title={'Processing'} content={<Processing />} />
+      <TiteledCard title={'PENDING'} content={<Pending />} />
+      <TiteledCard title={'PROCESSING'} content={<Processing />} />
 
       <TiteledCard
-        title={'Prod Simulation'}
+        title={'PROD SIMULATION'}
         content={<ProductivSimulation />}
       />
     </div>

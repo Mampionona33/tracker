@@ -102,7 +102,7 @@ const ProdProgressBar = () => {
     }
   }, [allUserTask, taskTypeContext.taskType]);
   return (
-    <div style={{ width: '12rem' }}>
+    <div style={{ width: '10rem' }}>
       <ProgressBar completed={productivity} />
     </div>
   );

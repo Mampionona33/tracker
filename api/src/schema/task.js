@@ -81,6 +81,11 @@ const update = async (
   url && (update[0].$set.url = url);
   cat && (update[0].$set.cat = cat);
   statCom && (update[0].$set.statCom = statCom);
+  ivpn && (update[0].$set.ivpn = ivpn);
+  processingState && (update[0].$set.processingState = processingState);
+  nbBefore && (update[0].$set.nbBefore = nbBefore);
+  nbAfter && (update[0].$set.nbAfter = nbAfter);
+  comment && (update[0].$set.comment = comment);
 
   if (session) {
     const indexSession = session.length - 1;

@@ -1,10 +1,9 @@
 .row {
   display: grid;
-  gap: 1rem;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(2, 10rem);
 
   &__element {
-    width: 11rem;
+    max-width: 10rem;
     overflow: hidden;
     margin: 0.2rem;
 

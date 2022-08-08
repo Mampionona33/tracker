@@ -17,7 +17,7 @@ const DialogEditProcessingTask = () => {
   const [formState, setFormState] = useState({
     id: null,
     boothNumber: '',
-    type: null,
+    type: '',
     url: '',
     cat: '',
     statCom: '',
@@ -36,45 +36,34 @@ const DialogEditProcessingTask = () => {
     { id: 6, value: 'Essai_Payant', name: 'Essai Payant' },
     { id: 7, value: 'Retire', name: 'Retiré' },
   ];
-  const { data: userTask, error: errorFetchingUserTask } = useQuery(
-    GET_USER_TASK,
-    {
-      variables: {
-        input: {
-          sub: userContext.user.sub,
-        },
+  const {
+    data: userTask,
+    error: errorFetchingUserTask,
+    refetch,
+  } = useQuery(GET_USER_TASK, {
+    variables: {
+      input: {
+        sub: userContext.user.sub,
       },
-    }
-  );
+    },
+  });
 
   const [updateCurrentTask, { error: errorUpdateProcessingTask }] = useMutation(
     UPDATE_TASK,
     {
       refetchQueries: [
         {
-          query: GET_TASK_BY_FILTER,
+          query: GET_USER_TASK,
           variables: {
             input: {
-              taskState: 'isPlay',
-              user: {
-                sub: userContext.user.sub,
-              },
-            },
-          },
-        },
-        {
-          query: GET_TASK_BY_FILTER,
-          variables: {
-            input: {
-              taskState: 'isPause',
-              user: {
-                sub: userContext.user.sub,
-              },
+              sub: userContext.user.sub,
             },
           },
         },
       ],
+      onCompleted: () => refetch(),
       awaitRefetchQueries: true,
+      fetchPolicy: 'network-only',
     }
   );
 
@@ -121,7 +110,6 @@ const DialogEditProcessingTask = () => {
 
     await updateProcessingTask(
       updateCurrentTask,
-      userContext.user.sub,
       id,
       boothNumber,
       type,
@@ -148,15 +136,6 @@ const DialogEditProcessingTask = () => {
         });
       })
       .then(ComponentContext.closeDialogEditProcessingTask());
-
-    // boothNumber && console.log(boothNumber);
-    // type && console.log(type);
-    // cat && console.log(cat);
-    // ivpn && console.log(ivpn);
-    // nbBefore && console.log(nbBefore);
-    // nbAfter && console.log(nbAfter);
-    // comment && console.log(comment);
-    // formState.id && console.log(formState.id);
   };
 
   const handleClickCancel = (event) => {

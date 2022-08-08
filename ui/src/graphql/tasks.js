@@ -147,7 +147,6 @@ export const getPendingTask = async (getUserTaskByFilter, sub) => {
 
 export const updateProcessingTask = async (
   updateTask,
-  sub,
   id,
   boothNumber,
   type,
