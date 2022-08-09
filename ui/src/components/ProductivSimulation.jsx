@@ -1,10 +1,12 @@
 import React from 'react';
 import TiteledCard from './TiteledCard';
+import FormSimulation from './FormSimulation';
 
 const ProductivSimulation = () => {
   return (
     <div className='prodSimulation'>
-      <div className='prodSimulation__radio'>
+      <FormSimulation />
+      {/* <div className='prodSimulation__radio'>
         <div className='prodSimulation__radio__element'>
           <input
             type='radio'
@@ -24,7 +26,7 @@ const ProductivSimulation = () => {
           <label htmlFor='byEndingTime'>By Ending Time</label>
         </div>
       </div>
-      <p>placeholder prod simul</p>
+      <p>placeholder prod simul</p> */}
     </div>
   );
 };
