@@ -1,6 +1,7 @@
 import { useQuery } from '@apollo/client';
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/authContext';
+import { componentContext } from '../context/componentContext';
 import { GET_USER_TASK } from '../graphql/Query';
 import '../style/Processing.scss';
 import BtnEdit from './BtnEdit';
@@ -11,6 +12,7 @@ import ProdProgressBar from './ProdProgressBar';
 
 export default function Processing() {
   const userContext = useContext(AuthContext);
+  const ComponentContext = useContext(componentContext);
   const [currentProcessingTask, setCurrentProcessingTask] = useState([]);
   const {
     data: userTask,
@@ -23,6 +25,11 @@ export default function Processing() {
       },
     },
   });
+
+  const handleClickTextCreateNewTask = (event) => {
+    event.preventDefault();
+    ComponentContext.toggleDialogCreateNewTask();
+  };
 
   useEffect(() => {
     if (userTask) {
@@ -134,9 +141,33 @@ export default function Processing() {
           </div>
         </div>
       ) : (
-        <div className='message'>
-          <h2>NO PROCESSING TASK</h2>
-          <p>Please create new task or chose one from Pending</p>
+        <div
+          className='message'
+          style={{ display: 'flex', margin: '1rem', flexDirection: 'column' }}
+        >
+          <h2 style={{ fontSize: '1.2rem', margin: '0' }}>
+            NO PROCESSING TASK
+          </h2>
+          <div style={{ display: 'block', gap: '0.5rem' }}>
+            Please{' '}
+            <span
+              className='textBtn midAub'
+              style={{ padding: '0 0.2rem' }}
+              onClick={(e) => {
+                handleClickTextCreateNewTask(e);
+              }}
+            >
+              create new task
+            </span>{' '}
+            or chose one from :{' '}
+            <a
+              className='midAub'
+              href='/mytasks/row_show=3'
+              style={{ textDecoration: 'none', padding: '0 0.2rem' }}
+            >
+              My Tasks
+            </a>
+          </div>
         </div>
       )}
     </>

@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client';
 import React, { useContext, useEffect } from 'react';
 import { Navigate, Route, Routes, useParams } from 'react-router-dom';
 import HistoryTable from './components/HistoryTable';
+import MyTaskTable from './components/MyTaskTable';
 import TaskOffList from './components/TaskOffList';
 import { AuthContext } from './context/authContext';
 import { TaskContext } from './context/taskContext';
@@ -14,6 +15,7 @@ import Dashboard from './pages/Dashboard';
 import History from './pages/History';
 import Login from './pages/Login';
 import Manage from './pages/Manage';
+import MyTask from './pages/MyTask';
 import ProtectedRoute from './pages/ProtectedRoute';
 
 export default function App() {
@@ -83,11 +85,7 @@ export default function App() {
       <Route
         path='/login'
         element={
-          !context.user ? (
-            <Login />
-          ) : (
-            <Navigate to={'/dashboard/row_show=3'} replace />
-          )
+          !context.user ? <Login /> : <Navigate to={'/dashboard'} replace />
         }
       />
       <Route element={<ProtectedRoute />}>
@@ -97,14 +95,14 @@ export default function App() {
             !context.user ? (
               <Navigate to={'/login'} />
             ) : (
-              <Navigate to={'/dashboard/row_show=3'} />
+              <Navigate to={'/dashboard'} />
             )
           }
         />
-        <Route path='/dashboard' element={<Dashboard />}>
-          <Route path='row_show=:row_show' element={<TaskOffList />} />
+        <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='/mytasks' element={<MyTask />}>
+          <Route path='row_show=:row_show' element={<MyTaskTable />} />
         </Route>
-        <Route path='/mytasks'></Route>
         {/* 
           the default component to render when path is /history is the <History/> component
           when /history get params date; then render the <Outlet/> inside the history Route

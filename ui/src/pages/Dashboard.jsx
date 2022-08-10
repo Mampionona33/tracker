@@ -12,8 +12,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 export default function Dashboard() {
   const userContext = useContext(AuthContext);
   const [currentProcessigTask, setCurrentProcessigTask] = useState([]);
-  const { row_show } = useParams();
-  const navigate = useNavigate();
+
   const { data: userTask, error: errorFetchUserTask } = useQuery(
     GET_USER_TASK,
     {
@@ -24,13 +23,6 @@ export default function Dashboard() {
       },
     }
   );
-
-  useEffect(() => {
-    if (!row_show) {
-      console.log('test');
-      navigate('row_show=3', { replace: true });
-    }
-  }, [row_show]);
 
   useEffect(() => {
     if (userTask) {
@@ -45,7 +37,7 @@ export default function Dashboard() {
 
   return (
     <div className='dashboard'>
-      <TiteledCard title={'PENDING'} content={<Pending />} />
+      {/* <TiteledCard title={'PENDING'} content={<Pending />} /> */}
       <TiteledCard title={'PROCESSING'} content={<Processing />} />
 
       <TiteledCard

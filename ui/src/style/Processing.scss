@@ -1,3 +1,5 @@
+@import './variables.scss';
+
 .row {
   display: grid;
   grid-template-columns: repeat(2, 10rem);
@@ -14,9 +16,20 @@
     }
   }
 }
+
+.midAub {
+  background-color: $midAubergine;
+  color: white;
+}
 .translateX {
   &:hover {
     animation: horizontalTranslate 8s 0s linear infinite;
+  }
+}
+.textBtn {
+  &:hover {
+    cursor: pointer;
+    flex-wrap: nowrap;
   }
 }
 
