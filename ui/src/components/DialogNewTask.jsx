@@ -19,6 +19,7 @@ import {
 } from './../graphql/Query';
 import { TaskTypeContext } from '../context/taskTypeContext';
 import DialogTitle from './DialogTitle';
+import { useNavigate } from 'react-router-dom';
 
 const DialogNewTask = () => {
   const ComponentContext = useContext(componentContext);
@@ -26,7 +27,7 @@ const DialogNewTask = () => {
   const taskTypeContext = useContext(TaskTypeContext);
   const userSub = context.user.sub;
   const [currentProcTask, setCurrentProcTask] = useState([]);
-  const [typeTaskOptions, setTypeTaskOptions] = useState([]);
+  const navigate = useNavigate();
 
   const { data: processingTask, error: errorLoadingProcTask } = useQuery(
     GET_USER_TASK,
@@ -99,6 +100,7 @@ const DialogNewTask = () => {
         ComponentContext.toggleDialogCreateNewTask()
       );
     }
+    navigate('/dashboard');
   };
 
   const handleClickCancel = (event) => {
