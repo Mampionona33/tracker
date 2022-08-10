@@ -1,0 +1,13 @@
+.simulationMethode {
+  display: grid;
+  justify-content: stretch;
+  &__fieldset {
+    border-radius: 0.3rem;
+    &__radioGroupe {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+  }
+}
