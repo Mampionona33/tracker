@@ -74,8 +74,8 @@ export default function App() {
     return () => (mounted = false);
   }, [currentUser]);
 
-  if(errorOnLoadAllTaskType){
-    return <h1>{errorOnLoadAllTaskType.message}</h1>
+  if (errorOnLoadAllTaskType) {
+    return <h1>{errorOnLoadAllTaskType.message}</h1>;
   }
 
   return (
@@ -104,6 +104,7 @@ export default function App() {
         <Route path='/dashboard' element={<Dashboard />}>
           <Route path='row_show=:row_show' element={<TaskOffList />} />
         </Route>
+        <Route path='/mytasks'></Route>
         {/* 
           the default component to render when path is /history is the <History/> component
           when /history get params date; then render the <Outlet/> inside the history Route

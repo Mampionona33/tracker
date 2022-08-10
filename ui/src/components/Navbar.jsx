@@ -6,6 +6,7 @@ import { useMutation, useQuery } from '@apollo/client';
 import { UPDATE_TASK } from '../graphql/Mutation';
 import { GET_USER_TASK } from '../graphql/Query';
 import { setTaskStateOff } from '../graphql/tasks';
+import BtnMyTask from './BtnMyTask';
 export default function Navbar(props) {
   const context = useContext(AuthContext);
   const ComponentContext = useContext(componentContext);
@@ -79,9 +80,10 @@ export default function Navbar(props) {
       </div>
 
       <div className='navbar__rightButton'>
+        <BtnMyTask />
         <button
           type={'button'}
-          className='navbar__createTask'
+          className='navbar__btn'
           onClick={(ev) => handleClickCreateNewTask(ev)}
         >
           <span className='material-icons-round'>add_task</span>
@@ -89,7 +91,7 @@ export default function Navbar(props) {
         </button>
 
         <div
-          className='navbar__logoutbtn'
+          className='navbar__btn'
           onClick={(e) => handleClickLogout(e)}
         >
           {context.user && (
