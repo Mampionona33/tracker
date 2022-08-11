@@ -2,11 +2,7 @@ import React from 'react';
 import '../style/Loading.scss';
 
 const Loading = () => {
-  return (
-    <div>
-      <h3>Loading data ...</h3>
-    </div>
-  );
+  return <div className='loading'></div>;
 };
 
 export default Loading;

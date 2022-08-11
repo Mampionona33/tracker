@@ -1,12 +1,19 @@
-.--inifinityRotate {
-  animation: inifinityRotate 1s ease 0s infinite;
+@import './variables.scss';
+.loading {
+  margin: 1rem;
+  border: 3px solid $warmGrey;
+  border-top: 3px solid $midAubergine;
+  border-radius: 50%;
+  width: 2rem;
+  height: 2rem;
+  animation: spin 2s linear infinite;
 }
 
-@keyframes inifinityRotate {
-  0% {
-    transform: rotateZ(0);
+@keyframes spin {
+  9% {
+    transform: rotate(0deg);
   }
   100% {
-    transform: rotateZ(360);
+    transform: rotate(360deg);
   }
 }
