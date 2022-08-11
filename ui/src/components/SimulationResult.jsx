@@ -4,9 +4,9 @@ import ProgressBar from './ProgressBar';
 const SimulationResult = () => {
   return (
     <div className='simulationResult'>
-      <fieldset>
+      <fieldset style={{ borderRadius: '0.3rem' }}>
         <legend>RESULT</legend>
-        <ProgressBar completed={55}/>
+        <ProgressBar completed={55} />
       </fieldset>
     </div>
   );
