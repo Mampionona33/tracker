@@ -1,4 +1,9 @@
 .simulationBoothInfo {
+  &__form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
   &__fieldset {
     display: flex;
     flex-direction: column;
@@ -23,5 +28,10 @@
         }
       }
     }
+  }
+  &__buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
   }
 }

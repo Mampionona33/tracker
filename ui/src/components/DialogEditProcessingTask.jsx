@@ -145,7 +145,6 @@ const DialogEditProcessingTask = () => {
 
   const handleInputChange = (event) => {
     event.preventDefault();
-    console.log(event.target.name);
     setFormState({ ...formState, [event.target.name]: event.target.value });
   };
 

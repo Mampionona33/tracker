@@ -10,6 +10,10 @@ const SimulationBoothInfo = () => {
   const userContext = useContext(AuthContext);
   const [formState, setFormState] = useState({
     type: '',
+    day: '',
+    hrs: '',
+    min: '',
+    sec: '',
   });
 
   const {
@@ -33,12 +37,85 @@ const SimulationBoothInfo = () => {
 
   const handleInputChange = (ev) => {
     ev.preventDefault();
-    setFormState({ ...AuthContext, [ev.target.name]: ev.target.value });
+    const name = ev.target.name;
+    const value = ev.target.value;
+    setFormState({ ...formState, [name]: value });
+
+    switch (name) {
+      case 'hrs':
+        value > 23 || value < 0
+          ? setFormState({
+              ...formState,
+              [name]: value.substring(0, value.length - 1),
+            })
+          : setFormState({ ...formState, [name]: value });
+        break;
+      case 'min':
+        value < 0 || value > 59
+          ? setFormState({
+              ...formState,
+              [name]: value.substring(0, value.length - 1),
+            })
+          : setFormState({ ...formState, [name]: value });
+        break;
+      case 'sec':
+        value < 0 || value > 59
+          ? setFormState({
+              ...formState,
+              [name]: value.substring(0, value.length - 1),
+            })
+          : setFormState({ ...formState, [name]: value });
+        break;
+
+      default:
+        break;
+    }
+  };
+
+  const handleOnBlur = (ev) => {
+    ev.preventDefault();
+    const name = ev.target.name;
+    const value = ev.target.value;
+    console.log(name, typeof value, value);
+    if (name === 'day' || name === 'hrs' || name === 'min' || name === 'sec') {
+      if (value > 0) {
+        setFormState({
+          ...formState,
+          [name]:
+            parseInt(value) > 0
+              ? parseInt(value).toString().padStart(2, '0')
+              : '',
+        });
+      } else {
+        setFormState({
+          ...formState,
+          [name]: '',
+        });
+      }
+    }
+  };
+
+  const handleClickReset = (ev) => {
+    if (userTasks && userTasks.getUserTask) {
+      const curProcTask = Array.from(userTasks.getUserTask).filter(
+        (item) => item.taskState === 'isPlay' || item.taskState === 'isPause'
+      );
+      if (curProcTask && curProcTask.length > 0) {
+        setFormState({
+          ...formState,
+          type: curProcTask[0].type,
+          day: '',
+          hrs: '',
+          min: '',
+          sec: '',
+        });
+      }
+    }
   };
 
   return (
     <div className='simulationBoothInfo'>
-      <form action='' className='simulationBoothInfo__form'>
+      <form className='simulationBoothInfo__form'>
         <fieldset className='simulationBoothInfo__fieldset'>
           <legend className='simulationBoothInfo__fieldset__legend'>
             BOOTH INFO
@@ -55,7 +132,7 @@ const SimulationBoothInfo = () => {
               name='type'
               id='type'
               value={formState.type}
-              onChange={(ev) => handleInputChange(ev)}
+              onChange={handleInputChange}
             >
               {taskTypeContext.taskType &&
                 Array.from(taskTypeContext.taskType).map((item) => {
@@ -109,6 +186,9 @@ const SimulationBoothInfo = () => {
                     className='simulationBoothInfo__fieldset__col2__digit__inp'
                     type='number'
                     pattern='[0-9]{0,5}'
+                    value={formState.day}
+                    onChange={handleInputChange}
+                    onBlur={handleOnBlur}
                   />
                 </div>
                 <div className='simulationBoothInfo__fieldset__col2__digit'>
@@ -116,9 +196,14 @@ const SimulationBoothInfo = () => {
                   <input
                     id='hrs'
                     pattern='[0-9]{0,5}'
+                    min={0}
+                    max={23}
                     name='hrs'
                     className='simulationBoothInfo__fieldset__col2__digit__inp'
                     type='number'
+                    value={formState.hrs}
+                    onChange={(ev) => handleInputChange(ev)}
+                    onBlur={handleOnBlur}
                   />
                 </div>
                 <div className='simulationBoothInfo__fieldset__col2__digit'>
@@ -129,6 +214,9 @@ const SimulationBoothInfo = () => {
                     name='min'
                     className='simulationBoothInfo__fieldset__col2__digit__inp'
                     type='number'
+                    value={formState.min}
+                    onChange={handleInputChange}
+                    onBlur={handleOnBlur}
                   />
                 </div>
                 <div className='simulationBoothInfo__fieldset__col2__digit'>
@@ -137,14 +225,28 @@ const SimulationBoothInfo = () => {
                     pattern='[0-9]{0,5}'
                     id='sec'
                     name='sec'
+                    min={0}
+                    max={59}
                     className='simulationBoothInfo__fieldset__col2__digit__inp'
                     type='number'
+                    value={formState.sec}
+                    onChange={handleInputChange}
+                    onBlur={handleOnBlur}
                   />
                 </div>
               </div>
             </div>
           </div>
         </fieldset>
+        <div className='simulationBoothInfo__buttons'>
+          <button
+            type='button'
+            className='simulationBoothInfo__button'
+            onClick={handleClickReset}
+          >
+            RESET
+          </button>
+        </div>
       </form>
     </div>
   );
