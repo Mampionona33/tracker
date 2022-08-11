@@ -10,10 +10,10 @@ const SimulationBoothInfo = () => {
   const userContext = useContext(AuthContext);
   const [formState, setFormState] = useState({
     type: '',
-    day: '',
-    hrs: '',
-    min: '',
-    sec: '',
+    day: '00',
+    hrs: '00',
+    min: '00',
+    sec: '00',
   });
 
   const {
@@ -89,7 +89,7 @@ const SimulationBoothInfo = () => {
       } else {
         setFormState({
           ...formState,
-          [name]: '',
+          [name]: '00',
         });
       }
     }
@@ -104,10 +104,10 @@ const SimulationBoothInfo = () => {
         setFormState({
           ...formState,
           type: curProcTask[0].type,
-          day: '',
-          hrs: '',
-          min: '',
-          sec: '',
+          day: '00',
+          hrs: '00',
+          min: '00',
+          sec: '00',
         });
       }
     }
