@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { SimulationContext } from '../context/simulationContext';
 import '../style/SimulationMethode.scss';
 const SimulationMethode = () => {
   const [currentSelect, setCurrentSelect] = useState('by_elapsted_time');
   const handleRadioChange = (event) => {
     setCurrentSelect(event.target.value);
   };
+
+  const simulationContext = useContext(SimulationContext);
+
   return (
     <div className='simulationMethode'>
       <fieldset className='simulationMethode__fieldset'>
