@@ -1,5 +1,6 @@
 import { useQuery } from '@apollo/client';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
+import { calulProdSimulation } from '../assets/calculProdSimulation';
 import { AuthContext } from '../context/authContext';
 import { SimulationContext } from '../context/simulationContext';
 import { TaskTypeContext } from '../context/taskTypeContext';
@@ -18,6 +19,7 @@ const SimulationBoothInfo = () => {
     min: '00',
     sec: '00',
   });
+  const formRef = useRef(null);
 
   const {
     data: userTasks,
@@ -123,9 +125,49 @@ const SimulationBoothInfo = () => {
     const value = ev.target.value;
     setFormState({ ...formState, [name]: '' });
   };
+
+  const handleFormChange = (ev) => {
+    const selectedType =
+      formRef.current.children[0].children[1].children[1].value;
+
+    const nbAfter = formRef.current.children[0].children[2].children[1].value;
+
+    const day =
+      simulationContext.methode === 'by_elapsted_time' &&
+      formRef.current.children[0].children[3].children[1].children[0]
+        .children[0].children[1].value;
+
+    const hrs =
+      simulationContext.methode === 'by_elapsted_time'
+        ? formRef.current.children[0].children[3].children[1].children[0]
+            .children[1].children[1]
+        : formRef.current.children[0].children[3].children[1].children[0]
+            .children[0].children[1].value;
+
+    const min =
+      simulationContext.methode === 'by_elapsted_time'
+        ? formRef.current.children[0].children[3].children[1].children[0]
+            .children[2].children[1].value
+        : formRef.current.children[0].children[3].children[1].children[0]
+            .children[1].children[1].value;
+
+    const sec =
+      simulationContext.methode === 'by_elapsted_time'
+        ? formRef.current.children[0].children[3].children[1].children[0]
+            .children[3].children[1].value
+        : formRef.current.children[0].children[3].children[1].children[0]
+            .children[2].children[1].value;
+
+    console.log(sec);
+    // calulProdSimulation(taskTypeContext.taskType, formState.nbAfter);
+  };
   return (
     <div className='simulationBoothInfo'>
-      <form className='simulationBoothInfo__form'>
+      <form
+        ref={formRef}
+        onChange={handleFormChange}
+        className='simulationBoothInfo__form'
+      >
         <fieldset className='simulationBoothInfo__fieldset'>
           <legend className='simulationBoothInfo__fieldset__legend'>
             BOOTH INFO
@@ -154,21 +196,7 @@ const SimulationBoothInfo = () => {
                 })}
             </select>
           </div>
-          {/* <div className='simulationBoothInfo__fieldset__row'>
-            <label
-              htmlFor='nbBefore'
-              className='simulationBoothInfo__fieldset__col1'
-            >
-              NB BEFORE
-            </label>
-            <input
-              type='number'
-              pattern='[0-9]{0,5}'
-              id='nbBefore'
-              name='nbBefore'
-              className='simulationBoothInfo__fieldset__col2'
-            />
-          </div> */}
+
           <div className='simulationBoothInfo__fieldset__row'>
             <label
               htmlFor='nbAfter'
