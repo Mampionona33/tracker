@@ -30,7 +30,7 @@ const SimulationBoothInfo = () => {
   });
 
   useEffect(() => {
-    if (userTasks && userTasks.getUserTask) {
+    if (userTasks && userTasks.getUserTask && simulationContext.methode) {
       const curProcTask = Array.from(userTasks.getUserTask).filter(
         (item) => item.taskState === 'isPlay' || item.taskState === 'isPause'
       );
@@ -38,7 +38,29 @@ const SimulationBoothInfo = () => {
         setFormState({ ...formState, type: curProcTask[0].type });
       }
     }
-  }, [userTasks]);
+  }, [userTasks, simulationContext.methode]);
+
+  // RESET FORM ON SIMULATION METHODE CHANGE
+  useEffect(() => {
+    if (simulationContext.methode) {
+      if (userTasks && userTasks.getUserTask) {
+        const curProcTask = Array.from(userTasks.getUserTask).filter(
+          (item) => item.taskState === 'isPlay' || item.taskState === 'isPause'
+        );
+        if (curProcTask && curProcTask.length > 0) {
+          setFormState({
+            ...formState,
+            type: curProcTask[0].type,
+            nbAfter: '0',
+            day: '00',
+            hrs: '00',
+            min: '00',
+            sec: '00',
+          });
+        }
+      }
+    }
+  }, [simulationContext.methode, userTasks]);
 
   const handleInputChange = (ev) => {
     ev.preventDefault();
