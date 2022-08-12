@@ -19,10 +19,8 @@ const SimulationMethode = () => {
               type='radio'
               name='simulationMethode'
               id='by_elapsted_time'
-              value={simulationContext.simulationMethode}
-              checked={
-                simulationContext.simulationMethode === 'by_elapsted_time'
-              }
+              value={simulationContext.methode}
+              checked={simulationContext.methode === 'by_elapsted_time'}
               onChange={handleRadioChange}
             />
             <label htmlFor='by_elapsted_time'>BY ELAPSTED TIME</label>
@@ -32,9 +30,9 @@ const SimulationMethode = () => {
               type='radio'
               name='simulationMethode'
               id='by_ending_time'
-              value={simulationContext.simulationMethode}
+              value={simulationContext.methode}
               onChange={handleRadioChange}
-              checked={simulationContext.simulationMethode === 'by_ending_time'}
+              checked={simulationContext.methode === 'by_ending_time'}
             />
             <label htmlFor='by_ending_time'>BY ENDING TIME</label>
           </div>

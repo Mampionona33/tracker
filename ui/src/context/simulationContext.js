@@ -1,7 +1,7 @@
 import React, { createContext, useReducer } from 'react';
 
 const initialState = {
-  simulationMethode: 'by_elapsted_time',
+  methode: 'by_elapsted_time',
 };
 
 const ACTION = {
@@ -13,7 +13,7 @@ const simulationReducer = (state, action) => {
     case ACTION.SET_SIMULATION_METHODE:
       return {
         ...state,
-        simulationMethode: (state.simulationMethode = action.payload),
+        methode: (state.methode = action.payload),
       };
 
     default:
@@ -22,7 +22,7 @@ const simulationReducer = (state, action) => {
 };
 
 const SimulationContext = createContext({
-  simulationMethode: 'by_elapsted_time',
+  methode: 'by_elapsted_time',
   setSimulationMethode: () => {},
 });
 
@@ -38,7 +38,7 @@ const SimulationProvider = (props) => {
   return (
     <SimulationContext.Provider
       value={{
-        simulationMethode: state.simulationMethode,
+        methode: state.methode,
         setSimulationMethode,
       }}
       {...props}

@@ -180,7 +180,7 @@ const SimulationBoothInfo = () => {
             <h4 className='simulationBoothInfo__fieldset__col1'>TIME</h4>
             <div className='simulationBoothInfo__fieldset__col2'>
               <div className='simulationBoothInfo__fieldset__col2__digitGroupe'>
-                {simulationContext.simulationMethode === 'by_elapsted_time' && (
+                {simulationContext.methode === 'by_elapsted_time' && (
                   <div className='simulationBoothInfo__fieldset__col2__digit'>
                     <label htmlFor='day'>DAY</label>
                     <input
