@@ -6,10 +6,6 @@ export const calculProdByElpatedTime = (
   min,
   sec
 ) => {
-  // const day_ = parseInt(day) * 86400;
-  // const hrs_ = parseInt(hrs) * 3600;
-  // const min_ = parseInt(min) * 60;
-
   let prod = 0;
 
   const totalTime =
