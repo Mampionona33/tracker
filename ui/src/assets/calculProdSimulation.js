@@ -9,7 +9,10 @@ export const calculProdByElpatedTime = (
   let prod = 0;
 
   const totalTime =
-    parseInt(day) * 86400 + parseInt(hrs) * 3600 + parseInt(min) * 60 + sec;
+    parseInt(day) * 86400 +
+    parseInt(hrs) * 3600 +
+    parseInt(min) * 60 +
+    parseInt(sec);
 
   if (
     parseFloat(currentGoal) > 0 &&
