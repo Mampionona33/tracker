@@ -27,7 +27,6 @@ const SimulationMethode = () => {
         (item) => item.taskState === 'isPlay' || item.taskState === 'isPause'
       );
       if (processingTask && processingTask.length > 0) {
-        console.log(processingTask);
         setCurrentTask((prev) => processingTask);
       }
     }

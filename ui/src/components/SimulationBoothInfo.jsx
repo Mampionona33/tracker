@@ -194,7 +194,7 @@ const SimulationBoothInfo = () => {
       (item) => item.name === selectedType
     )[0].goal;
 
-    // console.log(currentGoal, nbAfter, day, hrs, min, sec);
+    console.log(currentGoal, nbAfter, day, hrs, min, sec);
     const prodElapstedTime = calculProdByElpatedTime(
       currentGoal,
       nbAfter,
@@ -204,7 +204,7 @@ const SimulationBoothInfo = () => {
       sec
     );
 
-    console.log(prodElapstedTime);
+    // console.log(prodElapstedTime);
     simulationContext.methode === 'by_elapsted_time' && !isNaN(prodElapstedTime)
       ? simulationContext.setResult(prodElapstedTime)
       : 0;
