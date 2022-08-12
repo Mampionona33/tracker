@@ -4,7 +4,7 @@ import { AuthContext } from '../context/authContext';
 import { TaskTypeContext } from '../context/taskTypeContext';
 import { GET_USER_TASK } from '../graphql/Query';
 import ProgressBar from './ProgressBar';
-import { difDate } from './../assets/img/timeUtility';
+import { difDate } from './../assets/timeUtility';
 
 const ProdProgressBar = () => {
   const taskTypeContext = useContext(TaskTypeContext);

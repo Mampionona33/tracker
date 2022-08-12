@@ -78,6 +78,7 @@ const SimulationBoothInfo = () => {
     ev.preventDefault();
     const name = ev.target.name;
     const value = ev.target.value;
+    // formate timer input
     if (name === 'day' || name === 'hrs' || name === 'min' || name === 'sec') {
       if (value > 0) {
         setFormState({

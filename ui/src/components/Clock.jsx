@@ -1,11 +1,6 @@
 import { useQuery } from '@apollo/client';
 import React, { useContext, useEffect, useState } from 'react';
-import {
-  dateTime,
-  dateToYearMonthDay,
-  difDate,
-  secondToDayHourMinSec,
-} from '../assets/img/timeUtility';
+import { difDate, secondToDayHourMinSec } from '../assets/timeUtility';
 import { AuthContext } from '../context/authContext';
 import { GET_USER_TASK } from '../graphql/Query';
 import Card from './Card';

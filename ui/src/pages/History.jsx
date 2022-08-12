@@ -3,8 +3,6 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import '../style/History.scss';
 import { Outlet, useNavigate, useParams } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
-import { GET_USER_TASK } from '../graphql/Query';
 import { AuthContext } from '../context/authContext';
 
 export default function History(props) {

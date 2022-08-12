@@ -1,8 +1,7 @@
 import { useQuery } from '@apollo/client';
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { duration } from '../assets/img/duration';
-import { dateTime, dateToYearMonthDay } from '../assets/img/timeUtility';
+import { dateTime, dateToYearMonthDay } from '../assets/timeUtility';
 import { AuthContext } from '../context/authContext';
 import { GET_TASK_BY_DATE, GET_USER_TASK } from '../graphql/Query';
 import Loading from './Loading';
