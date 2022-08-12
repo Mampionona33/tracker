@@ -165,6 +165,7 @@ const SimulationBoothInfo = () => {
     <div className='simulationBoothInfo'>
       <form
         ref={formRef}
+        onBlur={handleFormChange}
         onChange={handleFormChange}
         className='simulationBoothInfo__form'
       >
