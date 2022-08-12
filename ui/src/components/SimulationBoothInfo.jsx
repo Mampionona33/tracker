@@ -1,11 +1,11 @@
 import { useQuery } from '@apollo/client';
 import React, { useContext, useEffect, useRef, useState } from 'react';
-import { calulProdSimulation } from '../assets/calculProdSimulation';
 import { AuthContext } from '../context/authContext';
 import { SimulationContext } from '../context/simulationContext';
 import { TaskTypeContext } from '../context/taskTypeContext';
 import { GET_USER_TASK } from '../graphql/Query';
 import '../style/SimulationBoothInfo.scss';
+import { calculProdByElpatedTime } from './../assets/calculProdSimulation';
 
 const SimulationBoothInfo = () => {
   const taskTypeContext = useContext(TaskTypeContext);
@@ -149,6 +149,7 @@ const SimulationBoothInfo = () => {
       min: '00',
       sec: '00',
     });
+    simulationContext.setResult(0);
   };
 
   const handleFocus = (ev) => {
@@ -189,8 +190,24 @@ const SimulationBoothInfo = () => {
         : formRef.current.children[0].children[3].children[1].children[0]
             .children[2].children[1].value;
 
-    console.log(selectedType, nbAfter, day, hrs, min, sec);
-    // calulProdSimulation(taskTypeContext.taskType, formState.nbAfter);
+    const currentGoal = Array.from(taskTypeContext.taskType).filter(
+      (item) => item.name === selectedType
+    )[0].goal;
+
+    // console.log(currentGoal, nbAfter, day, hrs, min, sec);
+    const prodElapstedTime = calculProdByElpatedTime(
+      currentGoal,
+      nbAfter,
+      day,
+      hrs,
+      min,
+      sec
+    );
+
+    console.log(prodElapstedTime);
+    simulationContext.methode === 'by_elapsted_time' && !isNaN(prodElapstedTime)
+      ? simulationContext.setResult(prodElapstedTime)
+      : 0;
   };
   return (
     <div className='simulationBoothInfo'>
