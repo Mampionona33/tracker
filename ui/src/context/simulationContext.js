@@ -36,7 +36,7 @@ const SimulationProvider = (props) => {
   };
 
   return (
-    <componentContext.Provider
+    <SimulationContext.Provider
       value={{
         simulationMethode: state.simulationMethode,
         setSimulationMethode,

@@ -1,13 +1,11 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { SimulationContext } from '../context/simulationContext';
 import '../style/SimulationMethode.scss';
 const SimulationMethode = () => {
-  const [currentSelect, setCurrentSelect] = useState('by_elapsted_time');
-  const handleRadioChange = (event) => {
-    setCurrentSelect(event.target.value);
-  };
-
   const simulationContext = useContext(SimulationContext);
+  const handleRadioChange = (event) => {
+    simulationContext.setSimulationMethode(event.target.id);
+  };
 
   return (
     <div className='simulationMethode'>
@@ -21,9 +19,11 @@ const SimulationMethode = () => {
               type='radio'
               name='simulationMethode'
               id='by_elapsted_time'
-              value='by_elapsted_time'
+              value={simulationContext.simulationMethode}
+              checked={
+                simulationContext.simulationMethode === 'by_elapsted_time'
+              }
               onChange={handleRadioChange}
-              defaultChecked={currentSelect === 'by_elapsted_time'}
             />
             <label htmlFor='by_elapsted_time'>BY ELAPSTED TIME</label>
           </div>
@@ -32,9 +32,9 @@ const SimulationMethode = () => {
               type='radio'
               name='simulationMethode'
               id='by_ending_time'
-              value='by_ending_time'
+              value={simulationContext.simulationMethode}
               onChange={handleRadioChange}
-              defaultChecked={currentSelect === 'by_ending_time'}
+              checked={simulationContext.simulationMethode === 'by_ending_time'}
             />
             <label htmlFor='by_ending_time'>BY ENDING TIME</label>
           </div>

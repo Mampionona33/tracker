@@ -1,12 +1,14 @@
 import { useQuery } from '@apollo/client';
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/authContext';
+import { SimulationContext } from '../context/simulationContext';
 import { TaskTypeContext } from '../context/taskTypeContext';
 import { GET_USER_TASK } from '../graphql/Query';
 import '../style/SimulationBoothInfo.scss';
 
 const SimulationBoothInfo = () => {
   const taskTypeContext = useContext(TaskTypeContext);
+  const simulationContext = useContext(SimulationContext);
   const userContext = useContext(AuthContext);
   const [formState, setFormState] = useState({
     type: '',
@@ -76,7 +78,6 @@ const SimulationBoothInfo = () => {
     ev.preventDefault();
     const name = ev.target.name;
     const value = ev.target.value;
-    console.log(name, typeof value, value);
     if (name === 'day' || name === 'hrs' || name === 'min' || name === 'sec') {
       if (value > 0) {
         setFormState({
@@ -110,6 +111,7 @@ const SimulationBoothInfo = () => {
           sec: '00',
         });
       }
+      simulationContext.setSimulationMethode('by_elapsted_time');
     }
   };
 
@@ -178,19 +180,21 @@ const SimulationBoothInfo = () => {
             <h4 className='simulationBoothInfo__fieldset__col1'>TIME</h4>
             <div className='simulationBoothInfo__fieldset__col2'>
               <div className='simulationBoothInfo__fieldset__col2__digitGroupe'>
-                <div className='simulationBoothInfo__fieldset__col2__digit'>
-                  <label htmlFor='day'>DAY</label>
-                  <input
-                    id='day'
-                    name='day'
-                    className='simulationBoothInfo__fieldset__col2__digit__inp'
-                    type='number'
-                    pattern='[0-9]{0,5}'
-                    value={formState.day}
-                    onChange={handleInputChange}
-                    onBlur={handleOnBlur}
-                  />
-                </div>
+                {simulationContext.simulationMethode === 'by_elapsted_time' && (
+                  <div className='simulationBoothInfo__fieldset__col2__digit'>
+                    <label htmlFor='day'>DAY</label>
+                    <input
+                      id='day'
+                      name='day'
+                      className='simulationBoothInfo__fieldset__col2__digit__inp'
+                      type='number'
+                      pattern='[0-9]{0,5}'
+                      value={formState.day}
+                      onChange={handleInputChange}
+                      onBlur={handleOnBlur}
+                    />
+                  </div>
+                )}
                 <div className='simulationBoothInfo__fieldset__col2__digit'>
                   <label htmlFor='hrs'>HRS</label>
                   <input
