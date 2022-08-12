@@ -1,11 +1,41 @@
+import { useQuery } from '@apollo/client';
 import React, { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../context/authContext';
 import { SimulationContext } from '../context/simulationContext';
+import { GET_USER_TASK } from '../graphql/Query';
 import '../style/SimulationMethode.scss';
+import Loading from './Loading';
 const SimulationMethode = () => {
+  const [currentTask, setCurrentTask] = useState([]);
   const simulationContext = useContext(SimulationContext);
+  const userContext = useContext(AuthContext);
   const handleRadioChange = (event) => {
     simulationContext.setSimulationMethode(event.target.id);
   };
+
+  const {
+    data: userTasks,
+    error: errorFetchingUserTasks,
+    loading: loadingUserTasks,
+  } = useQuery(GET_USER_TASK, {
+    variables: { input: { sub: userContext.user.sub } },
+  });
+
+  useEffect(() => {
+    if (userTasks && userTasks.getUserTask) {
+      const processingTask = Array.from(userTasks.getUserTask).filter(
+        (item) => item.taskState === 'isPlay' || item.taskState === 'isPause'
+      );
+      if (processingTask && processingTask.length > 0) {
+        console.log(processingTask);
+        setCurrentTask((prev) => processingTask);
+      }
+    }
+  }, [userTasks]);
+
+  if (loadingUserTasks) {
+    return <Loading />;
+  }
 
   return (
     <div className='simulationMethode'>
@@ -25,17 +55,19 @@ const SimulationMethode = () => {
             />
             <label htmlFor='by_elapsted_time'>BY ELAPSTED TIME</label>
           </div>
-          <div className='simulationMethode__fieldset__radioGroupe__2'>
-            <input
-              type='radio'
-              name='simulationMethode'
-              id='by_ending_time'
-              value={simulationContext.methode}
-              onChange={handleRadioChange}
-              checked={simulationContext.methode === 'by_ending_time'}
-            />
-            <label htmlFor='by_ending_time'>BY ENDING TIME</label>
-          </div>
+          {currentTask.length > 0 && (
+            <div className='simulationMethode__fieldset__radioGroupe__2'>
+              <input
+                type='radio'
+                name='simulationMethode'
+                id='by_ending_time'
+                value={simulationContext.methode}
+                onChange={handleRadioChange}
+                checked={simulationContext.methode === 'by_ending_time'}
+              />
+              <label htmlFor='by_ending_time'>BY ENDING TIME</label>
+            </div>
+          )}
         </form>
       </fieldset>
     </div>

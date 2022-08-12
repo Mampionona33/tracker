@@ -43,6 +43,7 @@ const SimulationBoothInfo = () => {
   // RESET FORM ON SIMULATION METHODE CHANGE
   useEffect(() => {
     if (simulationContext.methode) {
+      console.log(simulationContext.methode);
       if (userTasks && userTasks.getUserTask) {
         const curProcTask = Array.from(userTasks.getUserTask).filter(
           (item) => item.taskState === 'isPlay' || item.taskState === 'isPause'
@@ -140,6 +141,14 @@ const SimulationBoothInfo = () => {
       }
       simulationContext.setSimulationMethode('by_elapsted_time');
     }
+    setFormState({
+      ...formState,
+      nbAfter: '0',
+      day: '00',
+      hrs: '00',
+      min: '00',
+      sec: '00',
+    });
   };
 
   const handleFocus = (ev) => {
