@@ -12,6 +12,7 @@ const SimulationBoothInfo = () => {
   const userContext = useContext(AuthContext);
   const [formState, setFormState] = useState({
     type: '',
+    nbAfter: '0',
     day: '00',
     hrs: '00',
     min: '00',
@@ -106,6 +107,7 @@ const SimulationBoothInfo = () => {
         setFormState({
           ...formState,
           type: curProcTask[0].type,
+          nbAfter: '0',
           day: '00',
           hrs: '00',
           min: '00',
@@ -116,6 +118,11 @@ const SimulationBoothInfo = () => {
     }
   };
 
+  const handleFocus = (ev) => {
+    const name = ev.target.name;
+    const value = ev.target.value;
+    setFormState({ ...formState, [name]: '' });
+  };
   return (
     <div className='simulationBoothInfo'>
       <form className='simulationBoothInfo__form'>
@@ -147,7 +154,7 @@ const SimulationBoothInfo = () => {
                 })}
             </select>
           </div>
-          <div className='simulationBoothInfo__fieldset__row'>
+          {/* <div className='simulationBoothInfo__fieldset__row'>
             <label
               htmlFor='nbBefore'
               className='simulationBoothInfo__fieldset__col1'
@@ -161,7 +168,7 @@ const SimulationBoothInfo = () => {
               name='nbBefore'
               className='simulationBoothInfo__fieldset__col2'
             />
-          </div>
+          </div> */}
           <div className='simulationBoothInfo__fieldset__row'>
             <label
               htmlFor='nbAfter'
@@ -175,6 +182,9 @@ const SimulationBoothInfo = () => {
               id='nbAfter'
               name='nbAfter'
               className='simulationBoothInfo__fieldset__col2'
+              value={formState.nbAfter}
+              onChange={handleInputChange}
+              onFocus={handleFocus}
             />
           </div>
           <div className='simulationBoothInfo__fieldset__row'>
@@ -193,6 +203,7 @@ const SimulationBoothInfo = () => {
                       value={formState.day}
                       onChange={handleInputChange}
                       onBlur={handleOnBlur}
+                      onFocus={handleFocus}
                     />
                   </div>
                 )}
@@ -209,6 +220,7 @@ const SimulationBoothInfo = () => {
                     value={formState.hrs}
                     onChange={(ev) => handleInputChange(ev)}
                     onBlur={handleOnBlur}
+                    onFocus={handleFocus}
                   />
                 </div>
                 <div className='simulationBoothInfo__fieldset__col2__digit'>
@@ -222,6 +234,7 @@ const SimulationBoothInfo = () => {
                     value={formState.min}
                     onChange={handleInputChange}
                     onBlur={handleOnBlur}
+                    onFocus={handleFocus}
                   />
                 </div>
                 <div className='simulationBoothInfo__fieldset__col2__digit'>
@@ -237,6 +250,7 @@ const SimulationBoothInfo = () => {
                     value={formState.sec}
                     onChange={handleInputChange}
                     onBlur={handleOnBlur}
+                    onFocus={handleFocus}
                   />
                 </div>
               </div>
