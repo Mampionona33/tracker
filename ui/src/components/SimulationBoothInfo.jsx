@@ -140,7 +140,7 @@ const SimulationBoothInfo = () => {
     const hrs =
       simulationContext.methode === 'by_elapsted_time'
         ? formRef.current.children[0].children[3].children[1].children[0]
-            .children[1].children[1]
+            .children[1].children[1].value
         : formRef.current.children[0].children[3].children[1].children[0]
             .children[0].children[1].value;
 
@@ -158,7 +158,7 @@ const SimulationBoothInfo = () => {
         : formRef.current.children[0].children[3].children[1].children[0]
             .children[2].children[1].value;
 
-    console.log(sec);
+    console.log(selectedType, nbAfter, day, hrs, min, sec);
     // calulProdSimulation(taskTypeContext.taskType, formState.nbAfter);
   };
   return (
