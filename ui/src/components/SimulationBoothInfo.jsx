@@ -1,11 +1,15 @@
 import { useQuery } from '@apollo/client';
 import React, { useContext, useEffect, useRef, useState } from 'react';
+import { difDate } from '../assets/timeUtility';
 import { AuthContext } from '../context/authContext';
 import { SimulationContext } from '../context/simulationContext';
 import { TaskTypeContext } from '../context/taskTypeContext';
 import { GET_USER_TASK } from '../graphql/Query';
 import '../style/SimulationBoothInfo.scss';
-import { calculProdByElpatedTime } from './../assets/calculProdSimulation';
+import {
+  calculateProdByEndingTime,
+  calculProdByElpatedTime,
+} from './../assets/calculProdSimulation';
 
 const SimulationBoothInfo = () => {
   const taskTypeContext = useContext(TaskTypeContext);
@@ -193,7 +197,6 @@ const SimulationBoothInfo = () => {
       (item) => item.name === selectedType
     )[0].goal;
 
-    console.log(currentGoal, nbAfter, day, hrs, min, sec);
     const prodElapstedTime = calculProdByElpatedTime(
       currentGoal,
       nbAfter !== '' ? nbAfter : '0',
@@ -202,6 +205,35 @@ const SimulationBoothInfo = () => {
       min !== '' ? min : '0',
       sec !== '' ? sec : '0'
     );
+
+    if (
+      userTasks &&
+      userTasks.getUserTask &&
+      Array.from(userTasks.getUserTask).length > 0
+    ) {
+      const elapstedTimeArray = [];
+      const session = Array.from(userTasks.getUserTask)
+        .filter((item) => item.taskState === 'isPlay')
+        .map((el) => el.session)
+        .map((item) => {
+          Array.from(item).map((el) => {
+            if (el.sessionStop) {
+              elapstedTimeArray.push(difDate(el.sessionStart, el.sessionStop));
+            } else {
+              const now = new Date();
+              now.setHours(hrs);
+              now.setMinutes(min);
+              now.setSeconds(sec);
+
+              if (now.getTime() > new Date().getTime()) {
+                elapstedTimeArray.push(difDate(el.sessionStart, now));
+              }
+            }
+          });
+        });
+      elapstedTimeArray.length > 0 &&
+        calculateProdByEndingTime(elapstedTimeArray, currentGoal, nbAfter);
+    }
 
     simulationContext.methode === 'by_elapsted_time' && !isNaN(prodElapstedTime)
       ? simulationContext.setResult(prodElapstedTime)
