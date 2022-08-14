@@ -204,7 +204,6 @@ const SimulationBoothInfo = () => {
       sec
     );
 
-    // console.log(prodElapstedTime);
     simulationContext.methode === 'by_elapsted_time' && !isNaN(prodElapstedTime)
       ? simulationContext.setResult(prodElapstedTime)
       : 0;

@@ -28,6 +28,7 @@ const SimulationMethode = () => {
       );
       if (processingTask && processingTask.length > 0) {
         setCurrentTask((prev) => processingTask);
+        simulationContext.setSimulationMethode('by_elapsted_time');
       }
     }
   }, [userTasks]);
@@ -35,6 +36,8 @@ const SimulationMethode = () => {
   if (loadingUserTasks) {
     return <Loading />;
   }
+
+  console.log(currentTask.filter((item) => item.taskState === 'isPlay'));
 
   return (
     <div className='simulationMethode'>
@@ -54,19 +57,21 @@ const SimulationMethode = () => {
             />
             <label htmlFor='by_elapsted_time'>BY ELAPSTED TIME</label>
           </div>
-          {currentTask.length > 0 && (
-            <div className='simulationMethode__fieldset__radioGroupe__2'>
-              <input
-                type='radio'
-                name='simulationMethode'
-                id='by_ending_time'
-                value={simulationContext.methode}
-                onChange={handleRadioChange}
-                checked={simulationContext.methode === 'by_ending_time'}
-              />
-              <label htmlFor='by_ending_time'>BY ENDING TIME</label>
-            </div>
-          )}
+          {currentTask.length > 0 &&
+            currentTask.filter((item) => item.taskState === 'isPlay').length >
+              0 && (
+              <div className='simulationMethode__fieldset__radioGroupe__2'>
+                <input
+                  type='radio'
+                  name='simulationMethode'
+                  id='by_ending_time'
+                  value={simulationContext.methode}
+                  onChange={handleRadioChange}
+                  checked={simulationContext.methode === 'by_ending_time'}
+                />
+                <label htmlFor='by_ending_time'>BY ENDING TIME</label>
+              </div>
+            )}
         </form>
       </fieldset>
     </div>
