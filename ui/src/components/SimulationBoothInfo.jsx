@@ -111,7 +111,7 @@ const SimulationBoothInfo = () => {
           [name]:
             parseInt(value) > 0
               ? parseInt(value).toString().padStart(2, '0')
-              : '',
+              : '00',
         });
       } else {
         setFormState({
@@ -196,11 +196,11 @@ const SimulationBoothInfo = () => {
     console.log(currentGoal, nbAfter, day, hrs, min, sec);
     const prodElapstedTime = calculProdByElpatedTime(
       currentGoal,
-      nbAfter,
-      day,
-      hrs,
-      min,
-      sec
+      nbAfter !== '' ? nbAfter : '0',
+      day !== '' ? day : '0',
+      hrs !== '' ? hrs : '0',
+      min !== '' ? min : '0',
+      sec !== '' ? sec : '0'
     );
 
     simulationContext.methode === 'by_elapsted_time' && !isNaN(prodElapstedTime)
