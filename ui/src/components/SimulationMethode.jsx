@@ -37,8 +37,6 @@ const SimulationMethode = () => {
     return <Loading />;
   }
 
-  console.log(currentTask.filter((item) => item.taskState === 'isPlay'));
-
   return (
     <div className='simulationMethode'>
       <fieldset className='simulationMethode__fieldset'>

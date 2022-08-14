@@ -43,7 +43,6 @@ const SimulationBoothInfo = () => {
   // RESET FORM ON SIMULATION METHODE CHANGE
   useEffect(() => {
     if (simulationContext.methode) {
-      console.log(simulationContext.methode);
       if (userTasks && userTasks.getUserTask) {
         const curProcTask = Array.from(userTasks.getUserTask).filter(
           (item) => item.taskState === 'isPlay' || item.taskState === 'isPause'
