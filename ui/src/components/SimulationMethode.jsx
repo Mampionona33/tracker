@@ -11,6 +11,8 @@ const SimulationMethode = () => {
   const userContext = useContext(AuthContext);
   const handleRadioChange = (event) => {
     simulationContext.setSimulationMethode(event.target.id);
+    // RESET SIMULATION PROD RESULT ON RADIO CHANGE
+    simulationContext.setResult(0);
   };
 
   const {
