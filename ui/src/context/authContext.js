@@ -92,7 +92,6 @@ function AuthProvider(props) {
   const logout = () => {
     localStorage.removeItem('token');
     // execue window.location.reload() to clear state in all previews context
-    window.location.reload();
     dispatch({ type: 'LOGOUT' });
   };
 
