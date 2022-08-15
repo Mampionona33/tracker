@@ -6,6 +6,7 @@ import { GET_USER_TASK } from '../graphql/Query';
 import '../style/Processing.scss';
 import BtnEdit from './BtnEdit';
 import BtnPausePlaySwitch from './BtnPausePlaySwitch';
+import BtnSubmit from './BtnSubmit';
 import Clock from './Clock';
 import Loading from './Loading';
 import ProdProgressBar from './ProdProgressBar';
@@ -137,6 +138,7 @@ export default function Processing() {
             <div className='--flexCenter'>
               <BtnPausePlaySwitch />
               <BtnEdit dataName={'processingTask'} />
+              <BtnSubmit/>
             </div>
           </div>
         </div>
