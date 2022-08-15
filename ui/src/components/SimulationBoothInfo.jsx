@@ -197,6 +197,7 @@ const SimulationBoothInfo = () => {
       (item) => item.name === selectedType
     )[0].goal;
 
+    // CALCULATE PROD BY ELAPSTED TIME
     const prodElapstedTime = calculProdByElpatedTime(
       currentGoal,
       nbAfter !== '' ? nbAfter : '0',
@@ -206,6 +207,7 @@ const SimulationBoothInfo = () => {
       sec !== '' ? sec : '0'
     );
 
+    // CALCULATE PROD BY ENDING TIME
     if (
       userTasks &&
       userTasks.getUserTask &&
@@ -232,7 +234,9 @@ const SimulationBoothInfo = () => {
           });
         });
       elapstedTimeArray.length > 0 &&
-        calculateProdByEndingTime(elapstedTimeArray, currentGoal, nbAfter);
+        simulationContext.setResult(
+          calculateProdByEndingTime(elapstedTimeArray, currentGoal, nbAfter)
+        );
     }
 
     simulationContext.methode === 'by_elapsted_time' && !isNaN(prodElapstedTime)

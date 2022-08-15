@@ -24,23 +24,21 @@ export const calculProdByElpatedTime = (
       const currentProd = totalTime / parseInt(nbAfter);
       prod = Math.round((prodGoal / currentProd) * 100);
 
-      console.log(parseFloat(currentGoal), parseInt(nbAfter), prod, totalTime);
+      // console.log(parseFloat(currentGoal), parseInt(nbAfter), prod, totalTime);
     }
-    if (prod === Infinity) {
+    if (prod === Infinity || prod <= 0) {
       prod = 0;
-    }
-    if (prod > 100) {
-      prod = 100;
     }
   }
 
   return prod;
 };
 
-export const calculateProdByEndingTime = (
-  arrayElapstedTime,
-  prodGoal,
-  nbAfter
-) => {
-  console.log(arrayElapstedTime, prodGoal, nbAfter);
+export const calculateProdByEndingTime = (arrayElapstedTime, goal, nbAfter) => {
+  const prodGoal = 3600 / parseFloat(goal);
+  const currentProd =
+    Array.from(arrayElapstedTime).reduce((a, b) => a + b) / nbAfter;
+  const prod = Math.round((prodGoal / currentProd) * 100);
+  prod < 0 ? (prod = 0) : prod;
+  return prod;
 };
