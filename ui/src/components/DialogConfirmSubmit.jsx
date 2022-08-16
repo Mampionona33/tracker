@@ -1,4 +1,4 @@
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/authContext';
 import { GET_USER_TASK } from '../graphql/Query';
@@ -6,6 +6,8 @@ import DialogTitle from './DialogTitle';
 import Modale from './Modale';
 import '../style/DialogConfirmSubmit.scss';
 import { componentContext } from '../context/componentContext';
+import { UPDATE_TASK } from '../graphql/Mutation';
+import { setTaskStateDone } from '../graphql/tasks';
 
 const DialogConfirmSubmit = () => {
   const userContext = useContext(AuthContext);
@@ -22,6 +24,23 @@ const DialogConfirmSubmit = () => {
     }
   );
 
+  const [setTaskDone, { error: errorOnUpdateTaskState }] = useMutation(
+    UPDATE_TASK,
+    {
+      refetchQueries: [
+        {
+          query: GET_USER_TASK,
+          variables: {
+            input: {
+              sub: userContext.user.sub,
+            },
+          },
+        },
+      ],
+      awaitRefetchQueries: true,
+    }
+  );
+
   useEffect(() => {
     if (userTask && userTask.getUserTask) {
       const processingTask = Array.from(userTask.getUserTask).filter(
@@ -32,8 +51,17 @@ const DialogConfirmSubmit = () => {
         setCurrentTask((prev) => processingTask);
     }
   }, [userTask]);
+
   const handleClickCancel = (event) => {
     ComponentContext.closeDialogConfirmSubmitTask();
+  };
+
+  const handleClickSubmit = async (event) => {
+    await setTaskStateDone(
+      setTaskDone,
+      currentTask[0].id,
+      errorOnUpdateTaskState
+    ).then(ComponentContext.closeDialogConfirmSubmitTask());
   };
 
   return (
@@ -45,9 +73,9 @@ const DialogConfirmSubmit = () => {
             <h4 className='dialogConfirmSubmit__message'>
               {currentTask.length > 0 &&
               currentTask.reduce((a, b) => a + b).boothNumber ? (
-                <span class='material-icons-round'>info</span>
+                <span className='material-icons-round'>info</span>
               ) : (
-                <span class='material-icons-round'>error</span>
+                <span className='material-icons-round'>error</span>
               )}
               DO YOU REALY WHANT TO SUBMIT THIS TASK
               {currentTask.length > 0 &&
@@ -56,7 +84,11 @@ const DialogConfirmSubmit = () => {
                 : 'WITHOUT ADDING A BOOTH NUMBER'}
             </h4>
             <div className='dialogConfirmSubmit__gourpBtn'>
-              <button className='dialogConfirmSubmit__groupBtn__save saveButton'>
+              <button
+                type='submit'
+                onClick={handleClickSubmit}
+                className='dialogConfirmSubmit__groupBtn__save saveButton'
+              >
                 CONFIRM
               </button>
               <button

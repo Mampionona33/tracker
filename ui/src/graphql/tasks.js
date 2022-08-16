@@ -177,3 +177,20 @@ export const updateProcessingTask = async (
     },
   });
 };
+
+export const setTaskStateDone = async (updateTask, id, error) => {
+  updateTask({
+    variables: {
+      filter: {
+        id: id,
+      },
+      update: {
+        taskState: 'isDone',
+        session: {
+          sessionStop: new Date(),
+        },
+      },
+    },
+  });
+  return;
+};
