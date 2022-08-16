@@ -22,7 +22,7 @@ export default function Sidebar(props) {
         >
           <span className='material-icons-round'>grid_view</span>
           <Link className='sidebar__element__link' to={'/dashboard'}>
-            Dashboard
+            DASHBOARD
           </Link>
         </div>
 
@@ -32,7 +32,17 @@ export default function Sidebar(props) {
         >
           <span className='material-icons-round'>work_history</span>
           <Link className='sidebar__element__link' to={'/history'}>
-            History
+            HISTORY
+          </Link>
+        </div>
+
+        <div
+          className='sidebar__element'
+          onClick={(ev) => handleClickItem(ev, '/submited')}
+        >
+          <span class='material-icons-round'>checklist</span>
+          <Link className='sidebar__element__link' to={'/submited'}>
+            SUBMITED TASKS
           </Link>
         </div>
 
@@ -40,7 +50,7 @@ export default function Sidebar(props) {
           <div className='sidebar__element'>
             <span className='material-icons-round'>admin_panel_settings</span>
             <Link className='sidebar__element__link' to={'/manage'}>
-              Manage
+              MANAGE
             </Link>
           </div>
         )}

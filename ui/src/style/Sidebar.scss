@@ -12,6 +12,7 @@
     align-items: center;
     cursor: pointer;
     padding: 0.2rem 1rem;
+    gap: 0.5rem;
     &:hover * {
       background-color: $warmGrey;
       color: black;
