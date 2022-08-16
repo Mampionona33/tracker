@@ -26,6 +26,8 @@ export default function SubmitedTaskTable() {
     }
   }, [userTask]);
 
+  const columns = []
+
   return (
     <div style={{ height: 400, width: '100%' }}>
       <p>place holder sumbit task table</p>
