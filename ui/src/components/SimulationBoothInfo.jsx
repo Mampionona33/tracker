@@ -266,7 +266,7 @@ const SimulationBoothInfo = () => {
               className='simulationBoothInfo__fieldset__col2'
               name='type'
               id='type'
-              value={formState.type}
+              value={formState.type ? formState.type : ''}
               onChange={handleInputChange}
             >
               {taskTypeContext.taskType &&

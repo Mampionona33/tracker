@@ -73,19 +73,64 @@ const update = async (
   const db = getDb();
   const filter = { id: id };
   let update = [{ $set: {} }];
-  // let update = [];
 
   taskState && (update[0].$set.taskState = taskState);
-  boothNumber && (update[0].$set.boothNumber = boothNumber);
-  type && (update[0].$set.type = type);
-  url && (update[0].$set.url = url);
-  cat && (update[0].$set.cat = cat);
-  statCom && (update[0].$set.statCom = statCom);
-  ivpn && (update[0].$set.ivpn = ivpn);
-  processingState && (update[0].$set.processingState = processingState);
-  nbBefore && (update[0].$set.nbBefore = nbBefore);
-  nbAfter && (update[0].$set.nbAfter = nbAfter);
-  comment && (update[0].$set.comment = comment);
+
+  if (boothNumber) {
+    boothNumber !== 'empty'
+      ? (update[0].$set.boothNumber = boothNumber)
+      : (update[0].$set.boothNumber = '');
+  }
+
+  if (type) {
+    type !== 'emtpy'
+      ? (update[0].$set.type = type)
+      : (update[0].$set.type = '');
+  }
+
+  if (url) {
+    url !== 'empty' ? (update[0].$set.url = url) : (update[0].$set.url = '');
+  }
+
+  if (cat) {
+    cat !== 'empty' ? (update[0].$set.cat = cat) : (update[0].$set.cat = '');
+  }
+
+  if (statCom) {
+    statCom !== 'empty'
+      ? (update[0].$set.statCom = statCom)
+      : (update[0].$set.statCom = '');
+  }
+
+  if (ivpn) {
+    ivpn !== 'empty'
+      ? (update[0].$set.ivpn = ivpn)
+      : (update[0].$set.ivpn = '');
+  }
+
+  if (processingState) {
+    processingState !== 'empty'
+      ? (update[0].$set.processingState = processingState)
+      : (update[0].$set.processingState = '');
+  }
+
+  if (nbBefore) {
+    nbBefore !== 'empty'
+      ? (update[0].$set.nbBefore = nbBefore)
+      : (update[0].$set.nbBefore = 0);
+  }
+
+  if (nbAfter) {
+    nbAfter !== 'empty'
+      ? (update[0].$set.nbAfter = nbAfter)
+      : (update[0].$set.nbAfter = 0);
+  }
+
+  if (comment) {
+    comment !== 'empty'
+      ? (update[0].$set.comment = comment)
+      : (update[0].$set.comment = '');
+  }
 
   if (session) {
     const indexSession = session.length - 1;

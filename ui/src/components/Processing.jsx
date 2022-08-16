@@ -54,14 +54,18 @@ export default function Processing() {
           <div className='row'>
             <h4 className='row__element --title'>BOOTH NUMBER</h4>
             <p className='row__element row__element--r'>
-              {currentProcessingTask.boothNumber}
+              {currentProcessingTask.boothNumber
+                ? currentProcessingTask.boothNumber
+                : ''}
             </p>
           </div>
 
           <div className='row'>
             <h4 className='row__element --title'>TASK TYPE</h4>
             <p className='row__element row__element--r'>
-              <span className='translateX'>{currentProcessingTask.type}</span>
+              <span className='translateX'>
+                {currentProcessingTask.type ? currentProcessingTask.type : ''}
+              </span>
             </p>
           </div>
 
@@ -73,7 +77,7 @@ export default function Processing() {
                 target='_blank'
                 href={currentProcessingTask.url}
               >
-                {currentProcessingTask.url}
+                {currentProcessingTask.url ? currentProcessingTask.url : ''}
               </a>
             </div>
           </div>
@@ -81,21 +85,25 @@ export default function Processing() {
           <div className='row'>
             <h4 className='row__element --title'>CATEGORY</h4>
             <p className='row__element row__element--r '>
-              <span className='translateX'>{currentProcessingTask.cat}</span>
+              <span className='translateX'>
+                {currentProcessingTask.cat ? currentProcessingTask.cat : ''}
+              </span>
             </p>
           </div>
 
           <div className='row'>
             <h4 className='row__element --title'>STATUS COM</h4>
             <p className='row__element row__element--r'>
-              {currentProcessingTask.statCom}
+              {currentProcessingTask.statCom
+                ? currentProcessingTask.statCom
+                : ''}
             </p>
           </div>
 
           <div className='row'>
             <h4 className='row__element --title'>STATUS IVPN</h4>
             <p className='row__element row__element--r'>
-              {currentProcessingTask.ivpn}
+              {currentProcessingTask.ivpn ? currentProcessingTask.ivpn : ''}
             </p>
           </div>
 
@@ -119,7 +127,11 @@ export default function Processing() {
               <textarea
                 disabled
                 style={{ maxHeight: '5rem', maxWidth: '9rem', width: '8rem' }}
-                value={currentProcessingTask.comment}
+                value={
+                  currentProcessingTask.comment
+                    ? currentProcessingTask.comment
+                    : ''
+                }
               />
             </div>
           </div>
@@ -138,7 +150,7 @@ export default function Processing() {
             <div className='--flexCenter'>
               <BtnPausePlaySwitch />
               <BtnEdit dataName={'processingTask'} />
-              <BtnSubmit/>
+              <BtnSubmit />
             </div>
           </div>
         </div>

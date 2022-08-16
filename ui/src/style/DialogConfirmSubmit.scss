@@ -1,0 +1,31 @@
+@import './variables.scss';
+
+.dialogConfirmSubmit {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  z-index: 2;
+  &__container {
+    position: absolute;
+    top: 5vh;
+    background-color: #ffffff;
+    border-radius: 5px;
+  }
+  &__body {
+    display: flex;
+    flex-direction: column;
+  }
+  &__message {
+    padding: 0 0.5rem;
+    margin: 0.5rem;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+  }
+  &__gourpBtn {
+    display: flex;
+    justify-content: center;
+    margin: 0.5rem;
+    gap: 0.3rem;
+  }
+}

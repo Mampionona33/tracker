@@ -154,7 +154,6 @@ const DialogEditProcessingTask = () => {
         (item) => item.taskState === 'isPlay' || item.taskState === 'isPause'
       );
       if (curProcTask) {
-        console.log(curProcTask);
         setFormState({
           ...formState,
           id: curProcTask[0].id,
@@ -171,7 +170,6 @@ const DialogEditProcessingTask = () => {
       }
     }
   }, [userTask]);
-  formState.type && console.log(formState.type);
 
   return (
     <>
@@ -362,7 +360,7 @@ const DialogEditProcessingTask = () => {
                 rows='10'
                 className='dialogEditProcessingTask__form__input'
                 style={{ maxHeight: '5rem' }}
-                value={formState.comment}
+                value={formState.comment ? formState.comment : ''}
                 onChange={(ev) => handleInputChange(ev)}
               ></textarea>
             </div>

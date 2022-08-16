@@ -7,6 +7,7 @@ import Navbar from './../components/Navbar';
 import { getUser } from '../graphql/user';
 import DialogNewTask from '../components/DialogNewTask';
 import DialogEditProcessingTask from '../components/DialogEditProcessingTask';
+import DialogConfirmSubmit from '../components/DialogConfirmSubmit';
 
 export default function ProtectedRoute({ children }) {
   const context = useContext(AuthContext);
@@ -42,6 +43,7 @@ export default function ProtectedRoute({ children }) {
       {ComponentContext.dialogEditProcessingTask && (
         <DialogEditProcessingTask />
       )}
+      {ComponentContext.dialogConfirmSubmit && <DialogConfirmSubmit />}
       {children ? children : <Outlet />}
     </>
   );
