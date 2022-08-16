@@ -40,7 +40,7 @@ export default function Sidebar(props) {
           className='sidebar__element'
           onClick={(ev) => handleClickItem(ev, '/submited')}
         >
-          <span class='material-icons-round'>checklist</span>
+          <span className='material-icons-round'>checklist</span>
           <Link className='sidebar__element__link' to={'/submited'}>
             SUBMITED TASKS
           </Link>

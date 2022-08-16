@@ -17,6 +17,7 @@ import Login from './pages/Login';
 import Manage from './pages/Manage';
 import MyTask from './pages/MyTask';
 import ProtectedRoute from './pages/ProtectedRoute';
+import SubmitedTask from './pages/SubmitedTask';
 
 export default function App() {
   const context = useContext(AuthContext);
@@ -114,6 +115,7 @@ export default function App() {
             element={<HistoryTable />}
           />
         </Route>
+        <Route path='/submited' element={<SubmitedTask />} />
         <Route element={<AdminRoute />}>
           <Route path='/manage' element={<Manage />} />
         </Route>
