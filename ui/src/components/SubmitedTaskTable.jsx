@@ -45,7 +45,7 @@ export default function SubmitedTaskTable() {
   return (
     <div>
       <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }}>
+        <Table sx={{ minWidth: 650 }} size='small'>
           <TableHead>
             <TableRow>
               <TableCell sx={{ color: 'white' }}>BOOTH NUMBER</TableCell>
