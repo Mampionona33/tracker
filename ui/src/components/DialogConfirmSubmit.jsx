@@ -77,7 +77,7 @@ const DialogConfirmSubmit = () => {
               ) : (
                 <span className='material-icons-round'>error</span>
               )}
-              DO YOU REALY WHANT TO SUBMIT THIS TASK
+              DO YOU REALY WANT TO SUBMIT THIS TASK
               {currentTask.length > 0 &&
               currentTask.reduce((a, b) => a + b).boothNumber
                 ? ` : ${currentTask.reduce((a, b) => a + b).boothNumber}`

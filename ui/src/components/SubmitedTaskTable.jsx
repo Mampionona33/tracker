@@ -11,6 +11,8 @@ import {
   TableRow,
   TableBody,
 } from '@mui/material';
+import { dateToYearMonthDay } from '../assets/timeUtility';
+import { Link } from 'react-router-dom';
 
 export default function SubmitedTaskTable() {
   const userContext = useContext(AuthContext);
@@ -41,7 +43,7 @@ export default function SubmitedTaskTable() {
   const columns = [];
 
   return (
-    <div >
+    <div>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }}>
           <TableHead>
@@ -52,13 +54,16 @@ export default function SubmitedTaskTable() {
               <TableCell sx={{ color: 'white' }}>STATUS COM</TableCell>
               <TableCell sx={{ color: 'white' }}>NB BEFORE</TableCell>
               <TableCell sx={{ color: 'white' }}>NB AFTER</TableCell>
+              <TableCell sx={{ color: 'white', maxWidth: '5vw' }}>
+                URL
+              </TableCell>
               <TableCell sx={{ color: 'white' }}>TOTAL TIME</TableCell>
               <TableCell sx={{ color: 'white' }}>SUBMIT DATE</TableCell>
               <TableCell sx={{ color: 'white' }}>PRODUCTIVITY</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
-            {currentTask.length > 0 &&
+            {currentTask.length > 0 ? (
               currentTask.map((rows) => (
                 <TableRow key={rows.id}>
                   <TableCell>{rows.boothNumber}</TableCell>
@@ -67,8 +72,20 @@ export default function SubmitedTaskTable() {
                   <TableCell>{rows.statCom}</TableCell>
                   <TableCell>{rows.nbBefore}</TableCell>
                   <TableCell>{rows.nbAfter}</TableCell>
+                  <TableCell sx={{ maxWidth: '10vw',overflow:'hidden' }}>
+                    <a target='_blank' href={rows.url}>
+                      {rows.url}
+                    </a>
+                  </TableCell>
+                  <TableCell>{'place holder elapsted time'}</TableCell>
+                  <TableCell>{dateToYearMonthDay(rows.submitedDate)}</TableCell>
                 </TableRow>
-              ))}
+              ))
+            ) : (
+              <TableRow style={{ padding: '0 0.5rem' }}>
+                <TableCell>NO DATA TO DISPLAY</TableCell>
+              </TableRow>
+            )}
           </TableBody>
         </Table>
       </TableContainer>

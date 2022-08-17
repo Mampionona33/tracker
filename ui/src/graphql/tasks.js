@@ -186,6 +186,7 @@ export const setTaskStateDone = async (updateTask, id, error) => {
       },
       update: {
         taskState: 'isDone',
+        submitedDate: new Date(),
         session: {
           sessionStop: new Date(),
         },

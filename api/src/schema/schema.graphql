@@ -93,6 +93,8 @@ type Tasks {
   comment: String
   taskState: taskStateEnum!
   session: [SessionType]
+  totalElapstedTime: Int
+  submitedDate: GraphQLDate
 }
 input TaskInput {
   id: Int
@@ -111,6 +113,8 @@ input TaskInput {
   #...Give the default value isPlay for taskState if not given
   taskState: taskStateEnum = isPlay
   session: [SessionInput]
+  totalElapstedTime: Int
+  submitedDate: GraphQLDate
 }
 input FilterTaskPlay {
   id: Int!

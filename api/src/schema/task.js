@@ -66,6 +66,8 @@ const update = async (
       taskState,
       comment,
       session,
+      totalElapstedTime,
+      submitedDate,
     },
   }
 ) => {
@@ -165,6 +167,14 @@ const update = async (
       prevSession[prevSession.length - 1].sessionStop = session[0].sessionStop;
       update[0].$set.session = prevSession;
     }
+  }
+
+  if (totalElapstedTime) {
+    update[0].$set.totalElapstedTime = totalElapstedTime;
+  }
+
+  if (submitedDate) {
+    update[0].$set.submitedDate = submitedDate;
   }
   console.log(update);
 

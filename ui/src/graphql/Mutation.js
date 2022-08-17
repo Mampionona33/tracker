@@ -38,6 +38,8 @@ export const CREATE_TASK = gql`
       nbAfter
       comment
       taskState
+      totalElapstedTime
+      submitedDate
       session {
         sessionStart
         sessionStop
