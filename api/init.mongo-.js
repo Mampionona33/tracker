@@ -74,6 +74,7 @@ const resetMongo = async () => {
         taskState: 'isOff',
         totalElapstedTime: 0,
         submitedDate: null,
+        productivity: 0,
         session: [
           {
             sessionStart: '2022-07-07T09:20:09.267Z',
@@ -98,6 +99,7 @@ const resetMongo = async () => {
         taskState: 'isPlay',
         totalElapstedTime: 0,
         submitedDate: null,
+        productivity: 0,
         session: [
           {
             sessionStart: '2022-07-07T10:44:09.267Z',

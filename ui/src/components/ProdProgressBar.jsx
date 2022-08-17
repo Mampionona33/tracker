@@ -5,9 +5,11 @@ import { TaskTypeContext } from '../context/taskTypeContext';
 import { GET_USER_TASK } from '../graphql/Query';
 import ProgressBar from './ProgressBar';
 import { difDate } from './../assets/timeUtility';
+import { TaskContext } from '../context/taskContext';
 
 const ProdProgressBar = () => {
   const taskTypeContext = useContext(TaskTypeContext);
+  const taskContext = useContext(TaskContext);
   const userContext = useContext(AuthContext);
   const { data: allUserTask, error: errorOnLoadingAllUserTask } = useQuery(
     GET_USER_TASK,
@@ -69,12 +71,15 @@ const ProdProgressBar = () => {
           const curTaskProd = Math.round((currentProd * 100) / prod100);
           if (curTaskProd <= 0) {
             setProductivity((prev) => 0);
+            taskContext.setProductivity(0);
           }
           if (curTaskProd <= 100) {
             setProductivity((prev) => curTaskProd);
+            taskContext.setProductivity(curTaskProd);
           }
           if (curTaskProd > 100) {
             setProductivity((prev) => 100);
+            taskContext.setProductivity(100);
           }
         }
         if (taskState === 'isPlay') {
@@ -86,14 +91,19 @@ const ProdProgressBar = () => {
 
             if (curTaskProd <= 0) {
               setProductivity((prev) => 0);
+              taskContext.setProductivity(0);
             }
             if (curTaskProd <= 100) {
               setProductivity((prev) =>
                 Math.round((currentProd * 100) / prod100)
               );
+              taskContext.setProductivity(
+                Math.round((currentProd * 100) / prod100)
+              );
             }
             if (curTaskProd > 100) {
               setProductivity((prev) => 100);
+              taskContext.setProductivity(100);
             }
           }, [1000]);
           return () => clearInterval(interval);

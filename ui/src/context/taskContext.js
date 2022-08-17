@@ -7,6 +7,7 @@ const initialState = {
   userTasks: null,
   userTaskPlay: [],
   userTaskPause: null,
+  productivity: 0,
 };
 
 if (localStorage.getItem('token')) {
@@ -40,6 +41,8 @@ const TaskContext = createContext({
   userTasks: null,
   userTaskPlay: null,
   userTaskPause: null,
+  productivity: 0,
+  setProductivity: () => {},
   setProcessingTask: (processinTask) => {},
   setUserTasks: (userTasks) => {},
   setUserTaskPlay: (userTaskPlay) => {},
@@ -50,6 +53,7 @@ const ACTION = {
   SET_USER_TASKS: 'set-user-tasks',
   SET_USER_TASK_PLAY: 'set-user-task-play',
   SET_PROCESSING_TASK: 'set-processing-task',
+  SET_PRODUCTIVITY: 'set-productivity',
 };
 
 const taskReducer = (state, action) => {
@@ -70,6 +74,12 @@ const taskReducer = (state, action) => {
       return {
         ...state,
         processinTask: (state.processinTask = action.payload),
+      };
+    }
+    case ACTION.SET_PRODUCTIVITY: {
+      return {
+        ...state,
+        productivity: (state.productivity = action.payload),
       };
     }
     default:
@@ -95,6 +105,10 @@ const TaskProvider = (props) => {
     dispatch({ type: ACTION.SET_PROCESSING_TASK, payload: processinTask });
   };
 
+  const setProductivity = (prod) => {
+    dispatch({ type: ACTION.SET_PRODUCTIVITY, payload: prod });
+  };
+
   return (
     <TaskContext.Provider
       value={{
@@ -102,6 +116,8 @@ const TaskProvider = (props) => {
         userTaskPlay: state.userTaskPlay,
         userTaskPause: state.userTaskPause,
         processinTask: state.processinTask,
+        productivity: state.productivity,
+        setProductivity,
         setUserTasks,
         setUserTaskPlay,
         setUserTaskPause,

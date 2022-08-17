@@ -32,6 +32,7 @@ export const GET_USER_TASK = gql`
       comment
       taskState
       submitedDate
+      productivity
       session {
         sessionStart
         sessionStop
@@ -56,6 +57,7 @@ export const GET_USER_PROCESSING_TASK = gql`
       taskState
       id
       submitedDate
+      productivity
       session {
         sessionStart
         sessionStop
@@ -84,6 +86,7 @@ export const GET_TASK_BY_DATE = gql`
       comment
       taskState
       submitedDate
+      productivity
     }
   }
 `;
@@ -107,6 +110,7 @@ export const GET_TASK_BY_FILTER = gql`
       comment
       taskState
       submitedDate
+      productivity
       session {
         sessionStart
         sessionStop

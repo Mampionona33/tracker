@@ -66,6 +66,7 @@ const update = async (
       taskState,
       comment,
       session,
+      productivity,
       totalElapstedTime,
       submitedDate,
     },
@@ -126,6 +127,10 @@ const update = async (
     nbAfter !== 'empty'
       ? (update[0].$set.nbAfter = nbAfter)
       : (update[0].$set.nbAfter = 0);
+  }
+
+  if (productivity) {
+    update[0].$set.productivity = productivity;
   }
 
   if (comment) {

@@ -8,10 +8,12 @@ import '../style/DialogConfirmSubmit.scss';
 import { componentContext } from '../context/componentContext';
 import { UPDATE_TASK } from '../graphql/Mutation';
 import { setTaskStateDone } from '../graphql/tasks';
+import { TaskContext } from '../context/taskContext';
 
 const DialogConfirmSubmit = () => {
   const userContext = useContext(AuthContext);
   const ComponentContext = useContext(componentContext);
+  const taskContext = useContext(TaskContext);
   const [currentTask, setCurrentTask] = useState([]);
   const { data: userTask, error: errorFetchingUserTask } = useQuery(
     GET_USER_TASK,
@@ -60,6 +62,7 @@ const DialogConfirmSubmit = () => {
     await setTaskStateDone(
       setTaskDone,
       currentTask[0].id,
+      taskContext.productivity,
       errorOnUpdateTaskState
     ).then(ComponentContext.closeDialogConfirmSubmitTask());
   };

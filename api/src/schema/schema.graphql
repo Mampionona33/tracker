@@ -95,6 +95,7 @@ type Tasks {
   session: [SessionType]
   totalElapstedTime: Int
   submitedDate: GraphQLDate
+  productivity: Int
 }
 input TaskInput {
   id: Int
@@ -115,6 +116,7 @@ input TaskInput {
   session: [SessionInput]
   totalElapstedTime: Int
   submitedDate: GraphQLDate
+  productivity: Int
 }
 input FilterTaskPlay {
   id: Int!

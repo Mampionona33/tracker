@@ -40,6 +40,7 @@ export const CREATE_TASK = gql`
       taskState
       totalElapstedTime
       submitedDate
+      productivity
       session {
         sessionStart
         sessionStop

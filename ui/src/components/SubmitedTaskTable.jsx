@@ -72,13 +72,14 @@ export default function SubmitedTaskTable() {
                   <TableCell>{rows.statCom}</TableCell>
                   <TableCell>{rows.nbBefore}</TableCell>
                   <TableCell>{rows.nbAfter}</TableCell>
-                  <TableCell sx={{ maxWidth: '10vw',overflow:'hidden' }}>
+                  <TableCell sx={{ maxWidth: '10vw', overflow: 'hidden' }}>
                     <a target='_blank' href={rows.url}>
                       {rows.url}
                     </a>
                   </TableCell>
                   <TableCell>{'place holder elapsted time'}</TableCell>
                   <TableCell>{dateToYearMonthDay(rows.submitedDate)}</TableCell>
+                  <TableCell>`{rows.productivity}%`</TableCell>
                 </TableRow>
               ))
             ) : (

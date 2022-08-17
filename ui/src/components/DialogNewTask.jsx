@@ -121,6 +121,7 @@ const DialogNewTask = () => {
     comment: '',
     totalElapstedTime: 0,
     submitedDate: null,
+    productivity: 0,
     user: { sub: userSub },
   });
 

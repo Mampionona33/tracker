@@ -178,7 +178,7 @@ export const updateProcessingTask = async (
   });
 };
 
-export const setTaskStateDone = async (updateTask, id, error) => {
+export const setTaskStateDone = async (updateTask, id, prod, error) => {
   updateTask({
     variables: {
       filter: {
@@ -187,6 +187,7 @@ export const setTaskStateDone = async (updateTask, id, error) => {
       update: {
         taskState: 'isDone',
         submitedDate: new Date(),
+        productivity: prod,
         session: {
           sessionStop: new Date(),
         },
