@@ -119,7 +119,7 @@ const DialogNewTask = () => {
     statCom: '',
     nbAfter: 0,
     comment: '',
-    totalElapstedTime: 0,
+    totalElapstedTime: '',
     submitedDate: null,
     productivity: 0,
     user: { sub: userSub },

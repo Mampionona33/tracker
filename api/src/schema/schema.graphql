@@ -93,7 +93,7 @@ type Tasks {
   comment: String
   taskState: taskStateEnum!
   session: [SessionType]
-  totalElapstedTime: Int
+  totalElapstedTime: String
   submitedDate: GraphQLDate
   productivity: Int
 }
@@ -114,7 +114,7 @@ input TaskInput {
   #...Give the default value isPlay for taskState if not given
   taskState: taskStateEnum = isPlay
   session: [SessionInput]
-  totalElapstedTime: Int
+  totalElapstedTime: String
   submitedDate: GraphQLDate
   productivity: Int
 }

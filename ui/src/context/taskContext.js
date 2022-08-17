@@ -8,6 +8,7 @@ const initialState = {
   userTaskPlay: [],
   userTaskPause: null,
   productivity: 0,
+  totalElapstedTime: '',
 };
 
 if (localStorage.getItem('token')) {
@@ -42,6 +43,8 @@ const TaskContext = createContext({
   userTaskPlay: null,
   userTaskPause: null,
   productivity: 0,
+  totalElapstedTime: '',
+  setTotalElapstedTime: () => {},
   setProductivity: () => {},
   setProcessingTask: (processinTask) => {},
   setUserTasks: (userTasks) => {},
@@ -54,6 +57,7 @@ const ACTION = {
   SET_USER_TASK_PLAY: 'set-user-task-play',
   SET_PROCESSING_TASK: 'set-processing-task',
   SET_PRODUCTIVITY: 'set-productivity',
+  SET_TOTAL_ELAPSTED_TIME: 'set-total-elapsted-time',
 };
 
 const taskReducer = (state, action) => {
@@ -80,6 +84,12 @@ const taskReducer = (state, action) => {
       return {
         ...state,
         productivity: (state.productivity = action.payload),
+      };
+    }
+    case ACTION.SET_TOTAL_ELAPSTED_TIME: {
+      return {
+        ...state,
+        totalElapstedTime: (state.totalElapstedTime = action.payload),
       };
     }
     default:
@@ -109,6 +119,13 @@ const TaskProvider = (props) => {
     dispatch({ type: ACTION.SET_PRODUCTIVITY, payload: prod });
   };
 
+  const setTotalElapstedTime = (totalElpastTime) => {
+    dispatch({
+      type: ACTION.SET_TOTAL_ELAPSTED_TIME,
+      payload: totalElpastTime,
+    });
+  };
+
   return (
     <TaskContext.Provider
       value={{
@@ -117,6 +134,8 @@ const TaskProvider = (props) => {
         userTaskPause: state.userTaskPause,
         processinTask: state.processinTask,
         productivity: state.productivity,
+        totalElapstedTime: state.totalElapstedTime,
+        setTotalElapstedTime,
         setProductivity,
         setUserTasks,
         setUserTaskPlay,

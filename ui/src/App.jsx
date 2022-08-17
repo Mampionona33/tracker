@@ -78,7 +78,18 @@ export default function App() {
   }, [currentUser]);
 
   if (errorOnLoadAllTaskType) {
-    return <h1>{errorOnLoadAllTaskType.message}</h1>;
+    return (
+      <div
+        className='error'
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          paddingTop: '25vh',
+        }}
+      >
+        <h1>{errorOnLoadAllTaskType.message}</h1>;
+      </div>
+    );
   }
 
   return (

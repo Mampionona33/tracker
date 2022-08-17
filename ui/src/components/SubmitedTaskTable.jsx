@@ -77,7 +77,7 @@ export default function SubmitedTaskTable() {
                       {rows.url}
                     </a>
                   </TableCell>
-                  <TableCell>{'place holder elapsted time'}</TableCell>
+                  <TableCell>{rows.totalElapstedTime}</TableCell>
                   <TableCell>{dateToYearMonthDay(rows.submitedDate)}</TableCell>
                   <TableCell>`{rows.productivity}%`</TableCell>
                 </TableRow>

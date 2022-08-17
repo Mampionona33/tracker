@@ -178,7 +178,13 @@ export const updateProcessingTask = async (
   });
 };
 
-export const setTaskStateDone = async (updateTask, id, prod, error) => {
+export const setTaskStateDone = async (
+  updateTask,
+  id,
+  prod,
+  totalElapstedTime,
+  error
+) => {
   updateTask({
     variables: {
       filter: {
@@ -187,6 +193,7 @@ export const setTaskStateDone = async (updateTask, id, prod, error) => {
       update: {
         taskState: 'isDone',
         submitedDate: new Date(),
+        totalElapstedTime: totalElapstedTime,
         productivity: prod,
         session: {
           sessionStop: new Date(),

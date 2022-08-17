@@ -59,10 +59,12 @@ const DialogConfirmSubmit = () => {
   };
 
   const handleClickSubmit = async (event) => {
+    console.log(taskContext.totalElapstedTime);
     await setTaskStateDone(
       setTaskDone,
       currentTask[0].id,
       taskContext.productivity,
+      taskContext.totalElapstedTime,
       errorOnUpdateTaskState
     ).then(ComponentContext.closeDialogConfirmSubmitTask());
   };

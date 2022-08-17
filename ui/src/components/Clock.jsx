@@ -77,6 +77,23 @@ const Clock = () => {
                 .secondes.toString()
                 .padStart(2, '0')
             );
+            taskContext.setTotalElapstedTime(
+              `${secondToDayHourMinSec(sumElapstedTime)
+                .day.toString()
+                .padStart(2, '0')} days - ${secondToDayHourMinSec(
+                sumElapstedTime
+              )
+                .hours.toString()
+                .padStart(2, '0')} Hours - ${secondToDayHourMinSec(
+                sumElapstedTime
+              )
+                .minutes.toString()
+                .padStart(2, '0')} Minutes - ${secondToDayHourMinSec(
+                sumElapstedTime
+              )
+                .secondes.toString()
+                .padStart(2, '0')} Secondes`
+            );
           }
           if (taskState === 'isPlay') {
             const interval = setInterval(() => {
@@ -101,6 +118,23 @@ const Clock = () => {
                 secondToDayHourMinSec(sumElapstedTime)
                   .secondes.toString()
                   .padStart(2, '0')
+              );
+              taskContext.setTotalElapstedTime(
+                `${secondToDayHourMinSec(sumElapstedTime)
+                  .day.toString()
+                  .padStart(2, '0')} Days - ${secondToDayHourMinSec(
+                  sumElapstedTime
+                )
+                  .hours.toString()
+                  .padStart(2, '0')} Hours - ${secondToDayHourMinSec(
+                  sumElapstedTime
+                )
+                  .minutes.toString()
+                  .padStart(2, '0')} Minutes -  ${secondToDayHourMinSec(
+                  sumElapstedTime
+                )
+                  .secondes.toString()
+                  .padStart(2, '0')} Secondes`
               );
             }, [1000]);
             return () => clearInterval(interval);
