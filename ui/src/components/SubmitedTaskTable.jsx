@@ -41,7 +41,7 @@ export default function SubmitedTaskTable() {
   const columns = [];
 
   return (
-    <div>
+    <div >
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }}>
           <TableHead>
