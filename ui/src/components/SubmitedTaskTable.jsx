@@ -2,6 +2,7 @@ import { useQuery } from '@apollo/client';
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/authContext';
 import { GET_USER_TASK } from '../graphql/Query';
+import { DataGrid } from '@mui/x-data-grid';
 import {
   Paper,
   Table,
@@ -10,13 +11,15 @@ import {
   TableHead,
   TableRow,
   TableBody,
+  Box,
 } from '@mui/material';
 import { dateToYearMonthDay } from '../assets/timeUtility';
-import { Link } from 'react-router-dom';
+import '../style/SubmitedTaskTable.scss';
 
 export default function SubmitedTaskTable() {
   const userContext = useContext(AuthContext);
   const [currentTask, setCurrentTask] = useState([]);
+  const [pageSize, setPageSize] = useState(7);
   const {
     data: userTask,
     error: errorFetchingUserTask,
@@ -40,56 +43,72 @@ export default function SubmitedTaskTable() {
     }
   }, [userTask]);
 
-  const columns = [];
+  const columns = [
+    {
+      field: 'boothNumber',
+      headerName: 'BOOTH NUMBER',
+      cellClassName: 'spaceBetween',
+    },
+    { field: 'ivpn', headerName: 'IVPN', cellClassName: 'spaceBetween' },
+    {
+      field: 'statCom',
+      headerName: 'STATUS COM',
+      cellClassName: 'spaceBetween',
+    },
+    {
+      field: 'nbBefore',
+      headerName: 'NB BEFORE',
+      cellClassName: 'spaceBetween',
+    },
+    { field: 'nbAfter', headerName: 'NB AFTER', cellClassName: 'spaceBetween' },
+    { field: 'cat', headerName: 'CAT', cellClassName: 'cat', flex: 1 },
+    {
+      field: 'url',
+      headerName: 'URL',
+      cellClassName: 'spaceBetween',
+      flex: 1,
+      renderCell: (params) => {
+        return (
+          <a href={params.row.url} target='_blank' key={params.id}>
+            {params.row.url}
+          </a>
+        );
+      },
+    },
+    {
+      field: 'productivity',
+      headerName: 'PRODUCTIVITY',
+      cellClassName: 'spaceBetween',
+      valueFormatter: ({ value }) => `${value} %`,
+    },
+    {
+      field: 'totalElapstedTime',
+      headerName: 'TOTAL TIME',
+      cellClassName: 'spaceBetween',
+      flex: 1,
+    },
+  ];
 
   return (
-    <div>
-      <TableContainer component={Paper}>
-        <Table sx={{ minWidth: 650 }} size='small'>
-          <TableHead>
-            <TableRow>
-              <TableCell sx={{ color: 'white' }}>BOOTH NUMBER</TableCell>
-              <TableCell sx={{ color: 'white' }}>IVPN</TableCell>
-              <TableCell sx={{ color: 'white' }}>TYPE</TableCell>
-              <TableCell sx={{ color: 'white' }}>STATUS COM</TableCell>
-              <TableCell sx={{ color: 'white' }}>NB BEFORE</TableCell>
-              <TableCell sx={{ color: 'white' }}>NB AFTER</TableCell>
-              <TableCell sx={{ color: 'white', maxWidth: '5vw' }}>
-                URL
-              </TableCell>
-              <TableCell sx={{ color: 'white' }}>TOTAL TIME</TableCell>
-              <TableCell sx={{ color: 'white' }}>SUBMIT DATE</TableCell>
-              <TableCell sx={{ color: 'white' }}>PRODUCTIVITY</TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {currentTask.length > 0 ? (
-              currentTask.map((rows) => (
-                <TableRow key={rows.id}>
-                  <TableCell>{rows.boothNumber}</TableCell>
-                  <TableCell>{rows.ivpn}</TableCell>
-                  <TableCell>{rows.type}</TableCell>
-                  <TableCell>{rows.statCom}</TableCell>
-                  <TableCell>{rows.nbBefore}</TableCell>
-                  <TableCell>{rows.nbAfter}</TableCell>
-                  <TableCell sx={{ maxWidth: '10vw', overflow: 'hidden' }}>
-                    <a target='_blank' href={rows.url}>
-                      {rows.url}
-                    </a>
-                  </TableCell>
-                  <TableCell>{rows.totalElapstedTime}</TableCell>
-                  <TableCell>{dateToYearMonthDay(rows.submitedDate)}</TableCell>
-                  <TableCell>`{rows.productivity}%`</TableCell>
-                </TableRow>
-              ))
-            ) : (
-              <TableRow style={{ padding: '0 0.5rem' }}>
-                <TableCell>NO DATA TO DISPLAY</TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </div>
+    <>
+      <Box
+        sx={{
+          width: '100%',
+          height: '85vh',
+          backgroundColor: 'white',
+          borderRadius: '10px',
+        }}
+      >
+        <DataGrid
+          sx={{ borderRadius: '10px', justifyContent: 'space-between' }}
+          columns={columns}
+          pageSize={pageSize}
+          getRowClassName={(params) => `${params.row.status} spaceBetween`}
+          rows={currentTask.length > 0 ? currentTask.map((row) => row) : []}
+          onPageSizeChange={(newPageSize) => setPageSize(newPageSize)}
+          rowsPerPageOptions={[5, 7, 10]}
+        />
+      </Box>
+    </>
   );
 }
