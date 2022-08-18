@@ -97,6 +97,7 @@ export default function SubmitedTaskTable() {
           height: '85vh',
           backgroundColor: 'white',
           borderRadius: '10px',
+          zIndex: 0,
         }}
       >
         <DataGrid
