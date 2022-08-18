@@ -1,7 +1,12 @@
 import { useQuery } from '@apollo/client';
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { dateTime, dateToYearMonthDay } from '../assets/timeUtility';
+import {
+  dateTime,
+  dateToYearMonthDay,
+  difDate,
+  secondToDayHourMinSec,
+} from '../assets/timeUtility';
 import { AuthContext } from '../context/authContext';
 import { GET_TASK_BY_DATE, GET_USER_TASK } from '../graphql/Query';
 import Loading from './Loading';
@@ -82,6 +87,21 @@ export default function HistoryTable() {
               dateToYearMonthDay(sessionStart) < date &&
               dateToYearMonthDay(sessionStop) === date
             ) {
+              const day = secondToDayHourMinSec(
+                difDate(sessionStart, sessionStop)
+              ).day;
+              const hrs = secondToDayHourMinSec(
+                difDate(sessionStart, sessionStop)
+              ).hours;
+              const min = secondToDayHourMinSec(
+                difDate(sessionStart, sessionStop)
+              ).minutes;
+              const sec = secondToDayHourMinSec(
+                difDate(sessionStart, sessionStop)
+              ).secondes;
+
+              console.log(day);
+
               selectedDateSession.push({
                 id: id,
                 boothNumber: boothNumber,
@@ -90,6 +110,9 @@ export default function HistoryTable() {
                   sessionStart
                 )})`,
                 stop: dateTime(sessionStop),
+                duration: `${day > 0 && day.toString().padStart(2, '0')} ${
+                  day > 1 ? 'Days' : 'Day'
+                }`,
               });
             }
             // if start date == selected date and stop date == null => show start date(hh:mm:ss) and stop : CURRENT
