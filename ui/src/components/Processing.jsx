@@ -10,11 +10,13 @@ import BtnSubmit from './BtnSubmit';
 import Clock from './Clock';
 import Loading from './Loading';
 import ProdProgressBar from './ProdProgressBar';
+import { useNavigate } from 'react-router-dom';
 
 export default function Processing() {
   const userContext = useContext(AuthContext);
   const ComponentContext = useContext(componentContext);
   const [currentProcessingTask, setCurrentProcessingTask] = useState([]);
+  const navigate = useNavigate();
   const {
     data: userTask,
     error: errorFetchUserTask,
@@ -42,6 +44,10 @@ export default function Processing() {
       }
     }
   }, [userTask]);
+
+  const handleClickMytaskText = (event) => {
+    navigate('/mytasks/row_show=3', { replace: true });
+  };
 
   if (loadingUserTask) {
     return <Loading />;
@@ -172,15 +178,15 @@ export default function Processing() {
               }}
             >
               create new task
-            </span>{' '}
-            or chose one from :{' '}
-            <a
-              className='midAub'
-              href='/mytasks/row_show=3'
-              style={{ textDecoration: 'none', padding: '0 0.2rem' }}
+            </span>
+            or choose one from{' '}
+            <span
+              onClick={handleClickMytaskText}
+              style={{ cursor: 'pointer', padding: '0 0.2rem' }}
+              className='textBtn midAub'
             >
-              My Tasks
-            </a>
+              My Tasks{' '}
+            </span>
           </div>
         </div>
       )}
