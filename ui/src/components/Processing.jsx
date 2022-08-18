@@ -172,21 +172,31 @@ export default function Processing() {
             Please{' '}
             <span
               className='textBtn midAub'
-              style={{ padding: '0 0.2rem' }}
+              style={{
+                padding: '0 0.5rem',
+                borderRadius: 10,
+                alignContent: 'center',
+              }}
               onClick={(e) => {
                 handleClickTextCreateNewTask(e);
               }}
             >
               create new task
-            </span>
+            </span>{' '}
             or choose one from{' '}
             <span
               onClick={handleClickMytaskText}
-              style={{ cursor: 'pointer', padding: '0 0.2rem' }}
+              style={{
+                cursor: 'pointer',
+                padding: '0 0.5rem',
+                borderRadius: 10,
+                alignContent: 'center',
+              }}
               className='textBtn midAub'
             >
               My Tasks{' '}
             </span>
+            .
           </div>
         </div>
       )}
