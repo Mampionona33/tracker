@@ -94,7 +94,8 @@ export default function SubmitedTaskTable() {
       <Box
         sx={{
           width: '100%',
-          height: '85vh',
+          height: 'auto',
+          minHeight: '20vh',
           backgroundColor: 'white',
           borderRadius: '10px',
           zIndex: 0,
@@ -102,6 +103,7 @@ export default function SubmitedTaskTable() {
       >
         <DataGrid
           sx={{ borderRadius: '10px', justifyContent: 'space-between' }}
+          autoHeight
           columns={columns}
           pageSize={pageSize}
           getRowClassName={(params) => `${params.row.status} spaceBetween`}
