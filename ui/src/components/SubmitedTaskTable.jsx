@@ -48,25 +48,38 @@ export default function SubmitedTaskTable() {
       field: 'boothNumber',
       headerName: 'BOOTH NUMBER',
       cellClassName: 'spaceBetween',
+      flex: 1,
     },
-    { field: 'ivpn', headerName: 'IVPN', cellClassName: 'spaceBetween' },
+    {
+      field: 'ivpn',
+      headerName: 'IVPN',
+      cellClassName: 'spaceBetween',
+      flex: 1,
+    },
     {
       field: 'statCom',
       headerName: 'STATUS COM',
       cellClassName: 'spaceBetween',
+      flex: 1,
     },
     {
       field: 'nbBefore',
       headerName: 'NB BEFORE',
       cellClassName: 'spaceBetween',
+      flex: 1,
     },
-    { field: 'nbAfter', headerName: 'NB AFTER', cellClassName: 'spaceBetween' },
-    { field: 'cat', headerName: 'CAT', cellClassName: 'cat', flex: 1 },
+    {
+      field: 'nbAfter',
+      headerName: 'NB AFTER',
+      cellClassName: 'spaceBetween',
+      flex: 1,
+    },
+    { field: 'cat', headerName: 'CAT', cellClassName: 'cat', flex: 2 },
+
     {
       field: 'url',
       headerName: 'URL',
       cellClassName: 'spaceBetween',
-      flex: 1,
       renderCell: (params) => {
         return (
           <a href={params.row.url} target='_blank' key={params.id}>
@@ -77,6 +90,7 @@ export default function SubmitedTaskTable() {
     },
     {
       field: 'productivity',
+      flex: 1,
       headerName: 'PRODUCTIVITY',
       cellClassName: 'spaceBetween',
       valueFormatter: ({ value }) => `${value} %`,
@@ -85,7 +99,7 @@ export default function SubmitedTaskTable() {
       field: 'totalElapstedTime',
       headerName: 'TOTAL TIME',
       cellClassName: 'spaceBetween',
-      flex: 1,
+      flex: 4,
     },
   ];
 
