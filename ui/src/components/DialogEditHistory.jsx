@@ -16,7 +16,7 @@ function DialogEditHistory() {
   const [selectedDate, setSelectedDate] = useState(
     historyContext.historyData.sessionstart
       ? new Date(historyContext.historyData.sessionstart)
-      : new Date()
+      : new Date(date)
   );
 
   const handleDateSelect = (date_) => {
@@ -61,35 +61,35 @@ function DialogEditHistory() {
               </div>
 
               <div className='dialogEditHistory__fieldset__row'>
-                <label htmlFor=''>HRS</label>
-                <input type='number' name='' id='' />
+                <label htmlFor='startHrs'>HRS</label>
+                <input type='number' name='startHrs' id='startHrs' />
               </div>
 
               <div className='dialogEditHistory__fieldset__row'>
-                <label htmlFor=''>MIN</label>
-                <input type='number' name='' id='' />
+                <label htmlFor='startMin'>MIN</label>
+                <input type='number' name='startMin' id='startMin' />
               </div>
 
               <div className='dialogEditHistory__fieldset__row'>
-                <label htmlFor=''>SEC</label>
-                <input type='number' name='' id='' />
+                <label htmlFor='startSec'>SEC</label>
+                <input type='number' name='startSec' id='startSec' />
               </div>
             </fieldset>
             <fieldset className='dialogEditHistory__fieldset'>
               <legend>END INFO</legend>
               <div className='dialogEditHistory__fieldset__row'>
-                <label htmlFor=''>HRS</label>
-                <input type='number' name='' id='' />
+                <label htmlFor='stopHrs'>HRS</label>
+                <input type='number' name='stopHrs' id='stopHrs' />
               </div>
 
               <div className='dialogEditHistory__fieldset__row'>
-                <label htmlFor=''>MIN</label>
-                <input type='number' name='' id='' />
+                <label htmlFor='stopMin'>MIN</label>
+                <input type='number' name='stopMin' id='stopMin' />
               </div>
 
               <div className='dialogEditHistory__fieldset__row'>
-                <label htmlFor=''>SEC</label>
-                <input type='number' name='' id='' />
+                <label htmlFor='stopSec'>SEC</label>
+                <input type='number' name='stopSec' id='stopSec' />
               </div>
             </fieldset>
             <hr />
