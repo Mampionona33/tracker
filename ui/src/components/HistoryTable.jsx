@@ -9,12 +9,14 @@ import {
 } from '../assets/timeUtility';
 import { AuthContext } from '../context/authContext';
 import { componentContext } from '../context/componentContext';
+import { HistoryContext } from '../context/historyContext';
 import { GET_TASK_BY_DATE, GET_USER_TASK } from '../graphql/Query';
 import Loading from './Loading';
 import TableWithPagination from './TableWithPagination';
 
 export default function HistoryTable() {
   const userContext = useContext(AuthContext);
+  const historyContext = useContext(HistoryContext);
 
   // get the date from the url params
   const { date } = useParams();
@@ -49,7 +51,8 @@ export default function HistoryTable() {
 
   const handleClickEditIcon = (event, data) => {
     event.preventDefault();
-    console.log(data);
+    // console.log(data);
+    historyContext.setHistoryData(data);
     componentContext_.openDialogEditHistory();
   };
 
