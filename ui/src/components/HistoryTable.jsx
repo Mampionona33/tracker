@@ -112,6 +112,12 @@ export default function HistoryTable() {
                 stop: dateTime(sessionStop),
                 duration: `${day > 0 && day.toString().padStart(2, '0')} ${
                   day > 1 ? 'Days' : 'Day'
+                } ${hrs > 0 && ' - ' + hrs.toString().padStart(2, '0')} ${
+                  hrs > 1 ? 'Hours' : 'Hour'
+                } ${
+                  min > 0 && ' - ' + min.toString().padStart(2, '0') + ' Min'
+                } ${
+                  sec > 0 && ' - ' + sec.toString().padStart(2, '0') + ' Sec'
                 }`,
               });
             }
