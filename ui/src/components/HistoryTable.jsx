@@ -90,6 +90,7 @@ export default function HistoryTable() {
                   start: dateTime(sessionStart),
                   stop: dateTime(sessionStop),
                   sessionstart: sessionStart,
+                  sessionStop: sessionStop,
                   duration: `${
                     day > 0 ? day.toString().padStart(2, '0') : ''
                   } ${day > 0 && day > 1 ? 'Days - ' : ''} ${
@@ -107,6 +108,7 @@ export default function HistoryTable() {
                   boothNumber: boothNumber,
                   start: dateTime(sessionStart),
                   sessionstart: sessionStart,
+                  sessionStop: sessionStop,
                   stop: `${dateTime(sessionStop)} (${dateToYearMonthDay(
                     sessionStop
                   )})`,
@@ -135,6 +137,7 @@ export default function HistoryTable() {
                 id: id,
                 boothNumber: boothNumber,
                 sessionstart: sessionStart,
+                sessionStop: sessionStop,
                 start: `${dateTime(sessionStart)} (${dateToYearMonthDay(
                   sessionStart
                 )})`,
