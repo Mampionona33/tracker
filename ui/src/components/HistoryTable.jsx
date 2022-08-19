@@ -62,12 +62,36 @@ export default function HistoryTable() {
             // if start date == selected date and stop date != null => show start date(hh:mm:ss) and stop date(hh:mm:ss)
             if (dateToYearMonthDay(sessionStart) === date) {
               if (dateToYearMonthDay(sessionStop) === date) {
+                const day = secondToDayHourMinSec(
+                  difDate(sessionStart, sessionStop)
+                ).day;
+                const hrs = secondToDayHourMinSec(
+                  difDate(sessionStart, sessionStop)
+                ).hours;
+                const min = secondToDayHourMinSec(
+                  difDate(sessionStart, sessionStop)
+                ).minutes;
+                const sec = secondToDayHourMinSec(
+                  difDate(sessionStart, sessionStop)
+                ).secondes;
+
                 selectedDateSession.push({
                   id: id,
                   boothNumber: boothNumber,
                   start: dateTime(sessionStart),
                   stop: dateTime(sessionStop),
                   sessionstart: sessionStart,
+                  duration: `${
+                    day > 0 ? day.toString().padStart(2, '0') : ''
+                  } ${day > 0 && day > 1 ? 'Days' : ''} ${
+                    day > 0 && day === 1 ? 'Day' : ''
+                  } ${hrs > 0 ? ' - ' + hrs.toString().padStart(2, '0') : ''} ${
+                    hrs > 1 ? 'Hours' : ''
+                  } ${hrs === 1 ? 'Hour' : ''} ${
+                    min > 0
+                      ? ' - ' + min.toString().padStart(2, '0') + ' Min - '
+                      : ''
+                  } ${sec > 0 ? sec.toString().padStart(2, '0') + ' Sec' : ''}`,
                 });
               }
               if (dateToYearMonthDay(sessionStop) > date) {
@@ -100,8 +124,6 @@ export default function HistoryTable() {
                 difDate(sessionStart, sessionStop)
               ).secondes;
 
-              console.log(day);
-
               selectedDateSession.push({
                 id: id,
                 boothNumber: boothNumber,
@@ -110,15 +132,15 @@ export default function HistoryTable() {
                   sessionStart
                 )})`,
                 stop: dateTime(sessionStop),
-                duration: `${day > 0 && day.toString().padStart(2, '0')} ${
-                  day > 1 ? 'Days' : 'Day'
-                } ${hrs > 0 && ' - ' + hrs.toString().padStart(2, '0')} ${
-                  hrs > 1 ? 'Hours' : 'Hour'
-                } ${
-                  min > 0 && ' - ' + min.toString().padStart(2, '0') + ' Min'
-                } ${
-                  sec > 0 && ' - ' + sec.toString().padStart(2, '0') + ' Sec'
-                }`,
+                duration: `${day > 0 ? day.toString().padStart(2, '0') : ''} ${
+                  day > 0 && day > 1 ? 'Days' : ''
+                } ${day > 0 && day === 1 ? 'Day' : ''} ${
+                  hrs > 0 ? ' - ' + hrs.toString().padStart(2, '0') : ''
+                } ${hrs > 1 ? 'Hours' : ''} ${hrs === 1 ? 'Hour' : ''} ${
+                  min > 0
+                    ? ' - ' + min.toString().padStart(2, '0') + ' Min - '
+                    : ''
+                } ${sec > 0 ? sec.toString().padStart(2, '0') + ' Sec' : ''}`,
               });
             }
             // if start date == selected date and stop date == null => show start date(hh:mm:ss) and stop : CURRENT
