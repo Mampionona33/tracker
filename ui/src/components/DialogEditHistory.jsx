@@ -7,25 +7,27 @@ import 'react-datepicker/dist/react-datepicker.css';
 import DialogTitle from './DialogTitle';
 import '../style/DialogEditHistory.scss';
 import { componentContext } from '../context/componentContext';
+import { useParams } from 'react-router-dom';
 
 function DialogEditHistory() {
   const historyContext = useContext(HistoryContext);
   const ComponentContext = useContext(componentContext);
+  const { date } = useParams(); // Date from link params
   const [selectedDate, setSelectedDate] = useState(
     historyContext.historyData.sessionstart
       ? new Date(historyContext.historyData.sessionstart)
       : new Date()
   );
 
-  const handleDateSelect = (date) => {
-    const select = `${new Date(date).getFullYear()}/${
-      new Date(date).getMonth() + 1 //must add 1 to get correct month
-    }/${new Date(date).getDate()}`;
+  const handleDateSelect = (date_) => {
+    const select = `${new Date(date_).getFullYear()}/${
+      new Date(date_).getMonth() + 1 //must add 1 to get correct month
+    }/${new Date(date_).getDate()}`;
 
-    if (new Date(select).getTime() > new Date().getTime()) {
-      setSelectedDate((perv) => new Date());
+    if (new Date(select).getTime() > new Date(date).getTime()) {
+      setSelectedDate((perv) => new Date(date));
     } else {
-      setSelectedDate((prev) => date);
+      setSelectedDate((prev) => date_);
     }
   };
 
