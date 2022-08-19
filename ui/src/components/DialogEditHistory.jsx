@@ -19,6 +19,17 @@ function DialogEditHistory() {
       : new Date(date)
   );
 
+  console.log(new Date(historyContext.historyData.sessionstart).getHours());
+
+  const [inputState, setInputState] = useState({
+    startHrs: new Date(historyContext.historyData.sessionstart).getHours()
+      ? new Date(historyContext.historyData.sessionstart)
+          .getHours()
+          .toString()
+          .padStart(2, '0')
+      : '00',
+  });
+
   const handleDateSelect = (date_) => {
     const select = `${new Date(date_).getFullYear()}/${
       new Date(date_).getMonth() + 1 //must add 1 to get correct month
@@ -39,6 +50,10 @@ function DialogEditHistory() {
   const handleClickSave = (event) => {
     event.preventDefault();
     console.log(event.target);
+  };
+
+  const handleInputChagne = (event) => {
+    setInputState({ ...inputState, [event.target.name]: event.target.value });
   };
 
   return (
@@ -62,7 +77,13 @@ function DialogEditHistory() {
 
               <div className='dialogEditHistory__fieldset__row'>
                 <label htmlFor='startHrs'>HRS</label>
-                <input type='number' name='startHrs' id='startHrs' />
+                <input
+                  type='number'
+                  name='startHrs'
+                  id='startHrs'
+                  value={parseInt(inputState.startHrs)}
+                  onChange={handleInputChagne}
+                />
               </div>
 
               <div className='dialogEditHistory__fieldset__row'>
