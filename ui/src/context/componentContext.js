@@ -5,6 +5,7 @@ const initialState = {
   dialogCreateTask: false,
   dialogConfirmSubmit: false,
   dialogEditProcessingTask: false,
+  dialogEditHistory: false,
 };
 
 const ACTION = {
@@ -14,6 +15,8 @@ const ACTION = {
   CLOSE_DIALOG_EDIT_PROCESSING_TASK: 'close-dialog-processing-task',
   OPEN_DIALOG_CONFIRM_SUBMIT_TASK: 'open-dialog-confirm-submit-task',
   CLOSE_DIALOG_CONFIRM_SUBMIT_TASK: 'close-dialog-confirm-submit-task',
+  OPEN_DIALOG_EDIT_HISTORY: 'open-dialog-edit-history',
+  CLOSE_DIALOG_EDIT_HISTORY: 'closes-dialog-edit-history',
 };
 
 const componentReducer = (state, action) => {
@@ -57,6 +60,18 @@ const componentReducer = (state, action) => {
         state: (state.dialogConfirmSubmit = false),
       };
     }
+    case ACTION.OPEN_DIALOG_EDIT_HISTORY: {
+      return {
+        ...state,
+        state: (state.dialogEditHistory = true),
+      };
+    }
+    case ACTION.CLOSE_DIALOG_EDIT_HISTORY: {
+      return {
+        ...state,
+        state: (state.dialogEditHistory = false),
+      };
+    }
 
     default:
       return state;
@@ -70,12 +85,15 @@ const componentContext = createContext({
   dialogCreateTask: false,
   dialogEditProcessingTask: false,
   dialogConfirmSubmit: false,
+  dialogEditHistory: false,
   toggleSideBar: () => {},
   toggleDialogCreateNewTask: () => {},
   openDialogEditProcessingTask: () => {},
   closeDialogEditProcessingTask: () => {},
   openDialogConfirmSubmitTask: () => {},
   closeDialogConfirmSubmitTask: () => {},
+  closeDialogEditHistory: () => {},
+  openDialogEditHistory: () => {},
 });
 
 const ComponentProvider = (props) => {
@@ -101,10 +119,17 @@ const ComponentProvider = (props) => {
   const openDialogConfirmSubmitTask = () => {
     dispatch({ type: ACTION.OPEN_DIALOG_CONFIRM_SUBMIT_TASK });
   };
+
   const closeDialogConfirmSubmitTask = () => {
     dispatch({ type: ACTION.CLOSE_DIALOG_CONFIRM_SUBMIT_TASK });
   };
 
+  const closeDialogEditHistory = () => {
+    dispatch({ type: ACTION.CLOSE_DIALOG_EDIT_HISTORY });
+  };
+  const openDialogEditHistory = () => {
+    dispatch({ type: ACTION.OPEN_DIALOG_EDIT_HISTORY });
+  };
   return (
     <componentContext.Provider
       value={{
@@ -112,6 +137,9 @@ const ComponentProvider = (props) => {
         dialogCreateTask: state.dialogCreateTask,
         dialogEditProcessingTask: state.dialogEditProcessingTask,
         dialogConfirmSubmit: state.dialogConfirmSubmit,
+        dialogEditHistory: state.dialogEditHistory,
+        openDialogEditHistory,
+        closeDialogEditHistory,
         toggleDialogCreateNewTask,
         toggleSideBar,
         openDialogEditProcessingTask,

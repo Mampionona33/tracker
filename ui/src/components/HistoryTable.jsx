@@ -8,6 +8,7 @@ import {
   secondToDayHourMinSec,
 } from '../assets/timeUtility';
 import { AuthContext } from '../context/authContext';
+import { componentContext } from '../context/componentContext';
 import { GET_TASK_BY_DATE, GET_USER_TASK } from '../graphql/Query';
 import Loading from './Loading';
 import TableWithPagination from './TableWithPagination';
@@ -19,6 +20,8 @@ export default function HistoryTable() {
   const { date } = useParams();
 
   const [dataTable, setDataTable] = useState([]);
+
+  const componentContext_ = useContext(componentContext);
 
   const { data: taskBydateData, error: errorFetchTaskByDate } = useQuery(
     GET_TASK_BY_DATE,
@@ -43,6 +46,11 @@ export default function HistoryTable() {
       },
     },
   });
+
+  const handleClickEditIcon = (event) => {
+    event.preventDefault();
+    componentContext_.openDialogEditHistory();
+  };
 
   useEffect(() => {
     if (userTasks) {
@@ -223,6 +231,7 @@ export default function HistoryTable() {
             style={{ display: 'flex', justifyContent: 'center' }}
           >
             <span
+              onClick={handleClickEditIcon}
               className='material-icons-round'
               style={{ cursor: 'pointer', color: '#5e2750' }}
             >

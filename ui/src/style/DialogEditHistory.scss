@@ -1,0 +1,13 @@
+@import './variables.scss';
+
+.dialogEditHistory {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  &__formContainer {
+    position: absolute;
+    background-color: white;
+    top: 5vh;
+  }
+}

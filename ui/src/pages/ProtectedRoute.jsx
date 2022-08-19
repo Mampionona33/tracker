@@ -8,6 +8,7 @@ import { getUser } from '../graphql/user';
 import DialogNewTask from '../components/DialogNewTask';
 import DialogEditProcessingTask from '../components/DialogEditProcessingTask';
 import DialogConfirmSubmit from '../components/DialogConfirmSubmit';
+import DialogEditHistory from '../components/DialogEditHistory';
 
 export default function ProtectedRoute({ children }) {
   const context = useContext(AuthContext);
@@ -43,6 +44,7 @@ export default function ProtectedRoute({ children }) {
       {ComponentContext.dialogEditProcessingTask && (
         <DialogEditProcessingTask />
       )}
+      {ComponentContext.dialogEditHistory && <DialogEditHistory />}
       {ComponentContext.dialogConfirmSubmit && <DialogConfirmSubmit />}
       {children ? children : <Outlet />}
     </>
