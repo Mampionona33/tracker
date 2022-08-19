@@ -7,7 +7,25 @@
   justify-content: center;
   &__formContainer {
     position: absolute;
+    border-radius: 5px;
     background-color: white;
     top: 5vh;
+  }
+  &__fieldset {
+    margin: 1rem;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+    &__row {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  &__buttonGroup {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    padding: 0 1rem 0.5rem 0;
   }
 }
