@@ -47,8 +47,9 @@ export default function HistoryTable() {
     },
   });
 
-  const handleClickEditIcon = (event) => {
+  const handleClickEditIcon = (event, data) => {
     event.preventDefault();
+    console.log(data);
     componentContext_.openDialogEditHistory();
   };
 
@@ -224,14 +225,15 @@ export default function HistoryTable() {
     },
     {
       Header: 'Action',
-      accessor: () => {
+      accessor: (data) => {
+        // console.log(data);
         return (
           <div
             className='actions'
             style={{ display: 'flex', justifyContent: 'center' }}
           >
             <span
-              onClick={handleClickEditIcon}
+              onClick={(event) => handleClickEditIcon(event, data)}
               className='material-icons-round'
               style={{ cursor: 'pointer', color: '#5e2750' }}
             >
