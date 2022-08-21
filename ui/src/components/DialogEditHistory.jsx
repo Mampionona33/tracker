@@ -79,7 +79,10 @@ function DialogEditHistory() {
       if (value % 24) {
         console.log(value);
         console.log(value % 24);
-        // setInputState({ ...inputState, [name]: 0 });
+        setInputState({ ...inputState, [name]: value % 24 });
+      }
+      if (value % 24 === 0) {
+        setInputState({ ...inputState, [name]: 0 });
       }
     }
   };
