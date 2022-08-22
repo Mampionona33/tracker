@@ -119,12 +119,18 @@ function DialogEditHistory() {
     const stopDay =
       refForm.current.children[1].children[1].children[1].children[0]
         .children[0].value;
+    const stoptHrs = refForm.current.children[1].children[2].children[1].value;
+    const stoptMin = refForm.current.children[1].children[3].lastChild.value;
+    const stoptSec = refForm.current.children[1].children[4].lastChild.value;
 
     console.log(startDay);
     console.log(startHrs);
     console.log(startMin);
     console.log(startSec);
     console.log(stopDay);
+    console.log(stoptHrs);
+    console.log(stoptMin);
+    console.log(stoptSec);
   };
 
   const handleInputChagne = (event) => {
