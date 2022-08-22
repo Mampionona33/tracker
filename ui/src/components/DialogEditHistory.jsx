@@ -96,7 +96,7 @@ function DialogEditHistory() {
       new Date(select).getTime() > new Date(date).getTime() ||
       new Date(select).getTime() < startDateInt
     ) {
-      setSelectedStopDate((perv) => new Date(date));
+      setSelectedStopDate((perv) => new Date());
     } else {
       setSelectedStopDate((prev) => date_);
     }
