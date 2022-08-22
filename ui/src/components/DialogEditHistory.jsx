@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import Modale from './Modale';
 import '../style/DialogEditHistory.scss';
 import { HistoryContext } from '../context/historyContext';
@@ -8,16 +8,27 @@ import DialogTitle from './DialogTitle';
 import '../style/DialogEditHistory.scss';
 import { componentContext } from '../context/componentContext';
 import { useParams } from 'react-router-dom';
+import { dateToYearMonthDay } from '../assets/timeUtility';
 
 function DialogEditHistory() {
   const historyContext = useContext(HistoryContext);
   const ComponentContext = useContext(componentContext);
   const { date } = useParams(); // Date from link params
-  const [selectedDate, setSelectedDate] = useState(
+  const [selectedStartDate, setSelectedStartDate] = useState(
     historyContext.historyData.sessionstart
       ? new Date(historyContext.historyData.sessionstart)
-      : new Date(date)
+      : date
   );
+
+  const [selectedStopDate, setSelectedStopDate] = useState(
+    historyContext.historyData.sessionStop
+      ? new Date(historyContext.historyData.sessionStop)
+      : date
+  );
+
+  const refForm = useRef(null);
+  const refSelectedStartDate = useRef(null);
+  const refSelectedStopDate = useRef(null);
 
   const [inputState, setInputState] = useState({
     startHrs: new Date(historyContext.historyData.sessionstart).getHours()
@@ -60,15 +71,34 @@ function DialogEditHistory() {
       : '00',
   });
 
-  const handleDateSelect = (date_) => {
+  const handleSelectDateInStartDatePicker = (date_) => {
     const select = `${new Date(date_).getFullYear()}/${
       new Date(date_).getMonth() + 1 //must add 1 to get correct month
     }/${new Date(date_).getDate()}`;
 
     if (new Date(select).getTime() > new Date(date).getTime()) {
-      setSelectedDate((perv) => new Date(date));
+      setSelectedStartDate((perv) => new Date(date));
     } else {
-      setSelectedDate((prev) => date_);
+      setSelectedStartDate((prev) => date_);
+    }
+  };
+
+  const handleSelectDateInStopDatePicker = (date_) => {
+    const select = `${new Date(date_).getFullYear()}/${
+      new Date(date_).getMonth() + 1 //must add 1 to get correct month
+    }/${new Date(date_).getDate()}`;
+
+    const startDateInt = new Date(
+      refSelectedStartDate.current.children[1].children[0].children[0].value
+    ).getTime();
+
+    if (
+      new Date(select).getTime() > new Date(date).getTime() ||
+      new Date(select).getTime() < startDateInt
+    ) {
+      setSelectedStopDate((perv) => new Date(date));
+    } else {
+      setSelectedStopDate((prev) => date_);
     }
   };
 
@@ -79,7 +109,22 @@ function DialogEditHistory() {
 
   const handleClickSave = (event) => {
     event.preventDefault();
-    console.log(event.target);
+    const startDay =
+      refForm.current.children[0].children[1].children[1].children[0]
+        .children[0].value;
+    const startHrs = refForm.current[0].children[2].children[1].value;
+    const startMin = refForm.current[0].children[3].children[1].value;
+    const startSec = refForm.current[0].children[4].children[1].value;
+
+    const stopDay =
+      refForm.current.children[1].children[1].children[1].children[0]
+        .children[0].value;
+
+    console.log(startDay);
+    console.log(startHrs);
+    console.log(startMin);
+    console.log(startSec);
+    console.log(stopDay);
   };
 
   const handleInputChagne = (event) => {
@@ -123,17 +168,21 @@ function DialogEditHistory() {
       <div className='dialogEditHistory'>
         <div className='dialogEditHistory__formContainer'>
           <DialogTitle>EDIT HISTORY</DialogTitle>
-          <form onSubmit={handleClickSave}>
+          <form onSubmit={handleClickSave} ref={refForm}>
             <fieldset className='dialogEditHistory__fieldset'>
               <legend>START INFO</legend>
-              <div className='dialogEditHistory__fieldset__row'>
-                <label htmlFor='' style={{ display: 'inline' }}>
+              <div
+                className='dialogEditHistory__fieldset__row'
+                ref={refSelectedStartDate}
+              >
+                <label htmlFor='startDate' style={{ display: 'inline' }}>
                   DATE
                 </label>
                 <DatePicker
-                  selected={selectedDate}
-                  onChange={handleDateSelect}
-                  onSelect={handleDateSelect}
+                  id='datePickerStartDate'
+                  selected={selectedStartDate}
+                  onChange={handleSelectDateInStartDatePicker}
+                  onSelect={handleSelectDateInStartDatePicker}
                 />
               </div>
 
@@ -175,6 +224,19 @@ function DialogEditHistory() {
             </fieldset>
             <fieldset className='dialogEditHistory__fieldset'>
               <legend>END INFO</legend>
+
+              <div
+                className='dialogEditHistory__fieldset__row'
+                ref={refSelectedStopDate}
+              >
+                <label htmlFor='stopDate'>DATE</label>
+                <DatePicker
+                  id='datePickerStopDate'
+                  selected={selectedStopDate}
+                  onChange={handleSelectDateInStopDatePicker}
+                  onSelect={handleSelectDateInStopDatePicker}
+                />
+              </div>
 
               <div className='dialogEditHistory__fieldset__row'>
                 <label htmlFor='stopHrs'>HRS</label>
