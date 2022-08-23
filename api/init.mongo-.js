@@ -77,8 +77,14 @@ const resetMongo = async () => {
         productivity: 0,
         session: [
           {
+            session_id: 0,
             sessionStart: '2022-07-07T09:20:09.267Z',
             sessionStop: '2022-07-07T10:44:09.267Z',
+          },
+          {
+            session_id: 1,
+            sessionStart: '2022-07-07T10:44:09.267Z',
+            sessionStop: '2022-07-07T12:44:09.267Z',
           },
         ],
       },
@@ -103,7 +109,33 @@ const resetMongo = async () => {
         session: [
           {
             sessionStart: '2022-07-07T10:44:09.267Z',
+            sessionStop: '2022-07-07T13:44:09.267Z',
+            session_id: 0,
+          },
+          {
+            sessionStart: '2022-07-07T13:44:09.267Z',
+            sessionStop: '2022-08-23T13:31:54.398Z',
+            session_id: 1,
+          },
+          {
+            sessionStart: '2022-08-23T13:32:01.915Z',
+            sessionStop: '2022-08-23T13:32:10.446Z',
+            session_id: 2,
+          },
+          {
+            sessionStart: '2022-08-23T13:32:18.510Z',
+            sessionStop: '2022-08-23T13:32:24.654Z',
+            session_id: 3,
+          },
+          {
+            sessionStart: '2022-08-23T13:35:39.796Z',
+            sessionStop: '2022-08-23T13:36:23.270Z',
+            session_id: 4,
+          },
+          {
+            sessionStart: '2022-08-23T13:33:04.963Z',
             sessionStop: null,
+            session_id: 5,
           },
         ],
       },

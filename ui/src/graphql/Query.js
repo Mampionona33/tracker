@@ -35,6 +35,7 @@ export const GET_USER_TASK = gql`
       productivity
       totalElapstedTime
       session {
+        session_id
         sessionStart
         sessionStop
       }
@@ -61,6 +62,7 @@ export const GET_USER_PROCESSING_TASK = gql`
       productivity
       totalElapstedTime
       session {
+        session_id
         sessionStart
         sessionStop
       }
@@ -73,6 +75,7 @@ export const GET_TASK_BY_DATE = gql`
     getTaskByDate(query: $query) {
       boothNumber
       session {
+        session_id
         sessionStart
         sessionStop
       }
@@ -116,6 +119,7 @@ export const GET_TASK_BY_FILTER = gql`
       productivity
       totalElapstedTime
       session {
+        session_id
         sessionStart
         sessionStop
       }

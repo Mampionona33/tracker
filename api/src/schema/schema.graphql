@@ -38,11 +38,13 @@ type User {
 }
 
 type SessionType {
+  session_id: Int
   sessionStart: GraphQLDate
   sessionStop: GraphQLDate
 }
 
 input SessionInput {
+  session_id: Int!
   sessionStart: GraphQLDate
   sessionStop: GraphQLDate
 }
@@ -121,6 +123,7 @@ input TaskInput {
 input FilterTaskPlay {
   id: Int!
   sub: String
+  sessionId: Int
 }
 
 type UpdateResponse {

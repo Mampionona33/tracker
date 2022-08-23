@@ -33,6 +33,7 @@ export const createNewTask = async (createTask, sub, taskData, error) => {
         nbAfter: parseInt(taskData.nbAfter),
         comment: taskData.comment,
         session: {
+          session_id: 0,
           sessionStart: new Date(),
           sessionStop: null,
         },
@@ -81,15 +82,23 @@ export const setTaskStateOff = async (updateTask, id, error) => {
   }
   return;
 };
-export const setTaskStatePause = async (updateTask, id, error) => {
+export const setTaskStatePause = async (
+  updateTask,
+  id,
+  error,
+  currentSessionId
+) => {
+  console.log(currentSessionId);
   updateTask({
     variables: {
       filter: {
+        sessionId: currentSessionId,
         id: id,
       },
       update: {
         taskState: 'isPause',
         session: {
+          session_id: currentSessionId,
           sessionStop: new Date(),
         },
       },
@@ -100,7 +109,12 @@ export const setTaskStatePause = async (updateTask, id, error) => {
   }
 };
 
-export const setTaskStatePlay = async (updateTask, id, error) => {
+export const setTaskStatePlay = async (
+  updateTask,
+  id,
+  error,
+  currentSessionId
+) => {
   updateTask({
     variables: {
       filter: {
@@ -108,7 +122,9 @@ export const setTaskStatePlay = async (updateTask, id, error) => {
       },
       update: {
         taskState: 'isPlay',
-        session: Object.assign({ sessionStart: new Date(), sessionStop: null }),
+        session: Object.assign({
+          session_id: currentSessionId ,
+        }),
       },
     },
   });

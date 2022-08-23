@@ -37,9 +37,6 @@ const create = async (_, { task }) => {
   const db = getDb();
   const newTask = Object.assign({}, task);
   newTask.id = await getNextSequence('tasks');
-  // newTask.session = Object.assign([], {
-  //   0: { sessionStart: new Date(), sessionStop: null },
-  // });
 
   const createNewTask = await db.collection('tasks').insertOne(newTask);
   const createdTask = await db
@@ -51,7 +48,7 @@ const create = async (_, { task }) => {
 const update = async (
   _,
   {
-    filter: { id, sub },
+    filter: { id, sessionId },
     update: {
       user,
       boothNumber,
@@ -72,12 +69,52 @@ const update = async (
     },
   }
 ) => {
-  // console.log(id);
   const db = getDb();
-  const filter = { id: id };
-  let update = [{ $set: {} }];
+  let filter = {};
+  if (id) {
+    filter.id = id;
+    console.log('id', id);
+  }
+  if (sessionId !== null && sessionId !== undefined) {
+    filter = {
+      ...filter,
+      session: {
+        $elemMatch: {
+          session_id: sessionId,
+        },
+      },
+    };
+  }
 
-  taskState && (update[0].$set.taskState = taskState);
+  let update = [];
+  // let update = [{ $set: {} }];
+
+  if (taskState) {
+    update.push({ $set: { taskState: taskState } });
+    console.log('taskState', taskState);
+
+    /* 
+      This condition bellow is used to append a new element in 
+      session when taskState set to  isPlay
+    */
+    if (taskState === 'isPlay' && session) {
+      const newSessionStartId = Array.from(session).map(
+        (item) => item.session_id
+      );
+      Array.from(update).map(
+        (item) =>
+          (item.$addToSet = {
+            session: {
+              session_id:
+                newSessionStartId &&
+                newSessionStartId.reduce((a, b) => a + b) + 1,
+              sessionStart: new Date(),
+              sessionStop: null,
+            },
+          })
+      );
+    }
+  }
 
   if (boothNumber) {
     boothNumber !== 'empty'
@@ -140,37 +177,27 @@ const update = async (
   }
 
   if (session) {
-    const indexSession = session.length - 1;
-    const objSession = session[indexSession];
-    const sessionLength = Object.keys(objSession).length;
+    const sessionStop = Array.from(session)
+      .map((item) => Object.keys(item))
+      .flat()
+      .filter((item) => item === 'sessionStop');
 
-    // console.log(objSession);
+    const sessionStart = Array.from(session)
+      .map((item) => Object.keys(item))
+      .flat()
+      .filter((item) => item === 'sessionStart');
 
-    const getCurrentTask = await db
-      .collection('tasks')
-      .find({ id: id })
-      .toArray();
+    const sessionStopValue = Array.from(session).map((item) => {
+      if (item.sessionStop) {
+        return item.sessionStop;
+      }
+    });
 
-    // make copy of the current task session
-    let prevSession = getCurrentTask[0].session;
-
-    // if the new entry is two variable: it means that we must creat new object
-    // inside our session array. in other words creat new session
-    if (sessionLength === 2) {
-      prevSession.push(...session);
-      update[0].$set.session = prevSession;
-    }
-
-    // if variable is formed by only one object element
-    // and the key of object is 'sessionStop';
-    // we do the update for the last session.sessionStop
-    if (sessionLength === 1 && Object.keys(session[0])[0] === 'sessionStop') {
-      // console.log(prevSession[prevSession.length - 1].sessionStop);
-      // console.log(session[0]);
-
-      // set the value of copyed sessionStop equel to the value of session[0].sessionStop
-      prevSession[prevSession.length - 1].sessionStop = session[0].sessionStop;
-      update[0].$set.session = prevSession;
+    if (sessionStop.length > 0 && sessionStopValue.length > 0 && sessionId) {
+      update[0].$set = {
+        ...update[0].$set,
+        'session.$.sessionStop': sessionStopValue.reduce((a, b) => a + b),
+      };
     }
   }
 
@@ -181,9 +208,15 @@ const update = async (
   if (submitedDate) {
     update[0].$set.submitedDate = submitedDate;
   }
-  console.log(update);
+
+  console.log('filter', filter);
+  console.log('update', update);
 
   const options = { upsert: false, returnNewDocument: true };
+
+  const find = await db.collection('tasks').find(filter).toArray();
+  console.log('find', find);
+
   const updateTask = db
     .collection('tasks')
     .findOneAndUpdate(filter, ...update, (erro, doc) => {

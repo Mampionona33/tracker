@@ -4,19 +4,10 @@ import { AuthContext } from '../context/authContext';
 import { componentContext } from '../context/componentContext';
 import { TaskContext } from '../context/taskContext';
 import { CREATE_TASK, UPDATE_TASK } from '../graphql/Mutation';
-import {
-  createNewTask,
-  getUserTaskPlay,
-  setTaskStateOff,
-} from '../graphql/tasks';
+import { createNewTask, setTaskStateOff } from '../graphql/tasks';
 import '../style/DialogNewTask.scss';
 import Modale from './Modale';
-import {
-  GET_ALL_TYPE_TASK,
-  GET_TASK_BY_FILTER,
-  GET_USER_PROCESSING_TASK,
-  GET_USER_TASK,
-} from './../graphql/Query';
+import { GET_TASK_BY_FILTER, GET_USER_TASK } from './../graphql/Query';
 import { TaskTypeContext } from '../context/taskTypeContext';
 import DialogTitle from './DialogTitle';
 import { useNavigate } from 'react-router-dom';

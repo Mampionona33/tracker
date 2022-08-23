@@ -42,6 +42,7 @@ export const CREATE_TASK = gql`
       submitedDate
       productivity
       session {
+        session_id
         sessionStart
         sessionStop
       }
