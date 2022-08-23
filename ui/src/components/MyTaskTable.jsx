@@ -13,6 +13,7 @@ const MyTaskTable = () => {
   const userContext = useContext(AuthContext);
   const [processingTask, setProcessingTask] = useState({});
   const navigate = useNavigate();
+  const [currentTaskSessionId, setCurrentTaskSessionId] = useState(null);
 
   const user = userContext.user;
 
@@ -61,6 +62,7 @@ const MyTaskTable = () => {
     {
       Header: 'Action',
       accessor: (data) => {
+        // console.log('data', data);
         return (
           <div
             className='actions'
@@ -68,7 +70,7 @@ const MyTaskTable = () => {
           >
             <FloatingButton
               icon={'play_arrow'}
-              handleClickButton={(event) => onCLickPlayButton(event, data.id)}
+              handleClickButton={(event) => onCLickPlayButton(event, data)}
             />
           </div>
         );
@@ -203,22 +205,43 @@ const MyTaskTable = () => {
     }
   }, [allTasks]);
 
-  const onCLickPlayButton = (e, id) => {
+  const onCLickPlayButton = (e, data) => {
     e.preventDefault();
     if (errorSetSelectedTaskPlay) {
       return errorSetSelectedTaskPlay;
     }
+    const clickedRowSessionId = Array.from(data.session).length;
     if (processingTask && processingTask.id !== undefined) {
       const currentTaskId = processingTask.id;
+      const currentProcessingTaskSessionId = Array.from(processingTask.session)
+        .map((item) => item.session_id)
+        .reduce((a, b) => Math.max(a, b));
+
+      console.log(processingTask);
+      console.log(currentProcessingTaskSessionId);
+      console.log('data', data);
+      console.log('clickedRowSessionId', clickedRowSessionId);
+
       setTaskStateOff(
         setCurrentTaskOff,
         currentTaskId,
-        errorSetCurrentTaskOff
+        errorSetCurrentTaskOff,
+        currentProcessingTaskSessionId
       ).then(
-        setTaskStatePlay(setSelectedTaskPlay, id, errorSetSelectedTaskPlay)
+        setTaskStatePlay(
+          setSelectedTaskPlay,
+          data.id,
+          errorSetSelectedTaskPlay,
+          clickedRowSessionId
+        )
       );
     }
-    setTaskStatePlay(setSelectedTaskPlay, id, errorSetSelectedTaskPlay);
+    setTaskStatePlay(
+      setSelectedTaskPlay,
+      data.id,
+      errorSetSelectedTaskPlay,
+      clickedRowSessionId
+    );
     navigate('/dashboard');
   };
 

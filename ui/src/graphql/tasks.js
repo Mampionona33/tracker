@@ -63,16 +63,22 @@ export const getUserTaskPlay = async (sub) => {
   return result.data.getUserTaskPlay;
 };
 
-export const setTaskStateOff = async (updateTask, id, error) => {
+export const setTaskStateOff = async (
+  updateTask,
+  id,
+  error,
+  currentSessionId
+) => {
   updateTask({
     variables: {
       filter: {
         id: id,
+        sessionId: currentSessionId,
       },
       update: {
         taskState: 'isOff',
         session: {
-          sessionStop: new Date(),
+          session_id: currentSessionId,
         },
       },
     },
@@ -99,7 +105,6 @@ export const setTaskStatePause = async (
         taskState: 'isPause',
         session: {
           session_id: currentSessionId,
-          sessionStop: new Date(),
         },
       },
     },
@@ -122,9 +127,9 @@ export const setTaskStatePlay = async (
       },
       update: {
         taskState: 'isPlay',
-        session: Object.assign({
-          session_id: currentSessionId ,
-        }),
+        session: {
+          session_id: currentSessionId,
+        },
       },
     },
   });

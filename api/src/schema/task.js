@@ -91,11 +91,12 @@ const update = async (
 
   if (taskState) {
     update.push({ $set: { taskState: taskState } });
-    console.log('taskState', taskState);
 
     /* 
       This condition bellow is used to append a new element in 
-      session when taskState set to  isPlay
+      session when taskState set to  isPlay.
+      $addToSet allow to append new element in the session Array once, 
+      if it does'not alredy exist.
     */
     if (taskState === 'isPlay' && session) {
       const newSessionStartId = Array.from(session).map(
@@ -113,6 +114,23 @@ const update = async (
             },
           })
       );
+    }
+
+    /*
+      The condition bellow allow to update only sessionStop
+      by using the $ 
+     */
+    if (taskState === 'isPause' && session) {
+      update[0].$set = {
+        ...update[0].$set,
+        'session.$.sessionStop': new Date(),
+      };
+    }
+    if (taskState === 'isOff' && session) {
+      update[0].$set = {
+        ...update[0].$set,
+        'session.$.sessionStop': new Date(),
+      };
     }
   }
 
@@ -177,28 +195,25 @@ const update = async (
   }
 
   if (session) {
-    const sessionStop = Array.from(session)
-      .map((item) => Object.keys(item))
-      .flat()
-      .filter((item) => item === 'sessionStop');
-
-    const sessionStart = Array.from(session)
-      .map((item) => Object.keys(item))
-      .flat()
-      .filter((item) => item === 'sessionStart');
-
-    const sessionStopValue = Array.from(session).map((item) => {
-      if (item.sessionStop) {
-        return item.sessionStop;
-      }
-    });
-
-    if (sessionStop.length > 0 && sessionStopValue.length > 0 && sessionId) {
-      update[0].$set = {
-        ...update[0].$set,
-        'session.$.sessionStop': sessionStopValue.reduce((a, b) => a + b),
-      };
-    }
+    // const sessionStop = Array.from(session)
+    //   .map((item) => Object.keys(item))
+    //   .flat()
+    //   .filter((item) => item === 'sessionStop');
+    // const sessionStart = Array.from(session)
+    //   .map((item) => Object.keys(item))
+    //   .flat()
+    //   .filter((item) => item === 'sessionStart');
+    // const sessionStopValue = Array.from(session).map((item) => {
+    //   if (item.sessionStop) {
+    //     return item.sessionStop;
+    //   }
+    // });
+    // if (sessionStop.length > 0 && sessionStopValue.length > 0 && sessionId) {
+    //   update[0].$set = {
+    //     ...update[0].$set,
+    //     'session.$.sessionStop': sessionStopValue.reduce((a, b) => a + b),
+    //   };
+    // }
   }
 
   if (totalElapstedTime) {
@@ -214,8 +229,8 @@ const update = async (
 
   const options = { upsert: false, returnNewDocument: true };
 
-  const find = await db.collection('tasks').find(filter).toArray();
-  console.log('find', find);
+  // const find = await db.collection('tasks').find(filter).toArray();
+  // console.log('find', find);
 
   const updateTask = db
     .collection('tasks')
