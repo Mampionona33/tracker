@@ -4,7 +4,12 @@ import { AuthContext } from '../context/authContext';
 import { componentContext } from '../context/componentContext';
 import { TaskContext } from '../context/taskContext';
 import { CREATE_TASK, UPDATE_TASK } from '../graphql/Mutation';
-import { createNewTask, setTaskStateOff } from '../graphql/tasks';
+import {
+  createNewTask,
+  setCurrentTaskPauseToOff,
+  setCurrentTaskPlayToOff,
+  setTaskStateOff,
+} from '../graphql/tasks';
 import '../style/DialogNewTask.scss';
 import Modale from './Modale';
 import { GET_TASK_BY_FILTER, GET_USER_TASK } from './../graphql/Query';
@@ -83,9 +88,32 @@ const DialogNewTask = () => {
     const sub = context.user.sub;
     if (currentProcTask) {
       const id = currentProcTask.id;
-      setTaskStateOff(updateTask, id, errorOnUpDateTask)
-        .then(createNewTask(createTask, sub, newTask, errorCreatTask))
-        .then(ComponentContext.toggleDialogCreateNewTask());
+      const currentSessionId = Array.from(currentProcTask.session)
+        .map((item) => item.session_id)
+        .reduce((a, b) => Math.max(a, b));
+
+      if (Object.keys(currentProcTask).length > 0) {
+        if (currentProcTask.taskState === 'isPause') {
+          setCurrentTaskPauseToOff(
+            updateTask,
+            id,
+            errorOnUpDateTask,
+            currentSessionId
+          )
+            .then(createNewTask(createTask, sub, newTask, errorCreatTask))
+            .then(ComponentContext.toggleDialogCreateNewTask());
+        }
+        if (currentProcTask.taskState === 'isPlay') {
+          setCurrentTaskPlayToOff(
+            updateTask,
+            id,
+            errorOnUpDateTask,
+            currentSessionId
+          )
+            .then(createNewTask(createTask, sub, newTask, errorCreatTask))
+            .then(ComponentContext.toggleDialogCreateNewTask());
+        }
+      }
     } else {
       createNewTask(createTask, sub, newTask, errorCreatTask).then(
         ComponentContext.toggleDialogCreateNewTask()

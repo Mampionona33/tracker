@@ -44,7 +44,7 @@ type SessionType {
 }
 
 input SessionInput {
-  session_id: Int!
+  session_id: Int
   sessionStart: GraphQLDate
   sessionStop: GraphQLDate
 }
