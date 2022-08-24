@@ -70,6 +70,10 @@ export default function HistoryTable() {
             const sessionStart = session[a].sessionStart;
             const sessionStop = session[a].sessionStop;
 
+            const session_id = session[a].session_id;
+
+            // console.log('session_id', session_id);
+
             // if start date == selected date and stop date != null => show start date(hh:mm:ss) and stop date(hh:mm:ss)
             if (dateToYearMonthDay(sessionStart) === date) {
               if (dateToYearMonthDay(sessionStop) === date) {
@@ -93,6 +97,7 @@ export default function HistoryTable() {
                   stop: dateTime(sessionStop),
                   sessionstart: sessionStart,
                   sessionStop: sessionStop,
+                  session_id: session_id,
                   duration: `${
                     day > 0 ? day.toString().padStart(2, '0') : ''
                   } ${day > 0 && day > 1 ? 'Days - ' : ''} ${
@@ -111,6 +116,7 @@ export default function HistoryTable() {
                   start: dateTime(sessionStart),
                   sessionstart: sessionStart,
                   sessionStop: sessionStop,
+                  session_id: session_id,
                   stop: `${dateTime(sessionStop)} (${dateToYearMonthDay(
                     sessionStop
                   )})`,
@@ -140,6 +146,7 @@ export default function HistoryTable() {
                 boothNumber: boothNumber,
                 sessionstart: sessionStart,
                 sessionStop: sessionStop,
+                session_id: session_id,
                 start: `${dateTime(sessionStart)} (${dateToYearMonthDay(
                   sessionStart
                 )})`,
@@ -159,6 +166,7 @@ export default function HistoryTable() {
                 id: id,
                 boothNumber: boothNumber,
                 sessionstart: sessionStart,
+                session_id: session_id,
                 start: dateTime(sessionStart),
                 stop: 'CURRENT',
               });
@@ -231,6 +239,7 @@ export default function HistoryTable() {
     {
       Header: 'Action',
       accessor: (data) => {
+        console.log(data);
         return (
           <div
             className='actions'
