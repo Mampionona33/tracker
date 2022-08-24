@@ -72,8 +72,6 @@ export default function HistoryTable() {
 
             const session_id = session[a].session_id;
 
-            // console.log('session_id', session_id);
-
             // if start date == selected date and stop date != null => show start date(hh:mm:ss) and stop date(hh:mm:ss)
             if (dateToYearMonthDay(sessionStart) === date) {
               if (dateToYearMonthDay(sessionStop) === date) {
@@ -239,7 +237,7 @@ export default function HistoryTable() {
     {
       Header: 'Action',
       accessor: (data) => {
-        console.log(data);
+        // console.log(data);
         return (
           <div
             className='actions'
