@@ -88,13 +88,61 @@ export const setTaskStateOff = async (
   }
   return;
 };
+
+export const setCurrentTaskPlayToOff = async (
+  updateTask,
+  id,
+  error,
+  currentSessionId
+) => {
+  updateTask({
+    variables: {
+      filter: {
+        id: id,
+        sessionId: currentSessionId,
+      },
+      update: {
+        taskState: 'isOff',
+        session: {
+          session_id: currentSessionId,
+        },
+      },
+    },
+  });
+  if (error) {
+    console.log(error);
+  }
+  return;
+};
+
+export const setCurrentTaskPauseToOff = async (
+  updateTask,
+  id,
+  error,
+  currentSessionId
+) => {
+  updateTask({
+    variables: {
+      filter: {
+        id: id,
+      },
+      update: {
+        taskState: 'isOff',
+      },
+    },
+  });
+  if (error) {
+    console.log(error);
+  }
+  return;
+};
+
 export const setTaskStatePause = async (
   updateTask,
   id,
   error,
   currentSessionId
 ) => {
-  console.log(currentSessionId);
   updateTask({
     variables: {
       filter: {

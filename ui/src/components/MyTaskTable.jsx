@@ -5,7 +5,11 @@ import { GET_TASK_BY_FILTER, GET_USER_TASK } from './../graphql/Query';
 import FloatingButton from './FloatingButton';
 import TableWithPagination from './TableWithPagination';
 import { UPDATE_TASK } from '../graphql/Mutation';
-import { setTaskStateOff, setTaskStatePlay } from '../graphql/tasks';
+import {
+  setCurrentTaskPauseToOff,
+  setCurrentTaskPlayToOff,
+  setTaskStatePlay,
+} from '../graphql/tasks';
 import Loading from './Loading';
 import { useNavigate } from 'react-router-dom';
 
@@ -67,10 +71,11 @@ const MyTaskTable = () => {
           <div
             className='actions'
             style={{ display: 'flex', justifyContent: 'center' }}
+            onClick={(event) => onCLickPlayButton(event, data)}
           >
             <FloatingButton
               icon={'play_arrow'}
-              handleClickButton={(event) => onCLickPlayButton(event, data)}
+              // handleClickButton={(event) => onCLickPlayButton(event, data)}
             />
           </div>
         );
@@ -210,38 +215,59 @@ const MyTaskTable = () => {
     if (errorSetSelectedTaskPlay) {
       return errorSetSelectedTaskPlay;
     }
-    const clickedRowSessionId = Array.from(data.session).length;
-    if (processingTask && processingTask.id !== undefined) {
+    const clickedRowSessionId = Array.from(data.session)
+      .map((item) => item.session_id)
+      .reduce((a, b) => Math.max(a, b));
+    if (
+      Object.keys(processingTask).length > 0 &&
+      processingTask.id !== undefined
+    ) {
       const currentTaskId = processingTask.id;
       const currentProcessingTaskSessionId = Array.from(processingTask.session)
         .map((item) => item.session_id)
         .reduce((a, b) => Math.max(a, b));
 
-      console.log(processingTask);
-      console.log(currentProcessingTaskSessionId);
-      console.log('data', data);
-      console.log('clickedRowSessionId', clickedRowSessionId);
+      if (processingTask.taskState === 'isPlay') {
+        setCurrentTaskPlayToOff(
+          setCurrentTaskOff,
+          currentTaskId,
+          errorSetCurrentTaskOff,
+          currentProcessingTaskSessionId
+        ).then(
+          setTaskStatePlay(
+            setSelectedTaskPlay,
+            data.id,
+            errorSetSelectedTaskPlay,
+            clickedRowSessionId
+          )
+        );
+      }
 
-      setTaskStateOff(
-        setCurrentTaskOff,
-        currentTaskId,
-        errorSetCurrentTaskOff,
-        currentProcessingTaskSessionId
-      ).then(
-        setTaskStatePlay(
-          setSelectedTaskPlay,
-          data.id,
-          errorSetSelectedTaskPlay,
-          clickedRowSessionId
-        )
+      if (processingTask.taskState === 'isPause') {
+        setCurrentTaskPauseToOff(
+          setCurrentTaskOff,
+          currentTaskId,
+          errorSetCurrentTaskOff,
+          currentProcessingTaskSessionId
+        ).then(
+          setTaskStatePlay(
+            setSelectedTaskPlay,
+            data.id,
+            errorSetSelectedTaskPlay,
+            clickedRowSessionId
+          )
+        );
+      }
+    }
+
+    if (Object.keys(processingTask).length === 0) {
+      setTaskStatePlay(
+        setSelectedTaskPlay,
+        data.id,
+        errorSetSelectedTaskPlay,
+        clickedRowSessionId
       );
     }
-    setTaskStatePlay(
-      setSelectedTaskPlay,
-      data.id,
-      errorSetSelectedTaskPlay,
-      clickedRowSessionId
-    );
     navigate('/dashboard');
   };
 

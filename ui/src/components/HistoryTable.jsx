@@ -51,7 +51,6 @@ export default function HistoryTable() {
 
   const handleClickEditIcon = (event, data) => {
     event.preventDefault();
-    // console.log(data);
     historyContext.setHistoryData(data);
     componentContext_.openDialogEditHistory();
   };
@@ -232,7 +231,6 @@ export default function HistoryTable() {
     {
       Header: 'Action',
       accessor: (data) => {
-        // console.log(data);
         return (
           <div
             className='actions'

@@ -102,13 +102,14 @@ const update = async (
       const newSessionStartId = Array.from(session).map(
         (item) => item.session_id
       );
+      console.log('newSessionStartId', newSessionStartId);
       Array.from(update).map(
         (item) =>
           (item.$addToSet = {
             session: {
               session_id:
                 newSessionStartId &&
-                newSessionStartId.reduce((a, b) => a + b) + 1,
+                newSessionStartId.reduce((a, b) => Math.max(a, b)) + 1,
               sessionStart: new Date(),
               sessionStop: null,
             },
@@ -126,7 +127,9 @@ const update = async (
         'session.$.sessionStop': new Date(),
       };
     }
+
     if (taskState === 'isOff' && session) {
+      console.log(`taskState === 'isOff'`, session);
       update[0].$set = {
         ...update[0].$set,
         'session.$.sessionStop': new Date(),
