@@ -23,7 +23,7 @@ export const createNewTask = async (createTask, sub, taskData, error) => {
           sub: sub,
         },
         boothNumber: taskData.boothNumber,
-        taskState: taskData.taskState,
+        taskState: 'isPlay',
         type: taskData.type,
         url: taskData.url,
         cat: taskData.cat,
@@ -32,6 +32,7 @@ export const createNewTask = async (createTask, sub, taskData, error) => {
         nbBefore: parseInt(taskData.nbBefore),
         nbAfter: parseInt(taskData.nbAfter),
         comment: taskData.comment,
+        processingState: 'Normal',
         session: {
           session_id: 0,
           sessionStart: new Date(),
@@ -270,5 +271,34 @@ export const setTaskStateDone = async (
       },
     },
   });
+  return;
+};
+
+export const updateSessionRow = async (
+  updateTask,
+  id,
+  error,
+  currentSessionId,
+  sessionStart,
+  sessionStop
+) => {
+  updateTask({
+    variables: {
+      filter: {
+        id: id,
+        sessionId: currentSessionId,
+      },
+      update: {
+        session: {
+          session_id: currentSessionId,
+          sessionStart: sessionStart,
+          sessionStop: sessionStop,
+        },
+      },
+    },
+  });
+  if (error) {
+    console.log(error);
+  }
   return;
 };

@@ -71,10 +71,16 @@ const update = async (
 ) => {
   const db = getDb();
   let filter = {};
+
+  console.log('id', id);
   if (id) {
-    filter.id = id;
+    filter = {
+      ...filter,
+      id: id,
+    };
     console.log('id', id);
   }
+
   if (sessionId !== null && sessionId !== undefined) {
     filter = {
       ...filter,
@@ -197,26 +203,26 @@ const update = async (
       : (update[0].$set.comment = '');
   }
 
-  if (session) {
-    // const sessionStop = Array.from(session)
-    //   .map((item) => Object.keys(item))
-    //   .flat()
-    //   .filter((item) => item === 'sessionStop');
-    // const sessionStart = Array.from(session)
-    //   .map((item) => Object.keys(item))
-    //   .flat()
-    //   .filter((item) => item === 'sessionStart');
-    // const sessionStopValue = Array.from(session).map((item) => {
-    //   if (item.sessionStop) {
-    //     return item.sessionStop;
-    //   }
-    // });
-    // if (sessionStop.length > 0 && sessionStopValue.length > 0 && sessionId) {
-    //   update[0].$set = {
-    //     ...update[0].$set,
-    //     'session.$.sessionStop': sessionStopValue.reduce((a, b) => a + b),
-    //   };
-    // }
+  if (session && !taskState) {
+    const sessionStart = Object.values(...session).at(
+      Object.keys(...session).indexOf('sessionStart')
+    );
+
+    const sessionStop = Object.values(...session).at(
+      Object.keys(...session).indexOf('sessionStop')
+    );
+
+    /* 
+      The $ operator can update the first array element that matches 
+      multiple query criteria specified with the $elemMatch operator.
+    */
+
+    update.push({
+      $set: {
+        'session.$.sessionStart': sessionStart,
+        'session.$.sessionStop': sessionStop,
+      },
+    });
   }
 
   if (totalElapstedTime) {

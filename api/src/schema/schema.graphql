@@ -44,7 +44,7 @@ type SessionType {
 }
 
 input SessionInput {
-  session_id: Int
+  session_id: Int!
   sessionStart: GraphQLDate
   sessionStop: GraphQLDate
 }
@@ -109,12 +109,12 @@ input TaskInput {
   ivpn: String
   statCom: String
   #...Give the default value Normal for processingState if not given
-  processingState: processingStateEnum = Normal
+  processingState: processingStateEnum
   nbBefore: Int = 0
   nbAfter: Int = 0
   comment: String
   #...Give the default value isPlay for taskState if not given
-  taskState: taskStateEnum = isPlay
+  taskState: taskStateEnum
   session: [SessionInput]
   totalElapstedTime: String
   submitedDate: GraphQLDate

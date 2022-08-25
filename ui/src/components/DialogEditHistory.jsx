@@ -9,6 +9,11 @@ import '../style/DialogEditHistory.scss';
 import { componentContext } from '../context/componentContext';
 import { useParams } from 'react-router-dom';
 import { dateToYearMonthDay } from '../assets/timeUtility';
+import { useMutation } from '@apollo/client';
+import { UPDATE_TASK } from './../graphql/Mutation';
+import { GET_USER_TASK } from '../graphql/Query';
+import { AuthContext } from '../context/authContext';
+import { updateSessionRow } from '../graphql/tasks';
 
 function DialogEditHistory() {
   const historyContext = useContext(HistoryContext);
@@ -19,6 +24,8 @@ function DialogEditHistory() {
       ? new Date(historyContext.historyData.sessionstart)
       : date
   );
+
+  const userContext = useContext(AuthContext);
 
   const [selectedStopDate, setSelectedStopDate] = useState(
     historyContext.historyData.sessionStop
@@ -107,6 +114,23 @@ function DialogEditHistory() {
     ComponentContext.closeDialogEditHistory();
   };
 
+  const [updateSession, { error: errorOnUpdateSession }] = useMutation(
+    UPDATE_TASK,
+    {
+      refetchQueries: [
+        {
+          query: GET_USER_TASK,
+          variables: {
+            input: {
+              sub: userContext.user.sub,
+            },
+          },
+        },
+      ],
+      awaitRefetchQueries: true,
+    }
+  );
+
   const handleClickSave = (event) => {
     event.preventDefault();
     const startDay =
@@ -123,14 +147,25 @@ function DialogEditHistory() {
     const stoptMin = refForm.current.children[1].children[3].lastChild.value;
     const stoptSec = refForm.current.children[1].children[4].lastChild.value;
 
-    console.log(startDay);
-    console.log(startHrs);
-    console.log(startMin);
-    console.log(startSec);
-    console.log(stopDay);
-    console.log(stoptHrs);
-    console.log(stoptMin);
-    console.log(stoptSec);
+    const updatedStartTime = new Date(startDay);
+    const updatedStopTime = new Date(stopDay);
+
+    updatedStartTime.setHours(startHrs);
+    updatedStartTime.setMinutes(startMin);
+    updatedStartTime.setSeconds(startSec);
+
+    updatedStopTime.setHours(stoptHrs);
+    updatedStopTime.setMinutes(stoptMin);
+    updatedStopTime.setSeconds(stoptSec);
+
+    updateSessionRow(
+      updateSession,
+      historyContext.historyData.id,
+      errorOnUpdateSession,
+      historyContext.historyData.session_id,
+      updatedStartTime,
+      updatedStopTime
+    ).then(ComponentContext.closeDialogEditHistory());
   };
 
   const handleInputChagne = (event) => {
@@ -168,6 +203,8 @@ function DialogEditHistory() {
       }
     }
   };
+
+  console.log(historyContext.historyData.session_id);
 
   return (
     <>
