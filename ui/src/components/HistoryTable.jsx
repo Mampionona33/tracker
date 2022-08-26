@@ -237,20 +237,25 @@ export default function HistoryTable() {
     {
       Header: 'Action',
       accessor: (data) => {
-        // console.log(data);
         return (
-          <div
-            className='actions'
-            style={{ display: 'flex', justifyContent: 'center' }}
-          >
-            <span
-              onClick={(event) => handleClickEditIcon(event, data)}
-              className='material-icons-round'
-              style={{ cursor: 'pointer', color: '#5e2750' }}
-            >
-              edit
-            </span>
-          </div>
+          <>
+            {data && data.stop !== 'CURRENT' ? (
+              <div
+                className='actions'
+                style={{ display: 'flex', justifyContent: 'center' }}
+              >
+                <span
+                  onClick={(event) => handleClickEditIcon(event, data)}
+                  className='material-icons-round'
+                  style={{ cursor: 'pointer', color: '#5e2750' }}
+                >
+                  edit
+                </span>
+              </div>
+            ) : (
+              ''
+            )}
+          </>
         );
       },
     },

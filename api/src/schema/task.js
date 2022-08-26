@@ -29,7 +29,6 @@ const getUserTaskByFilter = async (_, { input: { user, taskState } }) => {
     };
   }
   const getUserTaskPlay = await db.collection('tasks').find(filter).toArray();
-  // console.log(getUserTaskPlay);
   return getUserTaskPlay;
 };
 
@@ -93,7 +92,6 @@ const update = async (
   }
 
   let update = [];
-  // let update = [{ $set: {} }];
 
   if (taskState) {
     update.push({ $set: { taskState: taskState } });
@@ -239,16 +237,13 @@ const update = async (
 
   const options = { upsert: false, returnNewDocument: true };
 
-  // const find = await db.collection('tasks').find(filter).toArray();
-  // console.log('find', find);
-
   const updateTask = db
     .collection('tasks')
     .findOneAndUpdate(filter, ...update, (erro, doc) => {
       if (erro) {
         console.log(erro);
       }
-      // console.log(doc);
+      console.log(doc);
     });
   return { acknowledged: true };
 };
