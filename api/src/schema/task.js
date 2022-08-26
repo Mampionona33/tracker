@@ -234,6 +234,9 @@ const update = async (
     const sessionStop = Array.from(session).map((item) => item.sessionStop);
     const session_id = Array.from(session).map((item) => item.session_id);
 
+    const sessionStopValue = sessionStop.reduce((a, b) => a + b);
+    const sessionStartValue = sessionStart.reduce((a, b) => a + b);
+
     console.log(
       'session_id',
       session_id.reduce((a, b) => a + b)
@@ -243,15 +246,12 @@ const update = async (
       multiple query criteria specified with the $elemMatch operator.
     */
 
-    if (
-      sessionStop.reduce((a, b) => a + b) !== undefined &&
-      sessionStart.reduce((a, b) => a + b) === undefined
-    ) {
+    if (sessionStopValue !== undefined && sessionStartValue === undefined) {
       update.map(
         (item) =>
           (item.$set = {
             ...item.$set,
-            'session.$.sessionStop': sessionStop.reduce((a, b) => a + b),
+            'session.$.sessionStop': sessionStopValue,
           })
       );
     }
@@ -263,16 +263,13 @@ const update = async (
       $addToSet allow to append new element in the session Array once, 
       if it does'not alredy exist.
     */
-    if (
-      sessionStart.reduce((a, b) => a + b) !== undefined &&
-      sessionStop.reduce((a, b) => a + b) === undefined
-    ) {
+    if (sessionStartValue !== undefined && sessionStopValue === undefined) {
       update.map(
         (item) =>
           (item.$addToSet = {
             session: {
               session_id: session_id.reduce((a, b) => Math.max(a, b)) + 1,
-              sessionStart: sessionStart.reduce((acc, val) => acc + val),
+              sessionStart: sessionStartValue,
               sessionStop: null,
             },
           })
