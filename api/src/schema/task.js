@@ -216,13 +216,14 @@ const update = async (
       The $ operator can update the first array element that matches 
       multiple query criteria specified with the $elemMatch operator.
     */
-
-    update.push({
-      $set: {
-        'session.$.sessionStart': sessionStart,
-        'session.$.sessionStop': sessionStop,
-      },
-    });
+    if (new Date(sessionStart).getTime() < new Date(sessionStop).getTime()) {
+      update.push({
+        $set: {
+          'session.$.sessionStart': sessionStart,
+          'session.$.sessionStop': sessionStop,
+        },
+      });
+    }
   }
 
   if (totalElapstedTime) {
