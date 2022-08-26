@@ -152,83 +152,82 @@ const update = async (
     });
   }
 
-  // if (type) {
-  //   update.map((item) => {
-  //     if (Object.keys('$set')) {
-  //       item.$set.type = type !== 'empty' ? type : '';
-  //     }
-  //   });
-  // }
+  if (type) {
+    update.map((item) => {
+      if (Object.keys('$set')) {
+        item.$set.type = type !== 'empty' ? type : '';
+      }
+    });
+  }
 
-  // if (url) {
-  //   update.map((item) => {
-  //     if (Object.keys('$set')) {
-  //       item.$set.url = url !== 'empty' ? url : '';
-  //     }
-  //   });
-  // }
+  if (url) {
+    update.map((item) => {
+      if (Object.keys('$set')) {
+        item.$set.url = url !== 'empty' ? url : '';
+      }
+    });
+  }
 
-  // if (cat) {
-  //   update.map((item) => {
-  //     if (Object.keys('$set')) {
-  //       item.$set.cat = cat !== 'empty' ? cat : '';
-  //     }
-  //   });
-  // }
+  if (cat) {
+    update.map((item) => {
+      if (Object.keys('$set')) {
+        item.$set.cat = cat !== 'empty' ? cat : '';
+      }
+    });
+  }
 
-  // if (statCom) {
-  //   update.map((item) => {
-  //     if (Object.keys('$set')) {
-  //       item.$set.statCom = statCom !== 'empty' ? statCom : '';
-  //     }
-  //   });
-  // }
+  if (statCom) {
+    update.map((item) => {
+      if (Object.keys('$set')) {
+        item.$set.statCom = statCom !== 'empty' ? statCom : '';
+      }
+    });
+  }
 
-  // if (ivpn) {
-  //   update.map((item) => {
-  //     if (Object.keys('$set')) {
-  //       item.$set.ivpn = ivpn !== 'empty' ? ivpn : '';
-  //     }
-  //   });
-  // }
+  if (ivpn) {
+    update.map((item) => {
+      if (Object.keys('$set')) {
+        item.$set.ivpn = ivpn !== 'empty' ? ivpn : '';
+      }
+    });
+  }
 
-  // if (processingState) {
-  //   update.map((item) => {
-  //     if (Object.keys('$set')) {
-  //       item.$set.processingState =
-  //         processingState !== 'empty' ? processingState : '';
-  //     }
-  //   });
-  // }
+  if (processingState) {
+    update.map((item) => {
+      if (Object.keys('$set')) {
+        item.$set.processingState =
+          processingState !== 'empty' ? processingState : '';
+      }
+    });
+  }
 
-  // if (nbBefore) {
-  //   update.map((item) => {
-  //     if (Object.keys('$set')) {
-  //       item.$set.nbBefore = nbBefore !== 'empty' ? nbBefore : '';
-  //     }
-  //   });
-  // }
+  if (nbBefore) {
+    update.map((item) => {
+      if (Object.keys('$set')) {
+        item.$set.nbBefore = nbBefore !== 'empty' ? nbBefore : '';
+      }
+    });
+  }
 
-  // if (nbAfter) {
-  //   update.map((item) => {
-  //     if (Object.keys('$set')) {
-  //       item.$set.nbAfter = nbAfter !== 'empty' ? nbAfter : '';
-  //     }
-  //   });
-  // }
+  if (nbAfter) {
+    update.map((item) => {
+      if (Object.keys('$set')) {
+        item.$set.nbAfter = nbAfter !== 'empty' ? nbAfter : '';
+      }
+    });
+  }
 
-  // if (productivity) {
-  //   update[0].$set.productivity = productivity;
-  // }
+  if (productivity) {
+    update[0].$set.productivity = productivity;
+  }
 
-  // if (comment) {
-  //   comment !== 'empty'
-  //     ? (update[0].$set.comment = comment)
-  //     : (update[0].$set.comment = '');
-  // }
+  if (comment) {
+    comment !== 'empty'
+      ? (update[0].$set.comment = comment)
+      : (update[0].$set.comment = '');
+  }
 
   if (session) {
-    console.log(session);
     const sessionStart = Array.from(session).map((item) => item.sessionStart);
 
     const sessionStop = Array.from(session).map((item) => item.sessionStop);
@@ -236,15 +235,6 @@ const update = async (
 
     const sessionStopValue = sessionStop.reduce((a, b) => a + b);
     const sessionStartValue = sessionStart.reduce((a, b) => a + b);
-
-    console.log(
-      'session_id',
-      session_id.reduce((a, b) => a + b)
-    );
-    /* 
-      The $ operator can update the first array element that matches 
-      multiple query criteria specified with the $elemMatch operator.
-    */
 
     if (sessionStopValue !== undefined && sessionStartValue === undefined) {
       update.map(
@@ -276,21 +266,24 @@ const update = async (
       );
     }
 
-    // if (new Date(sessionStart).getTime() < new Date(sessionStop).getTime()) {
-    //   // update.push({
-    //   //   $set: {
-    //   //     'session.$.sessionStart': sessionStart,
-    //   //     'session.$.sessionStop': sessionStop,
-    //   //   },
-    //   // });
-
-    //   update.map((item) => {
-    //     item.$set = {
-    //       'session.$.sessionStart': sessionStart,
-    //       'session.$.sessionStop': sessionStop,
-    //     };
-    //   });
-    // }
+    /* 
+      HANDLE HISTORY EDIT
+      The $ operator can update the first array element that matches 
+      multiple query criteria specified with the $elemMatch operator.
+    */
+    if (
+      sessionStartValue !== undefined &&
+      sessionStopValue !== undefined &&
+      new Date(sessionStartValue).getTime() <
+        new Date(sessionStopValue).getTime()
+    ) {
+      update.map((item) => {
+        item.$set = {
+          'session.$.sessionStart': sessionStart,
+          'session.$.sessionStop': sessionStop,
+        };
+      });
+    }
   }
 
   if (totalElapstedTime) {
@@ -313,7 +306,7 @@ const update = async (
         console.log(erro);
         return erro;
       }
-      // console.log(doc);
+      console.log(doc);
     });
   return { acknowledged: true };
 };
