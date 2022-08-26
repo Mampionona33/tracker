@@ -55,7 +55,7 @@ const SimulationBoothInfo = () => {
           setFormState({
             ...formState,
             type: curProcTask[0].type,
-            nbAfter: '0',
+            nbAfter: curProcTask[0].nbAfter,
             day: '00',
             hrs: '00',
             min: '00',
@@ -233,6 +233,7 @@ const SimulationBoothInfo = () => {
             }
           });
         });
+
       elapstedTimeArray.length > 0 &&
         simulationContext.setResult(
           calculateProdByEndingTime(elapstedTimeArray, currentGoal, nbAfter)
