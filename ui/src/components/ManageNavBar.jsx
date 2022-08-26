@@ -7,6 +7,7 @@ const ManageNavBar = () => {
       <ul className='manageNavBar__list'>
         <li className='manageNavBar__list__el'>TASK TYPE</li>
         <li className='manageNavBar__list__el'>USERS</li>
+        <li className='manageNavBar__list__el'>TASKS</li>
       </ul>
     </div>
   );
