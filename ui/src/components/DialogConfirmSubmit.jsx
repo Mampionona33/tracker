@@ -7,9 +7,11 @@ import Modale from './Modale';
 import '../style/DialogConfirmSubmit.scss';
 import { componentContext } from '../context/componentContext';
 import { UPDATE_TASK } from '../graphql/Mutation';
-import { setTaskStateDone } from '../graphql/tasks';
 import { TaskContext } from '../context/taskContext';
-import { setTaskStatePauseDone } from './../graphql/tasks';
+import {
+  setTaskStatePauseDone,
+  setTaskStatePlayDone,
+} from './../graphql/tasks';
 
 const DialogConfirmSubmit = () => {
   const userContext = useContext(AuthContext);
@@ -60,9 +62,6 @@ const DialogConfirmSubmit = () => {
   };
 
   const handleClickSubmit = async (event) => {
-    // console.log(taskContext.totalElapstedTime);
-    // console.log(currentTask);
-
     const taskStatePlay =
       currentTask.filter((item) => item.taskState === 'isPlay').length > 0
         ? currentTask.filter((item) => item.taskState === 'isPlay')
@@ -73,7 +72,20 @@ const DialogConfirmSubmit = () => {
         : null;
 
     if (taskStatePlay) {
-      console.log(taskStatePlay);
+      const currentSessionId = taskStatePlay
+        .map((item) => item.session)
+        .map((item) => {
+          return Array.from(item).find((elem) => !elem.sessionStop).session_id;
+        });
+
+      await setTaskStatePlayDone(
+        setTaskDone,
+        currentTask[0].id,
+        taskContext.productivity,
+        taskContext.totalElapstedTime,
+        ...currentSessionId,
+        errorOnUpdateTaskState
+      ).then(ComponentContext.closeDialogConfirmSubmitTask());
     }
 
     if (taskStatePause) {

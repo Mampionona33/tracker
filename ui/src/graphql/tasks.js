@@ -248,7 +248,7 @@ export const updateProcessingTask = async (
   });
 };
 
-export const setTaskStateDone = async (
+export const setTaskStatePlayDone = async (
   updateTask,
   id,
   prod,
@@ -260,6 +260,7 @@ export const setTaskStateDone = async (
     variables: {
       filter: {
         id: id,
+        sessionId: sessionId,
       },
       update: {
         taskState: 'isDone',
