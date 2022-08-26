@@ -3,16 +3,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../context/authContext';
 import { GET_USER_TASK } from '../graphql/Query';
 import { DataGrid } from '@mui/x-data-grid';
-import {
-  Paper,
-  Table,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
-  TableBody,
-  Box,
-} from '@mui/material';
+import { Box } from '@mui/material';
 import { dateToYearMonthDay } from '../assets/timeUtility';
 import '../style/SubmitedTaskTable.scss';
 
