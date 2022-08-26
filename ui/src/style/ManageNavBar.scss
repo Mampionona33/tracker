@@ -1,0 +1,20 @@
+@import './variables.scss';
+.manageNavBar {
+  &__list {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    background-color: $coolGrey;
+    border-top: 1px solid white;
+    &__el {
+      padding: 0.5rem 1rem;
+      background-color: $coolGrey;
+      color: white;
+      cursor: pointer;
+      &:hover {
+        background-color: whitesmoke;
+        color: $coolGrey;
+      }
+    }
+  }
+}

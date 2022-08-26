@@ -1,9 +1,10 @@
 import React from 'react';
+import ManageNavBar from '../components/ManageNavBar';
 
 export default function Manage() {
   return (
     <div className='manage'>
-      <p>place holder manage</p>
+      <ManageNavBar />
     </div>
   );
 }
