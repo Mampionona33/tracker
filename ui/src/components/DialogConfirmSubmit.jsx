@@ -9,6 +9,7 @@ import { componentContext } from '../context/componentContext';
 import { UPDATE_TASK } from '../graphql/Mutation';
 import { setTaskStateDone } from '../graphql/tasks';
 import { TaskContext } from '../context/taskContext';
+import { setTaskStatePauseDone } from './../graphql/tasks';
 
 const DialogConfirmSubmit = () => {
   const userContext = useContext(AuthContext);
@@ -59,14 +60,31 @@ const DialogConfirmSubmit = () => {
   };
 
   const handleClickSubmit = async (event) => {
-    console.log(taskContext.totalElapstedTime);
-    await setTaskStateDone(
-      setTaskDone,
-      currentTask[0].id,
-      taskContext.productivity,
-      taskContext.totalElapstedTime,
-      errorOnUpdateTaskState
-    ).then(ComponentContext.closeDialogConfirmSubmitTask());
+    // console.log(taskContext.totalElapstedTime);
+    // console.log(currentTask);
+
+    const taskStatePlay =
+      currentTask.filter((item) => item.taskState === 'isPlay').length > 0
+        ? currentTask.filter((item) => item.taskState === 'isPlay')
+        : null;
+    const taskStatePause =
+      currentTask.filter((item) => item.taskState === 'isPause').length > 0
+        ? currentTask.filter((item) => item.taskState === 'isPause')
+        : null;
+
+    if (taskStatePlay) {
+      console.log(taskStatePlay);
+    }
+
+    if (taskStatePause) {
+      await setTaskStatePauseDone(
+        setTaskDone,
+        currentTask[0].id,
+        taskContext.productivity,
+        taskContext.totalElapstedTime,
+        errorOnUpdateTaskState
+      ).then(ComponentContext.closeDialogConfirmSubmitTask());
+    }
   };
 
   return (
