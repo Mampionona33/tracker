@@ -96,10 +96,17 @@ export default function SubmitedTaskTable() {
       valueFormatter: ({ value }) => `${value} %`,
     },
     {
+      field: 'submitedDate',
+      headerName: 'SUBMITED DATE',
+      cellClassName: 'spaceBetween',
+      valueFormatter: ({ value }) => `${dateToYearMonthDay(value)}`,
+      flex: 1,
+    },
+    {
       field: 'totalElapstedTime',
       headerName: 'TOTAL TIME',
       cellClassName: 'spaceBetween',
-      flex: 4,
+      flex: 3,
     },
   ];
 
@@ -128,11 +135,4 @@ export default function SubmitedTaskTable() {
       </Box>
     </>
   );
-  // return (
-  //   <>
-  //     <div className='submitedTaskTable'>
-  //       <p>place holder submit task table</p>
-  //     </div>
-  //   </>
-  // );
 }
