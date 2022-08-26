@@ -106,6 +106,7 @@ export const setCurrentTaskPlayToOff = async (
         taskState: 'isOff',
         session: {
           session_id: currentSessionId,
+          sessionStop: new Date(),
         },
       },
     },
@@ -154,6 +155,7 @@ export const setTaskStatePause = async (
         taskState: 'isPause',
         session: {
           session_id: currentSessionId,
+          sessionStop: new Date(),
         },
       },
     },
@@ -178,6 +180,7 @@ export const setTaskStatePlay = async (
         taskState: 'isPlay',
         session: {
           session_id: currentSessionId,
+          sessionStart: new Date(),
         },
       },
     },

@@ -91,10 +91,10 @@ const update = async (
     };
   }
 
-  let update = [];
+  let update = [{ $set: {} }];
 
   if (taskState) {
-    update.push({ $set: { taskState: taskState } });
+    // update.push({ $set: { taskState: taskState } });
 
     /* 
       This condition bellow is used to append a new element in 
@@ -102,126 +102,198 @@ const update = async (
       $addToSet allow to append new element in the session Array once, 
       if it does'not alredy exist.
     */
-    if (taskState === 'isPlay' && session) {
-      const newSessionStartId = Array.from(session).map(
-        (item) => item.session_id
+    update.map((item) => {
+      item.$set.taskState = taskState;
+    });
+    // if (taskState === 'isPlay') {
+    //   const newSessionStartId = Array.from(session).map(
+    //     (item) => item.session_id
+    //   );
+    // console.log('newSessionStartId', newSessionStartId);
+    // Array.from(update).map(
+    //   (item) =>
+    //     (item.$addToSet = {
+    //       session: {
+    //         session_id:
+    //           newSessionStartId &&
+    //           newSessionStartId.reduce((a, b) => Math.max(a, b)) + 1,
+    //         sessionStart: new Date(),
+    //         sessionStop: null,
+    //       },
+    //     })
+    // );
+    // }
+
+    /*
+      The condition bellow allow to update only sessionStop
+      by using the $ 
+     */
+    // if (taskState === 'isPause' && session) {
+    //   update[0].$set = {
+    //     ...update[0].$set,
+    //     'session.$.sessionStop': new Date(),
+    //   };
+    // }
+
+    // if (taskState === 'isOff' && session) {
+    //   console.log(`taskState === 'isOff'`, session);
+    //   update[0].$set = {
+    //     ...update[0].$set,
+    //     'session.$.sessionStop': new Date(),
+    //   };
+    // }
+  }
+
+  if (boothNumber) {
+    update.map((item) => {
+      if (Object.keys('$set')) {
+        item.$set.boothNumber = boothNumber !== 'empty' ? boothNumber : '';
+      }
+    });
+  }
+
+  // if (type) {
+  //   update.map((item) => {
+  //     if (Object.keys('$set')) {
+  //       item.$set.type = type !== 'empty' ? type : '';
+  //     }
+  //   });
+  // }
+
+  // if (url) {
+  //   update.map((item) => {
+  //     if (Object.keys('$set')) {
+  //       item.$set.url = url !== 'empty' ? url : '';
+  //     }
+  //   });
+  // }
+
+  // if (cat) {
+  //   update.map((item) => {
+  //     if (Object.keys('$set')) {
+  //       item.$set.cat = cat !== 'empty' ? cat : '';
+  //     }
+  //   });
+  // }
+
+  // if (statCom) {
+  //   update.map((item) => {
+  //     if (Object.keys('$set')) {
+  //       item.$set.statCom = statCom !== 'empty' ? statCom : '';
+  //     }
+  //   });
+  // }
+
+  // if (ivpn) {
+  //   update.map((item) => {
+  //     if (Object.keys('$set')) {
+  //       item.$set.ivpn = ivpn !== 'empty' ? ivpn : '';
+  //     }
+  //   });
+  // }
+
+  // if (processingState) {
+  //   update.map((item) => {
+  //     if (Object.keys('$set')) {
+  //       item.$set.processingState =
+  //         processingState !== 'empty' ? processingState : '';
+  //     }
+  //   });
+  // }
+
+  // if (nbBefore) {
+  //   update.map((item) => {
+  //     if (Object.keys('$set')) {
+  //       item.$set.nbBefore = nbBefore !== 'empty' ? nbBefore : '';
+  //     }
+  //   });
+  // }
+
+  // if (nbAfter) {
+  //   update.map((item) => {
+  //     if (Object.keys('$set')) {
+  //       item.$set.nbAfter = nbAfter !== 'empty' ? nbAfter : '';
+  //     }
+  //   });
+  // }
+
+  // if (productivity) {
+  //   update[0].$set.productivity = productivity;
+  // }
+
+  // if (comment) {
+  //   comment !== 'empty'
+  //     ? (update[0].$set.comment = comment)
+  //     : (update[0].$set.comment = '');
+  // }
+
+  if (session) {
+    console.log(session);
+    const sessionStart = Array.from(session).map((item) => item.sessionStart);
+
+    const sessionStop = Array.from(session).map((item) => item.sessionStop);
+    const session_id = Array.from(session).map((item) => item.session_id);
+
+    console.log(
+      'session_id',
+      session_id.reduce((a, b) => a + b)
+    );
+    /* 
+      The $ operator can update the first array element that matches 
+      multiple query criteria specified with the $elemMatch operator.
+    */
+
+    if (
+      sessionStop.reduce((a, b) => a + b) !== undefined &&
+      sessionStart.reduce((a, b) => a + b) === undefined
+    ) {
+      update.map(
+        (item) =>
+          (item.$set = {
+            ...item.$set,
+            'session.$.sessionStop': sessionStop.reduce((a, b) => a + b),
+          })
       );
-      console.log('newSessionStartId', newSessionStartId);
-      Array.from(update).map(
+    }
+
+    /* 
+      CREATE NEW SESSION
+      This condition bellow is used to append a new element in 
+      session when taskState set to  isPlay.
+      $addToSet allow to append new element in the session Array once, 
+      if it does'not alredy exist.
+    */
+    if (
+      sessionStart.reduce((a, b) => a + b) !== undefined &&
+      sessionStop.reduce((a, b) => a + b) === undefined
+    ) {
+      update.map(
         (item) =>
           (item.$addToSet = {
             session: {
-              session_id:
-                newSessionStartId &&
-                newSessionStartId.reduce((a, b) => Math.max(a, b)) + 1,
-              sessionStart: new Date(),
+              session_id: session_id.reduce((a, b) => Math.max(a, b)) + 1,
+              sessionStart: sessionStart.reduce((acc, val) => acc + val),
               sessionStop: null,
             },
           })
       );
     }
 
-    /*
-      The condition bellow allow to update only sessionStop
-      by using the $ 
-     */
-    if (taskState === 'isPause' && session) {
-      update[0].$set = {
-        ...update[0].$set,
-        'session.$.sessionStop': new Date(),
-      };
-    }
+    // if (new Date(sessionStart).getTime() < new Date(sessionStop).getTime()) {
+    //   // update.push({
+    //   //   $set: {
+    //   //     'session.$.sessionStart': sessionStart,
+    //   //     'session.$.sessionStop': sessionStop,
+    //   //   },
+    //   // });
 
-    if (taskState === 'isOff' && session) {
-      console.log(`taskState === 'isOff'`, session);
-      update[0].$set = {
-        ...update[0].$set,
-        'session.$.sessionStop': new Date(),
-      };
-    }
-  }
-
-  if (boothNumber) {
-    boothNumber !== 'empty'
-      ? (update[0].$set.boothNumber = boothNumber)
-      : (update[0].$set.boothNumber = '');
-  }
-
-  if (type) {
-    type !== 'emtpy'
-      ? (update[0].$set.type = type)
-      : (update[0].$set.type = '');
-  }
-
-  if (url) {
-    url !== 'empty' ? (update[0].$set.url = url) : (update[0].$set.url = '');
-  }
-
-  if (cat) {
-    cat !== 'empty' ? (update[0].$set.cat = cat) : (update[0].$set.cat = '');
-  }
-
-  if (statCom) {
-    statCom !== 'empty'
-      ? (update[0].$set.statCom = statCom)
-      : (update[0].$set.statCom = '');
-  }
-
-  if (ivpn) {
-    ivpn !== 'empty'
-      ? (update[0].$set.ivpn = ivpn)
-      : (update[0].$set.ivpn = '');
-  }
-
-  if (processingState) {
-    processingState !== 'empty'
-      ? (update[0].$set.processingState = processingState)
-      : (update[0].$set.processingState = '');
-  }
-
-  if (nbBefore) {
-    nbBefore !== 'empty'
-      ? (update[0].$set.nbBefore = nbBefore)
-      : (update[0].$set.nbBefore = 0);
-  }
-
-  if (nbAfter) {
-    nbAfter !== 'empty'
-      ? (update[0].$set.nbAfter = nbAfter)
-      : (update[0].$set.nbAfter = 0);
-  }
-
-  if (productivity) {
-    update[0].$set.productivity = productivity;
-  }
-
-  if (comment) {
-    comment !== 'empty'
-      ? (update[0].$set.comment = comment)
-      : (update[0].$set.comment = '');
-  }
-
-  if (session && !taskState) {
-    const sessionStart = Object.values(...session).at(
-      Object.keys(...session).indexOf('sessionStart')
-    );
-
-    const sessionStop = Object.values(...session).at(
-      Object.keys(...session).indexOf('sessionStop')
-    );
-
-    /* 
-      The $ operator can update the first array element that matches 
-      multiple query criteria specified with the $elemMatch operator.
-    */
-    if (new Date(sessionStart).getTime() < new Date(sessionStop).getTime()) {
-      update.push({
-        $set: {
-          'session.$.sessionStart': sessionStart,
-          'session.$.sessionStop': sessionStop,
-        },
-      });
-    }
+    //   update.map((item) => {
+    //     item.$set = {
+    //       'session.$.sessionStart': sessionStart,
+    //       'session.$.sessionStop': sessionStop,
+    //     };
+    //   });
+    // }
   }
 
   if (totalElapstedTime) {
@@ -242,8 +314,9 @@ const update = async (
     .findOneAndUpdate(filter, ...update, (erro, doc) => {
       if (erro) {
         console.log(erro);
+        return erro;
       }
-      console.log(doc);
+      // console.log(doc);
     });
   return { acknowledged: true };
 };
