@@ -2,7 +2,10 @@ import { useQuery } from '@apollo/client';
 import React, { useContext, useEffect } from 'react';
 import { Navigate, Route, Routes, useParams } from 'react-router-dom';
 import HistoryTable from './components/HistoryTable';
+import ManageTabContainer from './components/ManageTabContainer';
 import MyTaskTable from './components/MyTaskTable';
+import ManageTabTaskType from './components/ManageTabTaskType';
+import ManageTabUser from './components/ManageTabUser';
 import TaskOffList from './components/TaskOffList';
 import { AuthContext } from './context/authContext';
 import { TaskContext } from './context/taskContext';
@@ -128,11 +131,13 @@ export default function App() {
         </Route>
         <Route path='/submited' element={<SubmitedTask />} />
         <Route element={<AdminRoute />}>
-          <Route path='/manage' element={<Manage />} />
+          <Route path='/manage' element={<Manage />}>
+            <Route path=':manage_tab' element={<ManageTabContainer />} />
+            {/*<Route path='task_type' element={<ManageTabTaskType/>} />
+            <Route path='users' element={<ManageTabUser/>} />*/}
+          </Route>
         </Route>
       </Route>
     </Routes>
   );
 }
-
-

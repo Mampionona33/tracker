@@ -13,9 +13,9 @@ const FloatingButton = ({ icon, handleClickButton }) => {
   );
 };
 
-FloatingButton.propTypes = {
+/*FloatingButton.propTypes = {
   icon: PropTypes.string,
   handleClickButton: PropTypes.function,
-};
+};*/
 
 export default FloatingButton;

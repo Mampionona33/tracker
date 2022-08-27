@@ -109,10 +109,7 @@ const BtnPausePlaySwitch = () => {
 
   return (
     <div ref={refButton}>
-      <FloatingButton
-        icon={iconButton}
-        handleClickButton={(e) => handleClickButton(e)}
-      />
+      <FloatingButton icon={iconButton} handleClickButton={(e)=>handleClickButton(e)} />
     </div>
   );
 };
