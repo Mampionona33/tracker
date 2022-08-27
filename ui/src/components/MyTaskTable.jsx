@@ -75,7 +75,6 @@ const MyTaskTable = () => {
           >
             <FloatingButton
               icon={'play_arrow'}
-              // handleClickButton={(event) => onCLickPlayButton(event, data)}
             />
           </div>
         );
