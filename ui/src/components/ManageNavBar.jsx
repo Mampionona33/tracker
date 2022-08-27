@@ -8,13 +8,13 @@ const ManageNavBar = () => {
   const { manage_tab } = useParams();
 
   useEffect(() => {
-    navigate('task_type');
+    navigate('type_task');
   }, []);
 
   const tabComponents = [
     {
       label: 'TASK TYPE',
-      params: 'task_type',
+      params: 'type_task',
     },
     {
       label: 'USERS',

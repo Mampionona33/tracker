@@ -9,7 +9,7 @@ function ManageTabContainer() {
 
   return (
     <div>
-      {manage_tab === 'task_type' ? 
+      {manage_tab === 'type_task' ? 
       <ManageTabTaskType/> : 
       manage_tab === 'users' ? 
       <ManageTabUser/> :
