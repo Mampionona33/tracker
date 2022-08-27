@@ -11,7 +11,7 @@ export default function Sidebar(props) {
   const ComponentContext = useContext(componentContext);
 
 
-  // CLOSE ALL OVER MODAL
+  // CLOSE ALL OTHER MODALS
   useEffect(() => {
     ComponentContext.dialogCreateTask && ComponentContext.closeDialogCreateNewTask();
     ComponentContext.dialogEditHistory && ComponentContext.closeDialogEditHistory();

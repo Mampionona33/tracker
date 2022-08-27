@@ -1,4 +1,4 @@
-import React, { StrictMode } from 'react';
+import React, { StrictMode, Suspense} from 'react';
 import * as ReactDOM from 'react-dom/client';
 import App from './App';
 import { BrowserRouter } from 'react-router-dom';
@@ -14,29 +14,32 @@ const root = ReactDOM.createRoot(container);
 import { HistoryProvider } from './context/historyContext';
 import { TaskTypeProvider } from './context/taskTypeContext';
 import { SimulationProvider } from './context/simulationContext';
+import Loading from './components/Loading';
 
 root.render(
   <StrictMode>
-    <AuthProvider>
-      <ComponentProvider>
-        <SimulationProvider>
-          <HistoryProvider>
-            <TaskProvider>
-              <TaskTypeProvider>
-                <GoogleOAuthProvider
-                  clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-                >
-                  <ApolloProvider client={client}>
-                    <BrowserRouter>
-                      <App />
-                    </BrowserRouter>
-                  </ApolloProvider>
-                </GoogleOAuthProvider>
-              </TaskTypeProvider>
-            </TaskProvider>
-          </HistoryProvider>
-        </SimulationProvider>
-      </ComponentProvider>
-    </AuthProvider>
+    <Suspense fallback = {<Loading/>}>
+      <AuthProvider>
+        <ComponentProvider>
+          <SimulationProvider>
+            <HistoryProvider>
+              <TaskProvider>
+                <TaskTypeProvider>
+                  <GoogleOAuthProvider
+                    clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+                  >
+                    <ApolloProvider client={client}>
+                      <BrowserRouter>
+                        <App />
+                      </BrowserRouter>
+                    </ApolloProvider>
+                  </GoogleOAuthProvider>
+                </TaskTypeProvider>
+              </TaskProvider>
+            </HistoryProvider>
+          </SimulationProvider>
+        </ComponentProvider>
+      </AuthProvider>
+    </Suspense>
   </StrictMode>
 );

@@ -265,6 +265,8 @@ export default function HistoryTable() {
     return <Loading />;
   }
 
+  
+
   return (
     <div className='historyTable'>
       <TableWithPagination columns={columns} data={dataTable} />
