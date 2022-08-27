@@ -9,6 +9,8 @@ const Modale = () => {
     ComponentContext.closeSideBar();
     ComponentContext.closeDialogCreateNewTask();
     ComponentContext.closeDialogEditHistory();
+    ComponentContext.closeDialogConfirmSubmitTask();
+    ComponentContext.closeDialogEditProcessingTask();
   }
 
   return <div onClick={handleClickModale} className='modale'></div>;

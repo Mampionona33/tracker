@@ -1,16 +1,17 @@
 import { useQuery } from '@apollo/client';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState ,lazy} from 'react';
 import { AuthContext } from '../context/authContext';
 import { componentContext } from '../context/componentContext';
 import { GET_USER_TASK } from '../graphql/Query';
 import '../style/Processing.scss';
-import BtnEdit from './BtnEdit';
-import BtnPausePlaySwitch from './BtnPausePlaySwitch';
-import BtnSubmit from './BtnSubmit';
-import Clock from './Clock';
-import Loading from './Loading';
-import ProdProgressBar from './ProdProgressBar';
 import { useNavigate } from 'react-router-dom';
+
+const Loading = lazy(() => import('./Loading')) ;
+const BtnPausePlaySwitch = lazy(() => import('./BtnPausePlaySwitch')) ;
+const BtnEdit = lazy(() => import('./BtnEdit'));
+const Clock = lazy(() => import('./Clock'));
+const BtnSubmit = lazy(() => import('./BtnSubmit'));
+const ProdProgressBar = lazy(() => import('./ProdProgressBar')) ;
 
 export default function Processing() {
   const userContext = useContext(AuthContext);

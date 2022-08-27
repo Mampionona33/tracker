@@ -1,6 +1,7 @@
-import React, { useContext } from 'react';
+import React, { useContext ,lazy} from 'react';
 import { SimulationContext } from '../context/simulationContext';
-import ProgressBar from './ProgressBar';
+
+const ProgressBar = lazy(() => import('./ProgressBar')) ;
 
 const SimulationResult = () => {
   const simulationContext = useContext(SimulationContext);

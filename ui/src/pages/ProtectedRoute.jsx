@@ -2,9 +2,9 @@ import React, { useContext, useEffect,lazy } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
 import { AuthContext } from '../context/authContext';
 import { componentContext } from '../context/componentContext';
-import Navbar from './../components/Navbar';
 import { getUser } from '../graphql/user';
 
+const Navbar = lazy(() => import('./../components/Navbar')) ;
 const DialogConfirmSubmit = lazy(() => import('../components/DialogConfirmSubmit')) ;
 const Sidebar = lazy(() => import('../components/Sidebar')) ;
 const DialogNewTask =lazy(() => import('../components/DialogNewTask')) ;

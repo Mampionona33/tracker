@@ -1,10 +1,14 @@
 import { useQuery } from '@apollo/client';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState ,lazy} from 'react';
 import { AuthContext } from '../context/authContext';
 import { SimulationContext } from '../context/simulationContext';
 import { GET_USER_TASK } from '../graphql/Query';
 import '../style/SimulationMethode.scss';
-import Loading from './Loading';
+
+const Loading = lazy(() => import('./Loading')) ;
+
+
+
 const SimulationMethode = () => {
   const [currentTask, setCurrentTask] = useState([]);
   const simulationContext = useContext(SimulationContext);

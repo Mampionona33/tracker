@@ -15,6 +15,8 @@ export default function Sidebar(props) {
   useEffect(() => {
     ComponentContext.dialogCreateTask && ComponentContext.closeDialogCreateNewTask();
     ComponentContext.dialogEditHistory && ComponentContext.closeDialogEditHistory();
+    ComponentContext.dialogConfirmSubmit && ComponentContext.closeDialogConfirmSubmitTask();
+    ComponentContext.dialogEditProcessingTask && ComponentContext.closeDialogEditProcessingTask();
   },[])
 
   const handleClickItem = (event, target) => {

@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect,lazy } from 'react';
 import { Navigate, Route, Routes, useParams } from 'react-router-dom';
 import HistoryTable from './components/HistoryTable';
 import ManageTabContainer from './components/ManageTabContainer';
@@ -14,13 +14,13 @@ import { GET_ALL_TYPE_TASK } from './graphql/Query';
 import { getUserTask } from './graphql/tasks';
 import { createUser, getUser } from './graphql/user';
 import AdminRoute from './pages/AdminRoute';
-import Dashboard from './pages/Dashboard';
 import History from './pages/History';
 import Login from './pages/Login';
 import Manage from './pages/Manage';
 import MyTask from './pages/MyTask';
 import ProtectedRoute from './pages/ProtectedRoute';
-import SubmitedTask from './pages/SubmitedTask';
+import SubmitedTask from './pages/SubmitedTask' ;
+import Dashboard from './pages/Dashboard' ;
 
 export default function App() {
   const context = useContext(AuthContext);

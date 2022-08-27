@@ -150,14 +150,14 @@ const ComponentProvider = (props) => {
     dispatch({ type: ACTION.OPEN_DIALOG_EDIT_PROCESSING_TASK });
   };
   const closeDialogEditProcessingTask = () => {
-    dispatch({ type: ACTION.CLOSE_DIALOG_EDIT_PROCESSING_TASK });
+    state.dialogEditProcessingTask && dispatch({ type: ACTION.CLOSE_DIALOG_EDIT_PROCESSING_TASK });
   };
   const openDialogConfirmSubmitTask = () => {
     dispatch({ type: ACTION.OPEN_DIALOG_CONFIRM_SUBMIT_TASK });
   };
 
   const closeDialogConfirmSubmitTask = () => {
-    dispatch({ type: ACTION.CLOSE_DIALOG_CONFIRM_SUBMIT_TASK });
+    state.dialogConfirmSubmit &&  dispatch({ type: ACTION.CLOSE_DIALOG_CONFIRM_SUBMIT_TASK });
   };
 
   const closeDialogEditHistory = () => {

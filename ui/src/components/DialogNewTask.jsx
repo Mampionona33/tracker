@@ -35,7 +35,8 @@ const DialogNewTask = () => {
   useEffect(() => {
     ComponentContext.sideBar && ComponentContext.closeSideBar();
     ComponentContext.dialogEditHistory && ComponentContext.closeDialogEditHistory();
-
+    ComponentContext.dialogConfirmSubmit && ComponentContext.closeDialogConfirmSubmitTask();
+    ComponentContext.dialogEditProcessingTask && ComponentContext.closeDialogEditProcessingTask();
   },[])
 
   useEffect(() => {
