@@ -1,14 +1,15 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect,lazy } from 'react';
 import { Navigate, Outlet } from 'react-router-dom';
-import Sidebar from '../components/Sidebar';
 import { AuthContext } from '../context/authContext';
 import { componentContext } from '../context/componentContext';
 import Navbar from './../components/Navbar';
 import { getUser } from '../graphql/user';
-import DialogNewTask from '../components/DialogNewTask';
-import DialogEditProcessingTask from '../components/DialogEditProcessingTask';
-import DialogConfirmSubmit from '../components/DialogConfirmSubmit';
-import DialogEditHistory from '../components/DialogEditHistory';
+
+const DialogConfirmSubmit = lazy(() => import('../components/DialogConfirmSubmit')) ;
+const Sidebar = lazy(() => import('../components/Sidebar')) ;
+const DialogNewTask =lazy(() => import('../components/DialogNewTask')) ;
+const DialogEditProcessingTask = lazy(() => import('../components/DialogEditProcessingTask')) ;
+const DialogEditHistory = lazy(() => import('../components/DialogEditHistory'));
 
 export default function ProtectedRoute({ children }) {
   const context = useContext(AuthContext);
