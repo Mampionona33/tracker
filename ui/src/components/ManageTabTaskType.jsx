@@ -1,9 +1,10 @@
 import React from 'react';
+import ManageBtnCreateTaskType from './ManageBtnCreateTaskType'
 
 function ManageTabTaskType() {
   return (
     <div>
-      <p>place holder manage tab task type</p>
+      <ManageBtnCreateTaskType/>
     </div>
   );
 }
