@@ -1,5 +1,6 @@
 import React from 'react';
 import '../style/FloatingButton.scss';
+import PropTypes from 'prop-types';
 
 const FloatingButton = ({ icon, handleClickButton }) => {
   return (
@@ -10,6 +11,11 @@ const FloatingButton = ({ icon, handleClickButton }) => {
       {icon}
     </span>
   );
+};
+
+FloatingButton.propTypes = {
+  icon: PropTypes.string,
+  handleClickButton: PropTypes.function,
 };
 
 export default FloatingButton;

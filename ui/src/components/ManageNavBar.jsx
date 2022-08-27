@@ -1,5 +1,6 @@
 import React from 'react';
 import '../style/ManageNavBar.scss';
+import FloatingButton from './FloatingButton';
 
 const ManageNavBar = () => {
   return (
