@@ -30,6 +30,14 @@ const DialogNewTask = () => {
     { variables: { input: { sub: userSub } } }
   );
 
+
+  // CLOSE ALL OTHER MODALS
+  useEffect(() => {
+    ComponentContext.sideBar && ComponentContext.closeSideBar();
+    ComponentContext.dialogEditHistory && ComponentContext.closeDialogEditHistory();
+
+  },[])
+
   useEffect(() => {
     if (processingTask) {
       const curProTask = processingTask.getUserTask.filter(

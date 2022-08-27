@@ -2,14 +2,13 @@
   "name": "ui",
   "version": "1.0.0",
   "description": "task tracker",
-  "homepage" : "https://Mampionona33.github.io/tracker",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "predeploy": "webpack serve",
-    "deploy":"gh-pages -d public",
-    "dev": "webpack  serve"
+    "start": "webpack serve --open --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js"    
   },
+
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -38,13 +37,13 @@
     "babel-loader": "^8.2.5",
     "css-loader": "^6.7.1",
     "dotenv-webpack": "^7.1.0",
-    "gh-pages": "^4.0.0",
     "prop-types": "^15.8.1",
     "sass": "^1.52.3",
     "sass-loader": "^13.0.0",
     "style-loader": "^3.3.1",
     "webpack": "^5.73.0",
     "webpack-cli": "^4.10.0",
-    "webpack-dev-server": "^4.9.2"
+    "webpack-dev-server": "^4.9.2",
+    "webpack-merge": "^5.8.0"
   }
 }

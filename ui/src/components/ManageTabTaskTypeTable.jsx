@@ -23,7 +23,7 @@ const columns = [
 	{
 		Header: 'GOAL',
 		accessor : 'goal',
-	}
+	}	
 ]
 
 	return (

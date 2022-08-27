@@ -3,25 +3,18 @@ path = require('path');
 const Dotenv = require('dotenv-webpack');
 
 module.exports = {
-  mode: 'development',
   entry: { app: ['./src/index.jsx'] },
   output: {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'public'),
     publicPath: '/',
+    clean: true,
   },
   resolve: {
     extensions: ['.js', '.jsx'],
   },
-  plugins: [new Dotenv()],
-  devServer: {
-    historyApiFallback: true,
-    static: {
-      directory: path.join(__dirname, 'public'),
-    },
-    compress: true,
-    port: 8000,
-  },
+  plugins: [new Dotenv()],  
+  
   experiments: {
     topLevelAwait: true,
   },

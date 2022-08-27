@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext,useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/authContext';
 import '../style/Sidebar.scss';
@@ -9,6 +9,13 @@ export default function Sidebar(props) {
   const navigate = useNavigate();
   const context = useContext(AuthContext);
   const ComponentContext = useContext(componentContext);
+
+
+  // CLOSE ALL OVER MODAL
+  useEffect(() => {
+    ComponentContext.dialogCreateTask && ComponentContext.closeDialogCreateNewTask();
+    ComponentContext.dialogEditHistory && ComponentContext.closeDialogEditHistory();
+  },[])
 
   const handleClickItem = (event, target) => {
     event.preventDefault();

@@ -1,7 +1,7 @@
 import React, { createContext, useReducer } from 'react';
 
 const initialState = {
-  sideBar: true,
+  sideBar: false,
   dialogCreateTask: false,
   dialogConfirmSubmit: false,
   dialogEditProcessingTask: false,
@@ -11,6 +11,10 @@ const initialState = {
 const ACTION = {
   TOGGLE_SIDE_BAR: 'toggle-side-bar',
   TOGGLE_DIALOG_CREATE_TASK: 'toogle-dialog-create-task',
+  OPEN_SIDE_BAR : 'open-side-bar',
+  CLOSE_SIDE_BAR: 'close-side-bar',
+  OPEN_DIALOG_CREAT_NEW_TASK:'open-dialog-create-new-task',
+  CLOSE_DIALOG_CREAT_NEW_TASK:'close-dialog-create-new-task',
   OPEN_DIALOG_EDIT_PROCESSING_TASK: 'open-dialog-processing-task',
   CLOSE_DIALOG_EDIT_PROCESSING_TASK: 'close-dialog-processing-task',
   OPEN_DIALOG_CONFIRM_SUBMIT_TASK: 'open-dialog-confirm-submit-task',
@@ -40,6 +44,34 @@ const componentReducer = (state, action) => {
         ...state,
         state: (state.dialogEditProcessingTask = true),
       };
+    }
+
+    case ACTION.OPEN_DIALOG_CREAT_NEW_TASK: {
+      return {
+        ...state,
+        state: (state.dialogCreateTask = true),
+      };
+    }
+
+    case ACTION.CLOSE_DIALOG_CREAT_NEW_TASK: {
+      return {
+        ...state,
+        state: (state.dialogCreateTask = false),
+      };
+    }
+
+    case ACTION.OPEN_SIDE_BAR:{
+      return{
+        ...state,
+        state: (state.sideBar = false),
+      }
+    }
+
+    case ACTION.CLOSE_SIDE_BAR:{
+      return{
+        ...state,
+        state: (state.sideBar = false),
+      }
     }
 
     case ACTION.CLOSE_DIALOG_EDIT_PROCESSING_TASK: {
@@ -87,6 +119,10 @@ const componentContext = createContext({
   dialogConfirmSubmit: false,
   dialogEditHistory: false,
   toggleSideBar: () => {},
+  openSideBar : () => {},
+  closeSideBar : () => {},
+  closeDialogCreateNewTask : () => {},
+  openDialogCreateNewTask : () => {},
   toggleDialogCreateNewTask: () => {},
   openDialogEditProcessingTask: () => {},
   closeDialogEditProcessingTask: () => {},
@@ -125,15 +161,33 @@ const ComponentProvider = (props) => {
   };
 
   const closeDialogEditHistory = () => {
-    dispatch({ type: ACTION.CLOSE_DIALOG_EDIT_HISTORY });
+    state.dialogEditHistory && dispatch({ type: ACTION.CLOSE_DIALOG_EDIT_HISTORY });
   };
   const openDialogEditHistory = () => {
     dispatch({ type: ACTION.OPEN_DIALOG_EDIT_HISTORY });
   };
+
+  const closeSideBar = () => {
+    state.sideBar && dispatch({type : ACTION.CLOSE_SIDE_BAR});
+  };
+
+  const openSideBar = () => {
+    !state.sideBar &&  dispatch({type : ACTION.OPEN_SIDE_BAR});
+  };
+
+  const closeDialogCreateNewTask = () => {
+    state.dialogCreateTask && dispatch({type : ACTION.CLOSE_DIALOG_CREAT_NEW_TASK});
+  };
+
+  const openDialogCreateNewTask = () => {
+    !state.dialogCreateTask && dispatch({type : ACTION.OPEN_DIALOG_CREAT_NEW_TASK});
+  };
+
+
   return (
     <componentContext.Provider
       value={{
-        sideBar: state.sidebar,
+        sideBar: state.sideBar,
         dialogCreateTask: state.dialogCreateTask,
         dialogEditProcessingTask: state.dialogEditProcessingTask,
         dialogConfirmSubmit: state.dialogConfirmSubmit,
@@ -142,6 +196,10 @@ const ComponentProvider = (props) => {
         closeDialogEditHistory,
         toggleDialogCreateNewTask,
         toggleSideBar,
+        closeSideBar,
+        openSideBar,
+        closeDialogCreateNewTask,
+        openDialogCreateNewTask,
         openDialogEditProcessingTask,
         closeDialogEditProcessingTask,
         openDialogConfirmSubmitTask,
