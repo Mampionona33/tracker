@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "task tracker",
   "main": "server.js",
+  "engines":{
+    "node" : "v17.3.0",
+    "npm":"8.3.0",
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "webpack serve --open --config webpack.dev.js",
