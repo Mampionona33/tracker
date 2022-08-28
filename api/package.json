@@ -6,6 +6,7 @@
   "node": "16.12.0",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "start":"node ./src/server.js",
     "server": "nodemon -w ./src -e js,graphql -w .env ./src/server.js"
   },
   "keywords": [],
