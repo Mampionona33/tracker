@@ -20,27 +20,29 @@ import Loading from './components/Loading';
 root.render(
   <StrictMode>
     <Suspense fallback = {<Loading/>}>
-      <AuthProvider>
         <ComponentProvider>
           <SimulationProvider>
             <HistoryProvider>
               <TaskProvider>
                 <TaskTypeProvider>
-                  <GoogleOAuthProvider
-                    clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-                  >
                     <ApolloProvider client={client}>
                       <BrowserRouter>
-                        <App />
+                        <AuthProvider>
+                          <GoogleOAuthProvider
+                            clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
+                            onScriptLoadSuccess = {(message) => console.log(message)}
+                            onScriptLoadError = {(error) => console.log(error)}
+                          >
+                            <App />
+                          </GoogleOAuthProvider>
+                        </AuthProvider>
                       </BrowserRouter>
                     </ApolloProvider>
-                  </GoogleOAuthProvider>
                 </TaskTypeProvider>
               </TaskProvider>
             </HistoryProvider>
           </SimulationProvider>
         </ComponentProvider>
-      </AuthProvider>
     </Suspense>
   </StrictMode>
 );
