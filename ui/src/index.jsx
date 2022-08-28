@@ -16,6 +16,7 @@ import { TaskTypeProvider } from './context/taskTypeContext';
 import { SimulationProvider } from './context/simulationContext';
 import Loading from './components/Loading';
 
+
 root.render(
   <StrictMode>
     <Suspense fallback = {<Loading/>}>

@@ -26,7 +26,7 @@ export default function Login(props) {
     <div className='login'>
       <div className='login__container'>
         <h3 className='login__title'>Welcom to Mampionona Task Tracker</h3>
-        <GoogleLogin client_id={process.env.REACT_APP_GOOGLE_CLIENT_ID} onSuccess={(res) => handleOnSucces(res)} />
+        <GoogleLogin onSuccess={(res) => handleOnSucces(res)}  />
       </div>
     </div>
   );
