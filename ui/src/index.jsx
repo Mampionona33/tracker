@@ -30,8 +30,8 @@ root.render(
                         <AuthProvider>
                           <GoogleOAuthProvider
                             clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-                            onScriptLoadSuccess = {(message) => console.log(message)}
-                            onScriptLoadError = {(error) => console.log(error)}
+                            onScriptLoadSuccess = {(message) => {console.log('GoogleOAuthProvider load success')}}
+                            onScriptLoadError = {()=>console.log('error on load script GoogleOAuthProvider')}
                           >
                             <App />
                           </GoogleOAuthProvider>
