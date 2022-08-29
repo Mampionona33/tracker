@@ -8,7 +8,6 @@ import { GET_USER_TASK } from '../graphql/Query';
 import {
   setCurrentTaskPauseToOff,
   setCurrentTaskPlayToOff,
-  setTaskStateOff,
 } from '../graphql/tasks';
 import BtnMyTask from './BtnMyTask';
 export default function Navbar(props) {
@@ -38,7 +37,6 @@ export default function Navbar(props) {
     }
   );
 
-  
   useEffect(() => {
     if (allUserTask && allUserTask.getUserTask) {
       const currentTask = Array.from(allUserTask.getUserTask).filter(
@@ -86,7 +84,7 @@ export default function Navbar(props) {
 
   const handleClickCreateNewTask = (event) => {
     event.preventDefault();
-    ComponentContext.toggleDialogCreateNewTask();  
+    ComponentContext.toggleDialogCreateNewTask();
   };
 
   return (

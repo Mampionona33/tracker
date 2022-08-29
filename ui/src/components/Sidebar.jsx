@@ -1,23 +1,26 @@
-import React, { useContext,useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/authContext';
 import '../style/Sidebar.scss';
 import Modale from './Modale';
-import {componentContext} from '../context/componentContext';
+import { componentContext } from '../context/componentContext';
 
 export default function Sidebar(props) {
   const navigate = useNavigate();
   const context = useContext(AuthContext);
   const ComponentContext = useContext(componentContext);
 
-
   // CLOSE ALL OTHER MODALS
   useEffect(() => {
-    ComponentContext.dialogCreateTask && ComponentContext.closeDialogCreateNewTask();
-    ComponentContext.dialogEditHistory && ComponentContext.closeDialogEditHistory();
-    ComponentContext.dialogConfirmSubmit && ComponentContext.closeDialogConfirmSubmitTask();
-    ComponentContext.dialogEditProcessingTask && ComponentContext.closeDialogEditProcessingTask();
-  },[])
+    ComponentContext.dialogCreateTask &&
+      ComponentContext.closeDialogCreateNewTask();
+    ComponentContext.dialogEditHistory &&
+      ComponentContext.closeDialogEditHistory();
+    ComponentContext.dialogConfirmSubmit &&
+      ComponentContext.closeDialogConfirmSubmitTask();
+    ComponentContext.dialogEditProcessingTask &&
+      ComponentContext.closeDialogEditProcessingTask();
+  }, []);
 
   const handleClickItem = (event, target) => {
     event.preventDefault();
@@ -59,8 +62,9 @@ export default function Sidebar(props) {
         </div>
 
         {context.userRole === 'admin' && (
-          <div className='sidebar__element'
-          onClick={(ev) => handleClickItem(ev, '/manage/type_task')}
+          <div
+            className='sidebar__element'
+            onClick={(ev) => handleClickItem(ev, '/manage/type_task')}
           >
             <span className='material-icons-round'>admin_panel_settings</span>
             <Link className='sidebar__element__link' to={'/manage/type_task'}>

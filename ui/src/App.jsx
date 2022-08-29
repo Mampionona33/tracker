@@ -95,6 +95,8 @@ export default function App() {
     );
   }
 
+  console.log(currentUser);
+
   return (
     <Routes>
       <Route
