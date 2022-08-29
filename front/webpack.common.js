@@ -18,11 +18,13 @@ module.exports = {
   plugins: [
     new Dotenv(),
     new HtmlWebpackPlugin({
+      favicon: './src/img/favicon.ico',
       inject: false,
       templateContent: ({ htmlWebpackPlugin }) => `
       <!DOCTYPE html>    
         <html lang="en">
             <head>
+                <link href="{%=o.htmlWebpackPlugin.files.favicon%}" rel="shortcut icon">
                 <meta charset="UTF-8" />
                 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
                 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
