@@ -12,7 +12,8 @@ import {
 import BtnMyTask from './BtnMyTask';
 export default function Navbar(props) {
   const context = useContext(AuthContext);
-  const ComponentContext = useContext(componentContext);
+  const { openDialogCreateNewTask, sideBar, dialogCreateTask } =
+    useContext(componentContext);
   const [processingTask, setProcessingTask] = useState({});
 
   const [
@@ -51,9 +52,11 @@ export default function Navbar(props) {
   const handleClickMenu = (event) => {
     event.preventDefault();
     ComponentContext.toggleSideBar();
+    console.log(event);
   };
 
   const handleClickLogout = async (event) => {
+    console.log(event);
     event.preventDefault();
 
     if (Object.keys(processingTask).length > 0) {
@@ -84,7 +87,10 @@ export default function Navbar(props) {
 
   const handleClickCreateNewTask = (event) => {
     event.preventDefault();
-    ComponentContext.toggleDialogCreateNewTask();
+    console.log(event);
+    console.log('this is the dialogCreateTask context', dialogCreateTask);
+    !dialogCreateTask && openDialogCreateNewTask();
+    console.log('this is the dialogCreateTask context', dialogCreateTask);
   };
 
   return (
@@ -94,7 +100,7 @@ export default function Navbar(props) {
           onClick={(ev) => handleClickMenu(ev)}
           className='navbar__menu__button'
         >
-          {!ComponentContext.sideBar ? (
+          {!sideBar ? (
             <span className='material-icons-round'>menu</span>
           ) : (
             <span className='material-icons-round'>close</span>

@@ -2,6 +2,7 @@
   "name": "ui",
   "version": "1.0.0",
   "description": "task tracker",
+  "homepage": ".",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -11,7 +12,7 @@
   },
   "icons": {
     "src": "favicon.ico",
-    "size":"64x64 32x32 24x24 16x16",
+    "size": "64x64 32x32 24x24 16x16",
     "type": "image/x-icon"
   },
   "keywords": [],
