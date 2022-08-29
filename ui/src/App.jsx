@@ -1,5 +1,5 @@
 import { useQuery } from '@apollo/client';
-import React, { useContext, useEffect,lazy } from 'react';
+import React, { useContext, useEffect, lazy } from 'react';
 import { Navigate, Route, Routes, useParams } from 'react-router-dom';
 import HistoryTable from './components/HistoryTable';
 import ManageTabContainer from './components/ManageTabContainer';
@@ -19,8 +19,8 @@ import Login from './pages/Login';
 import Manage from './pages/Manage';
 import MyTask from './pages/MyTask';
 import ProtectedRoute from './pages/ProtectedRoute';
-import SubmitedTask from './pages/SubmitedTask' ;
-import Dashboard from './pages/Dashboard' ;
+import SubmitedTask from './pages/SubmitedTask';
+import Dashboard from './pages/Dashboard';
 
 export default function App() {
   const context = useContext(AuthContext);
@@ -99,6 +99,12 @@ export default function App() {
     <Routes>
       <Route
         path='/login'
+        element={
+          !context.user ? <Login /> : <Navigate to={'/dashboard'} replace />
+        }
+      />
+      <Route
+        path='/'
         element={
           !context.user ? <Login /> : <Navigate to={'/dashboard'} replace />
         }
