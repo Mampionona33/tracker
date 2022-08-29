@@ -4,7 +4,9 @@
   padding: 0 !important;
   &-body {
     display: flex;
+    background-color: #fff;
     flex-direction: column;
+    border-radius: 0.3rem;
     gap: 1rem;
   }
 }
@@ -12,6 +14,7 @@
 table {
   border-collapse: collapse;
   border-spacing: 1rem;
+  border-radius: 0.3rem;
 }
 
 table th {
@@ -20,25 +23,28 @@ table th {
 }
 
 table th:first-child {
-  border-radius: 0.2rem 0 0 0;
+  border-radius: 0.3rem 0 0 0;
 }
 
 table th:last-child {
-  border-radius: 0 0.2rem 0 0;
+  border-radius: 0 0.3rem 0 0;
 }
 
 table tbody tr td:last-child {
-  border-radius: 0 0 0.2rem 0.2rem;
+  border-radius: 0 0 0.3rem 0.2rem;
 }
 
 tbody tr td {
-  padding: 0.2rem 1rem;
+  padding: 0.3rem 1rem;
 }
 
 .pagination {
+  margin: 0.3rem 0;
+  background-color: #fff;
   padding: 0.2rem 1rem !important;
   display: flex;
   justify-content: space-evenly;
+  border-radius: 0.3rem;
 }
 
 .directNav {

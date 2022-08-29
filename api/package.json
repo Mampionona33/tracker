@@ -9,7 +9,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "server": "nodemon -w ./src -e js,graphql -w .env index.js"
+    "server": "nodemon -w . -e js,graphql -w .env index.js"
   },
   "keywords": [],
   "author": "",

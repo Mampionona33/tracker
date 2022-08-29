@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const path = require('path');
-const {createProxyMiddleware} = require('http-proxy-middleware');
+const { createProxyMiddleware } = require('http-proxy-middleware');
 
 const UI_API_ENDPOINT =
   process.env.UI_API_ENDPOINT || 'http://localhost:3000/graphql';
@@ -14,6 +14,8 @@ if (apiProxyTarget) {
     createProxyMiddleware({ target: apiProxyTarget, changeOrigin: true })
   );
 }
+
+// console.log(apiProxyTarget);
 
 app.get('/env.js', (req, res) => {
   res.send(`window.ENV = ${JSON.stringify(env)}`);

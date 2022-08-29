@@ -2,7 +2,7 @@ import React from 'react';
 import { useTable, usePagination } from 'react-table';
 import '../style/TableWithPagination.scss';
 import Pagination from './Pagination';
-import styled from 'styled-components'
+import styled from 'styled-components';
 
 function TableWithPagination({ columns, data }) {
   const {
@@ -31,13 +31,9 @@ function TableWithPagination({ columns, data }) {
     usePagination
   );
 
-  const Card = styled.div`
-    backgroundColor : white;
-  `
-
   return (
     <>
-      <Card className='card'>
+      <div className='card'>
         <div className='card-body'>
           <table className='table table-light' {...getTableProps()}>
             <thead>
@@ -77,7 +73,7 @@ function TableWithPagination({ columns, data }) {
             )}
           </table>
         </div>
-      </Card>
+      </div>
       <Pagination
         canPreviousPage={canPreviousPage}
         canNextPage={canNextPage}

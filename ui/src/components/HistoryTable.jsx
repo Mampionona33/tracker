@@ -14,7 +14,6 @@ import { GET_TASK_BY_DATE, GET_USER_TASK } from '../graphql/Query';
 import Loading from './Loading';
 import TableWithPagination from './TableWithPagination';
 
-
 export default function HistoryTable() {
   const userContext = useContext(AuthContext);
   const historyContext = useContext(HistoryContext);
@@ -265,8 +264,6 @@ export default function HistoryTable() {
   if (loadingUserTask) {
     return <Loading />;
   }
-
-  
 
   return (
     <div className='historyTable'>

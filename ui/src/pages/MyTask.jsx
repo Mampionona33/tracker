@@ -10,7 +10,7 @@ const MyTask = () => {
       : navigate('row_show=3', { replace: true });
   }, [row_show]);
   return (
-    <div style={{ display: 'flex', justifyContent: 'center' }}>
+    <div style={{ display: 'flex', justifyContent: 'center', padding: '1rem' }}>
       <Outlet />
     </div>
   );
