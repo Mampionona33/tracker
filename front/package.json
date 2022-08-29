@@ -4,7 +4,10 @@
   "description": "ui for tracking outsourcer task",
   "main": "index.js",
   "scripts": {
-    "test": "test"
+    "test": "test",
+    "dev": "webpack serve --open --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js",
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -19,10 +22,18 @@
     "url": "https://github.com/Mampionona33/tracker/issues"
   },
   "homepage": "https://github.com/Mampionona33/tracker#readme",
-  "dependencies": {
-    "express": "^4.18.1"
-  },
   "devDependencies": {
-    "http-proxy-middleware": "^2.0.6"
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "css-loader": "^6.7.1",
+    "dotenv-webpack": "^8.0.1",
+    "express": "^4.18.1",
+    "html-webpack-plugin": "^5.5.0",
+    "http-proxy-middleware": "^2.0.6",
+    "style-loader": "^3.3.1",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-middleware": "^5.3.3",
+    "webpack-dev-server": "^4.10.1",
+    "webpack-merge": "^5.8.0"
   }
 }
