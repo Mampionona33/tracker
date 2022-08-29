@@ -1,0 +1,22 @@
+{
+  "name": "mampionona-task-tracker",
+  "version": "1.0.0",
+  "description": "ui for tracking outsourcer task",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Mampionona33/tracker.git"
+  },
+  "keywords": [
+    "mampi4806"
+  ],
+  "author": "RAMAHAZOMANANA Tsanta Mampionona",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Mampionona33/tracker/issues"
+  },
+  "homepage": "https://github.com/Mampionona33/tracker#readme"
+}
