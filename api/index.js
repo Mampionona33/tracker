@@ -1,8 +1,8 @@
 const { Console } = require('console');
 const express = require('express');
-const { installHandler } = require('./apiHandler');
+const { installHandler } = require('./src/apiHandler');
 require('dotenv').config();
-const { connectToDb } = require('./db');
+const { connectToDb } = require('./src/db');
 
 const app = express();
 installHandler(app);
