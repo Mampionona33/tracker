@@ -15,7 +15,7 @@ if (apiProxyTarget) {
   );
 }
 
-// console.log(apiProxyTarget);
+console.log(apiProxyTarget);
 
 app.get('/env.js', (req, res) => {
   res.send(`window.ENV = ${JSON.stringify(env)}`);
