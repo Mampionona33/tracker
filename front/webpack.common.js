@@ -15,6 +15,8 @@ module.exports = {
     extensions: ['.js', '.jsx'],
   },
 
+  target: ['web', 'es5'],
+
   plugins: [
     new Dotenv(),
     new HtmlWebpackPlugin({
