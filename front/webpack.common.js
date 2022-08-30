@@ -8,7 +8,6 @@ module.exports = {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'public'),
     publicPath: '/',
-    clean: true,
   },
 
   resolve: {
@@ -32,6 +31,16 @@ module.exports = {
         test: /\.css$/i,
         use: ['style-loader', 'css-loader'],
       },
+
+      {
+        test: /\.(png|jpe?g|gif|ico)$/i,
+        loader: 'file-loader',
+        options: {
+          name: '[path][name].[ext]',
+          publicPath: 'public',
+        },
+      },
+
       {
         test: /\.(js|jsx)$/,
         exclude: /(node_modules|bower_components)/,
