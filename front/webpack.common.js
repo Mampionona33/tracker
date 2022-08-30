@@ -8,6 +8,7 @@ module.exports = {
     filename: '[name].bundle.js',
     path: path.resolve(__dirname, 'public'),
     publicPath: '/',
+    clean: true,
   },
 
   resolve: {
