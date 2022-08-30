@@ -1,9 +1,10 @@
 import React from 'react';
+import Login from './Pages/Login';
 
 const App = () => {
   return (
     <div>
-      <p>Welcom to mampionona task tracker rere </p>
+      <Login />
     </div>
   );
 };
