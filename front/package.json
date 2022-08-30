@@ -5,7 +5,7 @@
   "main": "index.js",
   "preinstall": "npx npm-force-resolutions",
   "scripts": {
-    "test": "test",
+    "test": "jest",
     "dev": "webpack serve --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
     "start": "node index.js"
