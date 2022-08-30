@@ -1,0 +1,54 @@
+path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const Dotenv = require('dotenv-webpack');
+
+module.exports = {
+  entry: { app: ['./src/index.jsx'] },
+  output: {
+    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, 'public'),
+    publicPath: '/',
+    clean: true,
+  },
+
+  resolve: {
+    extensions: ['.js', '.jsx'],
+  },
+
+  plugins: [
+    new Dotenv(),
+    new HtmlWebpackPlugin({
+      favicon: './src/img/favicon.ico',
+      title: 'Mampionona Task Tracker',
+      template: './src/index.html',
+    }),
+  ],
+
+  module: {
+    rules: [
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.m?js$/,
+        exclude: /(node_modules|bower_components)/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env'],
+              plugins: ['@babel/plugin-transform-runtime'],
+            },
+          },
+        ],
+      },
+    ],
+  },
+  optimization: {
+    splitChunks: {
+      name: 'vendor',
+      chunks: 'all',
+    },
+  },
+};
