@@ -1,7 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import Login from './Login';
-import { GoogleOAuthProvider } from '@react-oauth/google';
+import { GoogleLogin, GoogleOAuthProvider } from '@react-oauth/google';
+import { expect } from '@jest/globals';
 
 test('should render greeting', () => {
   render(
@@ -15,10 +16,9 @@ test('should render greeting', () => {
 
 test('should render GoogleLoggin button', () => {
   render(
-    <GoogleOAuthProvider>
-      <Login />
+    <GoogleOAuthProvider clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}>
+      <GoogleLogin onSuccess={() => null} />
     </GoogleOAuthProvider>
   );
-  const logginBtn = screen.queryAllByTestId('google-loggin-btn');
-  expect(logginBtn).toBeInTheDocument();
+  const googleBtn = screen.getByTestId('google-loggin-btn');
 });
