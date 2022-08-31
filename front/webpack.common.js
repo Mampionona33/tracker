@@ -49,23 +49,7 @@ module.exports = {
           {
             loader: 'babel-loader',
             options: {
-              presets: [
-                [
-                  '@babel/preset-react',
-                  {
-                    useBuiltIns: 'usage',
-                    corejs: '3',
-                    targets: {
-                      ie: '11',
-                      edge: '15',
-                      safari: '10',
-                      firefox: '50',
-                      chrome: '49',
-                    },
-                  },
-                ],
-                '@babel/preset-env',
-              ],
+              presets: ['@babel/preset-react', '@babel/preset-env'],
             },
           },
         ],

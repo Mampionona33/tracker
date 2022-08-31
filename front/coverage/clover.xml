@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1661946765571" clover="3.2.0">
-  <project timestamp="1661946765571" name="All files">
+<coverage generated="1661952804105" clover="3.2.0">
+  <project timestamp="1661952804105" name="All files">
     <metrics statements="6" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1" elements="8" coveredelements="6" complexity="0" loc="6" ncloc="6" packages="1" files="2" classes="2"/>
     <file name="Login.jsx" path="C:\Users\user\tracker\front\src\Pages\Login.jsx">
       <metrics statements="4" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
