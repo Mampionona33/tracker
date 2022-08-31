@@ -1,6 +1,6 @@
+import { GoogleLogin } from '@react-oauth/google';
 import React from 'react';
-import { LoginContainer, LoginPage } from './styles/Login.style';
-import GoogleButton from 'react-google-button'
+import { LoginContainer, LoginPage } from './Login.style';
 
 const Login = () => {
   const responsGoogle = (respons) => {
@@ -11,7 +11,7 @@ const Login = () => {
     <LoginPage>
       <LoginContainer>
         <h3>Welcome to mampionona task tracker</h3>
-        <GoogleButton/>
+        <GoogleLogin />
       </LoginContainer>
     </LoginPage>
   );
