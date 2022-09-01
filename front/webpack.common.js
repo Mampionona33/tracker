@@ -15,6 +15,7 @@ module.exports = {
     extensions: ['.js', '.jsx'],
   },
 
+  
   target: ['web', 'es5'],
 
   plugins: [

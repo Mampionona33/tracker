@@ -1,17 +1,20 @@
 import { GoogleLogin } from '@react-oauth/google';
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthConext } from '../../context/authContext';
 import { LoginContainer, LoginPage } from './Login.style';
 
 const Login = () => {
-  const loggin = (credentialResponse) => {
-    console.log(credentialResponse);
+  const { login } = useContext(AuthConext);
+
+  const logToApp = (response) => {
+    login(response.credential);
   };
 
   return (
     <LoginPage>
       <LoginContainer>
         <h3>Welcome to mampionona task tracker</h3>
-        <GoogleLogin data-testid='google-loggin-btn' onSuccess={loggin} />
+        <GoogleLogin data-testid='google-loggin-btn' onSuccess={logToApp} />
       </LoginContainer>
     </LoginPage>
   );

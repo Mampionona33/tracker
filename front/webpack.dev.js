@@ -9,8 +9,8 @@ module.exports = merge(common, {
     static: {
       directory: path.join(__dirname, 'public'),
     },
+    historyApiFallback: true,
     hot: true,
-    compress: true,
     port: 8000,
     open: false,
   },
