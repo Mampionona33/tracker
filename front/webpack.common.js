@@ -9,13 +9,13 @@ module.exports = {
     path: path.resolve(__dirname, 'public'),
     publicPath: '/',
     clean: true,
+    crossOriginLoading: 'use-credentials',
   },
 
   resolve: {
     extensions: ['.js', '.jsx'],
   },
 
-  
   target: ['web', 'es5'],
 
   plugins: [
