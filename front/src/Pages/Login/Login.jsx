@@ -14,7 +14,7 @@ const Login = () => {
     <LoginPage>
       <LoginContainer>
         <h3>Welcome to mampionona task tracker</h3>
-        <GoogleLogin data-testid='google-loggin-btn' onSuccess={logToApp} />
+        <GoogleLogin onSuccess={logToApp} />
       </LoginContainer>
     </LoginPage>
   );

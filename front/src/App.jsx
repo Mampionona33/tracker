@@ -11,7 +11,7 @@ const App = () => {
   return (
     <Routes>
       <Route
-        path='/login'
+        path='/'
         element={!user ? <Login /> : <Navigate to={'/dashboard'} />}
       />
 
