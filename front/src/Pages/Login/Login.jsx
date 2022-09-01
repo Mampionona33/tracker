@@ -14,7 +14,12 @@ const Login = () => {
     <LoginPage>
       <LoginContainer>
         <h3>Welcome to mampionona task tracker</h3>
-        <GoogleLogin onSuccess={logToApp} />
+        <GoogleLogin
+          onSuccess={logToApp}
+          onError={(message) => {
+            console.log(message);
+          }}
+        />
       </LoginContainer>
     </LoginPage>
   );
