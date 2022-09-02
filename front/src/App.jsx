@@ -7,7 +7,6 @@ import Dashboard from './Pages/Dashboard/Dashboard';
 
 const App = () => {
   const { user } = useContext(AuthConext);
-  console.log(user);
 
   return (
     <Routes>

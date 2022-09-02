@@ -10,8 +10,6 @@ const Login = () => {
     login(response.credential);
   };
 
-  console.log('from login', process.env.REACT_APP_GOOGLE_CLIENT_ID);
-
   return (
     <LoginPage>
       <LoginContainer>

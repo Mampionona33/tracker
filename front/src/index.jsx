@@ -14,10 +14,7 @@ root.render(
   <StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <GoogleOAuthProvider
-          clientId={clientId}
-          onScriptLoadSuccess={() => console.log('clientid :', clientId)}
-        >
+        <GoogleOAuthProvider clientId={clientId}>
           <App />
         </GoogleOAuthProvider>
       </AuthProvider>

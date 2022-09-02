@@ -22,7 +22,7 @@ app.get('/env.js', (req, res) => {
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-const port = process.env.PORT;
+const port = process.env.PORT || 8000;
 
 app.listen(port, () => {
   console.log(`server start on Port ${port}`);
