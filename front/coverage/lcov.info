@@ -1,5 +1,18 @@
 TN:
-SF:src\Pages\Login\Login.jsx
+SF:src/Components/NavBar/NavBar.jsx
+FN:3,(anonymous_0)
+FNF:1
+FNH:1
+FNDA:4,(anonymous_0)
+DA:3,1
+DA:4,4
+LF:2
+LH:2
+BRF:0
+BRH:0
+end_of_record
+TN:
+SF:src/Pages/Login/Login.jsx
 FN:7,(anonymous_0)
 FN:10,(anonymous_1)
 FN:21,(anonymous_2)
@@ -22,7 +35,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:src\Pages\Login\Login.style.js
+SF:src/Pages/Login/Login.style.js
 FNF:0
 FNH:0
 DA:3,1
@@ -33,7 +46,7 @@ BRF:0
 BRH:0
 end_of_record
 TN:
-SF:src\context\authContext.js
+SF:src/context/authContext.js
 FN:27,(anonymous_0)
 FN:28,(anonymous_1)
 FN:32,(anonymous_2)

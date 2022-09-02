@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import React, { useContext, useEffect } from 'react';
+import React from 'react';
 import Login from './Login';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { expect } from '@jest/globals';

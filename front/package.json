@@ -4,7 +4,7 @@
   "description": "ui for tracking outsourcer task",
   "main": "index.js",
   "scripts": {
-    "test": "jest --watchAll --config=jest.config.json",
+    "test": "jest --watchAll --config=jestconfig.json",
     "dev": "webpack serve --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
     "start": "node index.js"
