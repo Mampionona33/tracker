@@ -9,7 +9,7 @@ const Login = () => {
   const navigate = useNavigate();
   const logToApp = (response) => {
     login(response.credential);
-    navigate('/dashboard');
+    navigate('/dashboard', { replace: true });
   };
 
   return (

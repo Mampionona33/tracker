@@ -13,10 +13,20 @@ const App = () => {
       <Route
         path='/*'
         element={
-          !user ? <Navigate to={'/login'} /> : <Navigate to={'/dashboard'} />
+          !user ? (
+            <Navigate to={'/login'} />
+          ) : (
+            <Navigate to={'/dashboard'} replace={true} />
+          )
         }
       />
-      <Route path='/login' element={<Login />} />
+
+      <Route
+        path='/login'
+        element={
+          !user ? <Login /> : <Navigate to={'/dashboard'} replace={true} />
+        }
+      />
 
       <Route element={<ProtectedRoute />}>
         <Route path='/dashboard' element={<Dashboard />} />
