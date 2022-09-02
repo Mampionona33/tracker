@@ -4,7 +4,6 @@ import Login from './Login';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { expect } from '@jest/globals';
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom';
-import { AuthConext } from '../../context/authContext';
 
 test('should render greeting', () => {
   render(
