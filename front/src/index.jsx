@@ -16,7 +16,7 @@ root.render(
       <AuthProvider>
         <GoogleOAuthProvider
           clientId={clientId}
-          onScriptLoadSuccess={() => console.log(clientId)}
+          onScriptLoadSuccess={() => console.log('clientid :', clientId)}
         >
           <App />
         </GoogleOAuthProvider>
