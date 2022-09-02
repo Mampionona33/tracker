@@ -1,3 +1,8 @@
 {
-  "builds": [{ "src": "*.html", "use": "@vercel/public" }]
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
 }
