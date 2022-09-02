@@ -21,6 +21,8 @@ const App = () => {
         }
       />
 
+      <Route path='*' element={'/index.html'} />
+
       <Route
         path='/login'
         element={
