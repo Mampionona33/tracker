@@ -10,7 +10,6 @@ if (localStorage.getItem('token')) {
   // if there is token in local storage.
   // Decode it with jwDecode
   const decodeToken = jwtDecode(localStorage.getItem('token'));
-  console.log(localStorage.getItem('token'));
   const sub = decodeToken.sub;
 
   // if there is token,
