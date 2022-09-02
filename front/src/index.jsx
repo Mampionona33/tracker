@@ -15,7 +15,9 @@ root.render(
     <BrowserRouter>
       <AuthProvider>
         <GoogleOAuthProvider
-          clientId={clientId}
+          clientId={
+            '498868729809-sqv8at247oi30ldgt0se55j5397u71br.apps.googleusercontent.com'
+          }
           onScriptLoadSuccess={() => console.log('clientid :', clientId)}
         >
           <App />
