@@ -1,16 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1662033105500" clover="3.2.0">
-  <project timestamp="1662033105500" name="All files">
-    <metrics statements="33" coveredstatements="11" conditionals="7" coveredconditionals="1" methods="8" coveredmethods="1" elements="48" coveredelements="13" complexity="0" loc="33" ncloc="33" packages="2" files="3" classes="3"/>
+<coverage generated="1662104043984" clover="3.2.0">
+  <project timestamp="1662104043985" name="All files">
+    <metrics statements="35" coveredstatements="12" conditionals="7" coveredconditionals="1" methods="9" coveredmethods="1" elements="51" coveredelements="14" complexity="0" loc="35" ncloc="35" packages="2" files="3" classes="3"/>
     <package name="Pages.Login">
-      <metrics statements="7" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
+      <metrics statements="10" coveredstatements="7" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="1"/>
       <file name="Login.jsx" path="C:\Users\user\tracker\front\src\Pages\Login\Login.jsx">
-        <metrics statements="5" coveredstatements="4" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="1"/>
-        <line num="6" count="1" type="stmt"/>
+        <metrics statements="8" coveredstatements="5" conditionals="0" coveredconditionals="0" methods="3" coveredmethods="1"/>
         <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
         <line num="9" count="1" type="stmt"/>
-        <line num="10" count="0" type="stmt"/>
-        <line num="13" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="15" count="1" type="stmt"/>
+        <line num="22" count="0" type="stmt"/>
       </file>
       <file name="Login.style.js" path="C:\Users\user\tracker\front\src\Pages\Login\Login.style.js">
         <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
@@ -19,35 +22,34 @@
       </file>
     </package>
     <package name="context">
-      <metrics statements="26" coveredstatements="5" conditionals="7" coveredconditionals="1" methods="6" coveredmethods="0"/>
+      <metrics statements="25" coveredstatements="5" conditionals="7" coveredconditionals="1" methods="6" coveredmethods="0"/>
       <file name="authContext.js" path="C:\Users\user\tracker\front\src\context\authContext.js">
-        <metrics statements="26" coveredstatements="5" conditionals="7" coveredconditionals="1" methods="6" coveredmethods="0"/>
+        <metrics statements="25" coveredstatements="5" conditionals="7" coveredconditionals="1" methods="6" coveredmethods="0"/>
         <line num="4" count="1" type="stmt"/>
         <line num="9" count="1" type="cond" truecount="1" falsecount="1"/>
         <line num="12" count="0" type="stmt"/>
         <line num="13" count="0" type="stmt"/>
-        <line num="14" count="0" type="stmt"/>
-        <line num="19" count="0" type="cond" truecount="0" falsecount="2"/>
-        <line num="20" count="0" type="stmt"/>
-        <line num="22" count="0" type="stmt"/>
-        <line num="26" count="1" type="stmt"/>
-        <line num="33" count="1" type="stmt"/>
-        <line num="34" count="0" type="cond" truecount="0" falsecount="3"/>
-        <line num="36" count="0" type="stmt"/>
-        <line num="40" count="0" type="stmt"/>
-        <line num="43" count="0" type="stmt"/>
-        <line num="48" count="0" type="stmt"/>
+        <line num="18" count="0" type="cond" truecount="0" falsecount="2"/>
+        <line num="19" count="0" type="stmt"/>
+        <line num="21" count="0" type="stmt"/>
+        <line num="25" count="1" type="stmt"/>
+        <line num="32" count="1" type="stmt"/>
+        <line num="33" count="0" type="cond" truecount="0" falsecount="3"/>
+        <line num="35" count="0" type="stmt"/>
+        <line num="39" count="0" type="stmt"/>
+        <line num="42" count="0" type="stmt"/>
+        <line num="47" count="0" type="stmt"/>
+        <line num="50" count="0" type="stmt"/>
         <line num="51" count="0" type="stmt"/>
-        <line num="52" count="0" type="stmt"/>
-        <line num="56" count="1" type="stmt"/>
-        <line num="57" count="0" type="stmt"/>
+        <line num="55" count="1" type="stmt"/>
+        <line num="56" count="0" type="stmt"/>
+        <line num="58" count="0" type="stmt"/>
         <line num="59" count="0" type="stmt"/>
         <line num="60" count="0" type="stmt"/>
-        <line num="61" count="0" type="stmt"/>
+        <line num="66" count="0" type="stmt"/>
         <line num="67" count="0" type="stmt"/>
         <line num="68" count="0" type="stmt"/>
-        <line num="69" count="0" type="stmt"/>
-        <line num="72" count="0" type="stmt"/>
+        <line num="71" count="0" type="stmt"/>
       </file>
     </package>
   </project>
