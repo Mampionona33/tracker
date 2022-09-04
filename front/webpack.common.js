@@ -44,6 +44,18 @@ module.exports = {
       },
 
       {
+        test: /\.svg$/,
+        use: [
+          {
+            loader: 'svg-url-loader',
+            options: {
+              limit: false,
+            },
+          },
+        ],
+      },
+
+      {
         test: /\.(js|jsx)$/,
         exclude: /(node_modules|bower_components)/,
         use: [

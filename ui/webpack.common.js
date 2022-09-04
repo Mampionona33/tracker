@@ -12,8 +12,8 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.jsx'],
   },
-  plugins: [new Dotenv()],  
-  
+  plugins: [new Dotenv()],
+
   experiments: {
     topLevelAwait: true,
   },
@@ -23,6 +23,10 @@ module.exports = {
         test: /\.(js|jsx)$/,
         exclude: /node_modules/,
         use: 'babel-loader',
+      },
+
+      {
+       
       },
       {
         test: /\.css$/i,

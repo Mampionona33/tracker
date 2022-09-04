@@ -4,6 +4,7 @@ import App from './App';
 import { GoogleOAuthProvider } from '@react-oauth/google';
 import { AuthProvider } from './context/authContext';
 import { BrowserRouter } from 'react-router-dom';
+import GlobalStyle from './GlobalStyle';
 
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
@@ -15,6 +16,7 @@ root.render(
     <BrowserRouter>
       <AuthProvider>
         <GoogleOAuthProvider clientId={clientId}>
+          <GlobalStyle />
           <App />
         </GoogleOAuthProvider>
       </AuthProvider>

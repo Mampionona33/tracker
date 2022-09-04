@@ -11,18 +11,18 @@ test('should render menu btn', () => {
 
 test('should render my pending task btn', () => {
   const component = render(<NavBar />);
-  const btnMyPendingTask = component.getByTestId('btn-my-pending-task');
+  const btnMyPendingTask = component.getByText(/pending/gi);
   expect(btnMyPendingTask).toBeInTheDocument();
 });
 
 test('should render create new task btn', () => {
   const component = render(<NavBar />);
-  const btnCreateNewTask = component.getByTestId('btn-create-new-task');
+  const btnCreateNewTask = component.getByText(/new task/gi);
   expect(btnCreateNewTask).toBeInTheDocument();
 });
 
 test('should render logout', () => {
   const component = render(<NavBar />);
-  const btnLogout = component.getByTestId('btn-logout');
+  const btnLogout = component.getByText(/logout/gi);
   expect(btnLogout).toBeInTheDocument();
 });
