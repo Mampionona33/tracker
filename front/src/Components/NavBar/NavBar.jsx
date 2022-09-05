@@ -1,26 +1,7 @@
 import React, { useContext } from 'react';
-import styled from 'styled-components';
-import BtnIconText from '../../BtnIconText/BtnIconText';
-import { AuthConext } from '../../../context/authContext';
-
-const NavbarContainer = styled.div`
-  display: flex;
-  color: white;
-  height: 2rem;
-  align-items: center;
-  justify-content: space-between;
-`;
-
-const ButtonContainer = styled.div`
-  display: flex;
-  gap: 0.1rem;
-`;
-
-const UserAvatar = styled.img`
-  height: 1.8rem;
-  width: 1.8rem;
-  border-radius: 50%;
-`;
+import BtnIconText from '../BtnIconText/BtnIconText';
+import { AuthConext } from '../../context/authContext';
+import { ButtonContainer, NavbarContainer, UserAvatar } from './NavBar.style';
 
 const NavBar = () => {
   const { user, logout } = useContext(AuthConext);
