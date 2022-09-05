@@ -16,9 +16,10 @@ const BtnIconText = ({ children, title, className, onClick }) => {
 };
 
 BtnIconText.propTypes = {
-  title: PropTypes.string,
+  title: PropTypes.string.isRequired,
   className: PropTypes.string,
   onClick: PropTypes.func,
+  children: PropTypes.element,
 };
 
 export default BtnIconText;
