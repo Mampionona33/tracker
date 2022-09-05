@@ -4,6 +4,7 @@ import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
 import { ProtectedRoute } from './router/ProtectedRoute';
 import { AuthConext } from './context/authContext';
 import Dashboard from './Pages/Dashboard/Dashboard';
+import PendingTask from './Pages/PendingTask/PendingTask';
 
 const App = () => {
   const { user } = useContext(AuthConext);
@@ -21,8 +22,6 @@ const App = () => {
         }
       />
 
-      <Route path='*' element={'/index.html'} />
-
       <Route
         path='/login'
         element={
@@ -32,6 +31,7 @@ const App = () => {
 
       <Route element={<ProtectedRoute />}>
         <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='pending_task' element={<PendingTask />} />
         <Route path='test' element={<div>test</div>} />
         <Route
           path='/'
