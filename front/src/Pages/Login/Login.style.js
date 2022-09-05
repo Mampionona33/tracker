@@ -20,8 +20,12 @@ export const LoginCard = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
+  position: relative;
+  z-index: 10;
 `;
 export const LoginTitle = styled.h4`
   display: flex;
   justify-content: center;
+  position: relative;
+  z-index: auto;
 `;

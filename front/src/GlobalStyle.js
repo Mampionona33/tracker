@@ -35,6 +35,33 @@ const GlobalStyle = createGlobalStyle`
             background-color: #333333;
         }
     }
+
+
+    .AnimatedCard::before{
+        content: '';
+        position: absolute;
+        width: 113%;
+        height: 75%;
+        background: linear-gradient(#00ccff, #d400d4);
+        animation: cardAnimation 5s alternate-reverse infinite;
+    }
+
+    .AnimatedCard::after{
+        content: '';
+        position: absolute;
+        inset: 2px;
+        background: #fff;
+        border-radius: 0.5rem;
+    }
+    @keyframes cardAnimation {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+    }
+
     .navBarBtn{
         background-color : #2c001e;
         cursor: pointer;

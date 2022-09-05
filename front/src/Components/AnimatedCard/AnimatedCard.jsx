@@ -7,10 +7,12 @@ const CardContainer = styled.div`
   padding: 1rem;
   box-shadow: 0px 0px 5px 2px rgba(0, 0, 0, 0.2);
   border-radius: 0.5rem;
+  position: relative;
+  overflow: hidden;
 `;
 
-const Card = ({ children }) => {
-  return <CardContainer>{children}</CardContainer>;
+const AnimatedCard = ({ children }) => {
+  return <CardContainer className='AnimatedCard'>{children}</CardContainer>;
 };
 
-export default Card;
+export default AnimatedCard;

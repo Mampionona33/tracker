@@ -1,7 +1,7 @@
 import { GoogleLogin } from '@react-oauth/google';
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import Card from '../../Components/Card/Card';
+import Card from '../../Components/AnimatedCard/AnimatedCard';
 import { AuthConext } from '../../context/authContext';
 import {
   LoginCardContainer,
