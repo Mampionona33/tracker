@@ -8,8 +8,8 @@ export const SideBarList = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  padding: 0 0.5rem;
-  background-color: #210021e6;
+  background-color: #5e2750;
+  padding: 2rem 0 0 0;
   color: white;
   width: fit-content;
   height: calc(100vh - 2rem);

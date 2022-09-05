@@ -11,8 +11,11 @@ function SideBar() {
           <BtnIconText title={'DASHBOARD'} className='sideBarElement'>
             <span className='material-icons-round'>dashboard</span>
           </BtnIconText>
-          <BtnIconText title={'DASHBOARD'} className='sideBarElement'>
-            <span className='material-icons-round'>dashboard</span>
+          <BtnIconText title={'HISTORY'} className='sideBarElement'>
+            <span className='material-icons-round'>work_history</span>
+          </BtnIconText>
+          <BtnIconText title={'SUBMITED TASKS'} className='sideBarElement'>
+            <span className='material-icons-round'>task</span>
           </BtnIconText>
         </SideBarList>
       </SideBarContainer>

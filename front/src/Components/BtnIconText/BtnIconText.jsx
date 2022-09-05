@@ -4,6 +4,8 @@ import { PropTypes } from 'prop-types';
 
 const BtnIconTextContainer = styled.div`
   display: flex;
+  align-items: center;
+  padding: 0 0.5rem;
 `;
 
 const BtnIconText = ({ children, title, className, onClick }) => {
