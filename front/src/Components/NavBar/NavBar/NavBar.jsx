@@ -48,8 +48,8 @@ const NavBar = () => {
           onClick={handleOnClicLogout}
         >
           <UserAvatar
-            src={user.picture}
-            alt={user.given_name}
+            src={user ? user.picture : 'user picture'}
+            alt={user ? user.given_name : ' user name'}
             referrerPolicy='no-referrer'
           />
         </BtnIconText>
