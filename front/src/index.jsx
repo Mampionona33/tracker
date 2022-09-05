@@ -5,7 +5,8 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import { AuthProvider } from './context/authContext';
 import { BrowserRouter } from 'react-router-dom';
 import GlobalStyle from './GlobalStyle';
-import './index.css'
+import './index.css';
+import { ComponentProvider } from './context/componentContext';
 
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
@@ -16,10 +17,12 @@ root.render(
   <StrictMode>
     <BrowserRouter>
       <AuthProvider>
-        <GoogleOAuthProvider clientId={clientId}>
-          <GlobalStyle />
-          <App />
-        </GoogleOAuthProvider>
+        <ComponentProvider>
+          <GoogleOAuthProvider clientId={clientId}>
+            <GlobalStyle />
+            <App />
+          </GoogleOAuthProvider>
+        </ComponentProvider>
       </AuthProvider>
     </BrowserRouter>
   </StrictMode>

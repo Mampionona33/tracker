@@ -1,6 +1,6 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle  } from 'styled-components';
 
-const GlobalStyle = createGlobalStyle`
+const GlobalStyle = createGlobalStyle `
     body{
         margin: 0;
         padding: 0;
@@ -25,6 +25,12 @@ const GlobalStyle = createGlobalStyle`
     }
     .coolGrey{
         background-color : #333333;
+    }
+    .sideBarElement{
+        display: flex;
+        :hover{
+            cursor: pointer;
+        }
     }
     .navBarBtn{
         background-color : #2c001e;

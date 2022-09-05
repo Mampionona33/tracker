@@ -2,18 +2,29 @@ import React, { useContext } from 'react';
 import BtnIconText from '../BtnIconText/BtnIconText';
 import { AuthConext } from '../../context/authContext';
 import { ButtonContainer, NavbarContainer, UserAvatar } from './NavBar.style';
+import { ComponentContext } from '../../context/componentContext';
 
 const NavBar = () => {
   const { user, logout } = useContext(AuthConext);
+  const { setSideBarOpenTrue, sideBarOpen } = useContext(ComponentContext);
 
   const handleOnClicLogout = (event) => {
     event.preventDefault();
     logout();
   };
 
+  const handleClickMenu = (event) => {
+    event.preventDefault();
+    !sideBarOpen ? setSideBarOpenTrue() : '';
+  };
+
   return (
     <NavbarContainer className='canonicalAubergine'>
-      <span className='material-icons-round navBarBtn' data-testid='btn-menu'>
+      <span
+        className='material-icons-round navBarBtn'
+        data-testid='btn-menu'
+        onClick={handleClickMenu}
+      >
         menu
       </span>
       <ButtonContainer>
