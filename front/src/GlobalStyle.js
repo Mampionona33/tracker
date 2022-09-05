@@ -1,7 +1,4 @@
 import { createGlobalStyle } from 'styled-components';
-// import bodyBackGround from '../public/background_curve.svg';
-
-import { bodyBackGround } from './img/bodyBackGround.svg';
 
 const GlobalStyle = createGlobalStyle`
     body{
@@ -9,7 +6,7 @@ const GlobalStyle = createGlobalStyle`
         padding: 0;
         box-sizing: border-box;
         font-family: Ubuntu;
-        background-image: ${bodyBackGround};
+        height: 100vh;
     }
     .cursPointer{
         cursor: pointer;

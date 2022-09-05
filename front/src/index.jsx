@@ -5,6 +5,7 @@ import { GoogleOAuthProvider } from '@react-oauth/google';
 import { AuthProvider } from './context/authContext';
 import { BrowserRouter } from 'react-router-dom';
 import GlobalStyle from './GlobalStyle';
+import './index.css'
 
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);

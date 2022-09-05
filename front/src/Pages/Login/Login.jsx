@@ -1,8 +1,14 @@
 import { GoogleLogin } from '@react-oauth/google';
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import Card from '../../Components/Card/Card';
 import { AuthConext } from '../../context/authContext';
-import { LoginContainer, LoginPage } from './Login.style';
+import {
+  LoginCardContainer,
+  LoginPage,
+  LoginCard,
+  LoginTitle,
+} from './Login.style';
 
 const Login = () => {
   const { login } = useContext(AuthConext);
@@ -14,15 +20,19 @@ const Login = () => {
 
   return (
     <LoginPage>
-      <LoginContainer>
-        <h3>Welcome to mampionona task tracker</h3>
-        <GoogleLogin
-          onSuccess={logToApp}
-          onError={(message) => {
-            console.log(message);
-          }}
-        />
-      </LoginContainer>
+      <LoginCardContainer>
+        <Card>
+          <LoginCard>
+            <LoginTitle>Welcome to mampionona task tracker</LoginTitle>
+            <GoogleLogin
+              onSuccess={logToApp}
+              onError={(message) => {
+                console.log(message);
+              }}
+            />
+          </LoginCard>
+        </Card>
+      </LoginCardContainer>
     </LoginPage>
   );
 };

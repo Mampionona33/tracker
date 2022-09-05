@@ -5,9 +5,23 @@ export const LoginPage = styled.div`
   margin: 0;
   padding: 0;
   width: 100%;
+  justify-items: center;
+  justify-content: center;
+  position: relative;
 `;
 
-export const LoginContainer = styled.div`
+export const LoginCardContainer = styled.div`
+  position: absolute;
+  top: 40vh;
   display: flex;
   flex-direction: column;
+`;
+export const LoginCard = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
+export const LoginTitle = styled.h4`
+  display: flex;
+  justify-content: center;
 `;

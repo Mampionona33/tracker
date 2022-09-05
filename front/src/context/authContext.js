@@ -61,6 +61,7 @@ const AuthProvider = (props) => {
       type: 'LOGIN',
       payload: credentialResponse,
     });
+    window.location.reload();
   };
 
   const logout = () => {
