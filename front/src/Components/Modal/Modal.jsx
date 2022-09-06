@@ -10,12 +10,12 @@ const ModalContainer = styled.div`
   position: absolute;
   height: 100vh;
   width: 100vw;
-  z-index: auto;
+  z-index: 1000;
 `;
 
 const Modal = ({ children }) => {
   const { sideBarOpen, setSideBarOpenFalse } = useContext(ComponentContext);
-  
+
   const handleClickModal = (event) => {
     event.preventDefault();
     sideBarOpen ? setSideBarOpenFalse() : '';
