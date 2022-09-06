@@ -1,12 +1,14 @@
 import { gql } from '@apollo/client';
 
-export const GET_USER = gql`
-  query SearchUser($input: UserIdInput) {
-    searchUser(input: $input) {
+export const CREATE_USER = gql`
+  mutation CreatUser($user: UserInput!) {
+    creatUser(user: $user) {
+      aud
+      azp
       email
       email_verified
-      family_name
       exp
+      family_name
       given_name
       iat
       iss
@@ -16,9 +18,7 @@ export const GET_USER = gql`
       picture
       sub
       role
-      azp
-      aud
-      role
+      hd
     }
   }
 `;

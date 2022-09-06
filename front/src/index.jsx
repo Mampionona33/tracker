@@ -7,6 +7,8 @@ import { BrowserRouter } from 'react-router-dom';
 import GlobalStyle from './GlobalStyle';
 import './index.css';
 import { ComponentProvider } from './context/componentContext';
+import { ApolloProvider } from '@apollo/client';
+import client from './Graphql/apolloClient';
 
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
@@ -19,8 +21,10 @@ root.render(
       <AuthProvider>
         <ComponentProvider>
           <GoogleOAuthProvider clientId={clientId}>
-            <GlobalStyle />
-            <App />
+            <ApolloProvider client={client}>
+              <GlobalStyle />
+              <App />
+            </ApolloProvider>
           </GoogleOAuthProvider>
         </ComponentProvider>
       </AuthProvider>

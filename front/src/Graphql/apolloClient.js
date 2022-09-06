@@ -1,22 +1,10 @@
-import { ApolloClient, createHttpLink, InMemoryCache } from '@apollo/client';
-import { setContext } from '@apollo/client/link/context';
-
-const httpLink = createHttpLink({
-  uri: process.env.UI_API_ENDPOINT,
-});
-
-const authLink = setContext((_, { headers }) => {
-  return {
-    headers: {
-      ...headers,
-      authorization: localStorage.getItem('token') || '',
-    },
-  };
-});
+import { ApolloClient, InMemoryCache } from '@apollo/client';
 
 const client = new ApolloClient({
-  link: authLink.concat(httpLink),
+  uri: process.env.UI_API_ENDPOINT,
   cache: new InMemoryCache(),
 });
+
+console.log(process.env.UI_API_ENDPOINT);
 
 export default client;

@@ -33,7 +33,7 @@ type User {
   name: String
   nbf: Int
   picture: String
-  sub: String!
+  sub: String
   role: String
 }
 
@@ -67,7 +67,7 @@ input UserInput {
   name: String
   nbf: Int
   picture: String
-  sub: String!
+  sub: String
   role: String
 }
 ## User -------------------
