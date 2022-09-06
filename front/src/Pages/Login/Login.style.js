@@ -12,7 +12,7 @@ export const LoginPage = styled.div`
 
 export const LoginCardContainer = styled.div`
   position: absolute;
-  top: 40vh;
+  top: 35vh;
   display: flex;
   flex-direction: column;
 `;
