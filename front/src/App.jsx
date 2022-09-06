@@ -5,9 +5,28 @@ import { ProtectedRoute } from './router/ProtectedRoute';
 import { AuthConext } from './context/authContext';
 import Dashboard from './Pages/Dashboard/Dashboard';
 import PendingTask from './Pages/PendingTask/PendingTask';
+import { getUser } from './Graphql/graphqlUser';
 
 const App = () => {
-  const { user } = useContext(AuthConext);
+  const { user, sub } = useContext(AuthConext);
+
+  useEffect(() => {
+    let mouted = true;
+
+    (async () => {
+      if (user) {
+        const userExist = await getUser(sub);
+        if (mouted) {
+          if (!userExist) {
+            console.log('user not exist');
+          }
+          if (userExist) {
+            console.log(userExist);
+          }
+        }
+      }
+    })();
+  }, [user]);
 
   return (
     <Routes>

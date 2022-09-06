@@ -3,6 +3,7 @@ import jwtDecode from 'jwt-decode';
 
 const initialState = {
   user: null,
+  sub: null,
 };
 
 // check if there is item with the key token in the localstorage
@@ -19,11 +20,13 @@ if (localStorage.getItem('token')) {
     localStorage.removeItem('token');
   } else {
     initialState.user = decodeToken;
+    initialState.sub = decodeToken.sub;
   }
 }
 
 const AuthConext = createContext({
   user: null,
+  sub: null,
   login: (userData) => {},
   logout: () => {},
 });
@@ -71,7 +74,7 @@ const AuthProvider = (props) => {
 
   return (
     <AuthConext.Provider
-      value={{ user: state.user, login, logout }}
+      value={{ user: state.user, sub: state.sub, login, logout }}
       {...props}
     />
   );
