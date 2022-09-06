@@ -11,5 +11,11 @@
       "src": "/(.*)",
       "dest": "/graphql"
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/graphql"
+    }
   ]
 }
