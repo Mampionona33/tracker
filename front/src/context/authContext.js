@@ -4,6 +4,7 @@ import jwtDecode from 'jwt-decode';
 const initialState = {
   user: null,
   sub: null,
+  userRole: null,
 };
 
 // check if there is item with the key token in the localstorage
@@ -27,31 +28,41 @@ if (localStorage.getItem('token')) {
 const AuthConext = createContext({
   user: null,
   sub: null,
+  userRole: null,
+  setUserRole: (role) => {},
   login: (userData) => {},
   logout: () => {},
 });
 
+const ACTION = {
+  LOGOUT: 'logout',
+  LOGIN: 'login',
+  SET_USER_ROLE: 'set-user-role',
+};
+
 // create a function reducer
 const authReducer = (state, action) => {
   switch (action.type) {
-    case 'LOGIN':
+    case ACTION.LOGIN:
       return {
         ...state,
         user: action.payload,
       };
-      break;
-    case 'LOGOUT':
-      {
-        return {
-          ...state,
-          user: null,
-        };
-      }
-      break;
+    case ACTION.LOGOUT: {
+      return {
+        ...state,
+        user: null,
+      };
+    }
+
+    case ACTION.SET_USER_ROLE:
+      return {
+        ...state,
+        userRole: action.payload,
+      };
 
     default:
       return state;
-      break;
   }
 };
 
@@ -61,7 +72,7 @@ const AuthProvider = (props) => {
   const login = (credentialResponse) => {
     localStorage.setItem('token', credentialResponse);
     dispatch({
-      type: 'LOGIN',
+      type: ACTION.LOGIN,
       payload: credentialResponse,
     });
     window.location.reload();
@@ -69,12 +80,26 @@ const AuthProvider = (props) => {
 
   const logout = () => {
     localStorage.removeItem('token');
-    dispatch({ type: 'LOGOUT' });
+    dispatch({ type: ACTION.LOGOUT });
+  };
+
+  const setUserRole = (role) => {
+    dispatch({
+      type: ACTION.SET_USER_ROLE,
+      payload: role,
+    });
   };
 
   return (
     <AuthConext.Provider
-      value={{ user: state.user, sub: state.sub, login, logout }}
+      value={{
+        user: state.user,
+        sub: state.sub,
+        userRole: state.userRole,
+        login,
+        logout,
+        setUserRole,
+      }}
       {...props}
     />
   );

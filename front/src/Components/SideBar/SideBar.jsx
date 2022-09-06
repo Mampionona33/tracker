@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BtnIconText from '../BtnIconText/BtnIconText';
 import Modal from '../Modal/Modal';
 import { SideBarContainer, SideBarList } from './SideBar.style';
+import { AuthConext } from '../../context/authContext';
 
 function SideBar() {
   const navigate = useNavigate();
+  const { userRole } = useContext(AuthConext);
   const handleClickDashboardBtn = (event) => {
     event.preventDefault();
     navigate('dashboard');
   };
+
   return (
     <Modal>
       <SideBarContainer>
@@ -29,6 +32,11 @@ function SideBar() {
           <BtnIconText title={'SUBMITED TASKS'} className='sideBarElement'>
             <span className='material-icons-round'>task</span>
           </BtnIconText>
+          {userRole && userRole.match(/admin/gi) && (
+            <BtnIconText title={'MANAGE'} className='sideBarElement'>
+              <span className='material-icons-round'>admin_panel_settings</span>
+            </BtnIconText>
+          )}
         </SideBarList>
       </SideBarContainer>
     </Modal>

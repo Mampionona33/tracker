@@ -51,7 +51,7 @@ export default function App() {
     (async () => {
       if (currentUser) {
         const userExist = await getUser(currentUser.sub);
-        if (mounted) {
+          if (mounted) {
           // if user is not yet in the data base, create it
           if (!userExist) {
             const crtUser = await createUser(currentUser);

@@ -13,4 +13,5 @@ export const SideBarList = styled.div`
   color: white;
   width: fit-content;
   height: calc(100vh - 2rem);
+  gap: 1px;
 `;

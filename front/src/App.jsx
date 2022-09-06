@@ -8,7 +8,7 @@ import PendingTask from './Pages/PendingTask/PendingTask';
 import { createUser, getUser } from './Graphql/graphqlUser';
 
 const App = () => {
-  const { user, sub } = useContext(AuthConext);
+  const { user, sub, setUserRole } = useContext(AuthConext);
 
   useEffect(() => {
     /*
@@ -25,9 +25,12 @@ const App = () => {
     (async () => {
       if (sub) {
         const userExist = await getUser(sub);
+
         if (mounted) {
           if (userExist) {
-            console.log(userExist);
+            if (userExist.role) {
+              setUserRole(userExist.role);
+            }
           } else {
             await createUser(user);
           }
