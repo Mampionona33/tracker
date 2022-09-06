@@ -12,14 +12,14 @@ export default function Dashboard(props) {
     <DashboardContainer>
       <TitledCard
         icon='engineering'
-        iconBackGround='#2c001e'
+        iconBackGround='#3949AB'
         title='processing task'
       >
         test
       </TitledCard>
       <TitledCard
         icon='science'
-        iconBackGround='#772953'
+        iconBackGround='#39A275'
         title='testing productivity'
       >
         TESTING
