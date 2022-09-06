@@ -18,7 +18,6 @@ export const CREATE_USER = gql`
       picture
       sub
       role
-      hd
     }
   }
 `;
