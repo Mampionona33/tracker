@@ -7,6 +7,7 @@ export default function Dashboard(props) {
     display: flex;
     justify-content: center;
     padding: 1rem;
+    flex-wrap: wrap;
   `;
   return (
     <DashboardContainer>
