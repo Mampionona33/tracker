@@ -1,0 +1,43 @@
+.TitledCardBody {
+  box-shadow: 0px 0px 9px 2px rgba(0, 0, 0, 0.2);
+  padding: 2.5rem 1rem 1rem 1rem;
+  border-radius: 0.5rem;
+  min-width: 5rem;
+  display: flex;
+}
+
+.TitledCardSeconCont {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.TitledCardFirdCont {
+  position: relative;
+}
+
+.TitledCardContainer {
+  margin: 2rem;
+}
+
+.TitleCardFourth {
+  background-color: red;
+  width: 5rem;
+  height: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  border-radius: 0.5rem 0.5rem 0 0;
+  top: -1rem;
+  left: -2.5rem;
+  &::after {
+    content: '';
+    width: 0;
+    height: 0;
+    border-left: 2.5rem solid transparent;
+    border-right: 2.5rem solid transparent;
+    border-top: 1rem solid red;
+    position: absolute;
+    top: 100%;
+  }
+}
