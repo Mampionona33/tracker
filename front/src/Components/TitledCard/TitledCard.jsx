@@ -6,7 +6,6 @@ import {
   TitleCardFourth,
   TitledCardBody,
 } from './TitledCard.style';
-import './TitledCard.scss';
 
 const TitledCard = ({ children, icon, iconBackGround, title }) => {
   return (

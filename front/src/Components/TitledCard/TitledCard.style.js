@@ -12,6 +12,7 @@ export const TitledCardBody = styled.div`
     content: '${(props) => props.title && props.title.toUpperCase()}';
     font-weight: 800;
   }
+  background-color: white;
 `;
 
 export const TitledCardSeconCont = styled.div`

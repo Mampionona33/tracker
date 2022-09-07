@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import ProcessingTaskInfo from '../../Components/ProcessingTask/ProcessingTaskInfo';
+import ProcessingTask from '../../Components/ProcessingTask/ProcessingTask';
+import ProcessingTaskInfo from '../../Components/ProcessingTaskInfo/ProcessingTaskInfo';
 import TitledCard from '../../Components/TitledCard/TitledCard';
 
 export default function Dashboard(props) {
@@ -13,7 +14,6 @@ export default function Dashboard(props) {
 
   const Spliter = styled.hr`
     width: 100%;
-    border: 1px solid;
   `;
   return (
     <DashboardContainer>
@@ -23,8 +23,9 @@ export default function Dashboard(props) {
         title='processing task'
       >
         <Spliter />
-        <ProcessingTaskInfo />
+        <ProcessingTask />
       </TitledCard>
+
       <TitledCard
         icon='science'
         iconBackGround='#39A275'

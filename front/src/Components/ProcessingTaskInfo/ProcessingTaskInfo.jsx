@@ -30,7 +30,10 @@ export default function ProcessingTaskInfo() {
       <ProcessingTaskTitleLabel>NB AFTER</ProcessingTaskTitleLabel>
       <ProcessingTaskLabel>0</ProcessingTaskLabel>
       <ProcessingTaskTitleLabel>COMMENT</ProcessingTaskTitleLabel>
-      <ProcessingTaskComment disabled>this is a comment</ProcessingTaskComment>
+      <ProcessingTaskComment
+        disabled
+        defaultValue='no comment'
+      ></ProcessingTaskComment>
     </ProcessingTaskInfoContainer>
   );
 }
