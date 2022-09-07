@@ -102,7 +102,7 @@ const resetMongo = async () => {
         nbBefore: 0,
         nbAfter: 100,
         comment: 'this is a comment',
-        taskState: 'isPlay',
+        taskState: 'isPause',
         totalElapstedTime: '',
         submitedDate: null,
         productivity: 0,
