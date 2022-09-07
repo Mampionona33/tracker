@@ -10,9 +10,11 @@ import {
 } from './Dashboard.style';
 import { getUserTasks } from './../../Graphql/graphqlTasks';
 import { useNavigate } from 'react-router-dom';
+import Loading from '../../Components/Loading/Loading';
 
 export default function Dashboard(props) {
-  const [processingTask, setProcessingTask] = useState(false);
+  const [processingTask, setProcessingTask] = useState(null);
+  const [loading, setLoading] = useState(true);
   const { sub } = useContext(AuthConext);
   const navigate = useNavigate();
 
@@ -21,6 +23,8 @@ export default function Dashboard(props) {
     (async () => {
       if (sub) {
         const allUserTasks = await getUserTasks(sub);
+        setLoading((prev) => false);
+
         if (isMounted) {
           if (allUserTasks && allUserTasks.length > 0) {
             const processing = Array.from(allUserTasks).filter(
@@ -28,7 +32,6 @@ export default function Dashboard(props) {
                 item.taskState === 'isPlay' || item.taskState === 'isPause'
             );
             if (processing.length > 0) {
-              console.log(processing);
               setProcessingTask((prev) => true);
             }
           }
@@ -42,6 +45,8 @@ export default function Dashboard(props) {
 
   return (
     <DashboardContainer>
+      {loading && <Loading />}
+
       {processingTask ? (
         <TitledCard
           icon='engineering'
