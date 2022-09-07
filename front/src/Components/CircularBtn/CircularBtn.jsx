@@ -22,6 +22,10 @@ function CircularBtn({ icon, backGroundCol, color, width, height }) {
       box-shadow: rgba(0, 0, 0, 0.16) 0px 3px 6px,
         rgba(0, 0, 0, 0.23) 0px 3px 6px;
     }
+    :active {
+      color: ${(props) => (props.backGroundCol ? props.backGroundCol : '#fff')};
+      background-color: ${(props) => (props.color ? props.color : '#77216f')};
+    }
   `;
 
   const [dimension, setDimensions] = useState({
