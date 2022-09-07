@@ -22,3 +22,30 @@ export const GET_USER = gql`
     }
   }
 `;
+
+export const GET_USER_TASK = gql`
+  query GetUserTask($input: UserInput) {
+    getUserTask(input: $input) {
+      id
+      boothNumber
+      type
+      url
+      cat
+      ivpn
+      statCom
+      processingState
+      nbBefore
+      nbAfter
+      comment
+      taskState
+      submitedDate
+      productivity
+      totalElapstedTime
+      session {
+        session_id
+        sessionStart
+        sessionStop
+      }
+    }
+  }
+`;

@@ -1,13 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
 import CircularBtn from '../CircularBtn/CircularBtn';
+import { ProcessingTaskCommandesCont } from './ProcessingTaskCommandes.styled';
 
 const ProcessingTaskCommandes = () => {
-  const ProcessingTaskCommandesCont = styled.div`
-    display: flex;
-    justify-content: flex-end;
-    gap: 0.5rem;
-  `;
   return (
     <ProcessingTaskCommandesCont>
       <CircularBtn icon='pause_circle' />

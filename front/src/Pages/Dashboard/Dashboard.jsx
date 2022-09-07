@@ -1,20 +1,31 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useContext, useEffect, useState } from 'react';
 import ProcessingTask from '../../Components/ProcessingTask/ProcessingTask';
-import ProcessingTaskInfo from '../../Components/ProcessingTaskInfo/ProcessingTaskInfo';
 import TitledCard from '../../Components/TitledCard/TitledCard';
+import { AuthConext } from '../../context/authContext';
+import { DashboardContainer, Spliter } from './Dashboard.style';
+import { getUserTasks } from './../../Graphql/graphqlTasks';
 
 export default function Dashboard(props) {
-  const DashboardContainer = styled.div`
-    display: flex;
-    justify-content: center;
-    padding: 1rem;
-    flex-wrap: wrap;
-  `;
+  const [processingTask, setProcessingTask] = useState([]);
+  const { sub } = useContext(AuthConext);
 
-  const Spliter = styled.hr`
-    width: 100%;
-  `;
+  useEffect(() => {
+    let isMounted = true;
+    (async () => {
+      if (sub) {
+        const allUserTasks = await getUserTasks(sub);
+        if (isMounted) {
+          if (allUserTasks && allUserTasks.length > 0) {
+            console.table(allUserTasks);
+          }
+        }
+      }
+    })();
+    return () => {
+      isMounted = false;
+    };
+  }, [sub]);
+
   return (
     <DashboardContainer>
       <TitledCard
