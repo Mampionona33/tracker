@@ -27,7 +27,6 @@ export default function ProcessingTaskInfo() {
                 item.taskState === 'isPlay' || item.taskState === 'isPause'
             );
 
-            // console.log(processing);
             processing.length > 0 && setProcessingTask((prev) => processing);
           }
         }
