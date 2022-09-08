@@ -1,11 +1,14 @@
-import React, { useContext, useEffect } from 'react';
-import Login from './Pages/Login/Login';
-import { Navigate, Route, Routes, useNavigate } from 'react-router-dom';
+import React, { lazy, Suspense, useContext, useEffect } from 'react';
+// import Login from './Pages/Login/Login';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { ProtectedRoute } from './router/ProtectedRoute';
 import { AuthConext } from './context/authContext';
-import Dashboard from './Pages/Dashboard/Dashboard';
-import PendingTask from './Pages/PendingTask/PendingTask';
+// import PendingTask from './Pages/PendingTask/PendingTask';
 import { createUser, getUser } from './Graphql/graphqlUser';
+import Loading from './Components/Loading/Loading';
+const Dashboard = lazy(() => import('./Pages/Dashboard/Dashboard'));
+const Login = lazy(() => import('./Pages/Login/Login'));
+const PendingTask = lazy(() => import('./Pages/PendingTask/PendingTask'));
 
 const App = () => {
   const { user, sub, setUserRole } = useContext(AuthConext);
@@ -60,13 +63,33 @@ const App = () => {
       <Route
         path='/login'
         element={
-          !user ? <Login /> : <Navigate to={'/dashboard'} replace={true} />
+          !user ? (
+            <Suspense fallback={<Loading />}>
+              <Login />
+            </Suspense>
+          ) : (
+            <Navigate to={'/dashboard'} replace={true} />
+          )
         }
       />
 
       <Route element={<ProtectedRoute />}>
-        <Route path='/dashboard' element={<Dashboard />} />
-        <Route path='pending_task' element={<PendingTask />} />
+        <Route
+          path='/dashboard'
+          element={
+            <Suspense fallback={<Loading />}>
+              <Dashboard />
+            </Suspense>
+          }
+        />
+        <Route
+          path='pending_task'
+          element={
+            <Suspense fallback={<Loading />}>
+              <PendingTask />
+            </Suspense>
+          }
+        />
         <Route path='test' element={<div>test</div>} />
         <Route
           path='/'
