@@ -3,7 +3,6 @@ import { AuthConext } from '../../context/authContext';
 import {
   DashboardContainer,
   NoProcessingTask,
-  Spliter,
   StyledSpan,
 } from './Dashboard.style';
 import { getUserTasks } from './../../Graphql/graphqlTasks';
@@ -56,7 +55,6 @@ export default function Dashboard(props) {
           iconBackGround='#3949AB'
           title='processing task'
         >
-          <Spliter />
           <ProcessingTask />
         </TitledCard>
       ) : (
@@ -65,7 +63,6 @@ export default function Dashboard(props) {
           iconBackGround='#3949AB'
           title='processing task'
         >
-          <Spliter />
           <NoProcessingTask>
             You have no processing task. Please, create one by clicking
             <StyledSpan> here </StyledSpan>

@@ -7,10 +7,6 @@ export const DashboardContainer = styled.div`
   flex-wrap: wrap;
 `;
 
-export const Spliter = styled.hr`
-  width: 100%;
-`;
-
 export const NoProcessingTask = styled.div`
   max-width: 25rem;
 `;

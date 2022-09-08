@@ -5,6 +5,7 @@ import {
   TitledCardFirdCont,
   TitleCardFourth,
   TitledCardBody,
+  TitledSpliter,
 } from './TitledCard.style';
 
 const TitledCard = ({ children, icon, iconBackGround, title }) => {
@@ -18,7 +19,10 @@ const TitledCard = ({ children, icon, iconBackGround, title }) => {
             </TitleCardFourth>
           </TitledCardFirdCont>
         </TitledCardSeconCont>
-        <TitledCardBody title={title}>{children}</TitledCardBody>
+        <TitledCardBody title={title}>
+          <TitledSpliter />
+          {children}
+        </TitledCardBody>
       </TitledCardContainer>
     </>
   );

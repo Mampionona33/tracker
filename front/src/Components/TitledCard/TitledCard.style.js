@@ -11,6 +11,8 @@ export const TitledCardBody = styled.div`
   ::before {
     content: '${(props) => props.title && props.title.toUpperCase()}';
     font-weight: 800;
+    z-index: auto;
+    color: black;
   }
   background-color: white;
 `;
@@ -19,6 +21,11 @@ export const TitledCardSeconCont = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+export const TitledSpliter = styled.hr`
+  width: 100%;
+  border: 0.5px solid black;
 `;
 
 export const TitledCardContainer = styled.div`
