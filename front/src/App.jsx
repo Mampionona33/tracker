@@ -72,22 +72,8 @@ const App = () => {
       />
 
       <Route element={<ProtectedRoute />}>
-        <Route
-          path='/dashboard'
-          element={
-            <Suspense fallback={<Loading />}>
-              <Dashboard />
-            </Suspense>
-          }
-        />
-        <Route
-          path='pending_task'
-          element={
-            <Suspense fallback={<Loading />}>
-              <PendingTask />
-            </Suspense>
-          }
-        />
+        <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='pending_task' element={<PendingTask />} />
         <Route path='test' element={<div>test</div>} />
         <Route
           path='/'

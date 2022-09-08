@@ -1,6 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
-import ProcessingTask from '../../Components/ProcessingTask/ProcessingTask';
-import TitledCard from '../../Components/TitledCard/TitledCard';
+import React, { lazy, useContext, useEffect, useState } from 'react';
 import { AuthConext } from '../../context/authContext';
 import {
   DashboardContainer,
@@ -11,6 +9,11 @@ import {
 import { getUserTasks } from './../../Graphql/graphqlTasks';
 import { useNavigate } from 'react-router-dom';
 import Loading from '../../Components/Loading/Loading';
+
+const TitledCard = lazy(() => import('../../Components/TitledCard/TitledCard'));
+const ProcessingTask = lazy(() =>
+  import('../../Components/ProcessingTask/ProcessingTask')
+);
 
 export default function Dashboard(props) {
   const [processingTask, setProcessingTask] = useState(null);
