@@ -1,9 +1,7 @@
 import React, { lazy, Suspense, useContext, useEffect } from 'react';
-// import Login from './Pages/Login/Login';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { ProtectedRoute } from './router/ProtectedRoute';
 import { AuthConext } from './context/authContext';
-// import PendingTask from './Pages/PendingTask/PendingTask';
 import { createUser, getUser } from './Graphql/graphqlUser';
 import Loading from './Components/Loading/Loading';
 const Dashboard = lazy(() => import('./Pages/Dashboard/Dashboard'));
