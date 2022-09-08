@@ -6,6 +6,10 @@ const BtnIconTextContainer = styled.div`
   display: flex;
   align-items: center;
   padding: 0 0.5rem;
+  ::after {
+    content: '${(props) => props.title}';
+    font-size: 0.8rem;
+  }
 `;
 
 const TitleContainer = styled.div`
@@ -14,9 +18,13 @@ const TitleContainer = styled.div`
 
 const BtnIconText = ({ children, title, className, onClick }) => {
   return (
-    <BtnIconTextContainer className={className} onClick={onClick}>
+    <BtnIconTextContainer
+      id={title}
+      title={title}
+      className={className}
+      onClick={onClick}
+    >
       {children}
-      <TitleContainer>{title}</TitleContainer>
     </BtnIconTextContainer>
   );
 };

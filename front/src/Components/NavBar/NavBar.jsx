@@ -7,22 +7,35 @@ import { useNavigate } from 'react-router-dom';
 
 const NavBar = () => {
   const { user, logout } = useContext(AuthConext);
-  const { setSideBarOpenTrue, sideBarOpen } = useContext(ComponentContext);
+  const {
+    setSideBarOpenTrue,
+    sideBarOpen,
+    dialogCreatTaskIsOpen,
+    setdialogCreatTaskOpen,
+  } = useContext(ComponentContext);
   const navigate = useNavigate();
-
-  const handleOnClicLogout = (event) => {
-    event.preventDefault();
-    logout();
-  };
 
   const handleClickMenu = (event) => {
     event.preventDefault();
     !sideBarOpen ? setSideBarOpenTrue() : '';
   };
 
-  const handleClickPendingTaskBtn = (event) => {
+  const handleClickBtn = (event) => {
     event.preventDefault();
-    navigate('pending_task');
+    const title = event.target.title;
+    switch (title) {
+      case 'PENDING TASK':
+        navigate('pending_task');
+        break;
+      case 'CREATE NEW TASK':
+        !dialogCreatTaskIsOpen ? setdialogCreatTaskOpen() : '';
+        break;
+      case 'LOGOUT':
+        logout();
+        break;
+      default:
+        break;
+    }
   };
 
   return (
@@ -34,23 +47,28 @@ const NavBar = () => {
       >
         menu
       </span>
+
       <ButtonContainer>
         <BtnIconText
           title={'PENDING TASK'}
           className={'navBarBtn'}
-          onClick={handleClickPendingTaskBtn}
+          onClick={handleClickBtn}
         >
           <span className='material-icons-round'>pending_actions</span>
         </BtnIconText>
 
-        <BtnIconText title={'CREATE NEW TASK'} className={'navBarBtn'}>
+        <BtnIconText
+          title={'CREATE NEW TASK'}
+          className={'navBarBtn'}
+          onClick={handleClickBtn}
+        >
           <span className='material-icons-round'>add_circle_outline</span>
         </BtnIconText>
 
         <BtnIconText
           title={'LOGOUT'}
           className={'navBarBtn'}
-          onClick={handleOnClicLogout}
+          onClick={handleClickBtn}
         >
           <UserAvatar
             src={user ? user.picture : 'user picture'}

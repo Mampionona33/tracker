@@ -14,11 +14,17 @@ const ModalContainer = styled.div`
 `;
 
 const Modal = ({ children }) => {
-  const { sideBarOpen, setSideBarOpenFalse } = useContext(ComponentContext);
+  const {
+    sideBarOpen,
+    setSideBarOpenFalse,
+    dialogCreatTaskIsOpen,
+    setdialogCreatTaskClose,
+  } = useContext(ComponentContext);
 
   const handleClickModal = (event) => {
     event.preventDefault();
     sideBarOpen ? setSideBarOpenFalse() : '';
+    dialogCreatTaskIsOpen && setdialogCreatTaskClose();
   };
 
   return <ModalContainer onClick={handleClickModal}>{children}</ModalContainer>;
