@@ -5,7 +5,7 @@ import TitledCard from './../TitledCard/TitledCard';
 
 const DialogCreateTask = () => {
   return (
-    <Modal>
+    <Modal justifContent='center'>
       <DialogCreateTaskCont>
         <TitledCard
           icon='note_add'

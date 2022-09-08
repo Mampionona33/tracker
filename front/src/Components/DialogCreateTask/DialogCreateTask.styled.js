@@ -5,6 +5,7 @@ export const DialogCreateTaskCont = styled.div`
   justify-content: center;
   color: white;
   margin-top: 30vh;
+  position: absolute;
 `;
 
 export const DialogCreateTaskForm = styled.div`
