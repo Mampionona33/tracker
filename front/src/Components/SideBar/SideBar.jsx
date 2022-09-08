@@ -4,13 +4,16 @@ import BtnIconText from '../BtnIconText/BtnIconText';
 import Modal from '../Modal/Modal';
 import { SideBarContainer, SideBarList } from './SideBar.style';
 import { AuthConext } from '../../context/authContext';
+import { ComponentContext } from '../../context/componentContext';
 
 function SideBar() {
   const navigate = useNavigate();
   const { userRole } = useContext(AuthConext);
+  const { sideBarOpen, setSideBarOpenFalse } = useContext(ComponentContext);
   const handleClickDashboardBtn = (event) => {
     event.preventDefault();
     navigate('dashboard');
+    sideBarOpen && setSideBarOpenFalse();
   };
 
   return (

@@ -23,8 +23,10 @@ const Modal = ({ children }) => {
 
   const handleClickModal = (event) => {
     event.preventDefault();
-    sideBarOpen ? setSideBarOpenFalse() : '';
-    dialogCreatTaskIsOpen && setdialogCreatTaskClose();
+    if (event.target === event.currentTarget) {
+      sideBarOpen ? setSideBarOpenFalse() : '';
+      dialogCreatTaskIsOpen && setdialogCreatTaskClose();
+    }
   };
 
   return <ModalContainer onClick={handleClickModal}>{children}</ModalContainer>;
