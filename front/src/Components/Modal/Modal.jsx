@@ -27,14 +27,12 @@ const Modal = ({ children, justifContent, bc }) => {
   } = useContext(ComponentContext);
 
   const handleClickModal = (event) => {
-    // event.preventDefault();
-    console.log(event);
+    event.preventDefault();
     if (event.target === event.currentTarget) {
       sideBarOpen ? setSideBarOpenFalse() : '';
       dialogCreatTaskIsOpen ? setdialogCreatTaskClose() : '';
     }
   };
-  console.log(bc);
   return (
     <ModalContainer
       onClick={handleClickModal}
