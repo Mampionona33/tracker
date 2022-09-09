@@ -25,6 +25,10 @@ export const DialogCreateTaskFormLabel = styled.label`
   font-weight: 800;
   font-size: 0.9rem;
   margin: 0;
+  white-space: nowrap;
+  @media screen and (max-width: 450px) {
+    font-size: 0.7rem;
+  }
 `;
 
 export const DialogCreateTaskInput = styled.input`
@@ -40,18 +44,27 @@ export const DialogCreateTaskInput = styled.input`
     box-shadow: rgba(9, 30, 66, 0.25) 0px 4px 8px -2px,
       rgba(9, 30, 66, 0.08) 0px 0px 0px 1px;
   }
+  @media screen and (max-width: 450px) {
+    font-size: 0.7rem;
+  }
 `;
 
 export const DialogCreateTaskSelect = styled.select`
   text-transform: uppercase;
   border-radius: 5px;
   outline: none;
+  @media screen and (max-width: 450px) {
+    font-size: 0.7rem;
+  }
 `;
 
 export const DialogCreateTaskOption = styled.option`
   display: flex;
   justify-content: flex-end;
   text-transform: uppercase;
+  @media screen and (max-width: 450px) {
+    font-size: 0.7rem;
+  }
 `;
 
 export const DialogCreateTaskTextarea = styled.textarea`
@@ -63,4 +76,7 @@ export const DialogCreateTaskTextarea = styled.textarea`
   max-width: 30rem;
   border-radius: 5px;
   outline: none;
+  @media screen and (max-width: 450px) {
+    font-size: 0.7rem;
+  }
 `;
