@@ -8,6 +8,7 @@ import {
 import { getUserTasks } from './../../Graphql/graphqlTasks';
 import { useNavigate } from 'react-router-dom';
 import Loading from '../../Components/Loading/Loading';
+import { ComponentContext } from '../../context/componentContext';
 
 const TitledCard = lazy(() => import('../../Components/TitledCard/TitledCard'));
 const ProcessingTask = lazy(() =>
@@ -19,6 +20,8 @@ export default function Dashboard(props) {
   const [loading, setLoading] = useState(true);
   const { sub } = useContext(AuthConext);
   const navigate = useNavigate();
+  const { dialogCreatTaskIsOpen, setdialogCreatTaskOpen } =
+    useContext(ComponentContext);
 
   useEffect(() => {
     let isMounted = true;
@@ -45,6 +48,11 @@ export default function Dashboard(props) {
     };
   }, [sub]);
 
+  const handleClickText = (event) => {
+    event.preventDefault();
+    !dialogCreatTaskIsOpen && setdialogCreatTaskOpen();
+  };
+
   return (
     <DashboardContainer>
       {loading && <Loading />}
@@ -65,7 +73,7 @@ export default function Dashboard(props) {
         >
           <NoProcessingTask>
             You have no processing task. Please, create one by clicking
-            <StyledSpan> here </StyledSpan>
+            <StyledSpan onClick={handleClickText}> here </StyledSpan>
             or choose one from{' '}
             <StyledSpan
               onClick={() => {
