@@ -8,12 +8,9 @@ const BtnIconTextContainer = styled.div`
   padding: 0 0.5rem;
   ::after {
     content: '${(props) => props.title}';
+    text-transform: uppercase;
     font-size: 0.8rem;
   }
-`;
-
-const TitleContainer = styled.div`
-  font-size: 0.8rem;
 `;
 
 const BtnIconText = ({ children, title, className, onClick }) => {

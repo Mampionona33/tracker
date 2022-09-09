@@ -1,7 +1,21 @@
 import React from 'react';
 import Modal from '../Modal/Modal';
-import { DialogCreateTaskCont } from './DialogCreateTask.styled';
+import {
+  DialogCreateTaskCont,
+  DialogCreateTaskForm,
+  DialogCreateTaskInput,
+  DialogCreateTaskFormLabel,
+  DialogCreateTaskSelect,
+  DialogCreateTaskOption,
+  DialogCreateTaskTextarea,
+} from './DialogCreateTask.styled';
 import TitledCard from './../TitledCard/TitledCard';
+
+const IvpnList = ['i', 'v', 'p', 'n'].map((item, index) => (
+  <DialogCreateTaskOption value={item} key={index}>
+    {item}
+  </DialogCreateTaskOption>
+));
 
 const DialogCreateTask = () => {
   return (
@@ -11,7 +25,28 @@ const DialogCreateTask = () => {
           icon='note_add'
           iconBackGround='#2196F3'
           title={'create new task'}
-        ></TitledCard>
+        >
+          <DialogCreateTaskForm>
+            <DialogCreateTaskFormLabel>Booth number</DialogCreateTaskFormLabel>
+            <DialogCreateTaskInput></DialogCreateTaskInput>
+            <DialogCreateTaskFormLabel>Task type</DialogCreateTaskFormLabel>
+            <DialogCreateTaskInput></DialogCreateTaskInput>
+            <DialogCreateTaskFormLabel>STATUS COM</DialogCreateTaskFormLabel>
+            <DialogCreateTaskInput></DialogCreateTaskInput>
+            <DialogCreateTaskFormLabel>IVPN</DialogCreateTaskFormLabel>
+            <DialogCreateTaskSelect>{IvpnList}</DialogCreateTaskSelect>
+            <DialogCreateTaskFormLabel>CATEGORY</DialogCreateTaskFormLabel>
+            <DialogCreateTaskInput></DialogCreateTaskInput>
+            <DialogCreateTaskFormLabel>url</DialogCreateTaskFormLabel>
+            <DialogCreateTaskInput></DialogCreateTaskInput>
+            <DialogCreateTaskFormLabel>nb before</DialogCreateTaskFormLabel>
+            <DialogCreateTaskInput></DialogCreateTaskInput>
+            <DialogCreateTaskFormLabel>nb after</DialogCreateTaskFormLabel>
+            <DialogCreateTaskInput></DialogCreateTaskInput>
+            <DialogCreateTaskFormLabel>comment</DialogCreateTaskFormLabel>
+            <DialogCreateTaskTextarea />
+          </DialogCreateTaskForm>
+        </TitledCard>
       </DialogCreateTaskCont>
     </Modal>
   );
