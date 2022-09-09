@@ -11,7 +11,7 @@ export const DialogCreateTaskCont = styled.div`
   }
 `;
 
-export const DialogCreateTaskForm = styled.div`
+export const DialogCreateTaskFormInput = styled.div`
   display: grid;
   grid-template-columns: auto auto;
   grid-gap: 0.5rem;
@@ -79,4 +79,14 @@ export const DialogCreateTaskTextarea = styled.textarea`
   @media screen and (max-width: 450px) {
     font-size: 0.7rem;
   }
+`;
+
+export const DialogCreateTaskHr = styled.hr`
+  width: 100%;
+`;
+
+export const DialogCreateTaskForm = styled.form``;
+
+export const DialogCreateTaskBtnContainer = styled.div`
+  display: flex;
 `;

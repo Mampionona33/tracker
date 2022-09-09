@@ -8,6 +8,9 @@ import {
   DialogCreateTaskSelect,
   DialogCreateTaskOption,
   DialogCreateTaskTextarea,
+  DialogCreateTaskHr,
+  DialogCreateTaskFormInput,
+  DialogCreateTaskBtnContainer,
 } from './DialogCreateTask.styled';
 import TitledCard from './../TitledCard/TitledCard';
 
@@ -27,24 +30,30 @@ const DialogCreateTask = () => {
           title={'create new task'}
         >
           <DialogCreateTaskForm>
-            <DialogCreateTaskFormLabel>Booth number</DialogCreateTaskFormLabel>
-            <DialogCreateTaskInput></DialogCreateTaskInput>
-            <DialogCreateTaskFormLabel>Task type</DialogCreateTaskFormLabel>
-            <DialogCreateTaskInput></DialogCreateTaskInput>
-            <DialogCreateTaskFormLabel>STATUS COM</DialogCreateTaskFormLabel>
-            <DialogCreateTaskInput></DialogCreateTaskInput>
-            <DialogCreateTaskFormLabel>IVPN</DialogCreateTaskFormLabel>
-            <DialogCreateTaskSelect>{IvpnList}</DialogCreateTaskSelect>
-            <DialogCreateTaskFormLabel>CATEGORY</DialogCreateTaskFormLabel>
-            <DialogCreateTaskInput></DialogCreateTaskInput>
-            <DialogCreateTaskFormLabel>url</DialogCreateTaskFormLabel>
-            <DialogCreateTaskInput></DialogCreateTaskInput>
-            <DialogCreateTaskFormLabel>nb before</DialogCreateTaskFormLabel>
-            <DialogCreateTaskInput></DialogCreateTaskInput>
-            <DialogCreateTaskFormLabel>nb after</DialogCreateTaskFormLabel>
-            <DialogCreateTaskInput></DialogCreateTaskInput>
-            <DialogCreateTaskFormLabel>comment</DialogCreateTaskFormLabel>
-            <DialogCreateTaskTextarea />
+            <DialogCreateTaskFormInput>
+              <DialogCreateTaskFormLabel>
+                Booth number
+              </DialogCreateTaskFormLabel>
+              <DialogCreateTaskInput></DialogCreateTaskInput>
+              <DialogCreateTaskFormLabel>Task type</DialogCreateTaskFormLabel>
+              <DialogCreateTaskInput></DialogCreateTaskInput>
+              <DialogCreateTaskFormLabel>STATUS COM</DialogCreateTaskFormLabel>
+              <DialogCreateTaskInput></DialogCreateTaskInput>
+              <DialogCreateTaskFormLabel>IVPN</DialogCreateTaskFormLabel>
+              <DialogCreateTaskSelect>{IvpnList}</DialogCreateTaskSelect>
+              <DialogCreateTaskFormLabel>CATEGORY</DialogCreateTaskFormLabel>
+              <DialogCreateTaskInput></DialogCreateTaskInput>
+              <DialogCreateTaskFormLabel>url</DialogCreateTaskFormLabel>
+              <DialogCreateTaskInput></DialogCreateTaskInput>
+              <DialogCreateTaskFormLabel>nb before</DialogCreateTaskFormLabel>
+              <DialogCreateTaskInput></DialogCreateTaskInput>
+              <DialogCreateTaskFormLabel>nb after</DialogCreateTaskFormLabel>
+              <DialogCreateTaskInput></DialogCreateTaskInput>
+              <DialogCreateTaskFormLabel>comment</DialogCreateTaskFormLabel>
+              <DialogCreateTaskTextarea />
+            </DialogCreateTaskFormInput>
+            <DialogCreateTaskHr />
+            <DialogCreateTaskBtnContainer></DialogCreateTaskBtnContainer>
           </DialogCreateTaskForm>
         </TitledCard>
       </DialogCreateTaskCont>
