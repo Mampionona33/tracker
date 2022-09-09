@@ -80,7 +80,7 @@ export default function Dashboard(props) {
                 navigate('/pending_task', { replace: true });
               }}
             >
-              here.
+              there.
             </StyledSpan>
           </NoProcessingTask>
         </TitledCard>
