@@ -1,5 +1,11 @@
 body {
-  background-image: url('./img/background_curve.svg');
   background-repeat: no-repeat;
   background-size: cover;
+  background-image: url('./img/background_curve.svg');
+}
+
+@media screen and (max-width: 500px) {
+  body {
+    background-image: url('./img/background_curve_media.svg');
+  }
 }
