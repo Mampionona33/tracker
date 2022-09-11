@@ -5,10 +5,7 @@ export const DialogCreateTaskCont = styled.div`
   justify-content: center;
   color: white;
   position: absolute;
-  margin-top: 15vh;
-  @media (max-width: 480px) {
-    margin-top: 10vh;
-  }
+  margin-top: 10vh;
 `;
 
 export const DialogCreateTaskFormInput = styled.div`

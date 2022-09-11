@@ -16,7 +16,7 @@ import TitledCard from './../TitledCard/TitledCard';
 
 const IvpnList = ['i', 'v', 'p', 'n'].map((item, index) => (
   <DialogCreateTaskOption value={item} key={index}>
-    {item}
+    {item.toUpperCase()}
   </DialogCreateTaskOption>
 ));
 
