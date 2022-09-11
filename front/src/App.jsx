@@ -3,7 +3,6 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { ProtectedRoute } from './router/ProtectedRoute';
 import { AuthConext } from './context/authContext';
 import { createUser, getUser } from './Graphql/graphqlUser';
-import Loading from './Components/Loading/Loading';
 const Dashboard = lazy(() => import('./Pages/Dashboard/Dashboard'));
 const Login = lazy(() => import('./Pages/Login/Login'));
 const PendingTask = lazy(() => import('./Pages/PendingTask/PendingTask'));
