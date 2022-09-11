@@ -49,3 +49,13 @@ export const GET_USER_TASK = gql`
     }
   }
 `;
+
+export const GET_ALL_TASK_TYPE = gql`
+  query GetAllTaskTypeList {
+    getAllTaskTypeList {
+      id
+      name
+      goal
+    }
+  }
+`;
