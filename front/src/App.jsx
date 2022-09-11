@@ -60,13 +60,7 @@ const App = () => {
       <Route
         path='/login'
         element={
-          !user ? (
-            <Suspense fallback={<Loading />}>
-              <Login />
-            </Suspense>
-          ) : (
-            <Navigate to={'/dashboard'} replace={true} />
-          )
+          !user ? <Login /> : <Navigate to={'/dashboard'} replace={true} />
         }
       />
 
