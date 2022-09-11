@@ -9,13 +9,13 @@
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    version="1.2"
-   width="2560"
-   height="1600"
-   viewBox="0 0 67733.334 42333.334"
+   width="810"
+   height="1080"
+   viewBox="0 0 21431.25 28575"
    preserveAspectRatio="xMidYMid"
    xml:space="preserve"
    id="svg119"
-   sodipodi:docname="background_curve.svg"
+   sodipodi:docname="background_curve_tablette.svg"
    style="fill-rule:evenodd;stroke-width:28.22200012;stroke-linejoin:round"
    inkscape:version="0.92.5 (2060ec1f9f, 2020-04-08)"><metadata
    id="metadata123"><rdf:RDF><cc:Work
@@ -36,7 +36,7 @@
    units="px"
    inkscape:zoom="0.33125"
    inkscape:cx="1280"
-   inkscape:cy="1041.5094"
+   inkscape:cy="679.24525"
    inkscape:window-x="0"
    inkscape:window-y="0"
    inkscape:window-maximized="1"
@@ -160,7 +160,7 @@
  </defs>
  <g
    id="g57"
-   transform="translate(0,26583.334)">
+   transform="translate(0,12825.001)">
   <g
    id="id2"
    class="Master_Slide">
@@ -175,7 +175,7 @@
  <g
    class="SlideGroup"
    id="g117"
-   transform="matrix(2.4167166,0,-4.6732042e-6,2.735258,65.342699,-727.93786)">
+   transform="matrix(0.76310213,0,-1.4756104e-6,0.86368473,64.413601,14971.966)">
   <g
    id="g115">
    <g

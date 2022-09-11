@@ -4,10 +4,10 @@ export const DialogCreateTaskCont = styled.div`
   display: flex;
   justify-content: center;
   color: white;
-  margin-top: 25vh;
   position: absolute;
-  @media screen and (max-width: 450px) {
-    margin-top: 5vh;
+  margin-top: 15vh;
+  @media (max-width: 480px) {
+    margin-top: 10vh;
   }
 `;
 
