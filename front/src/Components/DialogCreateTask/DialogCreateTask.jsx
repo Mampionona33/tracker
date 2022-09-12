@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import Modal from '../Modal/Modal';
 import {
   DialogCreateTaskCont,
@@ -13,6 +13,7 @@ import {
   DialogCreateTaskBtnContainer,
 } from './DialogCreateTask.styled';
 import TitledCard from './../TitledCard/TitledCard';
+import { TaskTypeContext } from '../../context/taskTypeContext';
 
 const IvpnList = ['i', 'v', 'p', 'n'].map((item, index) => (
   <DialogCreateTaskOption value={item} key={index}>
@@ -21,6 +22,20 @@ const IvpnList = ['i', 'v', 'p', 'n'].map((item, index) => (
 ));
 
 const DialogCreateTask = () => {
+  const { taskTypeList } = useContext(TaskTypeContext);
+
+  const taskTypeOption = taskTypeList
+    ? Array.from(taskTypeList).map((item) => (
+        <DialogCreateTaskOption
+          style={{ textTransform: 'none' }}
+          value={item.name}
+          key={item.id}
+        >
+          {item.name}
+        </DialogCreateTaskOption>
+      ))
+    : '';
+
   return (
     <Modal justifContent='center'>
       <DialogCreateTaskCont>
@@ -36,7 +51,9 @@ const DialogCreateTask = () => {
               </DialogCreateTaskFormLabel>
               <DialogCreateTaskInput></DialogCreateTaskInput>
               <DialogCreateTaskFormLabel>Task type</DialogCreateTaskFormLabel>
-              <DialogCreateTaskInput></DialogCreateTaskInput>
+              <DialogCreateTaskSelect style={{ textTransform: 'none' }}>
+                {taskTypeOption}
+              </DialogCreateTaskSelect>
               <DialogCreateTaskFormLabel>STATUS COM</DialogCreateTaskFormLabel>
               <DialogCreateTaskInput></DialogCreateTaskInput>
               <DialogCreateTaskFormLabel>IVPN</DialogCreateTaskFormLabel>

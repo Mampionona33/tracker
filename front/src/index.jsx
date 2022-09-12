@@ -10,6 +10,7 @@ import { ComponentProvider } from './context/componentContext';
 import { ApolloProvider } from '@apollo/client';
 import client from './Graphql/apolloClient';
 import Loading from './Components/Loading/Loading';
+import { TaskTypeListProvider } from './context/taskTypeContext';
 
 const container = document.getElementById('root');
 const root = ReactDOM.createRoot(container);
@@ -21,14 +22,16 @@ root.render(
     <BrowserRouter>
       <Suspense fallback={<Loading />}>
         <AuthProvider>
-          <ComponentProvider>
-            <GoogleOAuthProvider clientId={clientId}>
-              <ApolloProvider client={client}>
-                <GlobalStyle />
-                <App />
-              </ApolloProvider>
-            </GoogleOAuthProvider>
-          </ComponentProvider>
+          <TaskTypeListProvider>
+            <ComponentProvider>
+              <GoogleOAuthProvider clientId={clientId}>
+                <ApolloProvider client={client}>
+                  <GlobalStyle />
+                  <App />
+                </ApolloProvider>
+              </GoogleOAuthProvider>
+            </ComponentProvider>
+          </TaskTypeListProvider>
         </AuthProvider>
       </Suspense>
     </BrowserRouter>

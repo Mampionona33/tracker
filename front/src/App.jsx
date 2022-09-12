@@ -3,12 +3,15 @@ import { Navigate, Route, Routes } from 'react-router-dom';
 import { ProtectedRoute } from './router/ProtectedRoute';
 import { AuthConext } from './context/authContext';
 import { createUser, getUser } from './Graphql/graphqlUser';
+import { getTaskType } from './Graphql/graphqlTaskType';
+import { TaskTypeContext } from './context/taskTypeContext';
 const Dashboard = lazy(() => import('./Pages/Dashboard/Dashboard'));
 const Login = lazy(() => import('./Pages/Login/Login'));
 const PendingTask = lazy(() => import('./Pages/PendingTask/PendingTask'));
 
 const App = () => {
   const { user, sub, setUserRole } = useContext(AuthConext);
+  const { setTaskTypeList } = useContext(TaskTypeContext);
 
   useEffect(() => {
     /*
@@ -25,6 +28,7 @@ const App = () => {
     (async () => {
       if (sub) {
         const userExist = await getUser(sub);
+        const taskTypeLists = await getTaskType();
 
         if (mounted) {
           if (userExist) {
@@ -33,6 +37,10 @@ const App = () => {
             }
           } else {
             await createUser(user);
+          }
+
+          if (taskTypeLists) {
+            setTaskTypeList(taskTypeLists);
           }
         }
       }
