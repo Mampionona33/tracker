@@ -86,4 +86,6 @@ export const DialogCreateTaskForm = styled.form``;
 
 export const DialogCreateTaskBtnContainer = styled.div`
   display: flex;
+  gap: 0.5rem;
+  justify-content: flex-end;
 `;

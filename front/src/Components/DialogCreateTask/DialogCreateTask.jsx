@@ -14,10 +14,31 @@ import {
 } from './DialogCreateTask.styled';
 import TitledCard from './../TitledCard/TitledCard';
 import { TaskTypeContext } from '../../context/taskTypeContext';
+import BtnIconText from './../BtnIconText/BtnIconText';
 
 const IvpnList = ['i', 'v', 'p', 'n'].map((item, index) => (
   <DialogCreateTaskOption value={item} key={index}>
     {item.toUpperCase()}
+  </DialogCreateTaskOption>
+));
+
+const statComOption = [
+  '---',
+  'Abandon',
+  'Abonné',
+  'Dégradé',
+  'DégradéDefinitif',
+  'Essai',
+  'EssaiNouveau',
+  'EssaiPayant',
+  'Retiré',
+].map((item, index) => (
+  <DialogCreateTaskOption
+    style={{ textTransform: 'none' }}
+    value={item}
+    key={index}
+  >
+    {item}
   </DialogCreateTaskOption>
 ));
 
@@ -46,31 +67,88 @@ const DialogCreateTask = () => {
         >
           <DialogCreateTaskForm>
             <DialogCreateTaskFormInput>
-              <DialogCreateTaskFormLabel>
+              <DialogCreateTaskFormLabel htmlFor='boothNumber'>
                 Booth number
               </DialogCreateTaskFormLabel>
-              <DialogCreateTaskInput></DialogCreateTaskInput>
-              <DialogCreateTaskFormLabel>Task type</DialogCreateTaskFormLabel>
-              <DialogCreateTaskSelect style={{ textTransform: 'none' }}>
+              <DialogCreateTaskInput
+                name='boothNumber'
+                id='boothNumber'
+                type='text'
+              ></DialogCreateTaskInput>
+              <DialogCreateTaskFormLabel htmlFor='type'>
+                Task type
+              </DialogCreateTaskFormLabel>
+              <DialogCreateTaskSelect
+                name='type'
+                id='type'
+                style={{ textTransform: 'none' }}
+              >
                 {taskTypeOption}
               </DialogCreateTaskSelect>
-              <DialogCreateTaskFormLabel>STATUS COM</DialogCreateTaskFormLabel>
-              <DialogCreateTaskInput></DialogCreateTaskInput>
-              <DialogCreateTaskFormLabel>IVPN</DialogCreateTaskFormLabel>
-              <DialogCreateTaskSelect>{IvpnList}</DialogCreateTaskSelect>
-              <DialogCreateTaskFormLabel>CATEGORY</DialogCreateTaskFormLabel>
-              <DialogCreateTaskInput></DialogCreateTaskInput>
-              <DialogCreateTaskFormLabel>url</DialogCreateTaskFormLabel>
-              <DialogCreateTaskInput></DialogCreateTaskInput>
-              <DialogCreateTaskFormLabel>nb before</DialogCreateTaskFormLabel>
-              <DialogCreateTaskInput></DialogCreateTaskInput>
-              <DialogCreateTaskFormLabel>nb after</DialogCreateTaskFormLabel>
-              <DialogCreateTaskInput></DialogCreateTaskInput>
-              <DialogCreateTaskFormLabel>comment</DialogCreateTaskFormLabel>
-              <DialogCreateTaskTextarea />
+              <DialogCreateTaskFormLabel htmlFor='statCom'>
+                STATUS COM
+              </DialogCreateTaskFormLabel>
+              <DialogCreateTaskSelect
+                id='statCom'
+                name='statCom'
+                style={{ textTransform: 'none' }}
+              >
+                {statComOption}
+              </DialogCreateTaskSelect>
+              <DialogCreateTaskFormLabel htmlFor='ivpn'>
+                IVPN
+              </DialogCreateTaskFormLabel>
+              <DialogCreateTaskSelect name='ivpn' id='ivpn'>
+                {IvpnList}
+              </DialogCreateTaskSelect>
+              <DialogCreateTaskFormLabel htmlFor='cat'>
+                CATEGORY
+              </DialogCreateTaskFormLabel>
+              <DialogCreateTaskInput
+                name='cat'
+                id='cat'
+                type='text'
+              ></DialogCreateTaskInput>
+              <DialogCreateTaskFormLabel htmlFor='url'>
+                url
+              </DialogCreateTaskFormLabel>
+              <DialogCreateTaskInput
+                name='url'
+                id='url'
+                type='url'
+              ></DialogCreateTaskInput>
+              <DialogCreateTaskFormLabel htmlFor='nbBefore'>
+                nb before
+              </DialogCreateTaskFormLabel>
+              <DialogCreateTaskInput
+                name='nbBefore'
+                id='nbBefore'
+                type='number'
+                pattern='[0-9{0,5}]'
+              ></DialogCreateTaskInput>
+              <DialogCreateTaskFormLabel htmlFor='nbAfter'>
+                nb after
+              </DialogCreateTaskFormLabel>
+              <DialogCreateTaskInput
+                name='nbAfter'
+                id='nbAfter'
+                type='number'
+                pattern='[0-9{0,5}]'
+              ></DialogCreateTaskInput>
+              <DialogCreateTaskFormLabel htmlFor='comment'>
+                comment
+              </DialogCreateTaskFormLabel>
+              <DialogCreateTaskTextarea id='comment' name='comment' />
             </DialogCreateTaskFormInput>
             <DialogCreateTaskHr />
-            <DialogCreateTaskBtnContainer></DialogCreateTaskBtnContainer>
+            <DialogCreateTaskBtnContainer>
+              <BtnIconText title='save' hoverBgColor={true} bgColor='#1B5E20'>
+                <span className='material-icons-round'>done</span>
+              </BtnIconText>
+              <BtnIconText title='cancel' hoverBgColor={true} bgColor='#5e2750'>
+                <span className='material-icons-round'>close</span>
+              </BtnIconText>
+            </DialogCreateTaskBtnContainer>
           </DialogCreateTaskForm>
         </TitledCard>
       </DialogCreateTaskCont>
