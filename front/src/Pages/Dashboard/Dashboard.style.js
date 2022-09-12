@@ -5,6 +5,8 @@ export const DashboardContainer = styled.div`
   justify-content: center;
   padding: 1rem;
   flex-wrap: wrap;
+  position: relative;
+  top: 5vh;
 `;
 
 export const NoProcessingTask = styled.div`

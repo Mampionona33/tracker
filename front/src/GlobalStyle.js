@@ -7,6 +7,11 @@ const GlobalStyle = createGlobalStyle`
         box-sizing: border-box;
         font-family: Ubuntu;
     }
+
+    .modal-Open{
+        overflow: hidden;
+    }
+
     .cursPointer{
         cursor: pointer;
     }

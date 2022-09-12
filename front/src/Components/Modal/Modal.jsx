@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
 import { ComponentContext } from '../../context/componentContext';
@@ -8,15 +8,14 @@ const ModalContainer = styled.div`
   top: 0;
   background-color: ${(props) =>
     props.bc !== undefined ? props.bc : '#12000ff0'};
-  position: absolute;
   height: 100%;
   width: 100%;
   z-index: 1000;
   display: flex;
+  overflow: hidden;
   justify-content: ${(props) =>
     props.justifyContent !== undefined && props.justifyContent};
 `;
-/* background-color: #12000ff0; */
 
 const Modal = ({ children, justifContent, bc }) => {
   const {
@@ -33,6 +32,15 @@ const Modal = ({ children, justifContent, bc }) => {
       dialogCreatTaskIsOpen ? setdialogCreatTaskClose() : '';
     }
   };
+
+  useEffect(() => {
+    // Prevent scroling when modal is opan
+    document.body.style.overflowY = 'hidden';
+    return () => {
+      document.body.style.overflowY = 'auto';
+    };
+  }, []);
+
   return (
     <ModalContainer
       onClick={handleClickModal}

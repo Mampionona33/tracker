@@ -1,6 +1,14 @@
 import styled from 'styled-components';
 
 export const NavbarContainer = styled.div`
+  position: fixed;
+  width: 100vw;
+  overflow: hidden;
+  z-index: 1;
+`;
+
+export const NavBarSecContainer = styled.div`
+  display: flex;
   display: flex;
   color: white;
   align-items: center;
