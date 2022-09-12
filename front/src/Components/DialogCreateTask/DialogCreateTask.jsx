@@ -1,4 +1,4 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import Modal from '../Modal/Modal';
 import {
   DialogCreateTaskCont,
@@ -16,6 +16,7 @@ import TitledCard from './../TitledCard/TitledCard';
 import { TaskTypeContext } from '../../context/taskTypeContext';
 import BtnIconText from './../BtnIconText/BtnIconText';
 import { ComponentContext } from '../../context/componentContext';
+import { AuthConext } from '../../context/authContext';
 
 const IvpnList = ['i', 'v', 'p', 'n'].map((item, index) => (
   <DialogCreateTaskOption value={item} key={index}>
@@ -45,8 +46,26 @@ const statComOption = [
 
 const DialogCreateTask = () => {
   const { taskTypeList } = useContext(TaskTypeContext);
+  const { sub } = useContext(AuthConext);
   const { dialogCreatTaskIsOpen, setdialogCreatTaskClose } =
     useContext(ComponentContext);
+
+  const [newTask, setNewTask] = useState({
+    boothNumber: '',
+    type: 'Contenu',
+    processingState: '',
+    url: '',
+    cat: '',
+    ivpn: 'I',
+    nbBefore: 0,
+    statCom: '',
+    nbAfter: 0,
+    comment: '',
+    totalElapstedTime: '',
+    submitedDate: null,
+    productivity: 0,
+    user: { sub: sub },
+  });
 
   const refForm = useRef();
 
@@ -72,6 +91,11 @@ const DialogCreateTask = () => {
     console.log(refForm.current);
   };
 
+  const handleInputChange = (event) => {
+    event.preventDefault();
+    setNewTask({ ...newTask, [event.target.name]: event.target.value });
+  };
+
   return (
     <Modal justifContent='center'>
       <DialogCreateTaskCont>
@@ -89,6 +113,8 @@ const DialogCreateTask = () => {
                 name='boothNumber'
                 id='boothNumber'
                 type='text'
+                value={newTask.boothNumber}
+                onChange={handleInputChange}
               ></DialogCreateTaskInput>
               <DialogCreateTaskFormLabel htmlFor='type'>
                 Task type
@@ -97,6 +123,8 @@ const DialogCreateTask = () => {
                 name='type'
                 id='type'
                 style={{ textTransform: 'none' }}
+                value={newTask.type}
+                onChange={handleInputChange}
               >
                 {taskTypeOption}
               </DialogCreateTaskSelect>
@@ -107,13 +135,20 @@ const DialogCreateTask = () => {
                 id='statCom'
                 name='statCom'
                 style={{ textTransform: 'none' }}
+                value={newTask.statCom}
+                onChange={handleInputChange}
               >
                 {statComOption}
               </DialogCreateTaskSelect>
               <DialogCreateTaskFormLabel htmlFor='ivpn'>
                 IVPN
               </DialogCreateTaskFormLabel>
-              <DialogCreateTaskSelect name='ivpn' id='ivpn'>
+              <DialogCreateTaskSelect
+                name='ivpn'
+                id='ivpn'
+                value={newTask.ivpn}
+                onChange={handleInputChange}
+              >
                 {IvpnList}
               </DialogCreateTaskSelect>
               <DialogCreateTaskFormLabel htmlFor='cat'>
@@ -123,6 +158,8 @@ const DialogCreateTask = () => {
                 name='cat'
                 id='cat'
                 type='text'
+                value={newTask.cat}
+                onChange={handleInputChange}
               ></DialogCreateTaskInput>
               <DialogCreateTaskFormLabel htmlFor='url'>
                 url
@@ -131,6 +168,8 @@ const DialogCreateTask = () => {
                 name='url'
                 id='url'
                 type='url'
+                value={newTask.url}
+                onChange={handleInputChange}
               ></DialogCreateTaskInput>
               <DialogCreateTaskFormLabel htmlFor='nbBefore'>
                 nb before
@@ -140,6 +179,9 @@ const DialogCreateTask = () => {
                 id='nbBefore'
                 type='number'
                 pattern='[0-9{0,5}]'
+                value={newTask.nbBefore}
+                onChange={handleInputChange}
+                onInput={handleInputChange}
               ></DialogCreateTaskInput>
               <DialogCreateTaskFormLabel htmlFor='nbAfter'>
                 nb after
@@ -149,11 +191,19 @@ const DialogCreateTask = () => {
                 id='nbAfter'
                 type='number'
                 pattern='[0-9{0,5}]'
+                value={newTask.nbAfter}
+                onChange={handleInputChange}
+                onInput={handleInputChange}
               ></DialogCreateTaskInput>
               <DialogCreateTaskFormLabel htmlFor='comment'>
                 comment
               </DialogCreateTaskFormLabel>
-              <DialogCreateTaskTextarea id='comment' name='comment' />
+              <DialogCreateTaskTextarea
+                id='comment'
+                name='comment'
+                value={newTask.comment}
+                onChange={handleInputChange}
+              />
             </DialogCreateTaskFormInput>
           </DialogCreateTaskForm>
           <DialogCreateTaskHr />
