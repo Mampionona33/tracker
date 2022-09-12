@@ -34,7 +34,7 @@ const Modal = ({ children, justifContent, bc }) => {
   };
 
   useEffect(() => {
-    // Prevent scroling when modal is opan
+    // Prevent scroling when modal is open
     document.body.style.overflowY = 'hidden';
     return () => {
       document.body.style.overflowY = 'auto';

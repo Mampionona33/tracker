@@ -8,9 +8,6 @@ const GlobalStyle = createGlobalStyle`
         font-family: Ubuntu;
     }
 
-    .modal-Open{
-        overflow: hidden;
-    }
 
     .cursPointer{
         cursor: pointer;
