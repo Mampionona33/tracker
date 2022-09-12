@@ -2,10 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
 
-const BtnIconTextContainer = styled.div`
+const BtnIconTextContainer = styled.button`
   display: flex;
   align-items: center;
+  border: none;
   padding: 0 0.5rem;
+  color: ${(props) => (props.iconColor ? props.iconColor : '#fff')};
   background-color: ${(props) => (props.bgColor ? props.bgColor : 'black')};
   cursor: pointer;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
@@ -32,6 +34,8 @@ const BtnIconText = ({
   textColor,
   bgColor,
   hoverBgColor,
+  iconColor,
+  type = 'button',
 }) => {
   return (
     <BtnIconTextContainer
@@ -42,6 +46,8 @@ const BtnIconText = ({
       bgColor={bgColor}
       textColor={textColor}
       hoverBgColor={hoverBgColor}
+      iconColor={iconColor}
+      type={type}
     >
       {children}
     </BtnIconTextContainer>

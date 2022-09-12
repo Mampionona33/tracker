@@ -2,7 +2,6 @@ import React, { useContext, useRef, useState } from 'react';
 import Modal from '../Modal/Modal';
 import {
   DialogCreateTaskCont,
-  DialogCreateTaskForm,
   DialogCreateTaskInput,
   DialogCreateTaskFormLabel,
   DialogCreateTaskSelect,
@@ -87,8 +86,8 @@ const DialogCreateTask = () => {
   };
 
   const handleClickSave = (event) => {
-    event.preventDefault();
-    console.log(refForm.current);
+    // console.log(refForm.current);
+    console.log('test');
   };
 
   const handleInputChange = (event) => {
@@ -104,7 +103,7 @@ const DialogCreateTask = () => {
           iconBackGround='#2196F3'
           title={'create new task'}
         >
-          <DialogCreateTaskForm ref={refForm}>
+          <form onSubmit={handleClickSave}>
             <DialogCreateTaskFormInput>
               <DialogCreateTaskFormLabel htmlFor='boothNumber'>
                 Booth number
@@ -205,26 +204,26 @@ const DialogCreateTask = () => {
                 onChange={handleInputChange}
               />
             </DialogCreateTaskFormInput>
-          </DialogCreateTaskForm>
-          <DialogCreateTaskHr />
-          <DialogCreateTaskBtnContainer>
-            <BtnIconText
-              title='save'
-              hoverBgColor={true}
-              bgColor='#1B5E20'
-              onClick={handleClickSave}
-            >
-              <span className='material-icons-round'>done</span>
-            </BtnIconText>
-            <BtnIconText
-              title='cancel'
-              hoverBgColor={true}
-              bgColor='#5e2750'
-              onClick={handleClickCancel}
-            >
-              <span className='material-icons-round'>close</span>
-            </BtnIconText>
-          </DialogCreateTaskBtnContainer>
+            <DialogCreateTaskHr />
+            <DialogCreateTaskBtnContainer>
+              <BtnIconText
+                title='save'
+                hoverBgColor={true}
+                bgColor='#1B5E20'
+                type='submit'
+              >
+                <span className='material-icons-round'>done</span>
+              </BtnIconText>
+              <BtnIconText
+                title='cancel'
+                hoverBgColor={true}
+                bgColor='#5e2750'
+                onClick={handleClickCancel}
+              >
+                <span className='material-icons-round'>close</span>
+              </BtnIconText>
+            </DialogCreateTaskBtnContainer>
+          </form>
         </TitledCard>
       </DialogCreateTaskCont>
     </Modal>
