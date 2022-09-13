@@ -62,7 +62,7 @@ export const setCurrentTaskPlayOff = async (
       },
     },
   });
-  if(error){
-    return error
+  if (error) {
+    return error;
   }
 };

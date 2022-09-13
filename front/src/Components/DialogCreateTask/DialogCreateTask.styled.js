@@ -94,3 +94,12 @@ export const DialogCreateTaskBtnContainer = styled.div`
   gap: 0.5rem;
   justify-content: flex-end;
 `;
+
+export const DialogLoadingCont1 = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  position: absolute;
+  left: 50%;
+`;
