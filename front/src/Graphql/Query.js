@@ -59,3 +59,33 @@ export const GET_ALL_TASK_TYPE = gql`
     }
   }
 `;
+
+export const GET_TASK_BY_FILTER = gql`
+  query GetUserTaskByFilter($input: TaskInput) {
+    getUserTaskByFilter(input: $input) {
+      id
+      user {
+        sub
+      }
+      boothNumber
+      type
+      url
+      cat
+      ivpn
+      statCom
+      processingState
+      nbBefore
+      nbAfter
+      comment
+      taskState
+      submitedDate
+      productivity
+      totalElapstedTime
+      session {
+        session_id
+        sessionStart
+        sessionStop
+      }
+    }
+  }
+`;

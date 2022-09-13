@@ -20,8 +20,11 @@ import BtnIconText from './../BtnIconText/BtnIconText';
 import { ComponentContext } from '../../context/componentContext';
 import { AuthConext } from '../../context/authContext';
 import { useMutation, useQuery } from '@apollo/client';
-import { GET_USER_TASK } from '../../Graphql/Query';
-import { getUserTasks } from './../../Graphql/graphqlTasks';
+import { GET_TASK_BY_FILTER, GET_USER_TASK } from '../../Graphql/Query';
+import {
+  getUserTasks,
+  setCurrentTaskPauseOff,
+} from './../../Graphql/graphqlTasks';
 import Loading from '../Loading/Loading';
 import { UPDATE_TASK } from '../../Graphql/Mutation';
 
@@ -118,42 +121,56 @@ const DialogCreateTask = () => {
     dialogCreatTaskIsOpen && setdialogCreatTaskClose();
   };
 
-  const handleClickSave = (event) => {
-    event.preventDefault();
-    console.log(event.target);
-
-    const currentTaskId = currentTask.reduce((a, b) => a + b).id;
-    const currentTaskState = currentTask.reduce((a, b) => a + b).taskState;
-
-    if (currentTask.length > 0) {
-      if (currentTaskState === 'isPause') {
-        console.log(currentTaskState);
-      }
-    }
-  };
-
   const handleInputChange = (event) => {
     event.preventDefault();
 
     setNewTask({ ...newTask, [event.target.name]: event.target.value });
   };
 
-  const [setPrevProcessToOff, { error: errorSetPrevProcessToOff }] =
-    useMutation(UPDATE_TASK, {
+  const [updateTaskState, { error: errorSetPrevProcessToOff }] = useMutation(
+    UPDATE_TASK,
+    {
       refetchQueries: [
         {
-          query: GET_USER_TASK,
+          query: GET_TASK_BY_FILTER,
           variables: {
             input: {
-              sub: sub,
+              taskState: 'isOff',
+              user: {
+                sub: sub,
+              },
             },
           },
         },
       ],
       awaitRefetchQueries: true,
-    });
+    }
+  );
 
-  console.log(currentTask);
+  const handleClickSave = (event) => {
+    event.preventDefault();
+
+    const currentTaskId = currentTask.reduce((a, b) => a + b).id;
+    const currentTaskState = currentTask.reduce((a, b) => a + b).taskState;
+    const currentSessionId = Array.from(
+      currentTask.reduce((a, b) => a + b).session
+    )
+      .map((item) => item.session_id)
+      .reduce((a, b) => Math.max(a, b));
+
+    console.log(currentSessionId);
+
+    if (currentTask.length > 0) {
+      if (currentTaskState === 'isPause') {
+        setCurrentTaskPauseOff(
+          updateTaskState,
+          currentTaskId,
+          errorSetPrevProcessToOff,
+          currentSessionId
+        ).then(setdialogCreatTaskClose());
+      }
+    }
+  };
 
   return (
     <>

@@ -47,7 +47,7 @@ export const setCurrentTaskPlayOff = async (
   error,
   currentSessionId
 ) => {
-  updateTask({
+  const setTaskOff = updateTask({
     variables: {
       filter: {
         id: id,
@@ -65,4 +65,27 @@ export const setCurrentTaskPlayOff = async (
   if (error) {
     return error;
   }
+  return setTaskOff;
+};
+
+export const setCurrentTaskPauseOff = async (
+  updateTask,
+  id,
+  error,
+  currentSessionId
+) => {
+  updateTask({
+    variables: {
+      filter: {
+        id: id,
+      },
+      update: {
+        taskState: 'isOff',
+      },
+    },
+  });
+  if (error) {
+    console.log(error);
+  }
+  return;
 };
