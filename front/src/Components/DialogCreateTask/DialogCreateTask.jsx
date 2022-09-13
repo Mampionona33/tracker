@@ -27,6 +27,7 @@ import {
 } from './../../Graphql/graphqlTasks';
 import Loading from '../Loading/Loading';
 import { UPDATE_TASK } from '../../Graphql/Mutation';
+import client from './../../Graphql/apolloClient';
 
 const IvpnList = ['i', 'v', 'p', 'n'].map((item, index) => (
   <DialogCreateTaskOption value={item} key={index}>
@@ -132,13 +133,10 @@ const DialogCreateTask = () => {
     {
       refetchQueries: [
         {
-          query: GET_TASK_BY_FILTER,
+          query: GET_USER_TASK,
           variables: {
             input: {
-              taskState: 'isOff',
-              user: {
-                sub: sub,
-              },
+              sub: sub,
             },
           },
         },
@@ -167,7 +165,17 @@ const DialogCreateTask = () => {
           currentTaskId,
           errorSetPrevProcessToOff,
           currentSessionId
-        ).then(setdialogCreatTaskClose());
+        )
+          .then(setdialogCreatTaskClose())
+          .then(
+            client.refetchQueries(GET_USER_TASK, {
+              variables: {
+                input: {
+                  sub: sub,
+                },
+              },
+            })
+          );
       }
     }
   };
