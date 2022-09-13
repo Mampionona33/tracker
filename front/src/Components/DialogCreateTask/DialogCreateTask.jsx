@@ -145,7 +145,7 @@ const DialogCreateTask = () => {
     }
   );
 
-  const handleClickSave = (event) => {
+  const handleClickSave = async (event) => {
     event.preventDefault();
 
     const currentTaskId = currentTask.reduce((a, b) => a + b).id;
@@ -160,22 +160,29 @@ const DialogCreateTask = () => {
 
     if (currentTask.length > 0) {
       if (currentTaskState === 'isPause') {
-        setCurrentTaskPauseOff(
-          updateTaskState,
-          currentTaskId,
-          errorSetPrevProcessToOff,
-          currentSessionId
-        )
-          .then(setdialogCreatTaskClose())
-          .then(
-            client.refetchQueries(GET_USER_TASK, {
-              variables: {
-                input: {
-                  sub: sub,
-                },
-              },
-            })
-          );
+        // setCurrentTaskPauseOff(currentSessionId, errorSetPrevProcessToOff)
+        //   .then(client.refetchQueries({ include: 'all' }))
+        //   .then(setdialogCreatTaskClose());
+
+        const update = await client.mutate({
+          mutation: UPDATE_TASK,
+          variables: {
+            filter: {
+              id: currentTaskId,
+            },
+            update: {
+              taskState: 'isOff',
+            },
+          },
+        });
+
+        // setCurrentTaskPauseOff(
+        //   updateTaskState,
+        //   currentTaskId,
+        //   errorSetPrevProcessToOff,
+        // )
+        //   .then(client.reFetchObservableQueries())
+        //   .then(setdialogCreatTaskClose());
       }
     }
   };

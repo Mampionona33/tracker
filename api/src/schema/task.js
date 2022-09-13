@@ -257,7 +257,6 @@ const update = async (
     update[0].$set.submitedDate = submitedDate;
   }
 
-  console.log('filter', filter);
   console.log('update', update);
 
   const options = { upsert: false, returnNewDocument: true };
@@ -271,7 +270,10 @@ const update = async (
       }
       console.log(doc);
     });
-  return { acknowledged: true };
+
+  console.log('filter', filter);
+  const result = await db.collection('tasks').findOne(filter);
+  return result;
 };
 
 const getTaskByDate = async (_, { query: { date, sub } }) => {

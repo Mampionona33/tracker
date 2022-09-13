@@ -1,4 +1,5 @@
 import client from './apolloClient';
+import { UPDATE_TASK } from './Mutation';
 import { GET_USER_TASK } from './Query';
 
 export const getUserTasks = async (sub) => {
@@ -68,13 +69,9 @@ export const setCurrentTaskPlayOff = async (
   return setTaskOff;
 };
 
-export const setCurrentTaskPauseOff = async (
-  updateTask,
-  id,
-  error,
-  currentSessionId
-) => {
-  updateTask({
+export const setCurrentTaskPauseOff = async (id, error) => {
+  const setTaskOff = await client.mutate({
+    mutation: UPDATE_TASK,
     variables: {
       filter: {
         id: id,
@@ -84,8 +81,23 @@ export const setCurrentTaskPauseOff = async (
       },
     },
   });
+
   if (error) {
-    console.log(error);
+    return error;
   }
-  return;
+  return setTaskOff.data;
+  // updateTask({
+  //   variables: {
+  //     filter: {
+  //       id: id,
+  //     },
+  //     update: {
+  //       taskState: 'isOff',
+  //     },
+  //   },
+  // });
+  // if (error) {
+  //   console.log(error);
+  // }
+  // return;
 };
