@@ -10,9 +10,9 @@ const ModalContainer = styled.div`
     props.bc !== undefined ? props.bc : '#12000ff0'};
   height: 100%;
   width: 100%;
-  z-index: 1000;
   display: flex;
   overflow: hidden;
+  z-index: 1;
   justify-content: ${(props) =>
     props.justifyContent !== undefined && props.justifyContent};
 `;

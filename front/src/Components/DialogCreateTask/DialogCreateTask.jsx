@@ -10,6 +10,8 @@ import {
   DialogCreateTaskHr,
   DialogCreateTaskFormInput,
   DialogCreateTaskBtnContainer,
+  DialogCreateTaskForm,
+  DialogCreateTaskCon1,
 } from './DialogCreateTask.styled';
 import TitledCard from './../TitledCard/TitledCard';
 import { TaskTypeContext } from '../../context/taskTypeContext';
@@ -86,8 +88,8 @@ const DialogCreateTask = () => {
   };
 
   const handleClickSave = (event) => {
-    // console.log(refForm.current);
-    console.log('test');
+    event.preventDefault();
+    console.log(event.target);
   };
 
   const handleInputChange = (event) => {
@@ -96,137 +98,140 @@ const DialogCreateTask = () => {
   };
 
   return (
-    <Modal justifContent='center'>
-      <DialogCreateTaskCont>
-        <TitledCard
-          icon='note_add'
-          iconBackGround='#2196F3'
-          title={'create new task'}
-        >
-          <form onSubmit={handleClickSave}>
-            <DialogCreateTaskFormInput>
-              <DialogCreateTaskFormLabel htmlFor='boothNumber'>
-                Booth number
-              </DialogCreateTaskFormLabel>
-              <DialogCreateTaskInput
-                name='boothNumber'
-                id='boothNumber'
-                type='text'
-                value={newTask.boothNumber}
-                onChange={handleInputChange}
-              ></DialogCreateTaskInput>
-              <DialogCreateTaskFormLabel htmlFor='type'>
-                Task type
-              </DialogCreateTaskFormLabel>
-              <DialogCreateTaskSelect
-                name='type'
-                id='type'
-                style={{ textTransform: 'none' }}
-                value={newTask.type}
-                onChange={handleInputChange}
-              >
-                {taskTypeOption}
-              </DialogCreateTaskSelect>
-              <DialogCreateTaskFormLabel htmlFor='statCom'>
-                STATUS COM
-              </DialogCreateTaskFormLabel>
-              <DialogCreateTaskSelect
-                id='statCom'
-                name='statCom'
-                style={{ textTransform: 'none' }}
-                value={newTask.statCom}
-                onChange={handleInputChange}
-              >
-                {statComOption}
-              </DialogCreateTaskSelect>
-              <DialogCreateTaskFormLabel htmlFor='ivpn'>
-                IVPN
-              </DialogCreateTaskFormLabel>
-              <DialogCreateTaskSelect
-                name='ivpn'
-                id='ivpn'
-                value={newTask.ivpn}
-                onChange={handleInputChange}
-              >
-                {IvpnList}
-              </DialogCreateTaskSelect>
-              <DialogCreateTaskFormLabel htmlFor='cat'>
-                CATEGORY
-              </DialogCreateTaskFormLabel>
-              <DialogCreateTaskInput
-                name='cat'
-                id='cat'
-                type='text'
-                value={newTask.cat}
-                onChange={handleInputChange}
-              ></DialogCreateTaskInput>
-              <DialogCreateTaskFormLabel htmlFor='url'>
-                url
-              </DialogCreateTaskFormLabel>
-              <DialogCreateTaskInput
-                name='url'
-                id='url'
-                type='url'
-                value={newTask.url}
-                onChange={handleInputChange}
-              ></DialogCreateTaskInput>
-              <DialogCreateTaskFormLabel htmlFor='nbBefore'>
-                nb before
-              </DialogCreateTaskFormLabel>
-              <DialogCreateTaskInput
-                name='nbBefore'
-                id='nbBefore'
-                type='number'
-                pattern='[0-9{0,5}]'
-                value={newTask.nbBefore}
-                onChange={handleInputChange}
-                onInput={handleInputChange}
-              ></DialogCreateTaskInput>
-              <DialogCreateTaskFormLabel htmlFor='nbAfter'>
-                nb after
-              </DialogCreateTaskFormLabel>
-              <DialogCreateTaskInput
-                name='nbAfter'
-                id='nbAfter'
-                type='number'
-                pattern='[0-9{0,5}]'
-                value={newTask.nbAfter}
-                onChange={handleInputChange}
-                onInput={handleInputChange}
-              ></DialogCreateTaskInput>
-              <DialogCreateTaskFormLabel htmlFor='comment'>
-                comment
-              </DialogCreateTaskFormLabel>
-              <DialogCreateTaskTextarea
-                id='comment'
-                name='comment'
-                value={newTask.comment}
-                onChange={handleInputChange}
-              />
-            </DialogCreateTaskFormInput>
-            <DialogCreateTaskHr />
-            <DialogCreateTaskBtnContainer>
-              <BtnIconText
-                title='save'
-                hoverBgColor={true}
-                bgColor='#1B5E20'
-                type='submit'
-              >
-                <span className='material-icons-round'>done</span>
-              </BtnIconText>
-              <BtnIconText
-                title='cancel'
-                hoverBgColor={true}
-                bgColor='#5e2750'
-                onClick={handleClickCancel}
-              >
-                <span className='material-icons-round'>close</span>
-              </BtnIconText>
-            </DialogCreateTaskBtnContainer>
-          </form>
-        </TitledCard>
-      </DialogCreateTaskCont>
-    </Modal>
+    <>
+      <Modal justifContent='center' />
+      <DialogCreateTaskCon1>
+        <DialogCreateTaskCont>
+          <TitledCard
+            icon='note_add'
+            iconBackGround='#2196F3'
+            title={'create new task'}
+          >
+            <DialogCreateTaskForm ref={refForm} onSubmit={handleClickSave}>
+              <DialogCreateTaskFormInput>
+                <DialogCreateTaskFormLabel htmlFor='boothNumber'>
+                  Booth number
+                </DialogCreateTaskFormLabel>
+                <DialogCreateTaskInput
+                  name='boothNumber'
+                  id='boothNumber'
+                  type='text'
+                  value={newTask.boothNumber}
+                  onChange={handleInputChange}
+                ></DialogCreateTaskInput>
+                <DialogCreateTaskFormLabel htmlFor='type'>
+                  Task type
+                </DialogCreateTaskFormLabel>
+                <DialogCreateTaskSelect
+                  name='type'
+                  id='type'
+                  style={{ textTransform: 'none' }}
+                  value={newTask.type}
+                  onChange={handleInputChange}
+                >
+                  {taskTypeOption}
+                </DialogCreateTaskSelect>
+                <DialogCreateTaskFormLabel htmlFor='statCom'>
+                  STATUS COM
+                </DialogCreateTaskFormLabel>
+                <DialogCreateTaskSelect
+                  id='statCom'
+                  name='statCom'
+                  style={{ textTransform: 'none' }}
+                  value={newTask.statCom}
+                  onChange={handleInputChange}
+                >
+                  {statComOption}
+                </DialogCreateTaskSelect>
+                <DialogCreateTaskFormLabel htmlFor='ivpn'>
+                  IVPN
+                </DialogCreateTaskFormLabel>
+                <DialogCreateTaskSelect
+                  name='ivpn'
+                  id='ivpn'
+                  value={newTask.ivpn}
+                  onChange={handleInputChange}
+                >
+                  {IvpnList}
+                </DialogCreateTaskSelect>
+                <DialogCreateTaskFormLabel htmlFor='cat'>
+                  CATEGORY
+                </DialogCreateTaskFormLabel>
+                <DialogCreateTaskInput
+                  name='cat'
+                  id='cat'
+                  type='text'
+                  value={newTask.cat}
+                  onChange={handleInputChange}
+                ></DialogCreateTaskInput>
+                <DialogCreateTaskFormLabel htmlFor='url'>
+                  url
+                </DialogCreateTaskFormLabel>
+                <DialogCreateTaskInput
+                  name='url'
+                  id='url'
+                  type='url'
+                  value={newTask.url}
+                  onChange={handleInputChange}
+                ></DialogCreateTaskInput>
+                <DialogCreateTaskFormLabel htmlFor='nbBefore'>
+                  nb before
+                </DialogCreateTaskFormLabel>
+                <DialogCreateTaskInput
+                  name='nbBefore'
+                  id='nbBefore'
+                  type='number'
+                  pattern='[0-9{0,5}]'
+                  value={newTask.nbBefore}
+                  onChange={handleInputChange}
+                  onInput={handleInputChange}
+                ></DialogCreateTaskInput>
+                <DialogCreateTaskFormLabel htmlFor='nbAfter'>
+                  nb after
+                </DialogCreateTaskFormLabel>
+                <DialogCreateTaskInput
+                  name='nbAfter'
+                  id='nbAfter'
+                  type='number'
+                  pattern='[0-9{0,5}]'
+                  value={newTask.nbAfter}
+                  onChange={handleInputChange}
+                  onInput={handleInputChange}
+                ></DialogCreateTaskInput>
+                <DialogCreateTaskFormLabel htmlFor='comment'>
+                  comment
+                </DialogCreateTaskFormLabel>
+                <DialogCreateTaskTextarea
+                  id='comment'
+                  name='comment'
+                  value={newTask.comment}
+                  onChange={handleInputChange}
+                />
+              </DialogCreateTaskFormInput>
+              <DialogCreateTaskHr />
+              <DialogCreateTaskBtnContainer>
+                <BtnIconText
+                  title='save'
+                  hoverBgColor={true}
+                  bgColor='#1B5E20'
+                  type='submit'
+                >
+                  <span className='material-icons-round'>done</span>
+                </BtnIconText>
+                <BtnIconText
+                  title='cancel'
+                  hoverBgColor={true}
+                  bgColor='#5e2750'
+                  onClick={handleClickCancel}
+                >
+                  <span className='material-icons-round'>close</span>
+                </BtnIconText>
+              </DialogCreateTaskBtnContainer>
+            </DialogCreateTaskForm>
+          </TitledCard>
+        </DialogCreateTaskCont>
+      </DialogCreateTaskCon1>
+    </>
   );
 };
 

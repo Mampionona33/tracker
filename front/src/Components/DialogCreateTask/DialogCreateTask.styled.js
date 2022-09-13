@@ -1,11 +1,16 @@
 import styled from 'styled-components';
 
-export const DialogCreateTaskCont = styled.div`
+export const DialogCreateTaskCon1 = styled.div`
   display: flex;
   justify-content: center;
   color: white;
-  position: absolute;
+  position: relative;
   margin-top: 10vh;
+  z-index: 2;
+`;
+
+export const DialogCreateTaskCont = styled.div`
+  position: absolute;
 `;
 
 export const DialogCreateTaskFormInput = styled.div`

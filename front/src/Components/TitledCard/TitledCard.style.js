@@ -50,7 +50,6 @@ export const TitleCardFourth = styled.div`
   top: -2rem;
   left: -2.5rem;
   color: white;
-  z-index: auto;
   ::after {
     content: '';
     width: 0;
