@@ -21,3 +21,11 @@ export const CREATE_USER = gql`
     }
   }
 `;
+
+export const UPDATE_TASK = gql`
+  mutation UpdateTask($update: TaskInput, $filter: FilterTaskPlay) {
+    updateTask(update: $update, filter: $filter) {
+      acknowledged
+    }
+  }
+`;

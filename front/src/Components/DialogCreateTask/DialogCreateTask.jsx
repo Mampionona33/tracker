@@ -19,10 +19,11 @@ import { TaskTypeContext } from '../../context/taskTypeContext';
 import BtnIconText from './../BtnIconText/BtnIconText';
 import { ComponentContext } from '../../context/componentContext';
 import { AuthConext } from '../../context/authContext';
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { GET_USER_TASK } from '../../Graphql/Query';
 import { getUserTasks } from './../../Graphql/graphqlTasks';
 import Loading from '../Loading/Loading';
+import { UPDATE_TASK } from '../../Graphql/Mutation';
 
 const IvpnList = ['i', 'v', 'p', 'n'].map((item, index) => (
   <DialogCreateTaskOption value={item} key={index}>
@@ -54,7 +55,7 @@ const DialogCreateTask = () => {
   const { taskTypeList } = useContext(TaskTypeContext);
   const { sub } = useContext(AuthConext);
   const [loading, setLoading] = useState(true);
-  const [currentTaskId, setCurrentTaskId] = useState(null);
+  const [currentTask, setCurrentTask] = useState([]);
   const { dialogCreatTaskIsOpen, setdialogCreatTaskClose } =
     useContext(ComponentContext);
 
@@ -66,14 +67,11 @@ const DialogCreateTask = () => {
       setLoading((prev) => false);
       if (isMounted) {
         if (userTasks) {
-          setCurrentTaskId(
-            (prev) =>
-              Array.from(userTasks)
-                .filter(
-                  (item) =>
-                    item.taskState === 'isPlay' || item.taskState === 'isPause'
-                )
-                .map((item) => item.id)[0]
+          setCurrentTask((prev) =>
+            Array.from(userTasks).filter(
+              (item) =>
+                item.taskState === 'isPlay' || item.taskState === 'isPause'
+            )
           );
         }
       }
@@ -123,14 +121,39 @@ const DialogCreateTask = () => {
   const handleClickSave = (event) => {
     event.preventDefault();
     console.log(event.target);
+
+    const currentTaskId = currentTask.reduce((a, b) => a + b).id;
+    const currentTaskState = currentTask.reduce((a, b) => a + b).taskState;
+
+    if (currentTask.length > 0) {
+      if (currentTaskState === 'isPause') {
+        console.log(currentTaskState);
+      }
+    }
   };
 
   const handleInputChange = (event) => {
     event.preventDefault();
+
     setNewTask({ ...newTask, [event.target.name]: event.target.value });
   };
 
-  console.log(currentTaskId);
+  const [setPrevProcessToOff, { error: errorSetPrevProcessToOff }] =
+    useMutation(UPDATE_TASK, {
+      refetchQueries: [
+        {
+          query: GET_USER_TASK,
+          variables: {
+            input: {
+              sub: sub,
+            },
+          },
+        },
+      ],
+      awaitRefetchQueries: true,
+    });
+
+  console.log(currentTask);
 
   return (
     <>
