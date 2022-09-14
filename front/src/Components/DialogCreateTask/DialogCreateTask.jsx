@@ -86,7 +86,7 @@ const DialogCreateTask = () => {
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [userTask]);
 
   const [newTask, setNewTask] = useState({
     boothNumber: '',

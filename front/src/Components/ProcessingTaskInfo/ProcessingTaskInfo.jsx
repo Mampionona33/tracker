@@ -20,7 +20,6 @@ export default function ProcessingTaskInfo() {
     loading: loadingUserTask,
   } = useQuery(GET_USER_TASK, {
     variables: { input: { sub: sub } },
-    fetchPolicy: 'network-only',
   });
 
   useEffect(() => {
