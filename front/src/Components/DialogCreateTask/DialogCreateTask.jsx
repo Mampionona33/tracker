@@ -21,13 +21,12 @@ import { ComponentContext } from '../../context/componentContext';
 import { AuthConext } from '../../context/authContext';
 import {
   createNewTask,
-  getUserTasks,
   setCurrentTaskPauseOff,
   setCurrentTaskPlayOff,
 } from './../../Graphql/graphqlTasks';
 import Loading from '../Loading/Loading';
 import { CREATE_TASK, UPDATE_TASK } from '../../Graphql/Mutation';
-import { useMutation } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { GET_USER_TASK } from '../../Graphql/Query';
 
 const IvpnList = ['i', 'v', 'p', 'n'].map((item, index) => (
@@ -59,25 +58,27 @@ const statComOption = [
 const DialogCreateTask = () => {
   const { taskTypeList } = useContext(TaskTypeContext);
   const { sub } = useContext(AuthConext);
-  const [loading, setLoading] = useState(true);
   const [currentTask, setCurrentTask] = useState([]);
   const { dialogCreatTaskIsOpen, setdialogCreatTaskClose } =
     useContext(ComponentContext);
+
+  const {
+    data: userTask,
+    error: errorFetchingUserTask,
+    loading: loadingUserTask,
+  } = useQuery(GET_USER_TASK, { variables: { input: { sub: sub } } });
 
   useEffect(() => {
     let isMounted = true;
 
     (async () => {
-      const userTasks = await getUserTasks(sub);
-      setLoading((prev) => false);
-      if (isMounted) {
-        if (userTasks) {
-          setCurrentTask((prev) =>
-            Array.from(userTasks).filter(
-              (item) =>
-                item.taskState === 'isPlay' || item.taskState === 'isPause'
-            )
+      if (userTask) {
+        if (isMounted) {
+          const processing = Array.from(userTask.getUserTasks).filter(
+            (item) =>
+              item.taskState === 'isPlay' || item.taskState === 'isPause'
           );
+          processing.length > 0 && setCurrentTask((prev) => processing);
         }
       }
     })();
@@ -193,7 +194,7 @@ const DialogCreateTask = () => {
 
   return (
     <>
-      {loading ? (
+      {loadingUserTask ? (
         <DialogLoadingCont1>
           <Loading firstColor='#fff' seconColor='black' zIndex='2' />
         </DialogLoadingCont1>
