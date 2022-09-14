@@ -1,5 +1,4 @@
 import client from './apolloClient';
-import { UPDATE_TASK } from './Mutation';
 import { GET_USER_TASK } from './Query';
 
 export const getUserTasks = async (sub) => {
@@ -10,36 +9,40 @@ export const getUserTasks = async (sub) => {
         sub: sub,
       },
     },
+    fetchPolicy: 'no-cache',
   });
   return getUserTask.data.getUserTask;
 };
 
 export const createNewTask = async (createTask, sub, taskData, error) => {
-  await createTask({
+  createTask({
     variables: {
       task: {
         user: {
           sub: sub,
         },
-      },
-      boothNumber: taskData.boothNumber,
-      taskState: 'isPlay',
-      type: taskData.type,
-      url: taskData.url,
-      cat: taskData.cat,
-      ivpn: taskData.ivpn,
-      statCom: taskData.statCom,
-      nbBefore: parseInt(taskData.nbBefore),
-      nbAfter: parseInt(taskData.nbAfter),
-      comment: taskData.comment,
-      processingState: 'Normal',
-      session: {
-        session_id: 0,
-        sessionStart: new Date(),
-        sessionStop: null,
+        boothNumber: taskData.boothNumber,
+        taskState: 'isPlay',
+        type: taskData.type,
+        url: taskData.url,
+        cat: taskData.cat,
+        ivpn: taskData.ivpn,
+        statCom: taskData.statCom,
+        nbBefore: parseInt(taskData.nbBefore),
+        nbAfter: parseInt(taskData.nbAfter),
+        comment: taskData.comment,
+        processingState: 'Normal',
+        session: {
+          session_id: 0,
+          sessionStart: new Date(),
+          sessionStop: null,
+        },
       },
     },
   });
+  if (error) {
+    console.log(error);
+  }
 };
 
 export const setCurrentTaskPlayOff = async (
@@ -69,9 +72,8 @@ export const setCurrentTaskPlayOff = async (
   return setTaskOff;
 };
 
-export const setCurrentTaskPauseOff = async (id, error) => {
-  const setTaskOff = await client.mutate({
-    mutation: UPDATE_TASK,
+export const setCurrentTaskPauseOff = async (updateTask, id, error) => {
+  await updateTask({
     variables: {
       filter: {
         id: id,
@@ -81,23 +83,8 @@ export const setCurrentTaskPauseOff = async (id, error) => {
       },
     },
   });
-
   if (error) {
-    return error;
+    console.log(error);
   }
-  return setTaskOff.data;
-  // updateTask({
-  //   variables: {
-  //     filter: {
-  //       id: id,
-  //     },
-  //     update: {
-  //       taskState: 'isOff',
-  //     },
-  //   },
-  // });
-  // if (error) {
-  //   console.log(error);
-  // }
-  // return;
+  return updateTask;
 };

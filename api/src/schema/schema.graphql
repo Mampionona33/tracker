@@ -152,5 +152,5 @@ type Mutation {
   setAboutMessage(message: String!): String
   creatUser(user: UserInput!): User
   createTask(task: TaskInput): Tasks
-  updateTask(filter: FilterTaskPlay, update: TaskInput): Tasks
+  updateTask(filter: FilterTaskPlay, update: TaskInput): UpdateResponse
 }

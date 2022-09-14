@@ -19,15 +19,16 @@ import { TaskTypeContext } from '../../context/taskTypeContext';
 import BtnIconText from './../BtnIconText/BtnIconText';
 import { ComponentContext } from '../../context/componentContext';
 import { AuthConext } from '../../context/authContext';
-import { useMutation, useQuery } from '@apollo/client';
-import { GET_TASK_BY_FILTER, GET_USER_TASK } from '../../Graphql/Query';
 import {
+  createNewTask,
   getUserTasks,
   setCurrentTaskPauseOff,
+  setCurrentTaskPlayOff,
 } from './../../Graphql/graphqlTasks';
 import Loading from '../Loading/Loading';
-import { UPDATE_TASK } from '../../Graphql/Mutation';
-import client from './../../Graphql/apolloClient';
+import { CREATE_TASK, UPDATE_TASK } from '../../Graphql/Mutation';
+import { useMutation } from '@apollo/client';
+import { GET_USER_TASK } from '../../Graphql/Query';
 
 const IvpnList = ['i', 'v', 'p', 'n'].map((item, index) => (
   <DialogCreateTaskOption value={item} key={index}>
@@ -128,62 +129,65 @@ const DialogCreateTask = () => {
     setNewTask({ ...newTask, [event.target.name]: event.target.value });
   };
 
-  const [updateTaskState, { error: errorSetPrevProcessToOff }] = useMutation(
-    UPDATE_TASK,
-    {
-      refetchQueries: [
-        {
-          query: GET_USER_TASK,
-          variables: {
-            input: {
-              sub: sub,
-            },
+  const [updateTaskState, { error: errorSetPrevProcessToOff }] =
+    useMutation(UPDATE_TASK);
+
+  const [createTask, { error: errorCreateTask }] = useMutation(CREATE_TASK, {
+    refetchQueries: [
+      {
+        query: GET_USER_TASK,
+        variables: {
+          input: {
+            sub: sub,
           },
         },
-      ],
-      awaitRefetchQueries: true,
-    }
-  );
+      },
+    ],
+    awaitRefetchQueries: true,
+  });
 
-  const handleClickSave = async (event) => {
+  const handleClickSave = (event) => {
     event.preventDefault();
 
-    const currentTaskId = currentTask.reduce((a, b) => a + b).id;
-    const currentTaskState = currentTask.reduce((a, b) => a + b).taskState;
-    const currentSessionId = Array.from(
-      currentTask.reduce((a, b) => a + b).session
-    )
-      .map((item) => item.session_id)
-      .reduce((a, b) => Math.max(a, b));
-
-    console.log(currentSessionId);
-
     if (currentTask.length > 0) {
+      const currentTaskId = currentTask.reduce((a, b) => a + b).id;
+      const currentTaskState = currentTask.reduce((a, b) => a + b).taskState;
+      const currentSessionId = Array.from(
+        currentTask.reduce((a, b) => a + b).session
+      )
+        .map((item) => item.session_id)
+        .reduce((a, b) => Math.max(a, b));
+
       if (currentTaskState === 'isPause') {
-        // setCurrentTaskPauseOff(currentSessionId, errorSetPrevProcessToOff)
-        //   .then(client.refetchQueries({ include: 'all' }))
-        //   .then(setdialogCreatTaskClose());
-
-        const update = await client.mutate({
-          mutation: UPDATE_TASK,
-          variables: {
-            filter: {
-              id: currentTaskId,
-            },
-            update: {
-              taskState: 'isOff',
-            },
-          },
-        });
-
-        // setCurrentTaskPauseOff(
-        //   updateTaskState,
-        //   currentTaskId,
-        //   errorSetPrevProcessToOff,
-        // )
-        //   .then(client.reFetchObservableQueries())
-        //   .then(setdialogCreatTaskClose());
+        (async () => {
+          await setCurrentTaskPauseOff(
+            updateTaskState,
+            currentTaskId,
+            errorSetPrevProcessToOff
+          )
+            .then(createNewTask(createTask, sub, newTask, errorCreateTask))
+            .then(setdialogCreatTaskClose());
+        })();
       }
+      if (currentTaskState === 'isPlay') {
+        (async () => {
+          await setCurrentTaskPlayOff(
+            updateTaskState,
+            currentTaskId,
+            errorSetPrevProcessToOff,
+            currentSessionId
+          )
+            .then(createNewTask(createTask, sub, newTask, errorCreateTask))
+            .then(setdialogCreatTaskClose());
+        })();
+      }
+    }
+    if (currentTask.length <= 0) {
+      (async () => {
+        createNewTask(createTask, sub, newTask, errorCreateTask).then(
+          setdialogCreatTaskClose()
+        );
+      })();
     }
   };
 

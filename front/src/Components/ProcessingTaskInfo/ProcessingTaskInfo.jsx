@@ -1,6 +1,7 @@
+import { useQuery } from '@apollo/client';
 import React, { useContext, useEffect, useState } from 'react';
 import { AuthConext } from '../../context/authContext';
-import { getUserTasks } from '../../Graphql/graphqlTasks';
+import { GET_USER_TASK } from '../../Graphql/Query';
 import Loading from '../Loading/Loading';
 import {
   ProcessingTaskInfoContainer,
@@ -12,32 +13,34 @@ import {
 export default function ProcessingTaskInfo() {
   const [processingTask, setProcessingTask] = useState([]);
   const { sub } = useContext(AuthConext);
-  const [loading, setIsLoading] = useState(true);
+
+  const {
+    data: userTasks,
+    error: errorFetchingUserTask,
+    loading: loadingUserTask,
+  } = useQuery(GET_USER_TASK, {
+    variables: { input: { sub: sub } },
+    fetchPolicy: 'network-only',
+  });
 
   useEffect(() => {
     let isMounted = true;
-    (async () => {
-      if (sub) {
-        const allUserTasks = await getUserTasks(sub);
-        setIsLoading((prev) => false);
-        if (isMounted) {
-          if (allUserTasks && Array.from(allUserTasks).length > 0) {
-            const processing = Array.from(allUserTasks).filter(
-              (item) =>
-                item.taskState === 'isPlay' || item.taskState === 'isPause'
-            );
 
-            processing.length > 0 && setProcessingTask((prev) => processing);
-          }
-        }
+    if (userTasks) {
+      if (isMounted) {
+        const processing = Array.from(userTasks.getUserTask).filter(
+          (item) => item.taskState === 'isPlay' || item.taskState === 'isPause'
+        );
+        processing.length > 0 && setProcessingTask((prev) => processing);
       }
-    })();
+    }
+
     return () => {
       isMounted = false;
     };
-  }, []);
+  }, [userTasks]);
 
-  if (loading) {
+  if (loadingUserTask) {
     return <Loading />;
   }
 

@@ -22,19 +22,42 @@ export const CREATE_USER = gql`
   }
 `;
 
+export const UPDATE_TASK = gql`
+  mutation UpdateTask($update: TaskInput, $filter: FilterTaskPlay) {
+    updateTask(update: $update, filter: $filter) {
+      acknowledged
+    }
+  }
+`;
+
 // export const UPDATE_TASK = gql`
-//   mutation UpdateTask($update: TaskInput, $filter: FilterTaskPlay) {
-//     updateTask(update: $update, filter: $filter) {
-//       acknowledged
+//   mutation UpdateTask($filter: FilterTaskPlay, $update: TaskInput) {
+//     updateTask(filter: $filter, update: $update) {
+//       taskState
+//       id
+//       boothNumber
+//       type
+//       url
+//       cat
+//       ivpn
+//       statCom
+//       processingState
+//       nbBefore
+//       nbAfter
+//       comment
+//       totalElapstedTime
+//       submitedDate
+//       productivity
 //     }
 //   }
 // `;
 
-export const UPDATE_TASK = gql`
-  mutation UpdateTask($filter: FilterTaskPlay, $update: TaskInput) {
-    updateTask(filter: $filter, update: $update) {
-      taskState
-      id
+export const CREATE_TASK = gql`
+  mutation CreateTask($task: TaskInput) {
+    createTask(task: $task) {
+      user {
+        sub
+      }
       boothNumber
       type
       url
@@ -45,9 +68,15 @@ export const UPDATE_TASK = gql`
       nbBefore
       nbAfter
       comment
+      taskState
       totalElapstedTime
       submitedDate
       productivity
+      session {
+        session_id
+        sessionStart
+        sessionStop
+      }
     }
   }
 `;

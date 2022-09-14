@@ -5,10 +5,11 @@ import {
   NoProcessingTask,
   StyledSpan,
 } from './Dashboard.style';
-import { getUserTasks } from './../../Graphql/graphqlTasks';
 import { useNavigate } from 'react-router-dom';
 import Loading from '../../Components/Loading/Loading';
 import { ComponentContext } from '../../context/componentContext';
+import { useQuery } from '@apollo/client';
+import { GET_USER_TASK } from '../../Graphql/Query';
 
 const TitledCard = lazy(() => import('../../Components/TitledCard/TitledCard'));
 const ProcessingTask = lazy(() =>
@@ -17,36 +18,36 @@ const ProcessingTask = lazy(() =>
 
 export default function Dashboard(props) {
   const [processingTask, setProcessingTask] = useState(null);
-  const [loading, setLoading] = useState(true);
   const { sub } = useContext(AuthConext);
   const navigate = useNavigate();
   const { dialogCreatTaskIsOpen, setdialogCreatTaskOpen } =
     useContext(ComponentContext);
 
+  const {
+    data: userTasks,
+    error: errorFetchingUserTask,
+    loading: loadingUserTask,
+  } = useQuery(GET_USER_TASK, { variables: { input: { sub: sub } } });
+
   useEffect(() => {
     let isMounted = true;
-    (async () => {
-      if (sub) {
-        const allUserTasks = await getUserTasks(sub);
-        setLoading((prev) => false);
 
+    (async () => {
+      if (userTasks) {
         if (isMounted) {
-          if (allUserTasks && allUserTasks.length > 0) {
-            const processing = Array.from(allUserTasks).filter(
-              (item) =>
-                item.taskState === 'isPlay' || item.taskState === 'isPause'
-            );
-            if (processing.length > 0) {
-              setProcessingTask((prev) => true);
-            }
-          }
+          const processing = Array.from(userTasks.getUserTask).filter(
+            (item) =>
+              item.taskState === 'isPlay' || item.taskState === 'isPause'
+          );
+          processing.length > 0 && setProcessingTask(true);
         }
       }
     })();
+
     return () => {
       isMounted = false;
     };
-  }, [sub]);
+  }, [sub, userTasks]);
 
   const handleClickText = (event) => {
     event.preventDefault();
@@ -55,7 +56,7 @@ export default function Dashboard(props) {
 
   return (
     <DashboardContainer>
-      {loading && <Loading />}
+      {loadingUserTask && <Loading />}
 
       {processingTask ? (
         <TitledCard
