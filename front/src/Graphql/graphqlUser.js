@@ -14,8 +14,36 @@ export const getUser = async (sub) => {
   return userData.data.searchUser[0];
 };
 
-export const createUser = async (creatUser, user, error) => {
-  creatUser({
+// export const createUser = async (creatUser, user, error) => {
+//   creatUser({
+//     variables: {
+//       user: {
+//         name: user.name,
+//         aud: user.aud,
+//         azp: user.azp,
+//         email_verified: user.email_verified,
+//         email: user.email,
+//         exp: user.exp,
+//         family_name: user.family_name,
+//         given_name: user.given_name,
+//         iat: user.iat,
+//         iss: user.iss,
+//         jti: user.jti,
+//         nbf: user.nbf,
+//         picture: user.picture,
+//         sub: user.sub,
+//         role: null,
+//       },
+//     },
+//   });
+//   if (error) {
+//     return error;
+//   }
+// };
+
+export const createUser = async (user) => {
+  await client.mutate({
+    mutation: CREATE_USER,
     variables: {
       user: {
         name: user.name,
@@ -32,11 +60,7 @@ export const createUser = async (creatUser, user, error) => {
         nbf: user.nbf,
         picture: user.picture,
         sub: user.sub,
-        role: null,
       },
     },
   });
-  if (error) {
-    return error;
-  }
 };

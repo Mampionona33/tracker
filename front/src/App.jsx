@@ -2,15 +2,13 @@ import React, { lazy, useContext, useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { ProtectedRoute } from './router/ProtectedRoute';
 import { AuthConext } from './context/authContext';
-import { createUser, getUser } from './Graphql/graphqlUser';
-import { getTaskType } from './Graphql/graphqlTaskType';
+import { createUser } from './Graphql/graphqlUser';
 import { TaskTypeContext } from './context/taskTypeContext';
-import { useMutation, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 const Dashboard = lazy(() => import('./Pages/Dashboard/Dashboard'));
 const Login = lazy(() => import('./Pages/Login/Login'));
 const PendingTask = lazy(() => import('./Pages/PendingTask/PendingTask'));
 import { GET_USER, GET_ALL_TASK_TYPE } from './Graphql/Query';
-import { CREATE_USER } from './Graphql/Mutation';
 
 const App = () => {
   const { user, sub, setUserRole } = useContext(AuthConext);
@@ -28,9 +26,6 @@ const App = () => {
     loading: loadingTaskType,
   } = useQuery(GET_ALL_TASK_TYPE);
 
-  const [createNewUser, { error: errorOnCreateUser }] =
-    useMutation(CREATE_USER);
-
   useEffect(() => {
     /*
       create  the variable mounted to cleaning up
@@ -46,9 +41,10 @@ const App = () => {
     if (user) {
       if (userExist) {
         if (Array.from(userExist.searchUser).length <= 0) {
-          console.log('user not exist');
           if (mounted === true) {
-            createUser(createNewUser, user, errorOnCreateUser);
+            (async () => {
+              await createUser(user);
+            })();
           }
         } else {
           const userRole = userExist.searchUser[0].role;
