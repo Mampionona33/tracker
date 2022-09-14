@@ -14,9 +14,8 @@ export const getUser = async (sub) => {
   return userData.data.searchUser[0];
 };
 
-export const createUser = async (user) => {
-  const createUser = await client.mutate({
-    mutation: CREATE_USER,
+export const createUser = async (creatUser, user, error) => {
+  creatUser({
     variables: {
       user: {
         name: user.name,
@@ -37,5 +36,7 @@ export const createUser = async (user) => {
       },
     },
   });
-  return createUser.data;
+  if (error) {
+    return error;
+  }
 };

@@ -5,13 +5,31 @@ import { AuthConext } from './context/authContext';
 import { createUser, getUser } from './Graphql/graphqlUser';
 import { getTaskType } from './Graphql/graphqlTaskType';
 import { TaskTypeContext } from './context/taskTypeContext';
+import { useMutation, useQuery } from '@apollo/client';
 const Dashboard = lazy(() => import('./Pages/Dashboard/Dashboard'));
 const Login = lazy(() => import('./Pages/Login/Login'));
 const PendingTask = lazy(() => import('./Pages/PendingTask/PendingTask'));
+import { GET_USER, GET_ALL_TASK_TYPE } from './Graphql/Query';
+import { CREATE_USER } from './Graphql/Mutation';
 
 const App = () => {
   const { user, sub, setUserRole } = useContext(AuthConext);
   const { setTaskTypeList } = useContext(TaskTypeContext);
+
+  const {
+    data: userExist,
+    error: errorFetchingUser,
+    loading: loadingFetchUser,
+  } = useQuery(GET_USER, { variables: { input: { sub: sub } } });
+
+  const {
+    data: allTaskType,
+    error: errorOnLoadTaskType,
+    loading: loadingTaskType,
+  } = useQuery(GET_ALL_TASK_TYPE);
+
+  const [createNewUser, { error: errorOnCreateUser }] =
+    useMutation(CREATE_USER);
 
   useEffect(() => {
     /*
@@ -25,32 +43,35 @@ const App = () => {
     */
     let mounted = true;
 
-    (async () => {
-      if (sub) {
-        const userExist = await getUser(sub);
-        const taskTypeLists = await getTaskType();
-
-        if (mounted) {
-          if (userExist) {
-            if (userExist.role) {
-              setUserRole(userExist.role);
-            }
-          } else {
-            await createUser(user);
+    if (user) {
+      if (userExist) {
+        if (Array.from(userExist.searchUser).length <= 0) {
+          console.log('user not exist');
+          if (mounted === true) {
+            createUser(createNewUser, user, errorOnCreateUser);
           }
-
-          if (taskTypeLists) {
-            setTaskTypeList(taskTypeLists);
+        } else {
+          const userRole = userExist.searchUser[0].role;
+          if (mounted === true) {
+            userRole && setUserRole(userRole);
           }
         }
       }
-    })();
+      if (
+        allTaskType &&
+        Array.from(allTaskType.getAllTaskTypeList).length > 0
+      ) {
+        if (mounted === true) {
+          setTaskTypeList(allTaskType.getAllTaskTypeList);
+        }
+      }
+    }
 
     // clean up the async function on components unmount by returning mounted=false
     return () => {
       mounted = false;
     };
-  }, [sub, user]);
+  }, [sub, user, userExist, allTaskType]);
 
   return (
     <Routes>
