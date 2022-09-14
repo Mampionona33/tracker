@@ -72,7 +72,7 @@ const DialogCreateTask = () => {
     let isMounted = true;
 
     (async () => {
-      if (userTask) {
+      if (userTask && userTask.getUserTasks) {
         if (isMounted) {
           const processing = Array.from(userTask.getUserTasks).filter(
             (item) =>
