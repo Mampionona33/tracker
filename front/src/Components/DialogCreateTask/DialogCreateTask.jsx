@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import Modal from '../Modal/Modal';
 import {
   DialogCreateTaskCont,
@@ -26,8 +26,9 @@ import {
 } from './../../Graphql/graphqlTasks';
 import Loading from '../Loading/Loading';
 import { CREATE_TASK, UPDATE_TASK } from '../../Graphql/Mutation';
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import { GET_USER_TASK } from '../../Graphql/Query';
+import useGetProcessingTask from '../../assets/Hooks/useGetProcessingTask';
 
 const IvpnList = ['i', 'v', 'p', 'n'].map((item, index) => (
   <DialogCreateTaskOption value={item} key={index}>
@@ -58,35 +59,10 @@ const statComOption = [
 const DialogCreateTask = () => {
   const { taskTypeList } = useContext(TaskTypeContext);
   const { sub } = useContext(AuthConext);
-  const [currentTask, setCurrentTask] = useState([]);
   const { dialogCreatTaskIsOpen, setdialogCreatTaskClose } =
     useContext(ComponentContext);
 
-  const {
-    data: userTask,
-    error: errorFetchingUserTask,
-    loading: loadingUserTask,
-  } = useQuery(GET_USER_TASK, { variables: { input: { sub: sub } } });
-
-  useEffect(() => {
-    let isMounted = true;
-
-    if (userTask) {
-      const userTasks = userTask.getUserTask;
-      if (userTasks.length > 0) {
-        const processing = Array.from(userTasks).filter(
-          (item) => item.taskState === 'isPlay' || item.taskState === 'isPause'
-        );
-        if (isMounted) {
-          processing.length > 0 && setCurrentTask((prev) => processing);
-        }
-      }
-    }
-
-    return () => {
-      isMounted = false;
-    };
-  }, [userTask]);
+  const { processingTask, loadingUserTask } = useGetProcessingTask();
 
   const [newTask, setNewTask] = useState({
     boothNumber: '',
@@ -149,11 +125,11 @@ const DialogCreateTask = () => {
 
   const handleClickSave = (event) => {
     event.preventDefault();
-    if (currentTask.length > 0) {
-      const currentTaskId = currentTask.reduce((a, b) => a + b).id;
-      const currentTaskState = currentTask.reduce((a, b) => a + b).taskState;
+    if (processingTask.length > 0) {
+      const currentTaskId = processingTask.reduce((a, b) => a + b).id;
+      const currentTaskState = processingTask.reduce((a, b) => a + b).taskState;
       const currentSessionId = Array.from(
-        currentTask.reduce((a, b) => a + b).session
+        processingTask.reduce((a, b) => a + b).session
       )
         .map((item) => item.session_id)
         .reduce((a, b) => Math.max(a, b));
@@ -178,7 +154,7 @@ const DialogCreateTask = () => {
           .then(setdialogCreatTaskClose());
       }
     }
-    if (currentTask.length <= 0) {
+    if (processingTask.length <= 0) {
       createNewTask(createTask, sub, newTask, errorCreateTask).then(
         setdialogCreatTaskClose()
       );
