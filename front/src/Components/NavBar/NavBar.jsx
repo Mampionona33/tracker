@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import BtnIconText from '../BtnIconText/BtnIconText';
 import { AuthConext } from '../../context/authContext';
 import {
@@ -10,16 +10,16 @@ import {
 import { ComponentContext } from '../../context/componentContext';
 import { useNavigate } from 'react-router-dom';
 import { useMutation, useQuery } from '@apollo/client';
-import { GET_USER_TASK } from '../../Graphql/Query';
 import {
   setCurrentTaskPlayOff,
   setCurrentTaskPauseOff,
 } from './../../Graphql/graphqlTasks';
 import { UPDATE_TASK } from '../../Graphql/Mutation';
+import useGetProcessingTask from '../../assets/Hooks/useGetProcessingTask';
 
 const NavBar = () => {
   const { user, logout, sub } = useContext(AuthConext);
-  const [currentProcessingTask, setCurrentProcessingTask] = useState([]);
+  const { processingTask, loadingUserTask } = useGetProcessingTask();
   const {
     setSideBarOpenTrue,
     sideBarOpen,
@@ -37,13 +37,11 @@ const NavBar = () => {
     useMutation(UPDATE_TASK);
 
   const setCurrentTaskStateToOff = async () => {
-    if (currentProcessingTask.length > 0) {
-      const currenTaskId = currentProcessingTask.reduce((a, b) => a + b).id;
-      const currentTaskState = currentProcessingTask.reduce(
-        (a, b) => a + b
-      ).taskState;
+    if (processingTask.length > 0) {
+      const currenTaskId = processingTask.reduce((a, b) => a + b).id;
+      const currentTaskState = processingTask.reduce((a, b) => a + b).taskState;
       const currentSessionId = Array.from(
-        currentProcessingTask.reduce((a, b) => a + b).session
+        processingTask.reduce((a, b) => a + b).session
       )
         .map((item) => item.session_id)
         .reduce((a, b) => Math.max(a, b));
@@ -93,23 +91,6 @@ const NavBar = () => {
         break;
     }
   };
-
-  const {
-    data: userTasks,
-    error: errorFetchingUserTask,
-    loading: loaddingUserTask,
-  } = useQuery(GET_USER_TASK, { variables: { input: { sub: sub } } });
-
-  useEffect(() => {
-    // Check if user have some task
-    if (userTasks && Array.from(userTasks.getUserTask).length > 0) {
-      const currentProcessing = Array.from(userTasks.getUserTask).filter(
-        (task) => task.taskState === 'isPlay' || task.taskState === 'isPause'
-      );
-      currentProcessing.length > 0 &&
-        setCurrentProcessingTask((prev) => currentProcessing);
-    }
-  }, [userTasks]);
 
   return (
     <NavbarContainer className='canonicalAubergine'>
