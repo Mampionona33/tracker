@@ -1,7 +1,5 @@
-import { useQuery } from '@apollo/client';
-import React, { useContext, useEffect, useState } from 'react';
-import { AuthConext } from '../../context/authContext';
-import { GET_USER_TASK } from '../../Graphql/Query';
+import React from 'react';
+import useGetProcessingTask from '../../assets/Hooks/useGetProcessingTask';
 import Loading from '../Loading/Loading';
 import {
   ProcessingTaskInfoContainer,
@@ -11,33 +9,7 @@ import {
 } from './ProcessingTaskInfo.style';
 
 export default function ProcessingTaskInfo() {
-  const [processingTask, setProcessingTask] = useState([]);
-  const { sub } = useContext(AuthConext);
-
-  const {
-    data: userTasks,
-    error: errorFetchingUserTask,
-    loading: loadingUserTask,
-  } = useQuery(GET_USER_TASK, {
-    variables: { input: { sub: sub } },
-  });
-
-  useEffect(() => {
-    let isMounted = true;
-
-    if (userTasks) {
-      if (isMounted) {
-        const processing = Array.from(userTasks.getUserTask).filter(
-          (item) => item.taskState === 'isPlay' || item.taskState === 'isPause'
-        );
-        processing.length > 0 && setProcessingTask((prev) => processing);
-      }
-    }
-
-    return () => {
-      isMounted = false;
-    };
-  }, [userTasks]);
+  const { processingTask, loadingUserTask } = useGetProcessingTask();
 
   if (loadingUserTask) {
     return <Loading />;
