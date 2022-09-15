@@ -77,8 +77,9 @@ const DialogCreateTask = () => {
         const processing = Array.from(userTasks).filter(
           (item) => item.taskState === 'isPlay' || item.taskState === 'isPause'
         );
-        processing.length > 0 && setCurrentTask((prev) => processing);
-        processing.length > 0 && console.log(processing);
+        if (isMounted) {
+          processing.length > 0 && setCurrentTask((prev) => processing);
+        }
       }
     }
 
