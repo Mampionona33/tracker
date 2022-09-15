@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import BtnIconText from '../BtnIconText/BtnIconText';
 import { AuthConext } from '../../context/authContext';
 import {
@@ -9,9 +9,11 @@ import {
 } from './NavBar.style';
 import { ComponentContext } from '../../context/componentContext';
 import { useNavigate } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
+import { GET_USER_TASK } from '../../Graphql/Query';
 
 const NavBar = () => {
-  const { user, logout } = useContext(AuthConext);
+  const { user, logout, sub } = useContext(AuthConext);
   const {
     setSideBarOpenTrue,
     sideBarOpen,
@@ -42,6 +44,23 @@ const NavBar = () => {
         break;
     }
   };
+
+  const {
+    data: userTasks,
+    error: errorFetchingUserTask,
+    loading: loaddingUserTask,
+  } = useQuery(GET_USER_TASK, { variables: { input: { sub: sub } } });
+
+  useEffect(() => {
+    // Check if user have some task
+    if (userTasks && Array.from(userTasks.getUserTask).length > 0) {
+      const currentProcessing = Array.from(userTasks.getUserTask).filter(
+        (task) => task.taskState === 'isPlay' || task.taskState === 'isPause'
+      );
+      currentProcessing.length > 0 &&
+        console.log('from navbar', currentProcessing);
+    }
+  }, [userTasks]);
 
   return (
     <NavbarContainer className='canonicalAubergine'>
