@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import BtnIconText from '../BtnIconText/BtnIconText';
 import { AuthConext } from '../../context/authContext';
 import {
@@ -14,6 +14,7 @@ import { GET_USER_TASK } from '../../Graphql/Query';
 
 const NavBar = () => {
   const { user, logout, sub } = useContext(AuthConext);
+  const [currentProcessingTask, setCurrentProcessingTask] = useState([]);
   const {
     setSideBarOpenTrue,
     sideBarOpen,
@@ -58,7 +59,7 @@ const NavBar = () => {
         (task) => task.taskState === 'isPlay' || task.taskState === 'isPause'
       );
       currentProcessing.length > 0 &&
-        console.log('from navbar', currentProcessing);
+        setCurrentProcessingTask((prev) => currentProcessing);
     }
   }, [userTasks]);
 
