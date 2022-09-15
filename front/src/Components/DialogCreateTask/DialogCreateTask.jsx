@@ -80,18 +80,6 @@ const DialogCreateTask = () => {
         processing.length > 0 && setCurrentTask((prev) => processing);
         processing.length > 0 && console.log(processing);
       }
-      // if (Array.from(userTask.getUserTask).length > 0) {
-      //   console.log(userTask.getUserTask);
-      //   if (isMounted) {
-      //     const processing = Array.from(userTask.getUserTasks).filter(
-      //       (item) => {
-      //         item.taskState === 'isPlay' || item.taskState === 'isPause';
-      //       }
-      //     );
-      //     console.log(processing);
-      //     processing.length > 0 && setCurrentTask((prev) => processing);
-      //   }
-      // }
     }
 
     return () => {
@@ -160,10 +148,6 @@ const DialogCreateTask = () => {
 
   const handleClickSave = (event) => {
     event.preventDefault();
-
-    console.log('pause');
-    console.log(currentTask);
-
     if (currentTask.length > 0) {
       const currentTaskId = currentTask.reduce((a, b) => a + b).id;
       const currentTaskState = currentTask.reduce((a, b) => a + b).taskState;
@@ -174,7 +158,6 @@ const DialogCreateTask = () => {
         .reduce((a, b) => Math.max(a, b));
 
       if (currentTaskState === 'isPause') {
-        console.log('pause');
         setCurrentTaskPauseOff(
           updateTaskState,
           currentTaskId,
@@ -184,7 +167,6 @@ const DialogCreateTask = () => {
           .then(setdialogCreatTaskClose());
       }
       if (currentTaskState === 'isPlay') {
-        console.log('play');
         setCurrentTaskPlayOff(
           updateTaskState,
           currentTaskId,
