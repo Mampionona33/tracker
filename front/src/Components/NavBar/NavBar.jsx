@@ -9,8 +9,13 @@ import {
 } from './NavBar.style';
 import { ComponentContext } from '../../context/componentContext';
 import { useNavigate } from 'react-router-dom';
-import { useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { GET_USER_TASK } from '../../Graphql/Query';
+import {
+  setCurrentTaskPlayOff,
+  setCurrentTaskPauseOff,
+} from './../../Graphql/graphqlTasks';
+import { UPDATE_TASK } from '../../Graphql/Mutation';
 
 const NavBar = () => {
   const { user, logout, sub } = useContext(AuthConext);
@@ -28,6 +33,44 @@ const NavBar = () => {
     !sideBarOpen ? setSideBarOpenTrue() : '';
   };
 
+  const [updateTaskState, { error: errorSetTaskStateToOff }] =
+    useMutation(UPDATE_TASK);
+
+  const setCurrentTaskStateToOff = async () => {
+    if (currentProcessingTask.length > 0) {
+      const currenTaskId = currentProcessingTask.reduce((a, b) => a + b).id;
+      const currentTaskState = currentProcessingTask.reduce(
+        (a, b) => a + b
+      ).taskState;
+      const currentSessionId = Array.from(
+        currentProcessingTask.reduce((a, b) => a + b).session
+      )
+        .map((item) => item.session_id)
+        .reduce((a, b) => Math.max(a, b));
+      currentSessionId && console.log(currentSessionId);
+
+      if (currentTaskState === 'isPause') {
+        await setCurrentTaskPauseOff(
+          updateTaskState,
+          currenTaskId,
+          errorSetTaskStateToOff
+        ).then(() => {
+          return true;
+        });
+      }
+      if (currentTaskState === 'isPlay') {
+        setCurrentTaskPlayOff(
+          updateTaskState,
+          currenTaskId,
+          errorSetTaskStateToOff,
+          currentSessionId
+        ).then(() => {
+          true;
+        });
+      }
+    }
+  };
+
   const handleClickBtn = (event) => {
     event.preventDefault();
     const title = event.target.title;
@@ -39,7 +82,12 @@ const NavBar = () => {
         !dialogCreatTaskIsOpen ? setdialogCreatTaskOpen() : '';
         break;
       case 'LOGOUT':
-        logout();
+        {
+          (async () => {
+            await setCurrentTaskStateToOff().then(logout());
+          })();
+        }
+
         break;
       default:
         break;
