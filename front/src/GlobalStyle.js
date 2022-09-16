@@ -70,7 +70,6 @@ const GlobalStyle = createGlobalStyle`
         display: flex;
         align-items: center;
         gap: 0.3rem;
-        padding: 0 0.2rem;
         :hover{
             background-color : #5e2750;
         }

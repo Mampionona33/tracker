@@ -6,7 +6,7 @@ const BtnIconTextContainer = styled.button`
   display: flex;
   align-items: center;
   border: none;
-  padding: 0 0.5rem;
+  padding: 0 0.6rem;
   color: ${(props) => (props.iconColor ? props.iconColor : '#fff')};
   background-color: ${(props) => (props.bgColor ? props.bgColor : 'black')};
   cursor: pointer;
