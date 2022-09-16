@@ -9,16 +9,17 @@ import {
 } from './NavBar.style';
 import { ComponentContext } from '../../context/componentContext';
 import { useNavigate } from 'react-router-dom';
-import { useMutation, useQuery } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import {
   setCurrentTaskPlayOff,
   setCurrentTaskPauseOff,
 } from './../../Graphql/graphqlTasks';
 import { UPDATE_TASK } from '../../Graphql/Mutation';
 import useGetProcessingTask from '../../assets/Hooks/useGetProcessingTask';
+import { setCurrentTaskStateToOff } from '../../assets/taskStateSwitcher';
 
 const NavBar = () => {
-  const { user, logout, sub } = useContext(AuthConext);
+  const { user, logout,  } = useContext(AuthConext);
   const { processingTask, loadingUserTask } = useGetProcessingTask();
   const {
     setSideBarOpenTrue,
@@ -36,39 +37,6 @@ const NavBar = () => {
   const [updateTaskState, { error: errorSetTaskStateToOff }] =
     useMutation(UPDATE_TASK);
 
-  const setCurrentTaskStateToOff = async () => {
-    if (processingTask.length > 0) {
-      const currenTaskId = processingTask.reduce((a, b) => a + b).id;
-      const currentTaskState = processingTask.reduce((a, b) => a + b).taskState;
-      const currentSessionId = Array.from(
-        processingTask.reduce((a, b) => a + b).session
-      )
-        .map((item) => item.session_id)
-        .reduce((a, b) => Math.max(a, b));
-      currentSessionId && console.log(currentSessionId);
-
-      if (currentTaskState === 'isPause') {
-        await setCurrentTaskPauseOff(
-          updateTaskState,
-          currenTaskId,
-          errorSetTaskStateToOff
-        ).then(() => {
-          return true;
-        });
-      }
-      if (currentTaskState === 'isPlay') {
-        setCurrentTaskPlayOff(
-          updateTaskState,
-          currenTaskId,
-          errorSetTaskStateToOff,
-          currentSessionId
-        ).then(() => {
-          true;
-        });
-      }
-    }
-  };
-
   const handleClickBtn = (event) => {
     event.preventDefault();
     const title = event.target.title;
@@ -82,7 +50,13 @@ const NavBar = () => {
       case 'LOGOUT':
         {
           (async () => {
-            await setCurrentTaskStateToOff().then(logout());
+            await setCurrentTaskStateToOff(
+              processingTask,
+              errorSetTaskStateToOff,
+              setCurrentTaskPauseOff,
+              setCurrentTaskPlayOff,
+              updateTaskState
+            ).then(logout());
           })();
         }
 
