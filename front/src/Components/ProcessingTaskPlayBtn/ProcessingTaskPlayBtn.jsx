@@ -8,7 +8,10 @@ import { setCurrentTaskToPlay } from '../../assets/taskStateSwitcher';
 
 function ProcessingTaskPlayBtn() {
   const [updateTaskStateToPlay, { error: errorOnMutateTaskStateToPlay }] =
-    useMutation(UPDATE_TASK, { refetchQueries: 'all' });
+    useMutation(UPDATE_TASK, {
+      refetchQueries: 'all',
+      awaitRefetchQueries: true,
+    });
 
   const { processingTask } = useGetProcessingTask();
 
