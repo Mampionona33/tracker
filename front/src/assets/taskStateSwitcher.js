@@ -63,3 +63,30 @@ export const setCurrentTaskToPlay = async (
     }
   }
 };
+
+export const setCurrentTaskToPause = (
+  processingTask,
+  errorOnSetTaskStateToPause,
+  mutateTaskStateToPause,
+  updateTaskStateToPause
+) => {
+  if (processingTask.length > 0) {
+    const currentTaskId = processingTask.reduce((a, b) => a + b).id;
+    const currentTaskState = processingTask.reduce((a, b) => a + b).taskState;
+    const currentSessionId = Array.from(
+      processingTask.reduce((a, b) => a + b).session
+    )
+      .map((item) => item.session_id)
+      .reduce((a, b) => Math.max(a, b));
+    if (currentTaskState === 'isPlay') {
+      (async () => {
+        await mutateTaskStateToPause(
+          updateTaskStateToPause,
+          currentTaskId,
+          errorOnSetTaskStateToPause,
+          currentSessionId
+        );
+      })();
+    }
+  }
+};

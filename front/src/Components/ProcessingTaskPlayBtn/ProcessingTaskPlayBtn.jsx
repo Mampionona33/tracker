@@ -5,13 +5,16 @@ import useGetProcessingTask from '../../assets/Hooks/useGetProcessingTask';
 import { mutateTaskStateToPlay } from '../../Graphql/graphqlTasks';
 import { UPDATE_TASK } from '../../Graphql/Mutation';
 import { setCurrentTaskToPlay } from '../../assets/taskStateSwitcher';
+import Loading from '../Loading/Loading';
 
 function ProcessingTaskPlayBtn() {
-  const [updateTaskStateToPlay, { error: errorOnMutateTaskStateToPlay }] =
-    useMutation(UPDATE_TASK, {
-      refetchQueries: 'all',
-      awaitRefetchQueries: true,
-    });
+  const [
+    updateTaskStateToPlay,
+    { error: errorOnMutateTaskStateToPlay, loading },
+  ] = useMutation(UPDATE_TASK, {
+    refetchQueries: 'active',
+    awaitRefetchQueries: true,
+  });
 
   const { processingTask } = useGetProcessingTask();
 
@@ -26,7 +29,11 @@ function ProcessingTaskPlayBtn() {
 
   return (
     <div onClick={handleClick}>
-      <CircularBtn icon='play_circle_filled' />
+      {loading ? (
+        <Loading width='36px' height='36px' />
+      ) : (
+        <CircularBtn icon='play_circle_filled' />
+      )}
     </div>
   );
 }

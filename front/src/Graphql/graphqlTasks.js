@@ -113,3 +113,29 @@ export const mutateTaskStateToPlay = async (
     console.log(error);
   }
 };
+
+export const mutateTaskStateToPause = async (
+  updateTask,
+  currentTaskId,
+  error,
+  currentSessionId
+) => {
+  updateTask({
+    variables: {
+      filter: {
+        id: currentTaskId,
+        sessionId: currentSessionId,
+      },
+      update: {
+        taskState: 'isPause',
+        session: {
+          session_id: currentSessionId,
+          sessionStop: new Date(),
+        },
+      },
+    },
+  });
+  if (error) {
+    console.log(error);
+  }
+};
