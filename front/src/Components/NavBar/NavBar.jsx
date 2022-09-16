@@ -11,15 +11,15 @@ import { ComponentContext } from '../../context/componentContext';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 import {
-  setCurrentTaskPlayOff,
-  setCurrentTaskPauseOff,
+  mutateCurrentTaskPlayOff,
+  mutateCurrentTaskPauseOff,
 } from './../../Graphql/graphqlTasks';
 import { UPDATE_TASK } from '../../Graphql/Mutation';
 import useGetProcessingTask from '../../assets/Hooks/useGetProcessingTask';
 import { setCurrentTaskStateToOff } from '../../assets/taskStateSwitcher';
 
 const NavBar = () => {
-  const { user, logout,  } = useContext(AuthConext);
+  const { user, logout } = useContext(AuthConext);
   const { processingTask, loadingUserTask } = useGetProcessingTask();
   const {
     setSideBarOpenTrue,
@@ -53,8 +53,8 @@ const NavBar = () => {
             await setCurrentTaskStateToOff(
               processingTask,
               errorSetTaskStateToOff,
-              setCurrentTaskPauseOff,
-              setCurrentTaskPlayOff,
+              mutateCurrentTaskPauseOff,
+              mutateCurrentTaskPlayOff,
               updateTaskState
             ).then(logout());
           })();

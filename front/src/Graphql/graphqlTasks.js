@@ -45,7 +45,7 @@ export const createNewTask = async (createTask, sub, taskData, error) => {
   }
 };
 
-export const setCurrentTaskPlayOff = async (
+export const mutateCurrentTaskPlayOff = async (
   updateTask,
   id,
   error,
@@ -72,7 +72,7 @@ export const setCurrentTaskPlayOff = async (
   return setTaskOff;
 };
 
-export const setCurrentTaskPauseOff = async (updateTask, id, error) => {
+export const mutateCurrentTaskPauseOff = async (updateTask, id, error) => {
   await updateTask({
     variables: {
       filter: {

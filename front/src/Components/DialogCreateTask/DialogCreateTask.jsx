@@ -21,8 +21,8 @@ import { ComponentContext } from '../../context/componentContext';
 import { AuthConext } from '../../context/authContext';
 import {
   createNewTask,
-  setCurrentTaskPauseOff,
-  setCurrentTaskPlayOff,
+  mutateCurrentTaskPauseOff,
+  mutateCurrentTaskPlayOff,
 } from './../../Graphql/graphqlTasks';
 import Loading from '../Loading/Loading';
 import { CREATE_TASK, UPDATE_TASK } from '../../Graphql/Mutation';
@@ -135,7 +135,7 @@ const DialogCreateTask = () => {
         .reduce((a, b) => Math.max(a, b));
 
       if (currentTaskState === 'isPause') {
-        setCurrentTaskPauseOff(
+        mutateCurrentTaskPauseOff(
           updateTaskState,
           currentTaskId,
           errorSetPrevProcessToOff
@@ -144,7 +144,7 @@ const DialogCreateTask = () => {
           .then(setdialogCreatTaskClose());
       }
       if (currentTaskState === 'isPlay') {
-        setCurrentTaskPlayOff(
+        mutateCurrentTaskPlayOff(
           updateTaskState,
           currentTaskId,
           errorSetPrevProcessToOff,
