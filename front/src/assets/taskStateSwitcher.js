@@ -1,8 +1,8 @@
 export const setCurrentTaskStateToOff = async (
   processingTask,
   errorSetTaskStateToOff,
-  setCurrentTaskPauseOff,
-  setCurrentTaskPlayOff,
+  mutateCurrentTaskPauseOff,
+  mutateCurrentTaskPlayOff,
   updateTaskState
 ) => {
   if (processingTask.length > 0) {
@@ -15,7 +15,7 @@ export const setCurrentTaskStateToOff = async (
       .reduce((a, b) => Math.max(a, b));
 
     if (currentTaskState === 'isPause') {
-      await setCurrentTaskPauseOff(
+      await mutateCurrentTaskPauseOff(
         updateTaskState,
         currenTaskId,
         errorSetTaskStateToOff
@@ -24,7 +24,7 @@ export const setCurrentTaskStateToOff = async (
       });
     }
     if (currentTaskState === 'isPlay') {
-      setCurrentTaskPlayOff(
+      mutateCurrentTaskPlayOff(
         updateTaskState,
         currenTaskId,
         errorSetTaskStateToOff,
@@ -32,6 +32,34 @@ export const setCurrentTaskStateToOff = async (
       ).then(() => {
         true;
       });
+    }
+  }
+};
+
+export const setCurrentTaskToPlay = async (
+  processingTask,
+  errorOnMutateTaskStateToPlay,
+  mutateTaskStateToPlay,
+  updateTaskStateToPlay
+) => {
+  if (processingTask.length > 0) {
+    const currentTaskId = processingTask.reduce((a, b) => a + b).id;
+    const currentTaskState = processingTask.reduce((a, b) => a + b).taskState;
+    const currentSessionId = Array.from(
+      processingTask.reduce((a, b) => a + b).session
+    )
+      .map((item) => item.session_id)
+      .reduce((a, b) => Math.max(a, b));
+
+    if (currentTaskState === 'isPause') {
+      (async () => {
+        mutateTaskStateToPlay(
+          updateTaskStateToPlay,
+          currentTaskId,
+          errorOnMutateTaskStateToPlay,
+          currentSessionId
+        );
+      })();
     }
   }
 };
