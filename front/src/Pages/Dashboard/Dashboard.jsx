@@ -8,8 +8,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import Loading from '../../Components/Loading/Loading';
 import { ComponentContext } from '../../context/componentContext';
-import { useQuery } from '@apollo/client';
-import { GET_USER_TASK } from '../../Graphql/Query';
+import useGetProcessingTask from '../../assets/Hooks/useGetProcessingTask';
 
 const TitledCard = lazy(() => import('../../Components/TitledCard/TitledCard'));
 const ProcessingTask = lazy(() =>
@@ -17,37 +16,11 @@ const ProcessingTask = lazy(() =>
 );
 
 export default function Dashboard(props) {
-  const [processingTask, setProcessingTask] = useState(null);
   const { sub } = useContext(AuthConext);
   const navigate = useNavigate();
   const { dialogCreatTaskIsOpen, setdialogCreatTaskOpen } =
     useContext(ComponentContext);
-
-  const {
-    data: userTasks,
-    error: errorFetchingUserTask,
-    loading: loadingUserTask,
-  } = useQuery(GET_USER_TASK, { variables: { input: { sub: sub } } });
-
-  useEffect(() => {
-    let isMounted = true;
-
-    (async () => {
-      if (userTasks) {
-        if (isMounted) {
-          const processing = Array.from(userTasks.getUserTask).filter(
-            (item) =>
-              item.taskState === 'isPlay' || item.taskState === 'isPause'
-          );
-          processing.length > 0 && setProcessingTask(true);
-        }
-      }
-    })();
-
-    return () => {
-      isMounted = false;
-    };
-  }, [sub, userTasks]);
+  const { processingTask, loadingUserTask } = useGetProcessingTask();
 
   const handleClickText = (event) => {
     event.preventDefault();
