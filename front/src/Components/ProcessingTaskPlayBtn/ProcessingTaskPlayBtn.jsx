@@ -12,7 +12,7 @@ function ProcessingTaskPlayBtn() {
     updateTaskStateToPlay,
     { error: errorOnMutateTaskStateToPlay, loading },
   ] = useMutation(UPDATE_TASK, {
-    refetchQueries: 'active',
+    refetchQueries: 'all',
     awaitRefetchQueries: true,
   });
 
