@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import useGetProcessingTask from '../../assets/Hooks/useGetProcessingTask';
 import { difDate, secondToDayHourMinSec } from '../../assets/timeUtility';
 import {
@@ -13,6 +13,8 @@ const ProcessingTaskTimer = () => {
   const [timerHours, setTimerHours] = useState(0);
   const [timerMinites, setTimerMinites] = useState(0);
   const [timerSec, setTimerSec] = useState(0);
+
+  const interval = useRef(null);
 
   useEffect(() => {
     if (processingTask && processingTask.length > 0) {
@@ -29,49 +31,59 @@ const ProcessingTaskTimer = () => {
         const day = secondToDayHourMinSec(elpastedTime).day;
         const hours = secondToDayHourMinSec(elpastedTime).hours;
         const minutes = secondToDayHourMinSec(elpastedTime).minutes;
+        const sec = secondToDayHourMinSec(elpastedTime).secondes;
+        setTimerDay((prev) => day);
+        setTimerHours((prev) => hours);
+        setTimerMinites((prev) => minutes);
+        setTimerSec((prev) => sec);
 
         if (taskState === 'isPause') {
-          const sec = secondToDayHourMinSec(elpastedTime).secondes;
-          console.log(taskState);
-          setTimerDay((prev) => day);
-          setTimerHours((prev) => hours);
-          setTimerMinites((prev) => minutes);
-          setTimerSec((prev) => sec);
+          clearInterval(interval.current);
         }
         if (taskState === 'isPlay') {
-          const sec = secondToDayHourMinSec(elpastedTime).secondes;
-          console.log(taskState);
           let tic = sec;
-          setInterval()
-          const interval = setInterval(() => {
-            setTimerDay((prev) => day);
-            setTimerHours((prev) => hours);
-            setTimerMinites((prev) => minutes);
-            setTimerSec(tic++);
-          }, [1000]);
-          return () => clearInterval(interval);
+
+          if (timerMinites > 59) {
+            setTimerMinites((prev) => 0);
+            setTimerHours((prev) => prev + 1);
+          }
+
+          if (timerHours > 23) {
+            setTimerHours((prev) => 0);
+            setTimerDay((prev) => prev + 1);
+          }
+
+          interval.current = setInterval(() => {
+            tic++;
+            if (tic > 59) {
+              tic = 0;
+              setTimerMinites((prev) => prev + 1);
+            }
+            setTimerSec((prev) => tic);
+          }, 1000);
         }
       });
+      return () => clearInterval(interval.current);
     }
-  }, [processingTask]);
+  }, [processingTask, timerDay, timerHours, timerMinites]);
 
   return (
     <ProcessingTaskTimerCont>
       <ProcessingTaskTimerDigitCon>
-        <div>{timerDay}</div>
+        <div>{timerDay.toString().padStart(2, '0')}</div>
         <div>day</div>
       </ProcessingTaskTimerDigitCon>
 
       <ProcessingTaskTimerDigitCon>
-        <div>{timerHours}</div>
+        <div>{timerHours.toString().padStart(2, '0')}</div>
         <div>Hrs</div>
       </ProcessingTaskTimerDigitCon>
       <ProcessingTaskTimerDigitCon>
-        <div>{timerMinites}</div>
+        <div>{timerMinites.toString().padStart(2, '0')}</div>
         <div>Min</div>
       </ProcessingTaskTimerDigitCon>
       <ProcessingTaskTimerDigitCon>
-        <div>{timerSec}</div>
+        <div>{timerSec.toString().padStart(2, '0')}</div>
         <div>sec</div>
       </ProcessingTaskTimerDigitCon>
     </ProcessingTaskTimerCont>
