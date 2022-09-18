@@ -19,24 +19,37 @@ const ProcessingTaskTimer = () => {
       processingTask.map((item) => {
         const taskState = item.taskState;
         const session = Array.from(item.session);
+        const elpastedTime = session
+          .map((se) => {
+            return !se.sessionStop
+              ? difDate(se.sessionStart, new Date())
+              : difDate(se.sessionStart, se.sessionStop);
+          })
+          .reduce((a, b) => a + b);
+        const day = secondToDayHourMinSec(elpastedTime).day;
+        const hours = secondToDayHourMinSec(elpastedTime).hours;
+        const minutes = secondToDayHourMinSec(elpastedTime).minutes;
+
         if (taskState === 'isPause') {
-          const elpastedTime = session
-            .map((se) => {
-              return difDate(se.sessionStart, se.sessionStop);
-            })
-            .reduce((a, b) => a + b);
-
-          const day = secondToDayHourMinSec(elpastedTime).day;
-          const hours = secondToDayHourMinSec(elpastedTime).hours;
-          const minutes = secondToDayHourMinSec(elpastedTime).minutes;
           const sec = secondToDayHourMinSec(elpastedTime).secondes;
-
+          console.log(taskState);
           setTimerDay((prev) => day);
           setTimerHours((prev) => hours);
           setTimerMinites((prev) => minutes);
           setTimerSec((prev) => sec);
         }
         if (taskState === 'isPlay') {
+          const sec = secondToDayHourMinSec(elpastedTime).secondes;
+          console.log(taskState);
+          let tic = sec;
+          setInterval()
+          const interval = setInterval(() => {
+            setTimerDay((prev) => day);
+            setTimerHours((prev) => hours);
+            setTimerMinites((prev) => minutes);
+            setTimerSec(tic++);
+          }, [1000]);
+          return () => clearInterval(interval);
         }
       });
     }

@@ -13,7 +13,7 @@ const ProcessingTaskPauseBtn = () => {
     updateTaskStateToPause,
     { error: errorOnSetTaskStateToPause, loading },
   ] = useMutation(UPDATE_TASK, {
-    refetchQueries: 'active',
+    refetchQueries: 'all',
     awaitRefetchQueries: true,
   });
 
