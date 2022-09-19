@@ -4,11 +4,12 @@ import { PropTypes } from 'prop-types';
 import { ComponentContext } from '../../context/componentContext';
 
 const ModalContainer = styled.div`
-  position: absolute;
+  position: fixed;
   top: 0;
   background-color: ${(props) =>
     props.bc !== undefined ? props.bc : '#12000ff0'};
-  height: ${(props) => `calc(100% + ${props.scrollY}px)`};
+  /* height: ${(props) => `calc(100% + ${props.scrollY}px)`}; */
+  height: 100%;
   width: 100%;
   display: flex;
   overflow: hidden;
