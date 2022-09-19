@@ -7,11 +7,10 @@ export const DialogCreateTaskCon1 = styled.div`
   position: relative;
   margin-top: 10vh;
   z-index: 2;
-  transform: ${(props) => `translateY(${props.scrollYDialogCreateTask}px)`};
 `;
 
 export const DialogCreateTaskCont = styled.div`
-  position: absolute;
+  position: fixed;
 `;
 
 export const DialogCreateTaskFormInput = styled.div`
