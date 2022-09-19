@@ -5,7 +5,8 @@ export const SideBarContainer = styled.div`
   z-index: 3;
 `;
 export const SideBarList = styled.div`
-  position: absolute;
+  position: fixed;
+  top: 0;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -13,7 +14,6 @@ export const SideBarList = styled.div`
   padding: 2rem 0 0 0;
   color: white;
   width: fit-content;
-  height: calc(100vh - 2rem);
-  transform: ${(props) => `translateY(${props.sideBarScrollY}px)`};
+  height: 100%;
   gap: 1px;
 `;

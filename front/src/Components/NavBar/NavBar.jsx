@@ -4,6 +4,7 @@ import { AuthConext } from '../../context/authContext';
 import {
   ButtonContainer,
   NavbarContainer,
+  NavBarMenuSpan,
   NavBarSecContainer,
   UserAvatar,
 } from './NavBar.style';
@@ -69,13 +70,13 @@ const NavBar = () => {
   return (
     <NavbarContainer className='canonicalAubergine'>
       <NavBarSecContainer>
-        <span
-          className='material-icons-round navBarBtn'
+        <NavBarMenuSpan
+          className='material-icons-round'
           data-testid='btn-menu'
           onClick={handleClickMenu}
         >
           menu
-        </span>
+        </NavBarMenuSpan>
 
         <ButtonContainer>
           <BtnIconText

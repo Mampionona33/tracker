@@ -6,11 +6,15 @@ const BtnIconTextContainer = styled.button`
   display: flex;
   align-items: center;
   border: none;
+  gap: 0.2rem;
   padding: 0 0.6rem;
   color: ${(props) => (props.iconColor ? props.iconColor : '#fff')};
   background-color: ${(props) => (props.bgColor ? props.bgColor : 'black')};
   cursor: pointer;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
+  @media (max-width: 480px) {
+    padding: 0 0.2rem;
+  }
 
   :hover {
     box-shadow: ${(props) =>
@@ -23,6 +27,9 @@ const BtnIconTextContainer = styled.button`
     text-transform: uppercase;
     font-size: 0.8rem;
     color: ${(props) => (props.textColor ? props.textColor : 'white')};
+    @media (max-width: 480px) {
+      font-size: 0.6rem;
+    }
   }
 `;
 
