@@ -6,9 +6,9 @@ export const DialogEditTaskCont = styled.div`
   color: white;
   position: relative;
   z-index: 2;
-  margin-top: 10vh;
+  margin-top: 15vh;
 `;
 
 export const DialogEditTaskCont2 = styled.div`
-  position: absolute;
+  position: fixed;
 `;

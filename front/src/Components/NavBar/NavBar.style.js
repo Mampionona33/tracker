@@ -18,9 +18,6 @@ export const NavBarMenuSpan = styled.span`
   cursor: pointer;
   font-size: 1rem;
 
-  @media (max-width: 480px) {
-  }
-
   :hover {
     background-color: #5e2750;
   }
