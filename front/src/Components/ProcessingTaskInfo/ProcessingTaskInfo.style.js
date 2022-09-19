@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const ProcessingTaskInfoContainer = styled.div`
   display: grid;
   grid-template-columns: auto auto;
-  grid-gap: 0.5rem;
+  grid-gap: 0.2rem;
 `;
 export const ProcessingTaskTitleLabel = styled.h5`
   display: flex;
