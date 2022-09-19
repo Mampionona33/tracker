@@ -3,11 +3,15 @@ import React, { createContext, useReducer } from 'react';
 const initialState = {
   sideBarOpen: false,
   dialogCreatTaskIsOpen: false,
+  dialogEditTask: false,
 };
 
 const ComponentContext = createContext({
   sideBarOpen: false,
   dialogCreatTaskIsOpen: false,
+  dialogEditTask: false,
+  setDialogEditTaskOpen: () => {},
+  setDialogEditTaskClose: () => {},
   setdialogCreatTaskOpen: () => {},
   setdialogCreatTaskClose: () => {},
   setSideBarOpenTrue: () => {},
@@ -19,6 +23,8 @@ const ACTION = {
   CLOSE_SIDE_BAR: 'close-side-bar',
   OPEN_DIALOG_CREATE_TASK: 'open-dialog-create-task',
   COLOSE_DIALOG_CREATE_TASK: 'close-dialog-create-task',
+  OPEN_DIALOG_EDIT_TASK: 'open-dialog-edit-task',
+  CLOSE_DIALOG_EDIT_TASK: 'close-dialog-edit-task',
 };
 
 const componentReducer = (state, action) => {
@@ -47,6 +53,18 @@ const componentReducer = (state, action) => {
         dialogCreatTaskIsOpen: (state.dialogCreatTaskIsOpen = false),
       };
     }
+    case ACTION.OPEN_DIALOG_EDIT_TASK: {
+      return {
+        ...state,
+        dialogEditTask: (state.dialogEditTask = true),
+      };
+    }
+    case ACTION.CLOSE_DIALOG_EDIT_TASK: {
+      return {
+        ...state,
+        dialogEditTask: (state.dialogEditTask = false),
+      };
+    }
 
     default:
       return state;
@@ -68,15 +86,26 @@ const ComponentProvider = (props) => {
     dispatch({ type: ACTION.COLOSE_DIALOG_CREATE_TASK });
   };
 
+  const setDialogEditTaskOpen = () => {
+    dispatch({ type: ACTION.OPEN_DIALOG_EDIT_TASK });
+  };
+
+  const setDialogEditTaskClose = () => {
+    dispatch({ type: ACTION.CLOSE_DIALOG_EDIT_TASK });
+  };
+
   return (
     <ComponentContext.Provider
       value={{
         sideBarOpen: state.sideBarOpen,
         dialogCreatTaskIsOpen: state.dialogCreatTaskIsOpen,
+        dialogEditTask: state.dialogEditTask,
         setSideBarOpenTrue,
         setdialogCreatTaskClose,
         setdialogCreatTaskOpen,
         setSideBarOpenFalse,
+        setDialogEditTaskOpen,
+        setDialogEditTaskClose,
       }}
       {...props}
     />

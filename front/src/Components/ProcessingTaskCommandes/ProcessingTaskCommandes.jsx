@@ -6,6 +6,7 @@ import { ProcessingTaskCommandesCont } from './ProcessingTaskCommandes.styled';
 import useGetProcessingTask from '../../assets/Hooks/useGetProcessingTask';
 import Loading from '../Loading/Loading';
 import ProcessingTaskPauseBtn from '../ProcessingTaskPauseBtn/ProcessingTaskPauseBtn';
+import ProcessingTaskEditBtn from '../ProcessingTaskEditBtn/ProcessingTaskEditBtn';
 
 const ProcessingTaskCommandes = () => {
   const { processingTask, loadingUserTask } = useGetProcessingTask();
@@ -25,7 +26,7 @@ const ProcessingTaskCommandes = () => {
       ) : (
         <ProcessingTaskPlayBtn />
       )}
-      <CircularBtn icon='edit' />
+      <ProcessingTaskEditBtn />
       <CircularBtn icon='check_circle' />
     </ProcessingTaskCommandesCont>
   );

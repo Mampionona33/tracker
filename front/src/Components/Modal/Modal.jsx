@@ -22,6 +22,8 @@ const Modal = ({ children, justifContent, bc }) => {
     sideBarOpen,
     setSideBarOpenFalse,
     dialogCreatTaskIsOpen,
+    dialogEditTask,
+    setDialogEditTaskClose,
     setdialogCreatTaskClose,
   } = useContext(ComponentContext);
 
@@ -30,6 +32,7 @@ const Modal = ({ children, justifContent, bc }) => {
     if (event.target === event.currentTarget) {
       sideBarOpen ? setSideBarOpenFalse() : '';
       dialogCreatTaskIsOpen ? setdialogCreatTaskClose() : '';
+      dialogEditTask ? setDialogEditTaskClose() : '';
     }
   };
 
