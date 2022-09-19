@@ -29,32 +29,8 @@ import { CREATE_TASK, UPDATE_TASK } from '../../Graphql/Mutation';
 import { useMutation } from '@apollo/client';
 import { GET_USER_TASK } from '../../Graphql/Query';
 import useGetProcessingTask from '../../assets/Hooks/useGetProcessingTask';
-
-const IvpnList = ['i', 'v', 'p', 'n'].map((item, index) => (
-  <DialogCreateTaskOption value={item} key={index}>
-    {item.toUpperCase()}
-  </DialogCreateTaskOption>
-));
-
-const statComOption = [
-  '---',
-  'Abandon',
-  'Abonné',
-  'Dégradé',
-  'DégradéDefinitif',
-  'Essai',
-  'EssaiNouveau',
-  'EssaiPayant',
-  'Retiré',
-].map((item, index) => (
-  <DialogCreateTaskOption
-    style={{ textTransform: 'none' }}
-    value={item}
-    key={index}
-  >
-    {item}
-  </DialogCreateTaskOption>
-));
+import IvpnListOptions from '../IvpnListOptions/IvpnListOptions';
+import StatComListOptions from '../StatComListOptions/StatComListOptions';
 
 const DialogCreateTask = () => {
   const { taskTypeList } = useContext(TaskTypeContext);
@@ -222,7 +198,7 @@ const DialogCreateTask = () => {
                     value={newTask.statCom}
                     onChange={handleInputChange}
                   >
-                    {statComOption}
+                    <StatComListOptions />
                   </DialogCreateTaskSelect>
                   <DialogCreateTaskFormLabel htmlFor='ivpn'>
                     IVPN
@@ -233,7 +209,7 @@ const DialogCreateTask = () => {
                     value={newTask.ivpn}
                     onChange={handleInputChange}
                   >
-                    {IvpnList}
+                    <IvpnListOptions />
                   </DialogCreateTaskSelect>
                   <DialogCreateTaskFormLabel htmlFor='cat'>
                     CATEGORY

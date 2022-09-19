@@ -1,12 +1,21 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { TaskTypeContext } from '../../context/taskTypeContext';
+import StatComListOptions from '../StatComListOptions/StatComListOptions';
 import TitledCard from '../TitledCard/TitledCard';
 import Modal from './../Modal/Modal';
+
 import {
   DialogEditTaskCont,
   DialogEditTaskCont2,
+  DialogEditTaskForm,
+  DialogEditTaskLabel,
+  DialogEditTaskPara,
+  DialogEditTaskRow,
+  DialogEditTaskSelect,
 } from './DialogEditTask.styled';
 
 const DialogEditTask = () => {
+  const { taskTypeList } = useContext(TaskTypeContext);
   return (
     <>
       <DialogEditTaskCont>
@@ -15,7 +24,16 @@ const DialogEditTask = () => {
             icon='edit'
             iconBackGround='#F57F17'
             title='edit processing task'
-          ></TitledCard>
+          >
+            <DialogEditTaskForm>
+              <DialogEditTaskLabel>booth number</DialogEditTaskLabel>
+              <DialogEditTaskPara type='text' />
+              <DialogEditTaskLabel>Task type</DialogEditTaskLabel>
+              <DialogEditTaskSelect>
+                <StatComListOptions />
+              </DialogEditTaskSelect>
+            </DialogEditTaskForm>
+          </TitledCard>
         </DialogEditTaskCont2>
       </DialogEditTaskCont>
       <Modal />
