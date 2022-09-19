@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import Modal from '../Modal/Modal';
 import {
   DialogCreateTaskCont,
@@ -161,6 +161,19 @@ const DialogCreateTask = () => {
     }
   };
 
+  const [scrollYDialogCreateTask, setScrollYDialogCreateTask] = useState(0);
+  const handleScroll = () => {
+    const positionY = window.scrollY;
+    setScrollYDialogCreateTask(positionY);
+  };
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
     <>
       {loadingUserTask ? (
@@ -168,7 +181,7 @@ const DialogCreateTask = () => {
           <Loading firstColor='#fff' seconColor='black' zIndex='2' />
         </DialogLoadingCont1>
       ) : (
-        <DialogCreateTaskCon1>
+        <DialogCreateTaskCon1 scrollYDialogCreateTask={scrollYDialogCreateTask}>
           <DialogCreateTaskCont>
             <TitledCard
               icon='note_add'

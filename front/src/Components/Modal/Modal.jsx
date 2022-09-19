@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { PropTypes } from 'prop-types';
 import { ComponentContext } from '../../context/componentContext';
@@ -8,7 +8,7 @@ const ModalContainer = styled.div`
   top: 0;
   background-color: ${(props) =>
     props.bc !== undefined ? props.bc : '#12000ff0'};
-  height: 100%;
+  height: ${(props) => `calc(100% + ${props.scrollY}px)`};
   width: 100%;
   display: flex;
   overflow: hidden;
@@ -36,11 +36,20 @@ const Modal = ({ children, justifContent, bc }) => {
     }
   };
 
+  const [scrollY, setScrollY] = useState(0);
+  const handleScroll = () => {
+    const positionY = window.scrollY;
+    setScrollY((prev) => positionY);
+    console.log(positionY);
+  };
+
   useEffect(() => {
     // Prevent scroling when modal is open
     document.body.style.overflowY = 'hidden';
+    window.addEventListener('scroll', handleScroll);
     return () => {
       document.body.style.overflowY = 'auto';
+      window.removeEventListener('scroll', handleScroll);
     };
   }, []);
 
@@ -49,6 +58,7 @@ const Modal = ({ children, justifContent, bc }) => {
       onClick={handleClickModal}
       justifyContent={justifContent}
       bc={bc}
+      scrollY={scrollY}
     >
       {children}
     </ModalContainer>
