@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import BtnIconText from '../BtnIconText/BtnIconText';
 import Modal from '../Modal/Modal';
@@ -16,10 +16,24 @@ function SideBar() {
     sideBarOpen && setSideBarOpenFalse();
   };
 
+  const handleScroll = () => {
+    const postionY = window.scrollY;
+    setSideBarScrollY(postionY);
+  };
+
+  const [sideBarScrollY, setSideBarScrollY] = useState(0);
+
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll());
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
   return (
-    <Modal>
+    <>
       <SideBarContainer>
-        <SideBarList>
+        <SideBarList sideBarScrollY={sideBarScrollY}>
           <BtnIconText
             title={'DASHBOARD'}
             className='sideBarElement'
@@ -42,7 +56,8 @@ function SideBar() {
           )}
         </SideBarList>
       </SideBarContainer>
-    </Modal>
+      <Modal />
+    </>
   );
 }
 

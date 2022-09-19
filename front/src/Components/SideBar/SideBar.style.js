@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const SideBarContainer = styled.div`
   position: relative;
+  z-index: 3;
 `;
 export const SideBarList = styled.div`
   position: absolute;
@@ -13,5 +14,6 @@ export const SideBarList = styled.div`
   color: white;
   width: fit-content;
   height: calc(100vh - 2rem);
+  transform: ${(props) => `translateY(${props.sideBarScrollY}px)`};
   gap: 1px;
 `;

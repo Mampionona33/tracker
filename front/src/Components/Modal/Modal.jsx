@@ -46,7 +46,7 @@ const Modal = ({ children, justifContent, bc }) => {
   useEffect(() => {
     // Prevent scroling when modal is open
     document.body.style.overflowY = 'hidden';
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll());
     return () => {
       document.body.style.overflowY = 'auto';
       window.removeEventListener('scroll', handleScroll);
