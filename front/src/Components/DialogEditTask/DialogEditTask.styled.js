@@ -74,3 +74,11 @@ export const DialogEditTaskHr = styled.hr`
   border: none;
   border-top: 1px solid black;
 `;
+
+export const DialogEditTaskBtnGroup = styled.div`
+  grid-column-start: 1;
+  grid-column-end: 3;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.2rem;
+`;

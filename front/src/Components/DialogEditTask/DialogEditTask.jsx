@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { TaskTypeContext } from '../../context/taskTypeContext';
+import BtnIconText from '../BtnIconText/BtnIconText';
 import IvpnListOptions from '../IvpnListOptions/IvpnListOptions';
 import StatComListOptions from '../StatComListOptions/StatComListOptions';
 import TaskTypeOptions from '../TaskTypeOptions/TaskTypeOptions';
@@ -7,6 +8,7 @@ import TitledCard from '../TitledCard/TitledCard';
 import Modal from './../Modal/Modal';
 
 import {
+  DialogEditTaskBtnGroup,
   DialogEditTaskCont,
   DialogEditTaskCont2,
   DialogEditTaskForm,
@@ -55,6 +57,23 @@ const DialogEditTask = () => {
               <DialogEditTaskLabel>comment</DialogEditTaskLabel>
               <DialogEditTaskTextarea />
               <DialogEditTaskHr />
+              <DialogEditTaskBtnGroup>
+                <BtnIconText
+                  title='save'
+                  hoverBgColor={true}
+                  bgColor='#1B5E20'
+                  type='submit'
+                >
+                  <span className='material-icons-round'>done</span>
+                </BtnIconText>
+                <BtnIconText
+                  title='cancel'
+                  hoverBgColor={true}
+                  bgColor='#5e2750'
+                >
+                  <span className='material-icons-round'>close</span>
+                </BtnIconText>
+              </DialogEditTaskBtnGroup>
             </DialogEditTaskForm>
           </TitledCard>
         </DialogEditTaskCont2>
