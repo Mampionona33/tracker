@@ -78,6 +78,9 @@ export const DialogCreateTaskTextarea = styled.textarea`
   max-width: 30rem;
   border-radius: 5px;
   outline: none;
+  @media screen and (max-width: 450px) {
+    font-size: 0.7rem;
+  }
 `;
 
 export const DialogCreateTaskHr = styled.hr`

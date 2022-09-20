@@ -25,7 +25,8 @@ export const TitledCardSeconCont = styled.div`
 
 export const TitledSpliter = styled.hr`
   width: 100%;
-  border: 0.5px solid black;
+  border: none;
+  border-top: 1px solid black;
 `;
 
 export const TitledCardContainer = styled.div`

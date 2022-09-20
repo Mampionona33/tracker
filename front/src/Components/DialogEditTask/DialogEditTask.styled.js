@@ -32,7 +32,8 @@ export const DialogEditTaskLabel = styled.label`
   text-transform: uppercase;
   font-weight: 900;
   font-size: 0.8rem;
-  @media screen and (max-width: 480px) {
+  white-space: nowrap;
+  @media (max-width: 480px) {
     font-size: 0.7rem;
   }
 `;

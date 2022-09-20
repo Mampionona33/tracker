@@ -5,10 +5,7 @@ const GlobalStyle = createGlobalStyle`
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family: Ubuntu;
-        @media screen and (max-width: 450px) {
-            font-size: 0.8rem;
-        }
+        font-family: Ubuntu;        
     }
 
 

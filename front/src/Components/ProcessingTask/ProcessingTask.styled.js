@@ -6,4 +6,6 @@ export const ProcessingTaskCont = styled.div`
 `;
 export const Spliter = styled.hr`
   width: 100%;
+  border: none;
+  border-top: 1px solid black;
 `;
