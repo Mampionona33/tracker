@@ -8,7 +8,6 @@ const StyledTaskTypeOption = styled.option`
 `;
 const TaskTypeOptions = () => {
   const { taskTypeList } = useContext(TaskTypeContext);
-  console.log(taskTypeList);
   return (
     <>
       {taskTypeList

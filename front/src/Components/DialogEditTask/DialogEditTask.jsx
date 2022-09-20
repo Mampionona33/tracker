@@ -1,4 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import useGetProcessingTask from '../../assets/Hooks/useGetProcessingTask';
+import { ComponentContext } from '../../context/componentContext';
 import { TaskTypeContext } from '../../context/taskTypeContext';
 import BtnIconText from '../BtnIconText/BtnIconText';
 import IvpnListOptions from '../IvpnListOptions/IvpnListOptions';
@@ -15,13 +17,55 @@ import {
   DialogEditTaskHr,
   DialogEditTaskLabel,
   DialogEditTaskPara,
-  DialogEditTaskRow,
   DialogEditTaskSelect,
   DialogEditTaskTextarea,
 } from './DialogEditTask.styled';
 
 const DialogEditTask = () => {
-  const { taskTypeList } = useContext(TaskTypeContext);
+  const { processingTask } = useGetProcessingTask();
+  const { dialogEditTask, setDialogEditTaskClose } =
+    useContext(ComponentContext);
+
+  const [formState, setFormState] = useState({
+    id: null,
+    boothNumber: '',
+    type: '',
+    url: '',
+    cat: '',
+    statCom: '',
+    ivpn: '',
+    nbBefore: 0,
+    nbAfter: 0,
+    comment: '',
+  });
+
+  const handleInputChange = (event) => {
+    event.preventDefault();
+    setFormState({ ...formState, [event.target.name]: event.target.value });
+  };
+
+  useEffect(() => {
+    if (processingTask.length > 0) {
+      setFormState({
+        ...formState,
+        id: processingTask[0].id,
+        boothNumber: processingTask[0].boothNumber,
+        type: processingTask[0].type,
+        cat: processingTask[0].cat,
+        statCom: processingTask[0].statCom,
+        ivpn: processingTask[0].ivpn,
+        nbBefore: processingTask[0].nbBefore,
+        nbAfter: processingTask[0].nbAfter,
+        comment: processingTask[0].comment,
+        url: processingTask[0].url,
+      });
+    }
+  }, [processingTask]);
+
+  const handleClickCancel = () => {
+    dialogEditTask && setDialogEditTaskClose();
+  };
+
   return (
     <>
       <DialogEditTaskCont>
@@ -39,27 +83,56 @@ const DialogEditTask = () => {
                 type='text'
                 id='boothNumber'
                 name='boothNumber'
+                value={formState.boothNumber}
+                onChange={handleInputChange}
               />
               <DialogEditTaskLabel htmlFor='statCom'>
                 status com
               </DialogEditTaskLabel>
-              <DialogEditTaskSelect name='statCom' id='statCom'>
+              <DialogEditTaskSelect
+                name='statCom'
+                id='statCom'
+                value={formState.statCom}
+                onChange={handleInputChange}
+              >
                 <StatComListOptions />
               </DialogEditTaskSelect>
               <DialogEditTaskLabel htmlFor='type'>
                 Task type
               </DialogEditTaskLabel>
-              <DialogEditTaskSelect name='type' id='type'>
+              <DialogEditTaskSelect
+                name='type'
+                id='type'
+                value={formState.type}
+                onChange={handleInputChange}
+              >
                 <TaskTypeOptions />
               </DialogEditTaskSelect>
               <DialogEditTaskLabel htmlFor='ivpn'>ivpn</DialogEditTaskLabel>
-              <DialogEditTaskSelect name='ivpn' id='ivpn'>
+              <DialogEditTaskSelect
+                name='ivpn'
+                id='ivpn'
+                value={formState.ivpn}
+                onChange={handleInputChange}
+              >
                 <IvpnListOptions />
               </DialogEditTaskSelect>
               <DialogEditTaskLabel htmlFor='cat'>cat</DialogEditTaskLabel>
-              <DialogEditTaskPara type='text' name='cat' id='cat' />
+              <DialogEditTaskPara
+                type='text'
+                name='cat'
+                id='cat'
+                value={formState.cat}
+                onChange={handleInputChange}
+              />
               <DialogEditTaskLabel htmlFor='url'>URL</DialogEditTaskLabel>
-              <DialogEditTaskPara type='url' name='url' id='url' />
+              <DialogEditTaskPara
+                type='url'
+                name='url'
+                id='url'
+                value={formState.url}
+                onChange={handleInputChange}
+              />
               <DialogEditTaskLabel htmlFor='nbBefore'>
                 nb before
               </DialogEditTaskLabel>
@@ -68,6 +141,9 @@ const DialogEditTask = () => {
                 pattern='[0-9{0,5}]'
                 name='nbBefore'
                 id='nbBefore'
+                value={formState.nbBefore}
+                onChange={handleInputChange}
+                onInput={handleInputChange}
               />
               <DialogEditTaskLabel htmlFor='nbAfter'>
                 nb after
@@ -77,11 +153,19 @@ const DialogEditTask = () => {
                 pattern='[0-9{0,5}]'
                 name='nbAfter'
                 id='nbAfter'
+                value={formState.nbAfter}
+                onChange={handleInputChange}
+                onInput={handleInputChange}
               />
               <DialogEditTaskLabel htmlFor='comment'>
                 comment
               </DialogEditTaskLabel>
-              <DialogEditTaskTextarea name='comment' id='comment' />
+              <DialogEditTaskTextarea
+                name='comment'
+                id='comment'
+                value={formState.comment}
+                onChange={handleInputChange}
+              />
               <DialogEditTaskHr />
               <DialogEditTaskBtnGroup>
                 <BtnIconText
@@ -96,6 +180,7 @@ const DialogEditTask = () => {
                   title='cancel'
                   hoverBgColor={true}
                   bgColor='#5e2750'
+                  onClick={handleClickCancel}
                 >
                   <span className='material-icons-round'>close</span>
                 </BtnIconText>

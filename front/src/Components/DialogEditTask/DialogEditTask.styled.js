@@ -19,12 +19,6 @@ export const DialogEditTaskForm = styled.form`
   grid-gap: 0.5rem;
 `;
 
-export const DialogEditTaskRow = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-`;
-
 export const DialogEditTaskLabel = styled.label`
   display: flex;
   align-items: center;

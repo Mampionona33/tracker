@@ -41,7 +41,6 @@ const Modal = ({ children, justifContent, bc }) => {
   const handleScroll = () => {
     const positionY = window.scrollY;
     setScrollY((prev) => positionY);
-    console.log(positionY);
   };
 
   useEffect(() => {
