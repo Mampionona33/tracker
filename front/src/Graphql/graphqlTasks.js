@@ -139,3 +139,38 @@ export const mutateTaskStateToPause = async (
     console.log(error);
   }
 };
+
+export const mutateUpdateProcessingTask = async (
+  updateTask,
+  processingTaskData
+) => {
+  updateTask({
+    variables: {
+      filter: {
+        id: processingTaskData.id,
+      },
+      update: {
+        boothNumber:
+          processingTaskData.boothNumber !== ''
+            ? processingTaskData.boothNumber
+            : 'empty',
+        statCom: processingTaskData.statCom,
+        type:
+          processingTaskData.type !== '' ? processingTaskData.type : 'empty',
+        url: processingTaskData.url !== '' ? processingTaskData.url : 'empty',
+        cat: processingTaskData.cat !== '' ? processingTaskData.cat : 'empty',
+        ivpn: processingTaskData.ivpn !== '' ? processingTaskData.ivpn : 'I',
+        nbBefore: processingTaskData.nbBefore
+          ? parseInt(processingTaskData.nbBefore)
+          : 0,
+        nbAfter: processingTaskData.nbAfter
+          ? parseInt(processingTaskData.nbAfter)
+          : 0,
+        comment: processingTaskData.comment
+          ? processingTaskData.comment
+          : 'empty',
+      },
+    },
+  });
+  return updateTask;
+};

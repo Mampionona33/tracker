@@ -1,7 +1,12 @@
+import { useMutation } from '@apollo/client';
 import React, { useContext, useEffect, useState } from 'react';
 import useGetProcessingTask from '../../assets/Hooks/useGetProcessingTask';
+import { AuthConext } from '../../context/authContext';
 import { ComponentContext } from '../../context/componentContext';
 import { TaskTypeContext } from '../../context/taskTypeContext';
+import { mutateUpdateProcessingTask } from '../../Graphql/graphqlTasks';
+import { UPDATE_TASK } from '../../Graphql/Mutation';
+import { GET_USER_TASK } from '../../Graphql/Query';
 import BtnIconText from '../BtnIconText/BtnIconText';
 import IvpnListOptions from '../IvpnListOptions/IvpnListOptions';
 import StatComListOptions from '../StatComListOptions/StatComListOptions';
@@ -23,6 +28,7 @@ import {
 
 const DialogEditTask = () => {
   const { processingTask } = useGetProcessingTask();
+  const { sub } = useContext(AuthConext);
   const { dialogEditTask, setDialogEditTaskClose } =
     useContext(ComponentContext);
 
@@ -66,6 +72,32 @@ const DialogEditTask = () => {
     dialogEditTask && setDialogEditTaskClose();
   };
 
+  const [updateCurrentTask, { error: errorOnUpdateTask }] = useMutation(
+    UPDATE_TASK,
+    {
+      refetchQueries: [
+        {
+          query: GET_USER_TASK,
+          variables: {
+            input: {
+              sub: sub,
+            },
+          },
+        },
+      ],
+      awaitRefetchQueries: true,
+    }
+  );
+
+  const handleClickSave = (event) => {
+    event.preventDefault();
+    if (formState.id) {
+      mutateUpdateProcessingTask(updateCurrentTask, formState).then(
+        setDialogEditTaskClose()
+      );
+    }
+  };
+
   return (
     <>
       <DialogEditTaskCont>
@@ -75,7 +107,7 @@ const DialogEditTask = () => {
             iconBackGround='#F57F17'
             title='edit processing task'
           >
-            <DialogEditTaskForm>
+            <DialogEditTaskForm onSubmit={handleClickSave}>
               <DialogEditTaskLabel htmlFor='boothNumber'>
                 booth number
               </DialogEditTaskLabel>
