@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import { TaskTypeContext } from '../../context/taskTypeContext';
 import StatComListOptions from '../StatComListOptions/StatComListOptions';
+import TaskTypeOptions from '../TaskTypeOptions/TaskTypeOptions';
 import TitledCard from '../TitledCard/TitledCard';
 import Modal from './../Modal/Modal';
 
@@ -28,9 +29,13 @@ const DialogEditTask = () => {
             <DialogEditTaskForm>
               <DialogEditTaskLabel>booth number</DialogEditTaskLabel>
               <DialogEditTaskPara type='text' />
-              <DialogEditTaskLabel>Task type</DialogEditTaskLabel>
+              <DialogEditTaskLabel>status com</DialogEditTaskLabel>
               <DialogEditTaskSelect>
                 <StatComListOptions />
+              </DialogEditTaskSelect>
+              <DialogEditTaskLabel>Task type</DialogEditTaskLabel>
+              <DialogEditTaskSelect>
+                <TaskTypeOptions />
               </DialogEditTaskSelect>
             </DialogEditTaskForm>
           </TitledCard>
