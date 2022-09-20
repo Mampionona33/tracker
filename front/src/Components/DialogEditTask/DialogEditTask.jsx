@@ -32,30 +32,56 @@ const DialogEditTask = () => {
             title='edit processing task'
           >
             <DialogEditTaskForm>
-              <DialogEditTaskLabel>booth number</DialogEditTaskLabel>
-              <DialogEditTaskPara type='text' />
-              <DialogEditTaskLabel>status com</DialogEditTaskLabel>
-              <DialogEditTaskSelect>
+              <DialogEditTaskLabel htmlFor='boothNumber'>
+                booth number
+              </DialogEditTaskLabel>
+              <DialogEditTaskPara
+                type='text'
+                id='boothNumber'
+                name='boothNumber'
+              />
+              <DialogEditTaskLabel htmlFor='statCom'>
+                status com
+              </DialogEditTaskLabel>
+              <DialogEditTaskSelect name='statCom' id='statCom'>
                 <StatComListOptions />
               </DialogEditTaskSelect>
-              <DialogEditTaskLabel>Task type</DialogEditTaskLabel>
-              <DialogEditTaskSelect>
+              <DialogEditTaskLabel htmlFor='type'>
+                Task type
+              </DialogEditTaskLabel>
+              <DialogEditTaskSelect name='type' id='type'>
                 <TaskTypeOptions />
               </DialogEditTaskSelect>
-              <DialogEditTaskLabel>ivpn</DialogEditTaskLabel>
-              <DialogEditTaskSelect>
+              <DialogEditTaskLabel htmlFor='ivpn'>ivpn</DialogEditTaskLabel>
+              <DialogEditTaskSelect name='ivpn' id='ivpn'>
                 <IvpnListOptions />
               </DialogEditTaskSelect>
-              <DialogEditTaskLabel>cat</DialogEditTaskLabel>
-              <DialogEditTaskPara type='text' />
-              <DialogEditTaskLabel>URL</DialogEditTaskLabel>
-              <DialogEditTaskPara type='url' />
-              <DialogEditTaskLabel>nb before</DialogEditTaskLabel>
-              <DialogEditTaskPara type='number' />
-              <DialogEditTaskLabel>nb after</DialogEditTaskLabel>
-              <DialogEditTaskPara type='number' />
-              <DialogEditTaskLabel>comment</DialogEditTaskLabel>
-              <DialogEditTaskTextarea />
+              <DialogEditTaskLabel htmlFor='cat'>cat</DialogEditTaskLabel>
+              <DialogEditTaskPara type='text' name='cat' id='cat' />
+              <DialogEditTaskLabel htmlFor='url'>URL</DialogEditTaskLabel>
+              <DialogEditTaskPara type='url' name='url' id='url' />
+              <DialogEditTaskLabel htmlFor='nbBefore'>
+                nb before
+              </DialogEditTaskLabel>
+              <DialogEditTaskPara
+                type='number'
+                pattern='[0-9{0,5}]'
+                name='nbBefore'
+                id='nbBefore'
+              />
+              <DialogEditTaskLabel htmlFor='nbAfter'>
+                nb after
+              </DialogEditTaskLabel>
+              <DialogEditTaskPara
+                type='number'
+                pattern='[0-9{0,5}]'
+                name='nbAfter'
+                id='nbAfter'
+              />
+              <DialogEditTaskLabel htmlFor='comment'>
+                comment
+              </DialogEditTaskLabel>
+              <DialogEditTaskTextarea name='comment' id='comment' />
               <DialogEditTaskHr />
               <DialogEditTaskBtnGroup>
                 <BtnIconText
