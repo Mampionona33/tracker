@@ -54,3 +54,22 @@ export const DialogEditTaskSelect = styled.select`
     font-size: 0.7rem;
   }
 `;
+
+export const DialogEditTaskTextarea = styled.textarea`
+  color: black;
+  grid-column-start: 1;
+  grid-column-end: 3;
+  border-radius: 0.2rem;
+  max-height: 5rem;
+  max-width: 30rem;
+  border-radius: 5px;
+  outline: none;
+`;
+
+export const DialogEditTaskHr = styled.hr`
+  grid-column-start: 1;
+  grid-column-end: 3;
+  width: 100%;
+  border: none;
+  border-top: 1px solid black;
+`;

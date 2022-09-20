@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import { TaskTypeContext } from '../../context/taskTypeContext';
+import IvpnListOptions from '../IvpnListOptions/IvpnListOptions';
 import StatComListOptions from '../StatComListOptions/StatComListOptions';
 import TaskTypeOptions from '../TaskTypeOptions/TaskTypeOptions';
 import TitledCard from '../TitledCard/TitledCard';
@@ -9,10 +10,12 @@ import {
   DialogEditTaskCont,
   DialogEditTaskCont2,
   DialogEditTaskForm,
+  DialogEditTaskHr,
   DialogEditTaskLabel,
   DialogEditTaskPara,
   DialogEditTaskRow,
   DialogEditTaskSelect,
+  DialogEditTaskTextarea,
 } from './DialogEditTask.styled';
 
 const DialogEditTask = () => {
@@ -37,6 +40,21 @@ const DialogEditTask = () => {
               <DialogEditTaskSelect>
                 <TaskTypeOptions />
               </DialogEditTaskSelect>
+              <DialogEditTaskLabel>ivpn</DialogEditTaskLabel>
+              <DialogEditTaskSelect>
+                <IvpnListOptions />
+              </DialogEditTaskSelect>
+              <DialogEditTaskLabel>cat</DialogEditTaskLabel>
+              <DialogEditTaskPara type='text' />
+              <DialogEditTaskLabel>URL</DialogEditTaskLabel>
+              <DialogEditTaskPara type='url' />
+              <DialogEditTaskLabel>nb before</DialogEditTaskLabel>
+              <DialogEditTaskPara type='number' />
+              <DialogEditTaskLabel>nb after</DialogEditTaskLabel>
+              <DialogEditTaskPara type='number' />
+              <DialogEditTaskLabel>comment</DialogEditTaskLabel>
+              <DialogEditTaskTextarea />
+              <DialogEditTaskHr />
             </DialogEditTaskForm>
           </TitledCard>
         </DialogEditTaskCont2>

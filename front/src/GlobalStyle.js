@@ -6,6 +6,9 @@ const GlobalStyle = createGlobalStyle`
         padding: 0;
         box-sizing: border-box;
         font-family: Ubuntu;
+        @media screen and (max-width: 450px) {
+            font-size: 0.8rem;
+        }
     }
 
 

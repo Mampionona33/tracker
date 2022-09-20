@@ -5,9 +5,6 @@ import { TaskTypeContext } from '../../context/taskTypeContext';
 const StyledTaskTypeOption = styled.option`
   display: flex;
   justify-content: flex-end;
-  @media screen and (max-width: 450px) {
-    font-size: 0.7rem;
-  }
 `;
 const TaskTypeOptions = () => {
   const { taskTypeList } = useContext(TaskTypeContext);
