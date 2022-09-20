@@ -4,12 +4,16 @@ const initialState = {
   sideBarOpen: false,
   dialogCreatTaskIsOpen: false,
   dialogEditTask: false,
+  dialogConfirmSubmit: false,
 };
 
 const ComponentContext = createContext({
   sideBarOpen: false,
   dialogCreatTaskIsOpen: false,
   dialogEditTask: false,
+  dialogConfirmSubmit: false,
+  setDialogConfirmSubmitClose: () => {},
+  setDialogConfirmSubmitOpen: () => {},
   setDialogEditTaskOpen: () => {},
   setDialogEditTaskClose: () => {},
   setdialogCreatTaskOpen: () => {},
@@ -25,6 +29,8 @@ const ACTION = {
   COLOSE_DIALOG_CREATE_TASK: 'close-dialog-create-task',
   OPEN_DIALOG_EDIT_TASK: 'open-dialog-edit-task',
   CLOSE_DIALOG_EDIT_TASK: 'close-dialog-edit-task',
+  CLOSE_DIALOG_CONFIRM_SUBMIT: 'close-dialog-confirm-submit',
+  OPEN_DIALOG_CONFIRM_SUBMIT: 'open-dialog-confirm-submit',
 };
 
 const componentReducer = (state, action) => {
@@ -65,6 +71,18 @@ const componentReducer = (state, action) => {
         dialogEditTask: (state.dialogEditTask = false),
       };
     }
+    case ACTION.CLOSE_DIALOG_CONFIRM_SUBMIT: {
+      return {
+        ...state,
+        dialogConfirmSubmit: (state.dialogConfirmSubmit = false),
+      };
+    }
+    case ACTION.OPEN_DIALOG_CONFIRM_SUBMIT: {
+      return {
+        ...state,
+        dialogConfirmSubmit: (state.dialogConfirmSubmit = true),
+      };
+    }
 
     default:
       return state;
@@ -94,12 +112,23 @@ const ComponentProvider = (props) => {
     dispatch({ type: ACTION.CLOSE_DIALOG_EDIT_TASK });
   };
 
+  const setDialogConfirmSubmitClose = () => {
+    dispatch({ type: ACTION.CLOSE_DIALOG_CONFIRM_SUBMIT });
+  };
+
+  const setDialogConfirmSubmitOpen = (params) => {
+    dispatch({ type: ACTION.OPEN_DIALOG_CONFIRM_SUBMIT });
+  };
+
   return (
     <ComponentContext.Provider
       value={{
         sideBarOpen: state.sideBarOpen,
         dialogCreatTaskIsOpen: state.dialogCreatTaskIsOpen,
         dialogEditTask: state.dialogEditTask,
+        dialogConfirmSubmit: state.dialogConfirmSubmit,
+        setDialogConfirmSubmitClose,
+        setDialogConfirmSubmitOpen,
         setSideBarOpenTrue,
         setdialogCreatTaskClose,
         setdialogCreatTaskOpen,

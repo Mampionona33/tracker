@@ -21,9 +21,11 @@ const ModalContainer = styled.div`
 const Modal = ({ children, justifContent, bc }) => {
   const {
     sideBarOpen,
-    setSideBarOpenFalse,
-    dialogCreatTaskIsOpen,
     dialogEditTask,
+    dialogCreatTaskIsOpen,
+    dialogConfirmSubmit,
+    setDialogConfirmSubmitClose,
+    setSideBarOpenFalse,
     setDialogEditTaskClose,
     setdialogCreatTaskClose,
   } = useContext(ComponentContext);
@@ -34,6 +36,7 @@ const Modal = ({ children, justifContent, bc }) => {
       sideBarOpen ? setSideBarOpenFalse() : '';
       dialogCreatTaskIsOpen ? setdialogCreatTaskClose() : '';
       dialogEditTask ? setDialogEditTaskClose() : '';
+      dialogConfirmSubmit && setDialogConfirmSubmitClose();
     }
   };
 

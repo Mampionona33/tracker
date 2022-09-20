@@ -5,12 +5,14 @@ export const DialogCreateTaskCon1 = styled.div`
   justify-content: center;
   color: white;
   position: relative;
-  margin-top: 10vh;
-  z-index: 2;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
 `;
 
 export const DialogCreateTaskCont = styled.div`
   position: fixed;
+  z-index: 2;
 `;
 
 export const DialogCreateTaskFormInput = styled.div`

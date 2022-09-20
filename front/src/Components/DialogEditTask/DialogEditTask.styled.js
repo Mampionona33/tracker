@@ -3,14 +3,16 @@ import styled from 'styled-components';
 export const DialogEditTaskCont = styled.div`
   display: flex;
   justify-content: center;
+  align-items: center;
   color: white;
   position: relative;
-  z-index: 2;
-  margin-top: 15vh;
+  width: 100vw;
+  height: 100vh;
 `;
 
 export const DialogEditTaskCont2 = styled.div`
   position: fixed;
+  z-index: 2;
 `;
 
 export const DialogEditTaskForm = styled.form`

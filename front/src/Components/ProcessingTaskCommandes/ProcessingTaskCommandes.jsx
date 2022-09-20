@@ -7,6 +7,7 @@ import useGetProcessingTask from '../../assets/Hooks/useGetProcessingTask';
 import Loading from '../Loading/Loading';
 import ProcessingTaskPauseBtn from '../ProcessingTaskPauseBtn/ProcessingTaskPauseBtn';
 import ProcessingTaskEditBtn from '../ProcessingTaskEditBtn/ProcessingTaskEditBtn';
+import ProcessingTaskSubmitBtn from '../ProcessingTaskSubmitBtn/ProcessingTaskSubmitBtn';
 
 const ProcessingTaskCommandes = () => {
   const { processingTask, loadingUserTask } = useGetProcessingTask();
@@ -27,7 +28,7 @@ const ProcessingTaskCommandes = () => {
         <ProcessingTaskPlayBtn />
       )}
       <ProcessingTaskEditBtn />
-      <CircularBtn icon='check_circle' />
+      <ProcessingTaskSubmitBtn />
     </ProcessingTaskCommandesCont>
   );
 };
