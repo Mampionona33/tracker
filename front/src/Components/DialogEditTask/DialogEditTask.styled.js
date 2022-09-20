@@ -32,12 +32,18 @@ export const DialogEditTaskLabel = styled.label`
   text-transform: uppercase;
   font-weight: 900;
   font-size: 0.8rem;
+  @media screen and (max-width: 480px) {
+    font-size: 0.7rem;
+  }
 `;
 export const DialogEditTaskPara = styled.input`
   color: #333333;
   border-radius: 5px;
   outline: none;
   border: 1px solid #333333;
+  @media screen and (max-width: 480px) {
+    font-size: 0.7rem;
+  }
 `;
 
 export const DialogEditTaskSelect = styled.select`
