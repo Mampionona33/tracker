@@ -3,7 +3,6 @@ import React, { useContext, useEffect, useState } from 'react';
 import useGetProcessingTask from '../../assets/Hooks/useGetProcessingTask';
 import { AuthConext } from '../../context/authContext';
 import { ComponentContext } from '../../context/componentContext';
-import { TaskTypeContext } from '../../context/taskTypeContext';
 import { mutateUpdateProcessingTask } from '../../Graphql/graphqlTasks';
 import { UPDATE_TASK } from '../../Graphql/Mutation';
 import { GET_USER_TASK } from '../../Graphql/Query';

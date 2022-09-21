@@ -174,3 +174,52 @@ export const mutateUpdateProcessingTask = async (
   });
   return updateTask;
 };
+
+export const mutateTaskStatePauseToDone = async (
+  updateTaskState,
+  taskId,
+  productivity,
+  totalElapstedTime
+) => {
+  updateTaskState({
+    variables: {
+      filter: {
+        id: taskId,
+      },
+      update: {
+        taskState: 'isDone',
+        submitedDate: new Date(),
+        totalElapstedTime: totalElapstedTime,
+        productivity: productivity,
+      },
+    },
+  });
+};
+
+export const mutateTakStatePlayToDone = async (
+  updateTask,
+  taskId,
+  productivity,
+  totalElapstedTime,
+  sessionId
+) => {
+  updateTask({
+    variables: {
+      filter: {
+        id: taskId,
+        sessionId: sessionId,
+      },
+      update: {
+        taskState: 'isDone',
+        submitedDate: new Date(),
+        totalElapstedTime: totalElapstedTime,
+        productivity: productivity,
+        session: {
+          session_id: sessionId,
+          sessionStop: new Date(),
+        },
+      },
+    },
+  });
+  return updateTask;
+};
