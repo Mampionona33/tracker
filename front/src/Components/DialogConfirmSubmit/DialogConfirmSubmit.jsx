@@ -1,5 +1,11 @@
+import { useMutation } from '@apollo/client';
 import React, { useContext } from 'react';
+import useGetProcessingTask from '../../assets/Hooks/useGetProcessingTask';
+import { difDate } from '../../assets/timeUtility';
+import { AuthConext } from '../../context/authContext';
 import { ComponentContext } from '../../context/componentContext';
+import { UPDATE_TASK } from '../../Graphql/Mutation';
+import { GET_USER_TASK } from '../../Graphql/Query';
 import BtnIconText from '../BtnIconText/BtnIconText';
 import { DialogEditTaskHr } from '../DialogEditTask/DialogEditTask.styled';
 import Modal from '../Modal/Modal';
@@ -15,13 +21,40 @@ const DialogConfirmSubmit = () => {
   const { dialogConfirmSubmit, setDialogConfirmSubmitClose } =
     useContext(ComponentContext);
 
+  const { sub } = useContext(AuthConext);
+
+  const { processingTask, loadingUserTask } = useGetProcessingTask();
+
+  const [updateTaskStateToIsDone, { error: errorUpdateTaskState }] =
+    useMutation(UPDATE_TASK, {
+      refetchQueries: [
+        { query: GET_USER_TASK, variables: { input: { sub: sub } } },
+      ],
+      awaitRefetchQueries: true,
+    });
+
   const handleClickCancel = () => {
     dialogConfirmSubmit && setDialogConfirmSubmitClose();
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('submit');
+    if (processingTask.length > 0) {
+      const taskState = processingTask[0].taskState;
+      const taskId = processingTask[0].id;
+      const elapstedTime = processingTask
+        .map((item) => {
+          return Array.from(item.session)
+            .map((session) =>
+              difDate(session.sessionStart, session.sessionStop)
+            )
+            .reduce((a, b) => a + b);
+        })
+        .reduce((a, b) => a + b);
+      console.log('taskId', taskId);
+      console.log('elapstedTime', elapstedTime);
+      console.log('taskState', taskState);
+    }
   };
 
   return (
