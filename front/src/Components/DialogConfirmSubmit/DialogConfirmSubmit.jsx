@@ -45,9 +45,12 @@ const DialogConfirmSubmit = () => {
       const elapstedTime = processingTask
         .map((item) => {
           return Array.from(item.session)
-            .map((session) =>
-              difDate(session.sessionStart, session.sessionStop)
-            )
+            .map((session) => {
+              if (!session.sessionStop) {
+                return difDate(session.sessionStart, new Date());
+              }
+              return difDate(session.sessionStart, session.sessionStop);
+            })
             .reduce((a, b) => a + b);
         })
         .reduce((a, b) => a + b);
