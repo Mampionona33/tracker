@@ -81,7 +81,9 @@ const DialogConfirmSubmit = () => {
         )
         .reduce((a, b) => a + b).goal;
 
-      const productivity = (nbAfter / elapstedTime / (goal / 3600)) * 100;
+      const productivity = Math.round(
+        (nbAfter / elapstedTime / (goal / 3600)) * 100
+      );
 
       console.log('taskId', taskId);
       console.log('elapstedTime', elapstedTime);
@@ -89,7 +91,7 @@ const DialogConfirmSubmit = () => {
       console.log('nbAfter', nbAfter);
       console.log('sessionId', sessionId);
       console.log('goal', goal);
-      console.log('productivity', productivity);
+      console.log('productivity', productivity, '%');
     }
   };
 
