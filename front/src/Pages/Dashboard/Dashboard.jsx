@@ -31,7 +31,7 @@ export default function Dashboard(props) {
     <DashboardContainer>
       {loadingUserTask && <Loading />}
 
-      {processingTask ? (
+      {processingTask.length > 0 ? (
         <TitledCard
           icon='engineering'
           iconBackGround='#3949AB'
