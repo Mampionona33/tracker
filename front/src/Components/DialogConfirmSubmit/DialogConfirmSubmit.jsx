@@ -99,9 +99,14 @@ const DialogConfirmSubmit = () => {
     <>
       <DialogConfirmSubmitCont1>
         <DialogConfirmSubmitCont2 onSubmit={handleSubmit}>
-          <TitledCard icon='info' title='submit task' iconBackGround='#f52d50'>
+          <TitledCard
+            icon='question_mark'
+            title='submit task'
+            iconBackGround='#f52d50'
+          >
             <DialogConfirmSubmitMsg>
-              Do you realy want to submit this task ?
+              Do you realy want to submit this task :
+              <b>{processingTask.map((item) => item.boothNumber)}</b>?
             </DialogConfirmSubmitMsg>
             <DialogEditTaskHr />
             <DialogConfirmSubmitBtnCont>
