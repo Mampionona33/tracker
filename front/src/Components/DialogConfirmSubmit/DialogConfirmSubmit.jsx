@@ -4,6 +4,8 @@ import useGetProcessingTask from '../../assets/Hooks/useGetProcessingTask';
 import { difDate } from '../../assets/timeUtility';
 import { AuthConext } from '../../context/authContext';
 import { ComponentContext } from '../../context/componentContext';
+import { TaskTypeContext } from '../../context/taskTypeContext';
+import { mutateTaskStatePauseToDone } from '../../Graphql/graphqlTasks';
 import { UPDATE_TASK } from '../../Graphql/Mutation';
 import { GET_USER_TASK } from '../../Graphql/Query';
 import BtnIconText from '../BtnIconText/BtnIconText';
@@ -20,6 +22,8 @@ import {
 const DialogConfirmSubmit = () => {
   const { dialogConfirmSubmit, setDialogConfirmSubmitClose } =
     useContext(ComponentContext);
+
+  const { taskTypeList } = useContext(TaskTypeContext);
 
   const { sub } = useContext(AuthConext);
 
@@ -54,9 +58,38 @@ const DialogConfirmSubmit = () => {
             .reduce((a, b) => a + b);
         })
         .reduce((a, b) => a + b);
+      const nbAfter = processingTask[0].nbAfter;
+
+      const sessionId =
+        taskState === 'isPlay' &&
+        processingTask
+          .map((item) => {
+            if (item.taskState === 'isPlay') {
+              return Array.from(item.session)
+                .filter((session) => !session.sessionStop)
+                .map((item) => item.session_id)
+                .reduce((a, b) => a + b);
+            }
+          })
+          .reduce((a, b) => a + b);
+
+      const goal = Array.from(taskTypeList)
+        .filter(
+          (item) =>
+            item.name ===
+            processingTask.map((item) => item.type).reduce((a, b) => a + b)
+        )
+        .reduce((a, b) => a + b).goal;
+
+      const productivity = (nbAfter / elapstedTime / (goal / 3600)) * 100;
+
       console.log('taskId', taskId);
       console.log('elapstedTime', elapstedTime);
       console.log('taskState', taskState);
+      console.log('nbAfter', nbAfter);
+      console.log('sessionId', sessionId);
+      console.log('goal', goal);
+      console.log('productivity', productivity);
     }
   };
 
