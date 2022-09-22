@@ -60,7 +60,7 @@ export default function Dashboard(props) {
         </TitledCard>
       )}
 
-      {processingTask && (
+      {processingTask.length > 0 && (
         <TitledCard
           icon='science'
           iconBackGround='#39A275'
