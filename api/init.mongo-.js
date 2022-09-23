@@ -72,7 +72,7 @@ const resetMongo = async () => {
         nbAfter: 100,
         comment: 'this is a comment',
         taskState: 'isOff',
-        totalElapstedTime: '',
+        totalElapstedTime: null,
         submitedDate: null,
         productivity: 0,
         session: [
@@ -103,7 +103,7 @@ const resetMongo = async () => {
         nbAfter: 1,
         comment: 'this is a comment',
         taskState: 'isPause',
-        totalElapstedTime: '',
+        totalElapstedTime: null,
         submitedDate: null,
         productivity: 0,
         session: [
