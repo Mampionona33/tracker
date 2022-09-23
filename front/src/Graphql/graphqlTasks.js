@@ -194,6 +194,7 @@ export const mutateTaskStatePauseToDone = async (
       },
     },
   });
+  return;
 };
 
 export const mutateTakStatePlayToDone = async (
@@ -221,5 +222,5 @@ export const mutateTakStatePlayToDone = async (
       },
     },
   });
-  return updateTask;
+  return;
 };

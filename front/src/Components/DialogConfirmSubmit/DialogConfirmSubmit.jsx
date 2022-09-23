@@ -1,5 +1,6 @@
 import { useMutation } from '@apollo/client';
-import React, { useContext } from 'react';
+import { shouldWriteResult } from '@apollo/client/core/QueryInfo';
+import React, { useContext, useEffect } from 'react';
 import useGetProcessingTask from '../../assets/Hooks/useGetProcessingTask';
 import { difDate } from '../../assets/timeUtility';
 import { AuthConext } from '../../context/authContext';
@@ -28,13 +29,22 @@ const DialogConfirmSubmit = () => {
 
   const { sub } = useContext(AuthConext);
 
-  const { processingTask, loadingUserTask } = useGetProcessingTask();
+  const { processingTask, loadingUserTask, refetchUserTasks } =
+    useGetProcessingTask();
 
   const [updateTaskStateToIsDone, { error: errorUpdateTaskState }] =
     useMutation(UPDATE_TASK, {
       refetchQueries: [
-        { query: GET_USER_TASK, variables: { input: { sub: sub } } },
+        {
+          query: GET_USER_TASK,
+          variables: {
+            input: {
+              sub: sub,
+            },
+          },
+        },
       ],
+
       awaitRefetchQueries: true,
     });
 
@@ -86,14 +96,6 @@ const DialogConfirmSubmit = () => {
         (nbAfter / elapstedTime / (goal / 3600)) * 100
       );
 
-      console.log('taskId', taskId);
-      console.log('elapstedTime', elapstedTime);
-      console.log('taskState', taskState);
-      console.log('nbAfter', nbAfter);
-      console.log('sessionId', sessionId);
-      console.log('goal', goal);
-      console.log('productivity', productivity, '%');
-
       if (taskState === 'isPlay') {
         mutateTakStatePlayToDone(
           updateTaskStateToIsDone,
@@ -101,14 +103,14 @@ const DialogConfirmSubmit = () => {
           productivity,
           elapstedTime,
           sessionId
-        ).then(setDialogConfirmSubmitClose());
+        ).then(() => setDialogConfirmSubmitClose());
       } else {
         mutateTaskStatePauseToDone(
           updateTaskStateToIsDone,
           taskId,
           productivity,
           elapstedTime
-        ).then(setDialogConfirmSubmitClose());
+        ).then(() => setDialogConfirmSubmitClose());
       }
     }
   };

@@ -10,6 +10,7 @@ const useGetProcessingTask = () => {
     data: userTasks,
     error: errorOnFetchingUserTasks,
     loading: loadingUserTask,
+    refetch: refetchUserTasks,
   } = useQuery(GET_USER_TASK, {
     variables: {
       input: {
@@ -25,12 +26,15 @@ const useGetProcessingTask = () => {
         const processing = Array.from(allUserTask).filter(
           (task) => task.taskState === 'isPlay' || task.taskState === 'isPause'
         );
-        processing.length > 0 && setProcessingTask((prev) => processing);
+
+        processing.length > 0
+          ? setProcessingTask((prev) => processing)
+          : setProcessingTask((prev) => []);
       }
     }
   }, [userTasks]);
 
-  return { processingTask, loadingUserTask };
+  return { processingTask, loadingUserTask, refetchUserTasks };
 };
 
 export default useGetProcessingTask;
