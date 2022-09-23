@@ -12,6 +12,7 @@ import BtnIconText from '../BtnIconText/BtnIconText';
 import { DialogEditTaskHr } from '../DialogEditTask/DialogEditTask.styled';
 import Modal from '../Modal/Modal';
 import TitledCard from '../TitledCard/TitledCard';
+import { mutateTakStatePlayToDone } from './../../Graphql/graphqlTasks';
 import {
   DialogConfirmSubmitBtnCont,
   DialogConfirmSubmitCont1,
@@ -92,6 +93,23 @@ const DialogConfirmSubmit = () => {
       console.log('sessionId', sessionId);
       console.log('goal', goal);
       console.log('productivity', productivity, '%');
+
+      if (taskState === 'isPlay') {
+        mutateTakStatePlayToDone(
+          updateTaskStateToIsDone,
+          taskId,
+          productivity,
+          elapstedTime,
+          sessionId
+        ).then(setDialogConfirmSubmitClose());
+      } else {
+        mutateTaskStatePauseToDone(
+          updateTaskStateToIsDone,
+          taskId,
+          productivity,
+          elapstedTime
+        ).then(setDialogConfirmSubmitClose());
+      }
     }
   };
 
