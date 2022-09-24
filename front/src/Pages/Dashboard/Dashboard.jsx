@@ -62,11 +62,11 @@ export default function Dashboard(props) {
 
       {processingTask.length > 0 && (
         <TitledCard
-          icon='science'
+          icon='trending_up'
           iconBackGround='#39A275'
-          title='testing productivity'
+          title='productivity'
         >
-          TESTING
+          PRODUCTIVITY
         </TitledCard>
       )}
     </DashboardContainer>
