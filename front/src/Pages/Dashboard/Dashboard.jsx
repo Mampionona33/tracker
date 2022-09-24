@@ -9,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 import Loading from '../../Components/Loading/Loading';
 import { ComponentContext } from '../../context/componentContext';
 import useGetProcessingTask from '../../assets/Hooks/useGetProcessingTask';
+import RealProductivity from '../../Components/RealProductivity/RealProductivity';
 
 const TitledCard = lazy(() => import('../../Components/TitledCard/TitledCard'));
 const ProcessingTask = lazy(() =>
@@ -66,7 +67,7 @@ export default function Dashboard(props) {
           iconBackGround='#39A275'
           title='productivity'
         >
-          PRODUCTIVITY
+          <RealProductivity />
         </TitledCard>
       )}
     </DashboardContainer>
