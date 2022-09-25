@@ -20,3 +20,9 @@ export const StyledSpan = styled.span`
   cursor: pointer;
   padding: 0 0.1rem;
 `;
+
+export const DashboardHr = styled.hr`
+  width: 100%;
+  border: none;
+  border-top: 1px solid black;
+`;

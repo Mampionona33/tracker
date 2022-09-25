@@ -1,11 +1,22 @@
 import React from 'react';
-import { ProgresBarCont, ProgressBarValue } from './ProgressBar.styled';
+import {
+  ProgresBarCont,
+  ProgressBarBul,
+  ProgressBarBulCont,
+  ProgressBarValue,
+} from './ProgressBar.styled';
 
 const ProgressBar = ({ completed = 0 }) => {
   console.log(completed);
   return (
     <ProgresBarCont>
-      <ProgressBarValue completed={completed}></ProgressBarValue>
+      <ProgressBarValue completed={completed}>
+        <ProgressBarBulCont>
+          <ProgressBarBul completed={completed}>
+            {completed.toString().padStart(2, 0)}%
+          </ProgressBarBul>
+        </ProgressBarBulCont>
+      </ProgressBarValue>
     </ProgresBarCont>
   );
 };

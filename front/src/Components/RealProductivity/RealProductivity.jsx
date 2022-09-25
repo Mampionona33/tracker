@@ -1,16 +1,12 @@
 import React from 'react';
 import ProgressBar from '../ProgressBar/ProgressBar';
-import {
-  RealProdHr,
-  RealProdLabel,
-  RealProductivityCont,
-} from './RealProductivity.styled';
+import { RealProdLabel, RealProductivityCont } from './RealProductivity.styled';
 
 const RealProductivity = () => {
   return (
     <RealProductivityCont>
       <RealProdLabel>real productivity</RealProdLabel>
-      <ProgressBar completed={50} />
+      <ProgressBar completed={100} />
     </RealProductivityCont>
   );
 };

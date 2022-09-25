@@ -2,6 +2,7 @@ import React, { lazy, useContext, useEffect, useState } from 'react';
 import { AuthConext } from '../../context/authContext';
 import {
   DashboardContainer,
+  DashboardHr,
   NoProcessingTask,
   StyledSpan,
 } from './Dashboard.style';
@@ -68,6 +69,7 @@ export default function Dashboard(props) {
           title='productivity'
         >
           <RealProductivity />
+          <DashboardHr />
         </TitledCard>
       )}
     </DashboardContainer>
