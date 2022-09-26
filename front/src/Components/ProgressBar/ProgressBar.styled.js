@@ -1,15 +1,15 @@
 import styled from 'styled-components';
 
 export const ProgresBarCont = styled.div`
-  height: 0.2rem;
+  height: 0.8em;
   width: 100%;
   background-color: #aea79f;
-  border-radius: 0.1rem;
+  border-radius: 0.5em;
   display: flex;
 `;
 
 export const ProgressBarValue = styled.div`
-  height: 0.2rem;
+  height: 0.8em;
   border-radius: inherit;
   margin: 0;
   display: flex;
@@ -25,21 +25,15 @@ export const ProgressBarValue = styled.div`
 
 export const ProgressBarBulCont = styled.div`
   position: relative;
-  ::before {
-    content: '';
-    color: white;
-    background-color: black;
-    width: 1px;
-    height: 1rem;
-    display: block;
-  }
+  display: flex;
+  align-items: center;
 `;
 
 export const ProgressBarBul = styled.div`
   position: absolute;
+  border: solid 1px #fff;
   right: ${(props) =>
     `${-props.completed.toString().padStart(2, '0').length / 2}em`};
-  top: 0.5rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -50,7 +44,7 @@ export const ProgressBarBul = styled.div`
   height: ${(props) =>
     `${props.completed.toString().padStart(2, '0').length}em`};
   color: #fff;
-  font-size: 0.8rem;
+  font-size: 0.7rem;
   background-color: ${(props) =>
     props.completed >= 95
       ? '#77216f'

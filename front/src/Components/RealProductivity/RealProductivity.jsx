@@ -6,7 +6,7 @@ const RealProductivity = () => {
   return (
     <RealProductivityCont>
       <RealProdLabel>real productivity</RealProdLabel>
-      <ProgressBar completed={100} />
+      <ProgressBar completed={50} />
     </RealProductivityCont>
   );
 };
