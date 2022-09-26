@@ -31,7 +31,7 @@ export const ProgressBarBulCont = styled.div`
 
 export const ProgressBarBul = styled.div`
   position: absolute;
-  border: solid 1px #fff;
+  border: solid 1px #aea79f;
   right: ${(props) =>
     `${-props.completed.toString().padStart(2, '0').length / 2}em`};
   display: flex;

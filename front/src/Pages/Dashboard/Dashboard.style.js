@@ -25,4 +25,5 @@ export const DashboardHr = styled.hr`
   width: 100%;
   border: none;
   border-top: 1px solid black;
+  margin: 1rem 0;
 `;
