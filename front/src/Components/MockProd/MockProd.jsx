@@ -1,12 +1,16 @@
 import React from 'react';
-import Switch from '../Switch/Switch';
+import SwitchDoubleLabel from '../SwitchDoubleLabel/SwitchDoubleLabel';
 import { MocProdCont, MocProdTitle } from './MockProd.styled';
 
 const MockProd = () => {
   return (
     <MocProdCont>
       <MocProdTitle>mock prod</MocProdTitle>
-      <Switch label1='by elapsted time' label2='by ending time' />
+      <SwitchDoubleLabel
+        id='mockProdCheckBox'
+        label1='by elapsted time'
+        label2='by ending time'
+      />
     </MocProdCont>
   );
 };
