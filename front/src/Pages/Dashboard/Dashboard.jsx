@@ -11,6 +11,7 @@ import Loading from '../../Components/Loading/Loading';
 import { ComponentContext } from '../../context/componentContext';
 import useGetProcessingTask from '../../assets/Hooks/useGetProcessingTask';
 import RealProductivity from '../../Components/RealProductivity/RealProductivity';
+import MockProd from '../../Components/MockProd/MockProd';
 
 const TitledCard = lazy(() => import('../../Components/TitledCard/TitledCard'));
 const ProcessingTask = lazy(() =>
@@ -70,7 +71,7 @@ export default function Dashboard(props) {
         >
           <RealProductivity />
           <DashboardHr />
-          Mocking prod
+          <MockProd/>
         </TitledCard>
       )}
     </DashboardContainer>
