@@ -7,7 +7,6 @@ import {
 } from './ProgressBar.styled';
 
 const ProgressBar = ({ completed = 0 }) => {
-  console.log(completed);
   return (
     <ProgresBarCont>
       <ProgressBarValue completed={completed}>
