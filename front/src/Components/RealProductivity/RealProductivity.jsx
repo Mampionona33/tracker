@@ -36,14 +36,26 @@ const RealProductivity = () => {
       const nbAfter = processingTask.reduce((a, b) => a + b).nbAfter;
 
       if (taskState === 'isPause') {
+        clearInterval(interval.current);
         const productivity = Math.round(
           (nbAfter / elapstedTime / (goal / 3600)) * 100
         );
         setProd(productivity);
       }
       if (taskState === 'isPlay') {
+        let elapstedTimePlay = elapstedTime;
+        interval.current = setInterval(() => {
+          elapstedTimePlay++;
+          const productivity = Math.round(
+            (nbAfter / elapstedTimePlay / (goal / 3600)) * 100
+          );
+          setProd(productivity);
+        }, 1000);
       }
     }
+    return () => {
+      clearInterval(interval.current);
+    };
   }, [processingTask, taskTypeList]);
 
   return (
