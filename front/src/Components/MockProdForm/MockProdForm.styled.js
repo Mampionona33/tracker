@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const MockProdFormCont = styled.form`
   display: grid;
   grid-template-columns: auto 3rem 3rem 3rem 3rem;
-  gap: 0.5rem;
+  gap: 0.8rem;
   @media screen and (max-width: 400px) {
     display: flex;
     flex-direction: column;
@@ -26,6 +26,9 @@ export const MockProdFormInputNbafter = styled.input`
   border-radius: 5px;
   grid-column-start: 2;
   grid-column-end: 6;
+  &:focus::placeholder {
+    color: transparent;
+  }
 `;
 
 export const MockProdFormTimer = styled.div`
@@ -74,4 +77,19 @@ export const MockProdFormTimerInput = styled.input`
   outline: none;
   border: 1px solid black;
   border-radius: 5px;
+  &:focus::placeholder {
+    color: transparent;
+  }
+`;
+
+export const MockProdFormButtonCont = styled.div`
+  display: flex;
+  justify-content: center;
+  grid-column-start: 4;
+  grid-column-end: 6;
+`;
+
+export const MocProdFormProgressBarCont = styled.div`
+  grid-column-start: 2;
+  grid-column-end: 6;
 `;
