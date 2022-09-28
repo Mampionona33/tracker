@@ -14,14 +14,11 @@ export const SwitchDoubleLabelCont = styled.div`
   justify-content: center;
 `;
 
-// position: absolute;
-// top: 0;
-// left: 0;
 export const SwitchDoubleLabelLabel = styled.label`
   margin: 0;
   width: 42px;
   border-radius: 15px;
-  background: #bebebe;
+  background: #1565c0;
   cursor: pointer;
 
   &::after {

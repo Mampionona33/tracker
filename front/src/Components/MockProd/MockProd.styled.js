@@ -9,5 +9,5 @@ export const MocProdCont = styled.div`
 export const MocProdTitle = styled.h5`
   text-transform: uppercase;
   display: inline;
-  margin: 1rem;
+  margin: 0;
 `;

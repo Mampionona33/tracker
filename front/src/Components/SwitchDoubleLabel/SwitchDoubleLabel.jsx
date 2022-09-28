@@ -7,7 +7,7 @@ import {
   SwitchDoubleLabelWarper,
 } from './SwitchDoubleLabel.styled';
 
-const SwitchDoubleLabel = ({ label1, label2, id }) => {
+const SwitchDoubleLabel = ({ label1, label2, id, disabled = false }) => {
   const [isTogggle, setIsToggle] = useState(false);
   const onToggle = () => setIsToggle(!isTogggle);
 
@@ -21,6 +21,7 @@ const SwitchDoubleLabel = ({ label1, label2, id }) => {
           name={id}
           checked={isTogggle}
           onChange={onToggle}
+          disabled={disabled}
         />
         <SwitchDoubleLabelLabel htmlFor={id} />
       </SwitchDoubleLabelCont>
