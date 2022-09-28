@@ -1,4 +1,5 @@
 import React from 'react';
+import MockProdForm from '../MockProdForm/MockProdForm';
 import SwitchDoubleLabel from '../SwitchDoubleLabel/SwitchDoubleLabel';
 import { MocProdCont, MocProdTitle } from './MockProd.styled';
 
@@ -11,6 +12,7 @@ const MockProd = () => {
         label1='by elapsted time'
         label2='by ending time'
       />
+      <MockProdForm />
     </MocProdCont>
   );
 };
