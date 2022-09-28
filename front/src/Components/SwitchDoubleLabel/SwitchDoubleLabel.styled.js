@@ -52,6 +52,9 @@ export const SwitchDoubleLabelCheckBox = styled.input`
       transition: 0.2s;
     }
   }
+  &:disabled + ${SwitchDoubleLabelLabel} {
+    background-color: #cfd8dc;
+  }
 `;
 
 export const SwitchDoubleLabelText = styled.p`
