@@ -89,9 +89,18 @@ export const MockProdFormButtonCont = styled.div`
   grid-column-end: 6;
 `;
 
-export const MocProdFormProgressBarCont = styled.div`
+export const MocProdFormResult = styled.div`
   grid-column-start: 2;
   grid-column-end: 6;
+  text-align: center;
+  padding: 0.5rem;
+  border-radius: 5px;
+  text-shadow: #263238 0 0 5px;
+  color: #fff;
+  background-color: ${(props) =>
+    `${
+      props.value >= 100 ? '#00C853' : props.value >= 95 ? '#FFAB00' : '#DD2C00'
+    }`};
 `;
 
 export const MockProdFormInputReset = styled.button`
@@ -115,4 +124,11 @@ export const MockProdFormInputReset = styled.button`
     background-color: #fff;
     color: #5e2750;
   }
+`;
+
+export const MockProdFormSelection = styled.select`
+  grid-column-start: 2;
+  grid-column-end: 6;
+  border-radius: 5px;
+  outline: none;
 `;

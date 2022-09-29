@@ -1,23 +1,25 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { ComponentContext } from '../../context/componentContext';
-import ProgressBar from '../ProgressBar/ProgressBar';
+import TaskTypeOptions from '../TaskTypeOptions/TaskTypeOptions';
 import {
   MockProdFormButtonCont,
   MockProdFormCont,
   MockProdFormInputNbafter,
   MockProdFormInputReset,
   MockProdFormLabel,
+  MockProdFormSelection,
   MockProdFormTimer,
   MockProdFormTimerDay,
   MockProdFormTimerHrs,
   MockProdFormTimerInput,
   MockProdFormTimerMin,
   MockProdFormTimerSec,
-  MocProdFormProgressBarCont,
+  MocProdFormResult,
 } from './MockProdForm.styled';
 
 const MockProdForm = () => {
   const { mockProdByEndingTime } = useContext(ComponentContext);
+  const [result, setResult] = useState(95);
   return (
     <MockProdFormCont>
       <MockProdFormLabel>nb after</MockProdFormLabel>
@@ -28,6 +30,11 @@ const MockProdForm = () => {
         pattern='[0-9{0,5}]'
         placeholder='00'
       />
+
+      <MockProdFormLabel>task type</MockProdFormLabel>
+      <MockProdFormSelection>
+        <TaskTypeOptions />
+      </MockProdFormSelection>
       <MockProdFormLabel>
         {!mockProdByEndingTime ? 'elapsted time' : 'ending time'}
       </MockProdFormLabel>
@@ -87,9 +94,7 @@ const MockProdForm = () => {
         sec
       </MockProdFormTimerSec>
       <MockProdFormLabel>result</MockProdFormLabel>
-      <MocProdFormProgressBarCont>
-        <ProgressBar completed={50} />
-      </MocProdFormProgressBarCont>
+      <MocProdFormResult value={result}>{result}%</MocProdFormResult>
       <MockProdFormButtonCont>
         <MockProdFormInputReset type='reset'>
           <span className='material-icons-round'>undo</span>
