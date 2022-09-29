@@ -49,7 +49,7 @@ const RealProductivity = () => {
           const productivity = Math.round(
             (nbAfter / elapstedTimePlay / (goal / 3600)) * 100
           );
-          setProd(productivity);
+          setProd(productivity <= 100 ? productivity : 100);
         }, 1000);
       }
     }
