@@ -5,6 +5,7 @@ const initialState = {
   dialogCreatTaskIsOpen: false,
   dialogEditTask: false,
   dialogConfirmSubmit: false,
+  mockProdByEndingTime: false,
 };
 
 const ComponentContext = createContext({
@@ -12,6 +13,9 @@ const ComponentContext = createContext({
   dialogCreatTaskIsOpen: false,
   dialogEditTask: false,
   dialogConfirmSubmit: false,
+  mockProdByEndingTime: false,
+  setMockProdByEndingTimeTrue: () => {},
+  setMockProdByEndingTimeFalse: () => {},
   setDialogConfirmSubmitClose: () => {},
   setDialogConfirmSubmitOpen: () => {},
   setDialogEditTaskOpen: () => {},
@@ -31,6 +35,8 @@ const ACTION = {
   CLOSE_DIALOG_EDIT_TASK: 'close-dialog-edit-task',
   CLOSE_DIALOG_CONFIRM_SUBMIT: 'close-dialog-confirm-submit',
   OPEN_DIALOG_CONFIRM_SUBMIT: 'open-dialog-confirm-submit',
+  SET_MOKPROD_BY_ENDING_TIME_FALSE: 'set-mockProd-by-ending-time-false',
+  SET_MOKPROD_BY_ENDING_TIME_TRUE: 'set-mockProd-by-ending-time-true',
 };
 
 const componentReducer = (state, action) => {
@@ -83,6 +89,18 @@ const componentReducer = (state, action) => {
         dialogConfirmSubmit: (state.dialogConfirmSubmit = true),
       };
     }
+    case ACTION.SET_MOKPROD_BY_ENDING_TIME_TRUE: {
+      return {
+        ...state,
+        mockProdByEndingTime: (state.mockProdByEndingTime = true),
+      };
+    }
+    case ACTION.SET_MOKPROD_BY_ENDING_TIME_FALSE: {
+      return {
+        ...state,
+        mockProdByEndingTime: (state.mockProdByEndingTime = false),
+      };
+    }
 
     default:
       return state;
@@ -116,8 +134,16 @@ const ComponentProvider = (props) => {
     dispatch({ type: ACTION.CLOSE_DIALOG_CONFIRM_SUBMIT });
   };
 
-  const setDialogConfirmSubmitOpen = (params) => {
+  const setDialogConfirmSubmitOpen = () => {
     dispatch({ type: ACTION.OPEN_DIALOG_CONFIRM_SUBMIT });
+  };
+
+  const setMockProdByEndingTimeTrue = () => {
+    dispatch({ type: ACTION.SET_MOKPROD_BY_ENDING_TIME_TRUE });
+  };
+
+  const setMockProdByEndingTimeFalse = () => {
+    dispatch({ type: ACTION.SET_MOKPROD_BY_ENDING_TIME_FALSE });
   };
 
   return (
@@ -127,6 +153,9 @@ const ComponentProvider = (props) => {
         dialogCreatTaskIsOpen: state.dialogCreatTaskIsOpen,
         dialogEditTask: state.dialogEditTask,
         dialogConfirmSubmit: state.dialogConfirmSubmit,
+        mockProdByEndingTime: state.mockProdByEndingTime,
+        setMockProdByEndingTimeFalse,
+        setMockProdByEndingTimeTrue,
         setDialogConfirmSubmitClose,
         setDialogConfirmSubmitOpen,
         setSideBarOpenTrue,

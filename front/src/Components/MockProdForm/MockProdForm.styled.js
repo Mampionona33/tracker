@@ -93,3 +93,26 @@ export const MocProdFormProgressBarCont = styled.div`
   grid-column-start: 2;
   grid-column-end: 6;
 `;
+
+export const MockProdFormInputReset = styled.button`
+  text-transform: uppercase;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  text-align: center;
+  border: none;
+  gap: 0.2rem;
+  background-color: #5e2750;
+  border-radius: 5px;
+  color: #fff;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px,
+    rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+  :hover {
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+      rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+  }
+  :active {
+    background-color: #fff;
+    color: #5e2750;
+  }
+`;

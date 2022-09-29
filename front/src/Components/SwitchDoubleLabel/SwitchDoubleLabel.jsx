@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
+import { ComponentContext } from '../../context/componentContext';
 import {
   SwitchDoubleLabelCheckBox,
   SwitchDoubleLabelCont,
@@ -8,8 +9,17 @@ import {
 } from './SwitchDoubleLabel.styled';
 
 const SwitchDoubleLabel = ({ label1, label2, id, disabled = false }) => {
-  const [isTogggle, setIsToggle] = useState(false);
-  const onToggle = () => setIsToggle(!isTogggle);
+  const {
+    mockProdByEndingTime,
+    setMockProdByEndingTimeTrue,
+    setMockProdByEndingTimeFalse,
+  } = useContext(ComponentContext);
+
+  const onToggle = () => {
+    !mockProdByEndingTime
+      ? setMockProdByEndingTimeTrue()
+      : setMockProdByEndingTimeFalse();
+  };
 
   return (
     <SwitchDoubleLabelWarper>
@@ -19,7 +29,7 @@ const SwitchDoubleLabel = ({ label1, label2, id, disabled = false }) => {
           type='checkbox'
           id={id}
           name={id}
-          checked={isTogggle}
+          checked={mockProdByEndingTime}
           onChange={onToggle}
           disabled={disabled}
         />
