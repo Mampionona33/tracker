@@ -40,7 +40,7 @@ const RealProductivity = () => {
         const productivity = Math.round(
           (nbAfter / elapstedTime / (goal / 3600)) * 100
         );
-        setProd(productivity);
+        setProd(productivity <= 100 ? productivity : 100);
       }
       if (taskState === 'isPlay') {
         let elapstedTimePlay = elapstedTime;
