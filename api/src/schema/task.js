@@ -34,7 +34,7 @@ const getUserTaskByFilter = async (_, { input: { user, taskState } }) => {
 
 const create = async (_, { task }) => {
   const db = getDb();
-  const newTask = Object.assign({}, task);
+  const newTask = { ...{}, ...task };
   newTask.id = await getNextSequence('tasks');
 
   const createNewTask = await db.collection('tasks').insertOne(newTask);
