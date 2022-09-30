@@ -36,8 +36,7 @@ export const calculProdByElpatedTime = (
 
 export const calculateProdByEndingTime = (arrayElapstedTime, goal, nbAfter) => {
   const prodGoal = 3600 / parseFloat(goal);
-  const currentProd =
-    Array.from(arrayElapstedTime).reduce((a, b) => a + b) / nbAfter;
+  const currentProd = [...arrayElapstedTime].reduce((a, b) => a + b) / nbAfter;
   const prod = Math.round((prodGoal / currentProd) * 100);
   prod < 0 ? (prod = 0) : prod;
   return prod;

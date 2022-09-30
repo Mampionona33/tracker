@@ -30,14 +30,14 @@ const Clock = () => {
 
   useEffect(() => {
     if (allUserTasks && allUserTasks.getUserTask) {
-      const processingTask = Array.from(allUserTasks.getUserTask).filter(
+      const processingTask = [...allUserTasks.getUserTask].filter(
         (item) => item.taskState === 'isPause' || item.taskState === 'isPlay'
       );
       const elapstedTimeArray = [];
       if (processingTask.length > 0) {
         for (let i = 0; i < processingTask.length; i++) {
           const taskState = processingTask[i].taskState;
-          const session = Array.from(processingTask[i].session);
+          const session = [...processingTask[i].session];
           for (let a = 0; a < session.length; a++) {
             const sessionStart = session[a].sessionStart;
             const sessionStop = session[a].sessionStop;

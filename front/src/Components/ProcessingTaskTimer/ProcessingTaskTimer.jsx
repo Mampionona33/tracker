@@ -20,7 +20,7 @@ const ProcessingTaskTimer = () => {
     if (processingTask && processingTask.length > 0) {
       processingTask.map((item) => {
         const taskState = item.taskState;
-        const session = Array.from(item.session);
+        const session = [...item.session];
         const elpastedTime = session
           .map((se) => {
             return !se.sessionStop

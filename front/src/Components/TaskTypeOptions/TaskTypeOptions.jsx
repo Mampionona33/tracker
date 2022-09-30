@@ -11,7 +11,7 @@ const TaskTypeOptions = () => {
   return (
     <>
       {taskTypeList
-        ? Array.from(taskTypeList).map((item) => (
+        ? [...taskTypeList].map((item) => (
             <StyledTaskTypeOption value={item.name} key={item.id}>
               {item.name}
             </StyledTaskTypeOption>

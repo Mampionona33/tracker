@@ -60,7 +60,7 @@ const DialogCreateTask = () => {
   const refForm = useRef();
 
   const taskTypeOption = taskTypeList
-    ? Array.from(taskTypeList).map((item) => (
+    ? [...taskTypeList].map((item) => (
         <DialogCreateTaskOption
           style={{ textTransform: 'none' }}
           value={item.name}
@@ -104,9 +104,10 @@ const DialogCreateTask = () => {
     if (processingTask.length > 0) {
       const currentTaskId = processingTask.reduce((a, b) => a + b).id;
       const currentTaskState = processingTask.reduce((a, b) => a + b).taskState;
-      const currentSessionId = Array.from(
-        processingTask.reduce((a, b) => a + b).session
-      )
+      const currentSessionId = [
+        ...processingTask.reduce((a, b) => a + b).session,
+      ]
+
         .map((item) => item.session_id)
         .reduce((a, b) => Math.max(a, b));
 

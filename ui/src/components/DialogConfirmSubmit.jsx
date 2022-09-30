@@ -48,7 +48,7 @@ const DialogConfirmSubmit = () => {
 
   useEffect(() => {
     if (userTask && userTask.getUserTask) {
-      const processingTask = Array.from(userTask.getUserTask).filter(
+      const processingTask = [...userTask.getUserTask].filter(
         (item) => item.taskState === 'isPlay' || item.taskState === 'isPause'
       );
       processingTask &&

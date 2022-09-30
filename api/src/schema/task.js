@@ -191,10 +191,10 @@ const update = async (
   }
 
   if (session) {
-    const sessionStart = Array.from(session).map((item) => item.sessionStart);
+    const sessionStart = [...session].map((item) => item.sessionStart);
 
-    const sessionStop = Array.from(session).map((item) => item.sessionStop);
-    const session_id = Array.from(session).map((item) => item.session_id);
+    const sessionStop = [...session].map((item) => item.sessionStop);
+    const session_id = [...session].map((item) => item.session_id);
 
     const sessionStopValue = sessionStop.reduce((a, b) => a + b);
     const sessionStartValue = sessionStart.reduce((a, b) => a + b);

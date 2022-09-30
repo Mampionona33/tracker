@@ -19,7 +19,7 @@ const RealProductivity = () => {
 
       const elapstedTime = processingTask
         .map((item) => {
-          return Array.from(item.session)
+          return [...item.session]
             .map((session) => {
               if (!session.sessionStop) {
                 return difDate(session.sessionStart, new Date());
@@ -30,7 +30,7 @@ const RealProductivity = () => {
         })
         .reduce((a, b) => a + b);
 
-      const goal = Array.from(taskTypeList)
+      const goal = [...taskTypeList]
         .filter((item) => item.name === currentTaskType)
         .reduce((a, b) => a + b).goal;
       const nbAfter = processingTask.reduce((a, b) => a + b).nbAfter;

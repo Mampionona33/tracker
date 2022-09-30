@@ -37,10 +37,10 @@ const BtnPausePlaySwitch = () => {
 
   useEffect(() => {
     if (processingTask && processingTask.getUserTask) {
-      const taskStatePlay = Array.from(processingTask.getUserTask).filter(
+      const taskStatePlay = [...processingTask.getUserTask].filter(
         (item) => item.taskState === 'isPlay'
       );
-      const taskStatePause = Array.from(processingTask.getUserTask).filter(
+      const taskStatePause = [...processingTask.getUserTask].filter(
         (item) => item.taskState === 'isPause'
       );
       if (taskStatePause && taskStatePause.length > 0) {
@@ -52,7 +52,7 @@ const BtnPausePlaySwitch = () => {
             .map((item) => {
               const session = item.session;
               if (session) {
-                return Array.from(session)
+                return [...session]
                   .map((elem) => elem.session_id)
                   .reduce((a, b) => Math.max(a, b));
               }
@@ -69,7 +69,7 @@ const BtnPausePlaySwitch = () => {
             .map((item) => {
               const session = item.session;
               if (session) {
-                return Array.from(session)
+                return [...session]
                   .map((elem) => elem.session_id)
                   .reduce((a, b) => Math.max(a, b));
               }
@@ -109,7 +109,10 @@ const BtnPausePlaySwitch = () => {
 
   return (
     <div ref={refButton}>
-      <FloatingButton icon={iconButton} handleClickButton={(e)=>handleClickButton(e)} />
+      <FloatingButton
+        icon={iconButton}
+        handleClickButton={(e) => handleClickButton(e)}
+      />
     </div>
   );
 };

@@ -40,7 +40,7 @@ const App = () => {
 
     if (user) {
       if (userExist) {
-        if (Array.from(userExist.searchUser).length <= 0) {
+        if ([...userExist.searchUser].length <= 0) {
           if (mounted === true) {
             (async () => {
               await createUser(user);
@@ -53,10 +53,7 @@ const App = () => {
           }
         }
       }
-      if (
-        allTaskType &&
-        Array.from(allTaskType.getAllTaskTypeList).length > 0
-      ) {
+      if (allTaskType && [...allTaskType.getAllTaskTypeList].length > 0) {
         if (mounted === true) {
           setTaskTypeList(allTaskType.getAllTaskTypeList);
         }

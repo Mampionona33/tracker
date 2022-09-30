@@ -8,9 +8,7 @@ export const setCurrentTaskStateToOff = async (
   if (processingTask.length > 0) {
     const currenTaskId = processingTask.reduce((a, b) => a + b).id;
     const currentTaskState = processingTask.reduce((a, b) => a + b).taskState;
-    const currentSessionId = Array.from(
-      processingTask.reduce((a, b) => a + b).session
-    )
+    const currentSessionId = [...processingTask.reduce((a, b) => a + b).session]
       .map((item) => item.session_id)
       .reduce((a, b) => Math.max(a, b));
 
@@ -45,9 +43,7 @@ export const setCurrentTaskToPlay = async (
   if (processingTask.length > 0) {
     const currentTaskId = processingTask.reduce((a, b) => a + b).id;
     const currentTaskState = processingTask.reduce((a, b) => a + b).taskState;
-    const currentSessionId = Array.from(
-      processingTask.reduce((a, b) => a + b).session
-    )
+    const currentSessionId = [...processingTask.reduce((a, b) => a + b).session]
       .map((item) => item.session_id)
       .reduce((a, b) => Math.max(a, b));
 
@@ -73,9 +69,7 @@ export const setCurrentTaskToPause = (
   if (processingTask.length > 0) {
     const currentTaskId = processingTask.reduce((a, b) => a + b).id;
     const currentTaskState = processingTask.reduce((a, b) => a + b).taskState;
-    const currentSessionId = Array.from(
-      processingTask.reduce((a, b) => a + b).session
-    )
+    const currentSessionId = [...processingTask.reduce((a, b) => a + b).session]
       .map((item) => item.session_id)
       .reduce((a, b) => Math.max(a, b));
     if (currentTaskState === 'isPlay') {

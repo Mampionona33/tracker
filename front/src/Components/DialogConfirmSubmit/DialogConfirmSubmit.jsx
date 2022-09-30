@@ -59,7 +59,7 @@ const DialogConfirmSubmit = () => {
       const taskId = processingTask[0].id;
       const elapstedTime = processingTask
         .map((item) => {
-          return Array.from(item.session)
+          return [...item.session]
             .map((session) => {
               if (!session.sessionStop) {
                 return difDate(session.sessionStart, new Date());
@@ -76,7 +76,7 @@ const DialogConfirmSubmit = () => {
         processingTask
           .map((item) => {
             if (item.taskState === 'isPlay') {
-              return Array.from(item.session)
+              return [...item.session]
                 .filter((session) => !session.sessionStop)
                 .map((item) => item.session_id)
                 .reduce((a, b) => a + b);
@@ -84,7 +84,7 @@ const DialogConfirmSubmit = () => {
           })
           .reduce((a, b) => a + b);
 
-      const goal = Array.from(taskTypeList)
+      const goal = [...taskTypeList]
         .filter(
           (item) =>
             item.name ===

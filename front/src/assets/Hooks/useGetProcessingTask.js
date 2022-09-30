@@ -22,8 +22,8 @@ const useGetProcessingTask = () => {
   useEffect(() => {
     if (userTasks && userTasks.getUserTask) {
       const allUserTask = userTasks.getUserTask;
-      if (Array.from(allUserTask).length > 0) {
-        const processing = Array.from(allUserTask).filter(
+      if ([...allUserTask].length > 0) {
+        const processing = [...allUserTask].filter(
           (task) => task.taskState === 'isPlay' || task.taskState === 'isPause'
         );
 
