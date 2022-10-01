@@ -71,6 +71,51 @@ const MockProdForm = () => {
     });
   };
 
+  const handleFocus = (event) => {
+    setFormState({ ...formSate, [event.target.name]: '' });
+  };
+  const handleBlure = (event) => {
+    const name = event.target.name;
+    const value = event.target.value;
+    if (value === '') {
+      switch (name) {
+        case 'nbAfter':
+          setFormState({
+            ...formSate,
+            nbAfter: processingTask.reduce((a, b) => a + b).nbAfter,
+          });
+          break;
+        case 'day':
+          setFormState({
+            ...formSate,
+            day: 0,
+          });
+          break;
+        case 'hrs':
+          setFormState({
+            ...formSate,
+            hrs: 0,
+          });
+          break;
+        case 'min':
+          setFormState({
+            ...formSate,
+            min: 0,
+          });
+          break;
+        case 'sec':
+          setFormState({
+            ...formSate,
+            sec: 0,
+          });
+          break;
+
+        default:
+          break;
+      }
+    }
+  };
+
   return (
     <MockProdFormCont onReset={handleReset}>
       <MockProdFormLabel htmlFor='nbAfter'>nb after</MockProdFormLabel>
@@ -79,9 +124,11 @@ const MockProdForm = () => {
         id='nbAfter'
         name='nbAfter'
         pattern='[0-9{0,5}]'
-        placeholder='00'
+        placeholder={formSate.nbAfter}
         value={formSate.nbAfter}
         onChange={handleImputChange}
+        onFocus={handleFocus}
+        onBlur={handleBlure}
       />
 
       <MockProdFormLabel htmlFor='type'>task type</MockProdFormLabel>
@@ -90,6 +137,7 @@ const MockProdForm = () => {
         name='type'
         value={formSate.type}
         onChange={handleImputChange}
+        onFocus={handleFocus}
       >
         <TaskTypeOptions />
       </MockProdFormSelection>
@@ -109,6 +157,8 @@ const MockProdForm = () => {
               value={formSate.day}
               onChange={handleImputChange}
               onInput={handleImputChange}
+              onFocus={handleFocus}
+              onBlur={handleBlure}
             />
             day
           </MockProdFormTimer>
@@ -129,6 +179,8 @@ const MockProdForm = () => {
           value={formSate.hrs}
           onChange={handleImputChange}
           onInput={handleImputChange}
+          onFocus={handleFocus}
+          onBlur={handleBlure}
         />
         hrs
       </MockProdFormTimerHrs>
@@ -145,6 +197,8 @@ const MockProdForm = () => {
           value={formSate.min}
           onChange={handleImputChange}
           onInput={handleImputChange}
+          onFocus={handleFocus}
+          onBlur={handleBlure}
         />
         min
       </MockProdFormTimerMin>
@@ -161,6 +215,8 @@ const MockProdForm = () => {
           value={formSate.sec}
           onChange={handleImputChange}
           onInput={handleImputChange}
+          onFocus={handleFocus}
+          onBlur={handleBlure}
         />
         sec
       </MockProdFormTimerSec>
