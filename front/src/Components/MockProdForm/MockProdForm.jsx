@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import { ComponentContext } from '../../context/componentContext';
 import TaskTypeOptions from '../TaskTypeOptions/TaskTypeOptions';
 import useGetProcessingTask from './../../assets/Hooks/useGetProcessingTask';
@@ -36,7 +36,9 @@ const MockProdForm = () => {
   const handleImputChange = (event) => {
     event.preventDefault();
     setFormState({ ...formSate, [event.target.name]: event.target.value });
-    console.log(event.target.name);
+    if (event.target.name === 'type') {
+      console.log(event.target.value);
+    }
   };
 
   useEffect(() => {
@@ -114,10 +116,17 @@ const MockProdForm = () => {
           break;
       }
     }
+
+    const indexOfSelectedTaskType = refForm.current.children[3].selectedIndex;
+    const selectedTaskType =
+      refForm.current.children[3][indexOfSelectedTaskType].value;
+    console.log(selectedTaskType);
   };
 
+  const refForm = useRef(null);
+
   return (
-    <MockProdFormCont onReset={handleReset}>
+    <MockProdFormCont onReset={handleReset} ref={refForm}>
       <MockProdFormLabel htmlFor='nbAfter'>nb after</MockProdFormLabel>
       <MockProdFormInputNbafter
         type='number'
