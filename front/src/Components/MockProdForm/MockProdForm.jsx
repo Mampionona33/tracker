@@ -76,6 +76,7 @@ const MockProdForm = () => {
   const handleFocus = (event) => {
     setFormState({ ...formSate, [event.target.name]: '' });
   };
+
   const handleBlure = (event) => {
     const name = event.target.name;
     const value = event.target.value;
@@ -120,7 +121,18 @@ const MockProdForm = () => {
     const indexOfSelectedTaskType = refForm.current.children[3].selectedIndex;
     const selectedTaskType =
       refForm.current.children[3][indexOfSelectedTaskType].value;
-    console.log(selectedTaskType);
+
+    const taskState = Array.from(processingTask).reduce(
+      (a, b) => a + b
+    ).taskState;
+
+    const nbAfter = refForm.current[0].value;
+    const day = !mockProdByEndingTime ? refForm.current[2].value : 0;
+    const hrs = !mockProdByEndingTime
+      ? refForm.current[3].value
+      : refForm.current[2].value;
+    console.log(nbAfter);
+    console.log(refForm.current);
   };
 
   const refForm = useRef(null);
