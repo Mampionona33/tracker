@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
+import { difDate } from '../../assets/timeUtility';
 import { ComponentContext } from '../../context/componentContext';
 import { TaskTypeContext } from '../../context/taskTypeContext';
 import TaskTypeOptions from '../TaskTypeOptions/TaskTypeOptions';
@@ -161,6 +162,31 @@ const MockProdForm = () => {
 
       const prod =
         elapstedTime > 0
+          ? Math.round((nbAfter / elapstedTime / (goal / 3600)) * 100)
+          : 0;
+      return prod;
+    }
+    if (mockProdByEndingTime) {
+      const elapstedTime = Array.from(
+        processingTask.reduce((a, b) => a + b).session
+      )
+        .map((item) => {
+          const now = new Date();
+          now.setHours(hrs);
+          now.setMinutes(min);
+          now.setSeconds(sec);
+
+          if (item.sessionStop) {
+            return difDate(item.sessionStart, item.sessionStop);
+          }
+          if (!item.sessionStop && difDate(new Date(), now) > 0) {
+            return difDate(item.sessionStart, now);
+          }
+        })
+        .reduce((a, b) => a + b);
+
+      const prod =
+        elapstedTime > 0 && elapstedTime !== NaN
           ? Math.round((nbAfter / elapstedTime / (goal / 3600)) * 100)
           : 0;
       return prod;
