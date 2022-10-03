@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { ComponentContext } from '../../context/componentContext';
+import { TaskTypeContext } from '../../context/taskTypeContext';
 import TaskTypeOptions from '../TaskTypeOptions/TaskTypeOptions';
 import useGetProcessingTask from './../../assets/Hooks/useGetProcessingTask';
 import {
@@ -23,6 +24,8 @@ const MockProdForm = () => {
 
   const { processingTask } = useGetProcessingTask();
 
+  const { taskTypeList } = useContext(TaskTypeContext);
+
   const [formSate, setFormState] = useState({
     nbAfter: 0,
     type: '',
@@ -32,14 +35,6 @@ const MockProdForm = () => {
     sec: 0,
     result: 0,
   });
-
-  const handleImputChange = (event) => {
-    event.preventDefault();
-    setFormState({ ...formSate, [event.target.name]: event.target.value });
-    if (event.target.name === 'type') {
-      console.log(event.target.value);
-    }
-  };
 
   useEffect(() => {
     if (processingTask.length > 0) {
@@ -77,9 +72,22 @@ const MockProdForm = () => {
     setFormState({ ...formSate, [event.target.name]: '' });
   };
 
+  const handleImputChange = (event) => {
+    event.preventDefault();
+    if (event.target.value !== 'type') {
+      setFormState({ ...formSate, [event.target.name]: event.target.value });
+    }
+    if (event.target.name === 'type') {
+      const prod = calculProd();
+      setFormState({ ...formSate, result: prod, type: event.target.value });
+    }
+  };
+
   const handleBlure = (event) => {
     const name = event.target.name;
     const value = event.target.value;
+    const prod = calculProd();
+    setFormState({ ...formSate, result: prod });
     if (value === '') {
       switch (name) {
         case 'nbAfter':
@@ -117,22 +125,45 @@ const MockProdForm = () => {
           break;
       }
     }
+  };
 
+  const calculProd = () => {
     const indexOfSelectedTaskType = refForm.current.children[3].selectedIndex;
     const selectedTaskType =
       refForm.current.children[3][indexOfSelectedTaskType].value;
 
-    const taskState = Array.from(processingTask).reduce(
-      (a, b) => a + b
-    ).taskState;
+    const goal = Array.from(taskTypeList)
+      .filter((item) => item.name === selectedTaskType)
+      .reduce((a, b) => a + b).goal;
 
-    const nbAfter = refForm.current[0].value;
+    const nbAfter =
+      refForm.current[0].value !== '' ? parseInt(refForm.current[0].value) : 0;
     const day = !mockProdByEndingTime ? refForm.current[2].value : 0;
     const hrs = !mockProdByEndingTime
       ? refForm.current[3].value
       : refForm.current[2].value;
-    console.log(nbAfter);
-    console.log(refForm.current);
+
+    const min = !mockProdByEndingTime
+      ? refForm.current[4].value
+      : refForm.current[3].value;
+
+    const sec = !mockProdByEndingTime
+      ? refForm.current[5].value
+      : refForm.current[4].value;
+
+    if (!mockProdByEndingTime) {
+      const elapstedTime =
+        parseInt(day) * 86400 +
+        parseInt(hrs) * 3600 +
+        parseInt(min) * 60 +
+        parseInt(sec);
+
+      const prod =
+        elapstedTime > 0
+          ? Math.round((nbAfter / elapstedTime / (goal / 3600)) * 100)
+          : 0;
+      return prod;
+    }
   };
 
   const refForm = useRef(null);
