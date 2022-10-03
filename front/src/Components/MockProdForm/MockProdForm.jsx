@@ -65,6 +65,7 @@ const MockProdForm = () => {
       hrs: 0,
       min: 0,
       sec: 0,
+      result: 0,
     });
   };
 
