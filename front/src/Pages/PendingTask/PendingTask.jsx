@@ -1,10 +1,11 @@
 import React from 'react';
+import { PendigTaskCont } from './PendingTask.styled';
 
 const PendingTask = () => {
   return (
-    <div>
-      <p>placeholder PendingTask</p>
-    </div>
+    <PendigTaskCont>
+      <p>placeholder PendingTask test</p>
+    </PendigTaskCont>
   );
 };
 
