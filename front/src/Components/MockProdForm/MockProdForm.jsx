@@ -76,12 +76,24 @@ const MockProdForm = () => {
 
   const handleImputChange = (event) => {
     event.preventDefault();
-    if (event.target.value !== 'type') {
-      setFormState({ ...formSate, [event.target.name]: event.target.value });
+    const prod = calculProd();
+
+    const name = event.target.name;
+    const value = event.target.value;
+    if (name !== 'type') {
+      setFormState({
+        ...formSate,
+        [name]: value,
+        result: prod,
+      });
     }
     if (event.target.name === 'type') {
-      const prod = calculProd();
-      setFormState({ ...formSate, result: prod, type: event.target.value });
+      setFormState({ ...formSate, result: prod, type: value });
+    }
+    if (name === 'day') {
+      if (value < 0) {
+        setFormState({ ...formSate, day: 0 });
+      }
     }
   };
 
@@ -203,6 +215,7 @@ const MockProdForm = () => {
         id='nbAfter'
         name='nbAfter'
         pattern='[0-9{0,5}]'
+        min={0}
         placeholder={formSate.nbAfter}
         value={formSate.nbAfter}
         onChange={handleImputChange}
@@ -231,6 +244,7 @@ const MockProdForm = () => {
               type='number'
               id='day'
               name='day'
+              min={0}
               pattern='[0-9{0,5}]'
               placeholder='00'
               value={formSate.day}
