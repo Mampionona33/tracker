@@ -365,18 +365,18 @@ const resetMongo = async () => {
     ];
     // initializers--------------------------
     db.collection('typeTask').deleteMany({});
-    // Remove  collection and insert initializers
-    // await collectionCounter.deleteMany({});
-    // await collectionCounter.insertMany(initialiCounter);
+    Remove  collection and insert initializers
+    await collectionCounter.deleteMany({});
+    await collectionCounter.insertMany(initialiCounter);
     const resultCounter = await collectionCounter.find({}).toArray();
 
-    // await collectionUsers.deleteMany({});
-    // await collectionUsers.insertMany(initialUser);
+    await collectionUsers.deleteMany({});
+    await collectionUsers.insertMany(initialUser);
     const resultUser = await collectionUsers.find({}).toArray();
 
-    // await collectionTask.deleteMany({});
-    // await collectionTask.insertMany(initTasks);
-    // const resultTask = await collectionTask.find({}).toArray();
+    await collectionTask.deleteMany({});
+    await collectionTask.insertMany(initTasks);
+    const resultTask = await collectionTask.find({}).toArray();
 
     await collectionTypeTask.deleteMany({});
     await collectionTypeTask.insertMany(initTaskType);
@@ -385,13 +385,13 @@ const resetMongo = async () => {
     // show result in terminal
     console.log(
       'Result of instert : \n',
-      // resultCounter,
+      resultCounter,
       '\n',
       '-----------\n',
-      // resultUser,
+      resultUser,
       '\n',
       '-----------\n',
-      // resultTask,
+      resultTask,
       '-----------\n',
       resultInitTaskType
     );
