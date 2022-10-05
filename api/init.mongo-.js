@@ -365,7 +365,7 @@ const resetMongo = async () => {
     ];
     // initializers--------------------------
     db.collection('typeTask').deleteMany({});
-    Remove  collection and insert initializers
+    // Remove  collection and insert initializers
     await collectionCounter.deleteMany({});
     await collectionCounter.insertMany(initialiCounter);
     const resultCounter = await collectionCounter.find({}).toArray();
