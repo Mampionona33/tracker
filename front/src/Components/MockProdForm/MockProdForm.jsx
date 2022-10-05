@@ -90,9 +90,40 @@ const MockProdForm = () => {
     if (event.target.name === 'type') {
       setFormState({ ...formSate, result: prod, type: value });
     }
-    if (name === 'day') {
+    if (name === 'day' && value < 0) {
+      setFormState({ ...formSate, day: 0 });
+    }
+    if (name === 'hrs') {
       if (value < 0) {
-        setFormState({ ...formSate, day: 0 });
+        setFormState({ ...formSate, hrs: 0 });
+      }
+      if (value > 23) {
+        setFormState({
+          ...formSate,
+          hrs: value.toString().slice(0, value.toString().length - 1),
+        });
+      }
+    }
+    if (name === 'min') {
+      if (value < 0) {
+        setFormState({ ...formSate, min: 0 });
+      }
+      if (value > 59) {
+        setFormState({
+          ...formSate,
+          min: value.toString().slice(0, value.toString().length - 1),
+        });
+      }
+    }
+    if (name === 'sec') {
+      if (value < 0) {
+        setFormState({ ...formSate, sec: 0 });
+      }
+      if (value > 59) {
+        setFormState({
+          ...formSate,
+          sec: value.toString().slice(0, value.toString().length - 1),
+        });
       }
     }
   };
