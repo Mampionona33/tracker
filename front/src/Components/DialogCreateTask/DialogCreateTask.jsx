@@ -31,12 +31,14 @@ import { GET_USER_TASK } from '../../Graphql/Query';
 import useGetProcessingTask from '../../assets/Hooks/useGetProcessingTask';
 import IvpnListOptions from '../IvpnListOptions/IvpnListOptions';
 import StatComListOptions from '../StatComListOptions/StatComListOptions';
+import { useNavigate } from 'react-router-dom';
 
 const DialogCreateTask = () => {
   const { taskTypeList } = useContext(TaskTypeContext);
   const { sub } = useContext(AuthConext);
   const { dialogCreatTaskIsOpen, setdialogCreatTaskClose } =
     useContext(ComponentContext);
+  const navigate = useNavigate();
 
   const { processingTask, loadingUserTask } = useGetProcessingTask();
 
@@ -118,7 +120,8 @@ const DialogCreateTask = () => {
           errorSetPrevProcessToOff
         )
           .then(createNewTask(createTask, sub, newTask, errorCreateTask))
-          .then(setdialogCreatTaskClose());
+          .then(setdialogCreatTaskClose())
+          .then(navigate('dashboard', { replace: true }));
       }
       if (currentTaskState === 'isPlay') {
         mutateCurrentTaskPlayOff(
@@ -128,13 +131,14 @@ const DialogCreateTask = () => {
           currentSessionId
         )
           .then(createNewTask(createTask, sub, newTask, errorCreateTask))
-          .then(setdialogCreatTaskClose());
+          .then(setdialogCreatTaskClose())
+          .then(navigate('dashboard', { replace: true }));
       }
     }
     if (processingTask.length <= 0) {
-      createNewTask(createTask, sub, newTask, errorCreateTask).then(
-        setdialogCreatTaskClose()
-      );
+      createNewTask(createTask, sub, newTask, errorCreateTask)
+        .then(setdialogCreatTaskClose())
+        .then(navigate('dashboard', { replace: true }));
     }
   };
 
