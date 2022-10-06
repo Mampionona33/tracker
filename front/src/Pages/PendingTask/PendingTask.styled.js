@@ -3,5 +3,7 @@ import styled from 'styled-components';
 export const PendigTaskCont = styled.div`
   display: flex;
   justify-content: center;
-  background-color: red;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
 `;
