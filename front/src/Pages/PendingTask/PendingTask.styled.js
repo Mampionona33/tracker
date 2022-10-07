@@ -6,4 +6,5 @@ export const PendigTaskCont = styled.div`
   align-items: center;
   width: 100vw;
   height: 100vh;
+  position: relative;
 `;
