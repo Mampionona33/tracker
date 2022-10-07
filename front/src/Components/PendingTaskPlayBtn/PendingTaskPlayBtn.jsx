@@ -1,9 +1,12 @@
 import React from 'react';
 import CircularBtn from '../CircularBtn/CircularBtn';
 
-function PendingTaskPlayBtn() {
+function PendingTaskPlayBtn({ taskId }) {
+  const handleClick = (event) => {
+    console.log('taskId', taskId);
+  };
   return (
-    <div>
+    <div onClick={handleClick}>
       <CircularBtn icon='play_circle_filled' />
     </div>
   );
