@@ -5,11 +5,11 @@ body {
   width: 100%;
 }
 
-/* @media screen and(max-width: 359px) {
+@media screen and (max-width: 359px) {
   body {
     background-image: url('./img/background_curve_media.svg');
   }
-} */
+}
 
 @media screen and (min-width: 360px) and (max-width: 1024px) {
   body {

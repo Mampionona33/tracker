@@ -4,7 +4,10 @@ export const PendigTaskCont = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  height: 100vh;
-  position: relative;
+  @media screen and (min-width: 760px) {
+    height: 100vh;
+  }
+  @media screen and (max-width: 760px) {
+    overflow: hidden;
+  }
 `;

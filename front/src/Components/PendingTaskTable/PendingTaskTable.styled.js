@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const customStyle = {
   rows: {
     style: {
-      '@media (max-width : 650px)': {
+      '@media screen and (max-width : 760px)': {
         display: 'block',
         width: '100%',
       },
@@ -12,7 +12,7 @@ export const customStyle = {
 
   cells: {
     style: {
-      '@media (max-width : 650px)': {
+      '@media (max-width : 760px)': {
         justifyContent: 'flex-end',
         content: 'test',
         margin: '0.2rem',
@@ -22,7 +22,7 @@ export const customStyle = {
 
   headRow: {
     style: {
-      '@media (max-width : 650px)': {
+      '@media  screen and (max-width : 760px)': {
         display: 'none',
       },
     },
@@ -30,8 +30,6 @@ export const customStyle = {
 };
 
 export const PendingTaskTableCont = styled.div`
-  position: absolute;
-  top: 5rem;
   box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 3px, rgba(0, 0, 0, 0.24) 0px 1px 2px;
   & .rdt_TableBody > .rdt_TableRow:nth-child(even) {
     background-color: #cfd8dc;
@@ -39,7 +37,11 @@ export const PendingTaskTableCont = styled.div`
   & .rdt_TableBody > .rdt_TableRow:nth-child(odd) {
     background-color: #f5f5f5;
   }
-  @media screen and (max-width: 650px) {
+
+  @media screen and (max-width: 760px) {
+    height: 100vh;
+    overflow: auto;
+    margin-top: 3rem;
     & .rdt_TableCell {
       justify-content: space-between;
       gap: 0.5rem;
