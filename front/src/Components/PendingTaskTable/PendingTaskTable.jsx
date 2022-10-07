@@ -1,11 +1,11 @@
 import React from 'react';
 import DataTable from 'react-data-table-component';
 import useGetPendingTask from '../../assets/Hooks/useGetPendingTask';
+import PendingTaskPlayBtn from '../PendingTaskPlayBtn/PendingTaskPlayBtn';
 import { customStyle, PendingTaskTableCont } from './PendingTaskTable.styled';
 
 const PendingTaskTable = () => {
   const { pendingTask } = useGetPendingTask();
-  console.log(pendingTask);
 
   const column = [
     {
@@ -33,8 +33,18 @@ const PendingTaskTable = () => {
       selector: (row) => row.nbAfter,
       sortable: true,
     },
+    {
+      name: 'ACTION',
+      selector: (row) => {
+        return (
+          <>
+            <PendingTaskPlayBtn />
+          </>
+        );
+      },
+      sortable: true,
+    },
   ];
-  console.log(column.map((item) => item.name));
 
   return (
     <PendingTaskTableCont columnHeader={column.map((item) => item.name)}>
