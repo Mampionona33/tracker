@@ -1,6 +1,7 @@
 import React from 'react';
 import DataTable from 'react-data-table-component';
 import useGetPendingTask from '../../assets/Hooks/useGetPendingTask';
+import { customStyle, PendingTaskTableCont } from './PendingTaskTable.styled';
 
 const PendingTaskTable = () => {
   const { pendingTask } = useGetPendingTask();
@@ -33,11 +34,16 @@ const PendingTaskTable = () => {
       sortable: true,
     },
   ];
+  console.log(column.map((item) => item.name));
 
   return (
-    <div>
-      <DataTable columns={column} data={pendingTask} />
-    </div>
+    <PendingTaskTableCont columnHeader={column.map((item) => item.name)}>
+      <DataTable
+        columns={column}
+        data={pendingTask}
+        customStyles={customStyle}
+      />
+    </PendingTaskTableCont>
   );
 };
 
