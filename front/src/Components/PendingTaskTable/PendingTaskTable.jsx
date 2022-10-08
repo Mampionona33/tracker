@@ -38,7 +38,7 @@ const PendingTaskTable = () => {
       selector: (row) => {
         return (
           <>
-            <PendingTaskPlayBtn taskId={row.id} />
+            <PendingTaskPlayBtn clickedTask={row} />
           </>
         );
       },

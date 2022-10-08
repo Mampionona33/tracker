@@ -47,7 +47,7 @@ export const setCurrentTaskToPlay = async (
       .map((item) => item.session_id)
       .reduce((a, b) => Math.max(a, b));
 
-    if (currentTaskState === 'isPause') {
+    if (currentTaskState === 'isPause' || currentTaskState === 'isOff') {
       (async () => {
         mutateTaskStateToPlay(
           updateTaskStateToPlay,

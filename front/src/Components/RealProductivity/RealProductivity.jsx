@@ -30,9 +30,14 @@ const RealProductivity = () => {
         })
         .reduce((a, b) => a + b);
 
-      const goal = [...taskTypeList]
-        .filter((item) => item.name === currentTaskType)
-        .reduce((a, b) => a + b).goal;
+      const goal =
+        [...taskTypeList].filter((item) => item.name === currentTaskType)
+          .length > 0
+          ? Array.from(taskTypeList)
+              .filter((item) => item.name === currentTaskType)
+              .reduce((a, b) => a + b).goal
+          : 0;
+
       const nbAfter = processingTask.reduce((a, b) => a + b).nbAfter;
 
       if (taskState === 'isPause') {
