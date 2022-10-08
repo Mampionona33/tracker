@@ -39,7 +39,7 @@ export const PendingTaskTableCont = styled.div`
   }
 
   @media screen and (max-width: 760px) {
-    height: 100vh;
+    height: 100%;
     overflow: auto;
     margin-top: 3rem;
     & .rdt_TableCell {

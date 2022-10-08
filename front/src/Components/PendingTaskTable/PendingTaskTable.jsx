@@ -46,12 +46,16 @@ const PendingTaskTable = () => {
     },
   ];
 
+  const paginationRowsPerPageOptions = [5, 8, 10, 13];
+
   return (
     <PendingTaskTableCont columnHeader={column.map((item) => item.name)}>
       <DataTable
         columns={column}
         data={pendingTask}
         customStyles={customStyle}
+        pagination
+        paginationRowsPerPageOptions={paginationRowsPerPageOptions}
       />
     </PendingTaskTableCont>
   );
