@@ -10,9 +10,19 @@ function SideBar() {
   const navigate = useNavigate();
   const { userRole } = useContext(AuthConext);
   const { sideBarOpen, setSideBarOpenFalse } = useContext(ComponentContext);
-  const handleClickDashboardBtn = (event) => {
+
+  const handleClickBtn = (event) => {
     event.preventDefault();
-    navigate('dashboard');
+    const title = event.target.title;
+
+    if (title.match(/dashboard/gi)) {
+      console.log(title);
+      navigate('dashboard', { replace: true });
+    }
+    if (title.match(/history/gi)) {
+      console.log(title);
+      navigate('history', { replace: true });
+    }
     sideBarOpen && setSideBarOpenFalse();
   };
 
@@ -37,12 +47,16 @@ function SideBar() {
           <BtnIconText
             title={'DASHBOARD'}
             className='sideBarElement'
-            onClick={handleClickDashboardBtn}
+            onClick={handleClickBtn}
           >
             <span className='material-icons-round'>dashboard</span>
           </BtnIconText>
 
-          <BtnIconText title={'HISTORY'} className='sideBarElement'>
+          <BtnIconText
+            title={'HISTORY'}
+            className='sideBarElement'
+            onClick={handleClickBtn}
+          >
             <span className='material-icons-round'>work_history</span>
           </BtnIconText>
 
