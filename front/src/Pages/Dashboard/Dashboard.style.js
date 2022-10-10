@@ -3,10 +3,15 @@ import styled from 'styled-components';
 export const DashboardContainer = styled.div`
   display: flex;
   justify-content: center;
-  padding: 1rem;
+  height: 100vh;
+  align-items: center;
   flex-wrap: wrap;
-  position: relative;
-  top: 5vh;
+`;
+
+export const DashboardCont2 = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 `;
 
 export const NoProcessingTask = styled.div`

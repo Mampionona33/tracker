@@ -5,14 +5,14 @@ export const LoginPage = styled.div`
   margin: 0;
   padding: 0;
   width: 100%;
+  height: 100vh;
   justify-items: center;
+  align-items: center;
   justify-content: center;
   position: relative;
 `;
 
 export const LoginCardContainer = styled.div`
-  position: absolute;
-  top: 35vh;
   display: flex;
   flex-direction: column;
 `;
