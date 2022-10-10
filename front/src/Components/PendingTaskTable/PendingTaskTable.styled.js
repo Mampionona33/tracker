@@ -34,6 +34,7 @@ export const PendingTaskTableCont = styled.div`
   & .rdt_TableBody > .rdt_TableRow:nth-child(even) {
     background-color: #cfd8dc;
   }
+
   & .rdt_TableBody > .rdt_TableRow:nth-child(odd) {
     background-color: #f5f5f5;
   }
@@ -80,6 +81,12 @@ export const PendingTaskTableCont = styled.div`
       ::before {
         white-space: nowrap;
         content: 'NB AFTER : ';
+      }
+    }
+    & .rdt_TableCell:nth-child(6) {
+      ::before {
+        white-space: nowrap;
+        content: 'ELAPSTED TIME : ';
       }
     }
   }
