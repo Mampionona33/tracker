@@ -2,16 +2,30 @@ import styled from 'styled-components';
 
 export const DashboardContainer = styled.div`
   display: flex;
-  justify-content: center;
+  position: relative;
   height: 100vh;
+  justify-content: center;
   align-items: center;
-  flex-wrap: wrap;
 `;
 
 export const DashboardCont2 = styled.div`
+  height: 100vh;
   display: flex;
-  flex-wrap: wrap;
+  position: fixed;
+  overflow: auto;
   justify-content: center;
+  align-items: center;
+`;
+
+export const DashboardCont3 = styled.div`
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  display: flex;
+  @media screen and (max-width: 875px) {
+    padding-top: 5rem;
+  }
 `;
 
 export const NoProcessingTask = styled.div`
