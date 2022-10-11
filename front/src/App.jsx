@@ -10,6 +10,7 @@ const Login = lazy(() => import('./Pages/Login/Login'));
 const PendingTask = lazy(() => import('./Pages/PendingTask/PendingTask'));
 import { GET_USER, GET_ALL_TASK_TYPE } from './Graphql/Query';
 import History from './Pages/History/History';
+import HistoryTable from './Components/HistoryTable/HistoryTable';
 
 const App = () => {
   const { user, sub, setUserRole } = useContext(AuthConext);
@@ -70,7 +71,7 @@ const App = () => {
   return (
     <Routes>
       <Route
-        path='/*'
+        path='/'
         element={
           !user ? (
             <Navigate to={'/login'} />
@@ -90,7 +91,9 @@ const App = () => {
       <Route element={<ProtectedRoute />}>
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='pending_task' element={<PendingTask />} />
-        <Route path='history' element={<History />} />
+        <Route path='/history' element={<History />}>
+          <Route path='date=:date' element={<HistoryTable />} />
+        </Route>
         <Route
           path='/'
           element={<Navigate to={'/dashboard'} replace={true} />}

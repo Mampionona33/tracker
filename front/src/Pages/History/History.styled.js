@@ -6,3 +6,7 @@ export const HistoryCont = styled.div`
   height: 100vh;
   align-items: center;
 `;
+
+export const HistoryCont1 = styled.div`
+
+`;

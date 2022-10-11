@@ -21,7 +21,14 @@ function SideBar() {
     }
     if (title.match(/history/gi)) {
       console.log(title);
-      navigate('history', { replace: true });
+      const toDay = new Date();
+      navigate(
+        `history/date=${toDay.getDate().toString().padStart(2, '0')}-${toDay
+          .getMonth()
+          .toString()
+          .padStart(2, '0')}-${toDay.getFullYear()}`,
+        { replace: true }
+      );
     }
     sideBarOpen && setSideBarOpenFalse();
   };
