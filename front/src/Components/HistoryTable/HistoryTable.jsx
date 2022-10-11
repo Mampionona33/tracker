@@ -15,7 +15,10 @@ const HistoryTable = () => {
 
   useEffect(() => {
     if (userTasks && userTasks.getUserTask) {
-      console.log(userTasks.getUserTask);
+      const session = Array.from(userTasks.getUserTask).map(
+        (item) => item.session
+      );
+      console.log(session);
     }
   }, [userTasks]);
 
