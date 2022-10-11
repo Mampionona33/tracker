@@ -48,7 +48,7 @@ function PendingTaskPlayBtn({ clickedTask }) {
           errorUpdateTaskState,
           mutateTaskStateToPlay,
           updateTaskState
-        ).then(navigate('dashboard', { replace: true }))
+        ).then(navigate('/dashboard', { replace: true }))
       );
     } else {
       console.log('no processing task');
@@ -57,7 +57,7 @@ function PendingTaskPlayBtn({ clickedTask }) {
         errorUpdateTaskState,
         mutateTaskStateToPlay,
         updateTaskState
-      ).then(navigate('dashboard'));
+      ).then(navigate('/dashboard'));
     }
   };
   return (
