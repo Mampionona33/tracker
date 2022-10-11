@@ -8,5 +8,7 @@ export const HistoryCont = styled.div`
 `;
 
 export const HistoryCont1 = styled.div`
-
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
 `;

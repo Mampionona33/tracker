@@ -6,7 +6,6 @@ import { GET_USER_TASK } from '../../Graphql/Query';
 import { HistoryTableCont } from './HistoryTable.styled';
 import moment from 'moment';
 import { useParams } from 'react-router-dom';
-import { difDate } from '../../assets/timeUtility';
 
 const HistoryTable = () => {
   const { sub } = useContext(AuthConext);
@@ -43,7 +42,17 @@ const HistoryTable = () => {
               boothNumber: boothNumber,
               sessionStart: moment(el.sessionStart).format('HH:mm:ss'),
               sessionStop: moment(el.sessionStop).format('HH:mm:ss'),
-              duration: `${day > 0 ? day : ''} - ${hrs % 24} - ${min % 60}  ${
+              duration: `${
+                day > 0 ? day.toString().padStart(2, '0') + 'day -' : ''
+              } ${
+                hrs % 24 > 0
+                  ? (hrs % 24).toString().padStart(2, '0') + ' hrs -'
+                  : ''
+              }  ${
+                min % 60 > 0
+                  ? (min % 60).toString().padStart(2, '0') + ' min -'
+                  : ''
+              }  ${
                 sec % 60 > 0
                   ? (sec % 60).toString().padStart(2, '0') + ' sec'
                   : ''
