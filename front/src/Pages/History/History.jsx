@@ -6,7 +6,6 @@ import { Outlet, useParams } from 'react-router-dom';
 
 const History = () => {
   const { date } = useParams();
-  console.log(date);
   const [selectedDate, setSelectedDate] = useState(new Date());
   const handleChange = (date) => {
     setSelectedDate(date);
