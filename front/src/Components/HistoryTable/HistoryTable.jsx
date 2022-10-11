@@ -29,14 +29,21 @@ const HistoryTable = () => {
           const selectedDate = moment(el.sessionStart).format('DD-MM-YYYY');
 
           if (selectedDate === date) {
-            console.log(boothNumber);
+            const start = moment(el.sessionStart);
+            const stop = moment(el.sessionStop);
 
-            console.log('dif date', difDate(el.sessionStart, el.sessionStop));
+            const sec = stop.diff(start, 'second');
+            const min = stop.diff(start, 'minutes');
+            const hrs = stop.diff(start, 'hours');
+            const day = stop.diff(start, 'days');
+
+            console.log(boothNumber, day, hrs % 24, min % 60, sec % 60);
 
             sessionTask.push({
               boothNumber: boothNumber,
               sessionStart: moment(el.sessionStart).format('HH:mm:ss'),
               sessionStop: moment(el.sessionStop).format('HH:mm:ss'),
+              duration: `${day} - ${hrs} - ${min} - ${sec}`,
             });
             // console.log(
             //   boothNumber,
@@ -70,6 +77,7 @@ const HistoryTable = () => {
     },
     {
       name: 'DURATION',
+      selector: (row) => row.duration,
     },
     {
       name: 'ACTION',
