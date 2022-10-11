@@ -23,8 +23,9 @@ function SideBar() {
       console.log(title);
       const toDay = new Date();
       navigate(
-        `history/date=${toDay.getDate().toString().padStart(2, '0')}-${toDay
-          .getMonth()
+        `history/date=${toDay.getDate().toString().padStart(2, '0')}-${(
+          toDay.getMonth() + 1
+        )
           .toString()
           .padStart(2, '0')}-${toDay.getFullYear()}`,
         { replace: true }

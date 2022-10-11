@@ -4,9 +4,12 @@ import DataTable from 'react-data-table-component';
 import { AuthConext } from '../../context/authContext';
 import { GET_USER_TASK } from '../../Graphql/Query';
 import { HistoryTableCont } from './HistoryTable.styled';
+import moment from 'moment';
+import { useParams } from 'react-router-dom';
 
 const HistoryTable = () => {
   const { sub } = useContext(AuthConext);
+  const { date } = useParams();
   const {
     data: userTasks,
     error: errorFetchUserTasks,
@@ -15,10 +18,24 @@ const HistoryTable = () => {
 
   useEffect(() => {
     if (userTasks && userTasks.getUserTask) {
-      const session = Array.from(userTasks.getUserTask).map(
-        (item) => item.session
-      );
-      console.log(session);
+      Array.from(userTasks.getUserTask).map((item) => {
+        const boothNumber = item.boothNumber;
+        Array.from(item.session).map((el) => {
+          //   console.log(el);
+
+          const selectedDate = moment(el.sessionStart).format('DD-MM-YYYY');
+
+          if (selectedDate === date) {
+            console.log(
+              boothNumber,
+              'start : ',
+              moment(el.sessionStart).format('HH:mm:ss'),
+              'stop :',
+              moment(el.sessionStop).format('HH:mm:ss')
+            );
+          }
+        });
+      });
     }
   }, [userTasks]);
 
