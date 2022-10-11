@@ -19,8 +19,8 @@ const History = () => {
           onChange={(date) => handleChange(date)}
           onSelect={(date) => handleChange(date)}
         />
-        <Outlet />
       </HistoryCont1>
+      <Outlet />
     </HistoryCont>
   );
 };

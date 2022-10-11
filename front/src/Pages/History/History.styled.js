@@ -5,10 +5,9 @@ export const HistoryCont = styled.div`
   justify-content: center;
   height: 100vh;
   align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+  
 `;
 
-export const HistoryCont1 = styled.div`
-  display: flex;
-  gap: 1rem;
-  flex-direction: column;
-`;
+export const HistoryCont1 = styled.div``;
