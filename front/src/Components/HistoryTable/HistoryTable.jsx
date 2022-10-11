@@ -43,7 +43,9 @@ const HistoryTable = () => {
               boothNumber: boothNumber,
               sessionStart: moment(el.sessionStart).format('HH:mm:ss'),
               sessionStop: moment(el.sessionStop).format('HH:mm:ss'),
-              duration: `${day} - ${hrs} - ${min} - ${sec}`,
+              duration: `${day > 0 ? day : ''} - ${hrs % 24} - ${min % 60} - ${
+                sec % 60
+              }`,
             });
             // console.log(
             //   boothNumber,
@@ -78,6 +80,7 @@ const HistoryTable = () => {
     {
       name: 'DURATION',
       selector: (row) => row.duration,
+      grow: 3,
     },
     {
       name: 'ACTION',
