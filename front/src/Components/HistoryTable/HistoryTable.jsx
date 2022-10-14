@@ -58,13 +58,6 @@ const HistoryTable = () => {
                   : ''
               }`,
             });
-            // console.log(
-            //   boothNumber,
-            //   'start : ',
-            //   moment(el.sessionStart).format('HH:mm:ss'),
-            //   'stop :',
-            //   moment(el.sessionStop).format('HH:mm:ss')
-            // );
           }
         });
       });
@@ -73,7 +66,7 @@ const HistoryTable = () => {
         setColumnData(sessionTask);
       }
     }
-  }, [userTasks]);
+  }, [userTasks, date]);
 
   const column = [
     {
