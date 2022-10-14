@@ -40,13 +40,11 @@ const App = () => {
     */
     let mounted = true;
 
-    if (user) {
+    if (user && mounted === true) {
       if (userExist) {
-        if ([...userExist.searchUser].length <= 0) {
+        if (Array.from(userExist.searchUser).length <= 0) {
           if (mounted === true) {
-            (async () => {
-              await createUser(user);
-            })();
+            createUser(user);
           }
         } else {
           const userRole = userExist.searchUser[0].role;
